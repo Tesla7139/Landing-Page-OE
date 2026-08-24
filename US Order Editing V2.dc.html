@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/clickpost-design-system-019e2161-03e8-7008-8499-5112cfee3059/colors_and_type.css">
+<link rel="stylesheet" href="components/fig-assets.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Inter:wght@400;500;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #ffffff; }
+  * { box-sizing: border-box; }
+  a { color: #155FFF; text-decoration: none; }
+  a:hover { color: #0A3FCC; }
+
+  /* ── Trusted-by logo marquees ─────────────────────────────────────────
+     Two rows drifting in opposite directions. Each track holds an even
+     number of identical logo sets and animates by exactly -50%, so the
+     loop is seamless. Spacing lives in each logo's margin-right (not a
+     flex gap) — that keeps the 50% shift landing exactly on a set edge. */
+  .cp-mq { position: relative; width: 100%; overflow: hidden;
+           -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+                   mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%); }
+  .cp-mq__track { display: flex; flex-direction: row; align-items: center;
+                  width: max-content; will-change: transform; }
+  .cp-mq__track > img { flex-shrink: 0; }
+  .cp-mq__track--left  { animation: cp-mq-left  45s linear infinite; }
+  .cp-mq__track--right { animation: cp-mq-right 43s linear infinite; }
+  @keyframes cp-mq-left  { from { transform: translateX(0); }       to { transform: translateX(-50%); } }
+  @keyframes cp-mq-right { from { transform: translateX(-50%); }    to { transform: translateX(0); } }
+  .cp-mq:hover .cp-mq__track { animation-play-state: paused; }
+
+  /* ── Integrations grid stays STATIC ────────────────────────────────────
+     Defensive: neutralises any marquee wiring that an older cached bundle
+     might still inject into this section, so the logos cannot drift. */
+  [data-screen-label="Integrations"] .cp-mq,
+  [data-screen-label="Integrations"] .cp-mq__track {
+    animation: none !important;
+    transform: none !important;
+    width: auto !important;
+    overflow: visible !important;
+    -webkit-mask-image: none !important;
+            mask-image: none !important;
+    justify-content: center !important;
+  }
+  /* hide duplicated cells if a stale bundle repeated them */
+  [data-screen-label="Integrations"] .cp-int > *:nth-child(n+7) { display: none !important; }
+
+  /* ── Integrations grid: wordmark stand-ins for two unavailable bitmaps ──
+     Klaviyo (row 1, cell 3) and ShipStation (row 1, cell 5) ship as 4096px
+     PNGs that exceed the file-read cap, so they never downloaded. Rendering
+     the brand name keeps the wall complete instead of leaving two holes.
+     Drop components/assets/a65cbe3604bea791.png and 5715b723523760d5.png in
+     and delete this block to get the real marks back. */
+  .fig-asset-a65cbe3604bea791,
+  .fig-asset-5715b723523760d5 {
+    display: flex !important; align-items: center; justify-content: center;
+  }
+  .fig-asset-a65cbe3604bea791::after,
+  .fig-asset-5715b723523760d5::after {
+    font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600;
+    letter-spacing: -0.01em; color: #252525; white-space: nowrap;
+  }
+  .fig-asset-a65cbe3604bea791::after { content: "Klaviyo"; }
+  .fig-asset-5715b723523760d5::after { content: "ShipStation"; }
+
+  /* ── How-it-works: sticky stage + scroll-linked step cards ─────────────
+     One binding drives it all: the section carries data-active-step="N",
+     set by an IntersectionObserver in the component script. Everything
+     below is plain attribute-selector CSS off that value. Palette is the
+     existing one: --cp-blue #155FFF, surface #F1F1F1, tint #EEF3FF.
+
+     Blocks are deliberately tall so each step owns a decent slice of
+     scroll before the next one takes over. The swap is an "unfold":
+     a clip-path curtain plus a small rise, staggered against opacity —
+     not a straight cross-fade. */
+  .cp-steps__grid { display: flex; flex-direction: row; gap: 56px;
+                    align-items: flex-start; align-self: stretch; }
+  .cp-steps__stagewrap { position: sticky; top: 108px; width: 560px; flex-shrink: 0; }
+  .cp-steps__stage { position: relative; width: 560px; height: 560px;
+                     border-radius: 12px; background: #F1F1F1; overflow: hidden; }
+  .cp-steps__visual { position: absolute; inset: 0; display: flex;
+                      align-items: center; justify-content: center;
+                      opacity: 0;
+                      clip-path: inset(22% 0 0 0 round 12px);
+                      transform: translateY(22px) scale(0.965);
+                      transition: clip-path 560ms cubic-bezier(0.22, 1, 0.36, 1),
+                                  transform  500ms cubic-bezier(0.22, 1, 0.36, 1),
+                                  opacity    260ms linear;
+                      pointer-events: none; will-change: clip-path, transform; }
+  /* scrolling back up: the panel waits above and unfolds downward instead */
+  [data-step-dir="back"] .cp-steps__visual {
+    clip-path: inset(0 0 22% 0 round 12px);
+    transform: translateY(-22px) scale(0.965);
+  }
+  /* the active card's accent leans the way you're travelling */
+  [data-step-dir="back"] .cp-steps__card { transform: translateX(0); }
+
+  .cp-steps__list { display: flex; flex-direction: column; gap: 28px; flex: 1; }
+  .cp-steps__card { display: flex; flex-direction: row; gap: 28px;
+                    padding: 44px 40px; min-height: 208px; align-items: center;
+                    border-radius: 12px; background: #ffffff; border: 1px solid #F1F1F1;
+                    box-shadow: inset 0 0 0 0 #155FFF;
+                    transition: background 260ms cubic-bezier(0.4, 0, 0.2, 1),
+                                border-color 260ms cubic-bezier(0.4, 0, 0.2, 1),
+                                box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1),
+                                transform 320ms cubic-bezier(0.22, 1, 0.36, 1); }
+  .cp-steps__num { width: 56px; height: 56px; border-radius: 9999px; background: #155FFF;
+                   color: #ffffff; display: flex; justify-content: center; align-items: center;
+                   font-size: 20px; font-weight: 500; line-height: 1; flex-shrink: 0;
+                   transition: transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .cp-steps__copy { margin: 0; font-size: 20px; line-height: 32px; color: #252525; }
+
+  /* active step: unfold its visual, tint + accent its card */
+  [data-active-step="0"] [data-step-visual="0"],
+  [data-active-step="1"] [data-step-visual="1"],
+  [data-active-step="2"] [data-step-visual="2"],
+  [data-active-step="3"] [data-step-visual="3"],
+  [data-step-dir] [data-active-step="0"] [data-step-visual="0"] {
+    opacity: 1; clip-path: inset(0 0 0 0 round 12px); transform: none;
+  }
+  /* direction-qualified so it outranks the [data-step-dir="back"] resting rule */
+  [data-step-dir="back"][data-active-step="0"] [data-step-visual="0"],
+  [data-step-dir="back"][data-active-step="1"] [data-step-visual="1"],
+  [data-step-dir="back"][data-active-step="2"] [data-step-visual="2"],
+  [data-step-dir="back"][data-active-step="3"] [data-step-visual="3"] {
+    opacity: 1; clip-path: inset(0 0 0 0 round 12px); transform: none;
+  }
+  [data-active-step="0"] [data-step-card="0"],
+  [data-active-step="1"] [data-step-card="1"],
+  [data-active-step="2"] [data-step-card="2"],
+  [data-active-step="3"] [data-step-card="3"] {
+    background: #EEF3FF; border-color: #D6E4FF;
+    box-shadow: inset 4px 0 0 0 #155FFF;
+  }
+  [data-active-step="0"] [data-step-card="0"],
+  [data-active-step="1"] [data-step-card="1"],
+  [data-active-step="2"] [data-step-card="2"],
+  [data-active-step="3"] [data-step-card="3"],
+  [data-step-dir="back"][data-active-step="0"] [data-step-card="0"],
+  [data-step-dir="back"][data-active-step="1"] [data-step-card="1"],
+  [data-step-dir="back"][data-active-step="2"] [data-step-card="2"],
+  [data-step-dir="back"][data-active-step="3"] [data-step-card="3"] {
+    transform: translateX(6px);
+  }
+  [data-active-step="0"] [data-step-card="0"] .cp-steps__num,
+  [data-active-step="1"] [data-step-card="1"] .cp-steps__num,
+  [data-active-step="2"] [data-step-card="2"] .cp-steps__num,
+  [data-active-step="3"] [data-step-card="3"] .cp-steps__num { transform: scale(1.1); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cp-steps__visual, .cp-steps__card, .cp-steps__num { transition: none; }
+    .cp-steps__visual { clip-path: none; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cp-mq { -webkit-mask-image: none; mask-image: none; }
+    .cp-mq__track { animation: none; width: 100%; justify-content: center; }
+    /* show a single static set: row 1 has 8 logos per set, row 2 has 4 */
+    .cp-mq__track--left  > img:nth-child(n+9) { display: none; }
+    .cp-mq__track--right > img:nth-child(n+5) { display: none; }
+  }
+</style>
+</helmet>
+<div style="width: 1440px; margin: 0 auto; background: #ffffff; font-family: Poppins, sans-serif; -webkit-font-smoothing: antialiased;">
+
+  <!-- ── Header ───────────────────────────────────────── -->
+  <header style="height: 88px; background: rgba(255,255,255,0.95); backdrop-filter: blur(6px); box-shadow: 0 0 20px rgba(16,24,40,0.1); display: flex; flex-direction: row; padding: 30px 112px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50;" data-screen-label="Header">
+    <div style="height: 44px; display: flex; flex-direction: row; justify-content: space-between; align-items: center; flex-grow: 1;">
+      <img src="assets/wordmark-blue.svg" alt="ClickPost" style="width: 130px; height: 18px; flex-shrink: 0;">
+      <nav style="display: flex; flex-direction: row; gap: 20px; justify-content: center; align-items: center; flex-shrink: 0;">
+        <a href="#" style="display: flex; flex-direction: row; gap: 4px; padding: 4px 10px; align-items: center; border-radius: 6px; font-size: 14px; line-height: 20px; color: #252525;" style-hover="background: #EEF3FF;">Platform<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"></path></svg></a>
+        <a href="#" style="display: flex; flex-direction: row; gap: 4px; padding: 4px 10px; align-items: center; border-radius: 6px; font-size: 14px; line-height: 20px; color: #252525;" style-hover="background: #EEF3FF;">Solutions<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"></path></svg></a>
+        <a href="#" style="display: flex; flex-direction: row; gap: 4px; padding: 4px 10px; align-items: center; border-radius: 6px; font-size: 14px; line-height: 20px; color: #252525;" style-hover="background: #EEF3FF;">Resources<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"></path></svg></a>
+        <a href="#" style="display: flex; padding: 4px 10px; border-radius: 6px; justify-content: center; align-items: center; font-size: 14px; line-height: 20px; color: #252525;" style-hover="background: #EEF3FF;">Pricing</a>
+        <a href="#" style="display: flex; padding: 4px 10px; border-radius: 6px; justify-content: center; align-items: center; font-size: 14px; line-height: 20px; color: #252525;" style-hover="background: #EEF3FF;">Customers</a>
+      </nav>
+      <div style="display: flex; flex-direction: row; gap: 16px; align-items: center; flex-shrink: 0;">
+        <a href="#" style="font-size: 14px; line-height: 20px; color: #252525; white-space: nowrap;">Log In</a>
+        <a href="#" style="width: fit-content; height: 44px; border-radius: 4px; background: #155FFF; display: flex; flex-direction: row; gap: 4px; padding: 12px 16px; justify-content: center; align-items: center; font-size: 14px; font-weight: 500; line-height: 20px; color: #ffffff; white-space: nowrap; transition: background 160ms ease-out;" style-hover="background: #0A3FCC; color: #ffffff;">Book a free demo<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        <a href="#" aria-label="Install on Shopify" title="Install on Shopify" style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 9999px; background: #F2EDE4; display: flex; justify-content: center; align-items: center; transition: background 160ms ease-out, transform 160ms ease-out;" style-hover="background: #E8E1D4; color: #1A1A1A;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.15 5.7h11.7c.62 0 1.14.48 1.19 1.1l.86 12.55c.05.69-.5 1.28-1.19 1.28H5.29c-.69 0-1.24-.59-1.19-1.28l.86-12.55c.05-.62.57-1.1 1.19-1.1z" fill="#1A1A1A"></path><path d="M12 1.85c-1.5 0-2.72 1.2-2.72 2.68V5.7h1.72V4.53c0-.55.45-.99 1-.99s1 .44 1 .99V5.7h1.72V4.53C14.72 3.05 13.5 1.85 12 1.85z" fill="#1A1A1A"></path><text x="12" y="16.9" text-anchor="middle" font-family="Poppins, Inter, system-ui, sans-serif" font-size="10.5" font-weight="600" font-style="italic" fill="#F2EDE4">S</text></svg></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Hero ─────────────────────────────────────────── -->
+  <section style="padding: 80px 112px; display: flex; flex-direction: column; align-items: center; overflow: hidden;" data-screen-label="Hero">
+    <div style="display: flex; flex-direction: row; gap: 64px; align-items: center; align-self: stretch;">
+      <div style="width: 592px; display: flex; flex-direction: column; gap: 40px; align-items: flex-start; flex-shrink: 0;">
+        <div style="display: flex; flex-direction: column; gap: 20px; align-items: flex-start; align-self: stretch;">
+          <h1 style="margin: 0; font-size: 60px; font-weight: 500; line-height: 72px; color: #252525; letter-spacing: -0.01em; text-wrap: pretty;">Let Customers<br>Fix Their Own Order After Checkout</h1>
+          <p style="margin: 0; font-size: 20px; font-weight: 400; line-height: 30px; color: #454545;">Addresses, variant swaps, quantity, discount codes - self serve edits before you ship.</p>
+        </div>
+        <div style="height: 48px; display: flex; flex-direction: row; gap: 32px; align-items: center; align-self: stretch;">
+          <a href="#" style="width: fit-content; height: 48px; border-radius: 4px; background: #155FFF; display: flex; flex-direction: row; gap: 8px; padding: 12px 20px; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; color: #ffffff; white-space: nowrap; transition: background 160ms ease-out;" style-hover="background: #0A3FCC; color: #ffffff;">Book a free demo<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+          <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;">
+            <svg width="21.28" height="24" viewBox="0 0 22 24" fill="none"><path d="M11 1.2 13.6 7.5 20.4 8l-5.2 4.4 1.6 6.6L11 15.4 5.2 19l1.6-6.6L1.6 8l6.8-.5z" fill="#FF492C"></path><path d="M11 15.4V1.2L8.4 7.5 1.6 8l5.2 4.4L5.2 19z" fill="#FF6B52"></path></svg>
+            <div style="display: flex; flex-direction: row; gap: 6px; align-items: center;">
+              <span style="font-size: 14px; color: #252525;">4.5</span>
+              <div style="display: flex; flex-direction: row; align-items: center; gap: 0;">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="#FFB400"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="#FFB400"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="#FFB400"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="#FFB400"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><defs><linearGradient id="halfstar"><stop offset="50%" stop-color="#FFB400"></stop><stop offset="50%" stop-color="#E2E8F0"></stop></linearGradient></defs><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z" fill="url(#halfstar)"></path></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="height: 44px; display: flex; flex-direction: row; gap: 32px; align-items: center; align-self: stretch;">
+          <div style="display: flex; flex-direction: row; gap: 12px; align-items: center;">
+            <span style="font-size: 40px; font-weight: 500; line-height: 44px; color: #252525;">40%</span>
+            <span style="font-size: 16px; line-height: 20px; color: #52525B;">lower support costs</span>
+          </div>
+          <div style="width: 1px; height: 36px; background: #252525;"></div>
+          <div style="display: flex; flex-direction: row; gap: 12px; align-items: center;">
+            <span style="font-size: 40px; font-weight: 500; line-height: 44px; color: #252525;">5%</span>
+            <span style="width: 113px; font-size: 16px; line-height: 20px; color: #52525B;">higher AOV from upsells</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="position: relative; width: 560px; height: 559.056px; flex-shrink: 0;">
+        <div style="position: absolute; left: 0; top: 0; width: 560px; height: 559.056px; border-radius: 12px; overflow: hidden; transform: scaleX(-1); background: linear-gradient(135deg, #F6F6F6 0%, #E9EDF5 55%, #D6E4FF 100%);"></div>
+        <div style="position: absolute; left: 62px; top: 345px; width: 263px; height: 156px; border-radius: 8.388px; background: #ffffff; display: flex; flex-direction: column; gap: 11.473px; padding: 16.062px; align-items: flex-start; box-shadow: 0 8px 24px rgba(10,22,40,0.1);">
+          <div style="display: flex; flex-direction: row; gap: 4.256px; align-items: center;">
+            <svg width="10.214" height="10.214" viewBox="0 0 10.214 10.214" fill="#00A587"><path d="M 10.214 4.468 L 2.445 4.468 L 6.013 0.9 L 5.107 0 L 0 5.107 L 5.107 10.214 L 6.007 9.313 L 2.445 5.745 L 10.214 5.745 L 10.214 4.468 Z"></path></svg>
+            <span style="font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 11.916px; color: #263238; white-space: nowrap;">Why do you want to Return?</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 3.671px; align-items: flex-start; align-self: stretch;">
+            <span style="font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 7.66px; color: #617D8A;">Return Reason</span>
+            <div style="align-self: stretch; height: 24.683px; border-radius: 2.796px; border: 0.699px solid #CFD8DC; display: flex; flex-direction: row; padding: 0 8.278px; justify-content: space-between; align-items: center;">
+              <span style="font-family: 'Open Sans', sans-serif; font-size: 8.511px; color: #263238;">Not happy with the quality</span>
+              <svg width="6" height="4" viewBox="0 0 6 4" fill="none" stroke="#00A587" stroke-width="1"><path d="M1 1l2 2 2-2"></path></svg>
+            </div>
+          </div>
+          <div style="align-self: stretch; border-radius: 3.405px; background: #263238; display: flex; flex-direction: row; padding: 6.809px 10.214px; justify-content: space-between; align-items: center;">
+            <span style="width: 90.22px; font-family: 'Open Sans', sans-serif; font-size: 8.511px; line-height: 13.618px; color: #ffffff;">Explore some of most loved collection</span>
+            <div style="border-radius: 42.556px; border: 0.426px solid #ffffff; padding: 4.256px 10.214px; display: flex; justify-content: center; align-items: center;">
+              <span style="font-family: 'Open Sans', sans-serif; font-size: 8.511px; color: #ffffff; white-space: nowrap;">Try Exchange</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Trusted by ───────────────────────────────────── -->
+  <section style="padding: 64px 112px; display: flex; flex-direction: column; align-items: center;" data-screen-label="Trusted by">
+    <div style="display: flex; flex-direction: column; gap: 32px; align-items: center; align-self: stretch;">
+      <span style="font-size: 16px; color: #52525B;">Trusted by 450+ global brands</span>
+      <div class="cp-mq" style="height: 50px; align-self: stretch;">
+        <div class="cp-mq__track cp-mq__track--left">
+          <img src="assets/004_Puma.svg" alt="Puma" style="flex-shrink: 0; margin-right: 72px; width: 68.733px; height: 34px;">
+          <img src="assets/f2ed47f5874b1977.png" alt="Client" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 28.822px; object-fit: contain;">
+          <img src="assets/005_Adidas.svg" alt="Adidas" style="flex-shrink: 0; margin-right: 72px; width: 54.807px; height: 37px;">
+          <img src="assets/75919cbefb88ceba.png" alt="Jackery" style="flex-shrink: 0; margin-right: 72px; width: 103.705px; height: 30px; object-fit: contain;">
+          <img src="assets/2704df9e09cadaa1.png" alt="Client" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 24.711px; object-fit: contain;">
+          <img src="assets/006_Birkenstock.svg" alt="Birkenstock" style="flex-shrink: 0; margin-right: 72px; width: 119.63px; height: 19.364px;">
+          <img src="assets/008_Sotheby-s.svg" alt="Sotheby's" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 24.461px; object-fit: contain;">
+          <img src="assets/010_Decathlon.svg" alt="Decathlon" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 18.028px; object-fit: contain;">
+          <img src="assets/004_Puma.svg" alt="Puma" style="flex-shrink: 0; margin-right: 72px; width: 68.733px; height: 34px;">
+          <img src="assets/f2ed47f5874b1977.png" alt="Client" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 28.822px; object-fit: contain;">
+          <img src="assets/005_Adidas.svg" alt="Adidas" style="flex-shrink: 0; margin-right: 72px; width: 54.807px; height: 37px;">
+          <img src="assets/75919cbefb88ceba.png" alt="Jackery" style="flex-shrink: 0; margin-right: 72px; width: 103.705px; height: 30px; object-fit: contain;">
+          <img src="assets/2704df9e09cadaa1.png" alt="Client" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 24.711px; object-fit: contain;">
+          <img src="assets/006_Birkenstock.svg" alt="Birkenstock" style="flex-shrink: 0; margin-right: 72px; width: 119.63px; height: 19.364px;">
+          <img src="assets/008_Sotheby-s.svg" alt="Sotheby's" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 24.461px; object-fit: contain;">
+          <img src="assets/010_Decathlon.svg" alt="Decathlon" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 18.028px; object-fit: contain;">
+        </div>
+      </div>
+      <div class="cp-mq" style="height: 40px; align-self: stretch;">
+        <div class="cp-mq__track cp-mq__track--right">
+          <img src="assets/6d28619ddab577d9.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 16.947px; object-fit: contain; mix-blend-mode: darken;">
+          <img src="assets/Union.svg" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 33.101px; object-fit: contain;">
+          <img src="assets/337e134ae1ba1799.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 110px; height: 23px; object-fit: contain;">
+          <img src="assets/ccf9eaabba3e1b26.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 75px; height: 40px; object-fit: contain; mix-blend-mode: darken;">
+          <img src="assets/6d28619ddab577d9.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 16.947px; object-fit: contain; mix-blend-mode: darken;">
+          <img src="assets/Union.svg" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 33.101px; object-fit: contain;">
+          <img src="assets/337e134ae1ba1799.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 110px; height: 23px; object-fit: contain;">
+          <img src="assets/ccf9eaabba3e1b26.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 75px; height: 40px; object-fit: contain; mix-blend-mode: darken;">
+          <img src="assets/6d28619ddab577d9.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 16.947px; object-fit: contain; mix-blend-mode: darken;">
+          <img src="assets/Union.svg" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 33.101px; object-fit: contain;">
+          <img src="assets/337e134ae1ba1799.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 110px; height: 23px; object-fit: contain;">
+          <img src="assets/ccf9eaabba3e1b26.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 75px; height: 40px; object-fit: contain; mix-blend-mode: darken;">
+          <img src="assets/6d28619ddab577d9.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 16.947px; object-fit: contain; mix-blend-mode: darken;">
+          <img src="assets/Union.svg" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 33.101px; object-fit: contain;">
+          <img src="assets/337e134ae1ba1799.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 110px; height: 23px; object-fit: contain;">
+          <img src="assets/ccf9eaabba3e1b26.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 75px; height: 40px; object-fit: contain; mix-blend-mode: darken;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── How order editing works ──────────────────────── -->
+    <section style="background: #ffffff; padding: 80px 112px; display: flex; flex-direction: column; gap: 64px; align-items: center;" data-screen-label="How it works" data-active-step="{{ activeStep }}" data-step-dir="{{ stepDir }}">
+    <h2 style="margin: 0; width: 900px; font-size: 40px; font-weight: 500; line-height: 56px; text-align: center; color: #252525;">How order editing works</h2>
+    <div class="cp-steps__grid">
+      <div class="cp-steps__stagewrap">
+        <div class="cp-steps__stage">
+          <div class="cp-steps__visual" data-step-visual="0"><div style="width: 504px; height: 296px; border-radius: 28px 0 12px 0; background: linear-gradient(135deg, #F6F6F6 0%, #E9EDF5 55%, #D6E4FF 100%); flex-shrink: 0;"></div></div>
+          <div class="cp-steps__visual" data-step-visual="1"><div style="width: 338px; height: 296px; border-radius: 12.094px 12.094px 0 0; background: #ffffff; border: 1.209px solid #E5E7EB; box-shadow: 0 -5.81px 30.235px -6.047px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 20px; padding: 20px; align-items: flex-start; flex-shrink: 0;">
+            <span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 16px; color: #263238;">Customers can edit</span>
+            <div style="display: flex; flex-direction: column; gap: 5.925px; align-items: flex-start; align-self: stretch;">
+              <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;"><div style="width: 22px; height: 12px; border-radius: 999px; background: #00A587; display: flex; align-items: center; justify-content: flex-end; padding: 1.5px;"><div style="width: 9px; height: 9px; border-radius: 999px; background: #ffffff;"></div></div><span style="font-family: Inter, sans-serif; font-size: 12px; color: #263238;">Contact Information</span></div>
+              <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;"><div style="width: 22px; height: 12px; border-radius: 999px; background: #00A587; display: flex; align-items: center; justify-content: flex-end; padding: 1.5px;"><div style="width: 9px; height: 9px; border-radius: 999px; background: #ffffff;"></div></div><span style="font-family: Inter, sans-serif; font-size: 12px; color: #263238;">Address</span></div>
+              <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;"><div style="width: 22px; height: 12px; border-radius: 999px; background: #00A587; display: flex; align-items: center; justify-content: flex-end; padding: 1.5px;"><div style="width: 9px; height: 9px; border-radius: 999px; background: #ffffff;"></div></div><span style="font-family: Inter, sans-serif; font-size: 12px; color: #263238;">Add/Remove Items</span></div>
+              <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;"><div style="width: 22px; height: 12px; border-radius: 999px; background: #00A587; display: flex; align-items: center; justify-content: flex-end; padding: 1.5px;"><div style="width: 9px; height: 9px; border-radius: 999px; background: #ffffff;"></div></div><span style="font-family: Inter, sans-serif; font-size: 12px; color: #263238;">Change Quantity</span></div>
+              <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;"><div style="width: 22px; height: 12px; border-radius: 999px; background: #D1D5DC; display: flex; align-items: center; justify-content: flex-start; padding: 1.5px;"><div style="width: 9px; height: 9px; border-radius: 999px; background: #ffffff;"></div></div><span style="font-family: Inter, sans-serif; font-size: 12px; color: #6A7282;">Apply Discount codes</span></div>
+              <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;"><div style="width: 22px; height: 12px; border-radius: 999px; background: #D1D5DC; display: flex; align-items: center; justify-content: flex-start; padding: 1.5px;"><div style="width: 9px; height: 9px; border-radius: 999px; background: #ffffff;"></div></div><span style="font-family: Inter, sans-serif; font-size: 12px; color: #6A7282;">Cancel Order</span></div>
+            </div>
+          </div></div>
+          <div class="cp-steps__visual" data-step-visual="2"><div style="width: 357.209px; border-radius: 12.094px 12.094px 0 0; background: #ffffff; border: 1.209px solid #E5E7EB; box-shadow: 0 -5.81px 30.235px -6.047px rgba(0,0,0,0.1); display: flex; flex-direction: column; padding: 20px; align-items: flex-start; flex-grow: 1;">
+            <div style="display: flex; flex-direction: column; gap: 13.736px; align-items: flex-start; align-self: stretch;">
+              <span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #263238;">You may also like these products</span>
+              <div style="display: flex; flex-direction: row; gap: 8.625px; align-items: flex-start; align-self: stretch;">
+                <div style="position: relative; width: 99.18px; height: 209.407px; border-radius: 6.472px; background: #ffffff; box-shadow: inset 0 0 0 0.7px #EDEDED; flex-shrink: 0; overflow: hidden;">
+                  <div style="position: absolute; left: 9.142px; top: 9.142px; border-radius: 20px; background: #FDD8D8; padding: 2px 5px; display: flex; align-items: center;"><span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 6.507px; color: #3F0303; white-space: nowrap;">25% OFF</span></div>
+                  <div style="position: absolute; left: 23.546px; top: 21.329px; width: 54.957px; height: 84.333px; background: linear-gradient(135deg, #F6F6F6 0%, #E9EDF5 55%, #D6E4FF 100%);"></div>
+                  <span style="position: absolute; left: 9.142px; top: 111.012px; font-family: Inter, sans-serif; font-weight: 600; font-size: 6.507px; color: #005BD1; white-space: nowrap;">Blue Lemonade</span>
+                  <div style="position: absolute; left: 9.142px; right: 9.142px; bottom: 10px; height: 16px; border-radius: 3px; background: #005BD1; display: flex; align-items: center; justify-content: center;"><span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 6.507px; color: #ffffff;">Add to order</span></div>
+                </div>
+                <div style="position: relative; width: 99.18px; height: 209.407px; border-radius: 6.472px; background: #ffffff; box-shadow: inset 0 0 0 0.7px #EDEDED; flex-shrink: 0; overflow: hidden;">
+                  <div style="position: absolute; left: 9.216px; top: 9.142px; border-radius: 20px; background: #FDD8D8; padding: 2px 5px; display: flex; align-items: center;"><span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 6.507px; color: #3F0303; white-space: nowrap;">25% OFF</span></div>
+                  <div style="position: absolute; left: 23.271px; top: 21.329px; width: 54.957px; height: 84.333px; background: linear-gradient(135deg, #F6F6F6 0%, #E9EDF5 55%, #D6E4FF 100%);"></div>
+                  <span style="position: absolute; left: 9.411px; top: 111.012px; font-family: Inter, sans-serif; font-weight: 600; font-size: 6.507px; color: #005BD1; white-space: nowrap;">Wing Man</span>
+                  <div style="position: absolute; left: 9.142px; right: 9.142px; bottom: 10px; height: 16px; border-radius: 3px; background: #005BD1; display: flex; align-items: center; justify-content: center;"><span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 6.507px; color: #ffffff;">Add to order</span></div>
+                </div>
+                <div style="position: relative; width: 99.18px; height: 209.407px; border-radius: 6.472px; background: #ffffff; box-shadow: inset 0 0 0 0.7px #EDEDED; flex-shrink: 0; overflow: hidden;">
+                  <div style="position: absolute; left: 8.347px; top: 9.142px; border-radius: 20px; background: #FDD8D8; padding: 2px 5px; display: flex; align-items: center;"><span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 6.507px; color: #3F0303; white-space: nowrap;">25% OFF</span></div>
+                  <div style="position: absolute; left: 22.993px; top: 21.329px; width: 54.957px; height: 84.333px; background: linear-gradient(135deg, #F6F6F6 0%, #E9EDF5 55%, #D6E4FF 100%);"></div>
+                  <span style="position: absolute; left: 8.507px; top: 111.012px; font-family: Inter, sans-serif; font-weight: 600; font-size: 6.507px; color: #005BD1; white-space: nowrap;">Fiery Ginger</span>
+                  <div style="position: absolute; left: 9.142px; right: 9.142px; bottom: 10px; height: 16px; border-radius: 3px; background: #005BD1; display: flex; align-items: center; justify-content: center;"><span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 6.507px; color: #ffffff;">Add to order</span></div>
+                </div>
+              </div>
+            </div>
+          </div></div>
+          <div class="cp-steps__visual" data-step-visual="3"><div style="width: 451.419px; height: 266.942px; border-radius: 12.094px 12.094px 0 0; background: #ffffff; border: 1.209px solid #E5E7EB; box-shadow: 0 -5.81px 30.235px -6.047px rgba(0,0,0,0.1); display: flex; flex-direction: column; padding: 20px; align-items: flex-start; flex-shrink: 0;">
+            <div style="display: flex; flex-direction: column; gap: 24px; align-items: flex-start;">
+              <span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 16px; color: #263238;">Select the time limit for customers to edit their orders</span>
+              <div style="display: flex; flex-direction: column; gap: 18px; align-items: flex-start; width: 409px;">
+                <div style="display: flex; flex-direction: row; gap: 9px; align-items: flex-start;">
+                  <div style="width: 16px; height: 16px; border-radius: 2.667px; background: #0A0A0A; display: flex; justify-content: center; align-items: center; flex-shrink: 0;"><svg width="9" height="7" viewBox="0 0 9 7" fill="none" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3.6L3.3 6 8 1"></path></svg></div>
+                  <div style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start;">
+                    <span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 12px; color: #0A0A0A;">Enable Time-based Editing Window</span>
+                    <span style="font-family: Inter, sans-serif; font-size: 9px; color: #6A7282;">Set a specific time window for order editing</span>
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-start; width: 409px;">
+                  <div style="display: flex; flex-direction: row; gap: 6px; align-items: center; align-self: stretch;">
+                    <div style="flex: 1; height: 38px; border-radius: 6px; border: 1px solid #E5E7EB; background: #ffffff; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-size: 11px; color: #263238;">15 Minute</div>
+                    <div style="flex: 1; height: 38px; border-radius: 6px; border: 1px solid #E5E7EB; background: #ffffff; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-size: 11px; color: #263238;">30 Minute</div>
+                    <div style="flex: 1; height: 38px; border-radius: 6px; border: 1px solid #E5E7EB; background: #ffffff; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-size: 11px; color: #263238;">1 Hour</div>
+                    <div style="flex: 1; height: 38px; border-radius: 6px; border: 1px solid #155FFF; background: #EEF3FF; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #155FFF;">2 Hour</div>
+                    <div style="flex: 1; height: 38px; border-radius: 6px; border: 1px solid #E5E7EB; background: #ffffff; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-size: 11px; color: #263238;">4 Hour</div>
+                  </div>
+                  <div style="display: flex; flex-direction: row; gap: 6px; align-items: center; width: 409px;">
+                    <div style="flex: 1; height: 38px; border-radius: 6px; border: 1px solid #E5E7EB; background: #ffffff; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-size: 11px; color: #263238;">6 Hour</div>
+                    <div style="flex: 1; height: 38px; border-radius: 6px; border: 1px solid #E5E7EB; background: #ffffff; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-size: 11px; color: #263238;">12 Hour</div>
+                    <div style="flex: 1; height: 38px; border-radius: 6px; border: 1px solid #E5E7EB; background: #ffffff; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-size: 11px; color: #263238;">1 day</div>
+                    <div style="flex: 1; height: 38px; border-radius: 6px; border: 1px solid #E5E7EB; background: #ffffff; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-size: 11px; color: #263238;">Until Fulfilled</div>
+                    <div style="flex: 1; height: 38px; border-radius: 6px; border: 1px solid #E5E7EB; background: #ffffff; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-size: 11px; color: #263238;">Custom</div>
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row; gap: 9px; align-items: flex-start;">
+                  <div style="width: 16px; height: 16px; border-radius: 2.667px; background: #ffffff; border: 1.333px solid #D1D5DC; flex-shrink: 0;"></div>
+                  <div style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start;">
+                    <span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 12px; color: #0A0A0A;">Use Daily Time Limit instead</span>
+                    <span style="font-family: Inter, sans-serif; font-size: 9px; color: #6A7282;">Set a specific time of day as the cutoff instead of a duration</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="cp-steps__list">
+        <div class="cp-steps__card" data-step-card="0">
+          <div class="cp-steps__num">1</div>
+          <p class="cp-steps__copy">Customers edit from the Thank You page or Order Status page. No login or contact form</p>
+        </div>
+        <div class="cp-steps__card" data-step-card="1">
+          <div class="cp-steps__num">2</div>
+          <p class="cp-steps__copy">Control what can be edited: address, variant, quantity, or discount code</p>
+        </div>
+        <div class="cp-steps__card" data-step-card="2">
+          <div class="cp-steps__num">3</div>
+          <p class="cp-steps__copy">Set the edit window. Orders stay held in Shopify until it closes, then ship as normal</p>
+        </div>
+        <div class="cp-steps__card" data-step-card="3">
+          <div class="cp-steps__num">4</div>
+          <p class="cp-steps__copy">Recommend products while they edit</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Testimonial carousel ─────────────────────────── -->
+  <section style="padding: 80px 112px; display: flex; flex-direction: column; gap: 64px; justify-content: center; align-items: center;" data-screen-label="Testimonials">
+    <div style="width: 1216px; overflow: hidden;">
+      <div style="display: flex; flex-direction: row; gap: 48px; align-items: stretch; padding-left: 72px; transition: transform 480ms ease-out; transform: {{ trackTransform }};">
+
+        <div style="width: 1072px; height: 447px; border-radius: 16px; display: flex; flex-direction: row; align-items: center; flex-shrink: 0;">
+          <div style="position: relative; width: 468px; align-self: stretch; overflow: hidden; flex-shrink: 0;">
+            <div style="position: absolute; left: 0; top: 0; width: 468px; height: 447px; border-radius: 12px 8px 8px 12px; background: url(assets/63ee346ace7a9191.jpg) 5.885% 50% / 195.312% 100% no-repeat;"></div>
+          </div>
+          <div style="border-radius: 0 12px 12px 0; background: #F1F1F1; display: flex; flex-direction: column; gap: 40px; padding: 40px 64px; justify-content: center; align-items: flex-start; flex-grow: 1; align-self: stretch;">
+            <img src="assets/001_Walmart.svg" alt="Walmart" style="width: 127px; height: 30px;">
+            <div style="display: flex; flex-direction: column; gap: 24px; align-items: flex-start; align-self: stretch;">
+              <p style="margin: 0; font-size: 18px; line-height: 28px; color: #252525;">Love Carrier Onboarding with rapid resolutions, 24x7 support and quick TAT. Would rate them 10/10.</p>
+              <div style="display: flex; flex-direction: row; gap: 16px; align-items: center;">
+                <div data-placeholder-for="assets/974e3206572b166f.png" title="Placeholder for Balaji Kunjeti’s photo. Drop assets/974e3206572b166f.png in to restore." style="width: 48px; height: 48px; border-radius: 999px; background: #D6E4FF; color: #155FFF; display: flex; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; letter-spacing: 0.02em; flex-shrink: 0;">BK</div>
+                <div style="display: flex; flex-direction: column; gap: 4px; justify-content: center; align-items: flex-start;">
+                  <span style="font-size: 16px; line-height: 24px; color: #252525;">Balaji Kunjeti</span>
+                  <span style="font-size: 12px; line-height: 20px; color: #52525B;">Group Product Manager, Walmart International Tech</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="width: 1072px; height: 447px; border-radius: 16px; display: flex; flex-direction: row; align-items: center; flex-shrink: 0;">
+          <div style="position: relative; width: 468px; align-self: stretch; overflow: hidden; flex-shrink: 0;">
+            <div style="position: absolute; left: 0; top: 0; width: 468px; height: 447px; border-radius: 12px 20px 20px 12px; background: linear-gradient(135deg, #E7EFE9 0%, #D4E0D7 52%, #C3D4C8 100%)" data-placeholder-for="assets/d778eeb1c584b97c.png" title="Placeholder — MarsGHC product shot. Drop assets/d778eeb1c584b97c.png in to restore.";"></div>
+          </div>
+          <div style="border-radius: 0 12px 12px 0; background: #F1F1F1; display: flex; flex-direction: column; gap: 40px; padding: 40px 64px; justify-content: center; align-items: flex-start; flex-grow: 1; align-self: stretch;">
+            <img src="assets/337e134ae1ba1799.png" alt="MarsGHC" style="width: 113px; height: 24px; object-fit: contain;">
+            <div style="display: flex; flex-direction: column; gap: 24px; align-items: flex-start; align-self: stretch;">
+              <p style="margin: 0; font-size: 18px; line-height: 28px; color: #252525;">We’ve been using Clickpost and it’s genuinely been super helpful. Customers can handle order edits themselves, and the post-purchase upsells have been a solid bonus for incremental revenue.</p>
+              <div style="display: flex; flex-direction: row; gap: 16px; align-items: center;">
+                <div style="width: 55px; height: 56px; border-radius: 35.5px; background: url(assets/2d357ebfa6b30d6f.png) center / cover no-repeat; flex-shrink: 0;"></div>
+                <div style="display: flex; flex-direction: column; gap: 4px; justify-content: center; align-items: flex-start;">
+                  <span style="font-size: 16px; line-height: 24px; color: #252525;">Samarth Sindhi</span>
+                  <span style="font-size: 12px; line-height: 20px; color: #52525B;">Chief Executive Officer, MarsGHC</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="width: 1072px; height: 447px; border-radius: 16px; display: flex; flex-direction: row; align-items: center; flex-shrink: 0;">
+          <div style="position: relative; width: 468px; align-self: stretch; overflow: hidden; flex-shrink: 0;">
+            <div style="position: absolute; left: 0; top: 0; width: 468px; height: 447px; border-radius: 20px; background: linear-gradient(160deg, #DCC9A0 0%, #C5B285 45%, #A8AD89 100%)" data-placeholder-for="assets/3719c6a948953fe4.png" title="Placeholder — slide 3 photo. Drop assets/3719c6a948953fe4.png in to restore.";"></div>
+          </div>
+          <div style="border-radius: 0 12px 12px 0; background: #F1F1F1; display: flex; flex-direction: column; gap: 40px; padding: 40px 64px; justify-content: center; align-items: flex-start; flex-grow: 1; align-self: stretch;">
+            <img src="assets/006_Birkenstock.svg" alt="Birkenstock" style="width: 167.292px; height: 27.096px;">
+            <div style="display: flex; flex-direction: column; gap: 24px; align-items: flex-start; align-self: stretch;">
+              <p style="margin: 0; font-size: 18px; line-height: 28px; color: #252525;">ClickPost’s team were experts in their systems and integrated seamlessly with ours. They proactively resolved every issue, ensuring a smooth experience.</p>
+              <div style="display: flex; flex-direction: row; gap: 16px; align-items: center;">
+                <div data-placeholder-for="assets/17bcbef74d00e805.png" title="Placeholder for Sonali Das’s photo. Drop assets/17bcbef74d00e805.png in to restore." style="width: 56px; height: 56px; border-radius: 999px; background: #D6E4FF; color: #155FFF; display: flex; justify-content: center; align-items: center; font-size: 19px; font-weight: 500; letter-spacing: 0.02em; flex-shrink: 0;">SD</div>
+                <div style="display: flex; flex-direction: column; gap: 4px; justify-content: center; align-items: flex-start;">
+                  <span style="font-size: 16px; line-height: 24px; color: #252525;">Sonali Das</span>
+                  <span style="font-size: 12px; line-height: 20px; color: #52525B;">D2C Tech and Product Head, Birkenstock</span>
+                </div>
+              </div>
+            </div>
+            <a href="#" style="display: flex; flex-direction: row; gap: 8px; align-items: center; font-size: 16px; font-weight: 500; color: #155FFF;">Read Success Story<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"></path></svg></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: row; gap: 16px; align-items: flex-start;">
+      <button type="button" onClick="{{ goto0 }}" style="width: 24px; height: 8px; border: none; padding: 0; border-radius: 192.879px; cursor: pointer; background: {{ dot0 }};"></button>
+      <button type="button" onClick="{{ goto1 }}" style="width: 24px; height: 8px; border: none; padding: 0; border-radius: 192.879px; cursor: pointer; background: {{ dot1 }};"></button>
+      <button type="button" onClick="{{ goto2 }}" style="width: 24px; height: 8px; border: none; padding: 0; border-radius: 192.879px; cursor: pointer; background: {{ dot2 }};"></button>
+    </div>
+
+    <a href="#" style="width: fit-content; height: 48px; border-radius: 4px; border: 1px solid #52525B; display: flex; flex-direction: row; gap: 8px; padding: 12px 20px; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; color: #52525B; white-space: nowrap; transition: background 160ms ease-out;" style-hover="background: #F1F1F1; color: #52525B;">Book a free demo<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+  </section>
+
+  <!-- ── ClickPost order editing (feature rows) ───────── -->
+  <section style="padding: 80px 112px 120px; display: flex; flex-direction: column; gap: 64px; align-items: center;" data-screen-label="Order editing features">
+    <div style="width: 454px; display: flex; flex-direction: column; gap: 12px; justify-content: center; align-items: center;">
+      <div style="width: 166px; height: 44px; border-radius: 8px; background: #E0F0FF; display: flex; flex-direction: row; gap: 8px; justify-content: center; align-items: center;">
+        <svg width="18" height="20" viewBox="0 0 18 20" fill="#5E8E3E"><path d="M12.6 2.2c-.2-.1-.5 0-.7.1l-1 .6C10.5 1.6 9.7.9 8.8.9c-1 0-1.9 1-2.5 2.7l-1.7.5c-.5.2-.6.2-.7.7L2.3 18.6l7.5 1.4 6.3-1.5-2.4-15.6c-.1-.4-.6-.6-1.1-.7zM8.8 1.9c.5 0 1 .5 1.4 1.4l-2.6.8c.4-1.4.9-2.2 1.2-2.2z"></path></svg>
+        <span style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 500; color: #252525; white-space: nowrap;">Built for Shopify</span>
+      </div>
+      <h2 style="margin: 0; font-size: 40px; font-weight: 500; line-height: 56px; text-align: center; color: #252525;">ClickPost order editing</h2>
+    </div>
+
+    <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; align-self: stretch; height: 500.944px;">
+      <div style="width: 520px; display: flex; flex-direction: column; gap: 40px; align-items: flex-start; flex-shrink: 0;">
+        <div style="display: flex; flex-direction: column; gap: 24px; align-items: flex-start; align-self: stretch;">
+          <h3 style="margin: 0; font-size: 24px; font-weight: 500; line-height: 32px; color: #252525;">Upsell as they edit</h3>
+          <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start; align-self: stretch;">
+            <div style="display: flex; flex-direction: row; gap: 8px; align-items: flex-start;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#155FFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 4px;"><path d="M13 2L4.1 12.7a1 1 0 00.8 1.6h5.4l-1.4 7.7 8.9-10.7a1 1 0 00-.8-1.6h-5.4z"></path></svg><span style="font-size: 16px; line-height: 24px; color: #52525B;">One-click upsell shown at the edit moment, matched to the current order</span></div>
+            <div style="display: flex; flex-direction: row; gap: 8px; align-items: flex-start;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#155FFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 4px;"><path d="M17 2l4 4-4 4"></path><path d="M3 6h18"></path><path d="M7 22l-4-4 4-4"></path><path d="M21 18H3"></path></svg><span style="font-size: 16px; line-height: 24px; color: #52525B;">Variant swaps happen on the original order without a draft order, or a new checkout</span></div>
+            <div style="display: flex; flex-direction: row; gap: 8px; align-items: flex-start;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#155FFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 4px;"><path d="M20 12V8H6a2 2 0 010-4h12v4"></path><path d="M4 6v12a2 2 0 002 2h14v-4"></path><path d="M18 12a2 2 0 000 4h4v-4z"></path></svg><span style="font-size: 16px; line-height: 24px; color: #52525B;">Missed discount codes applied instantly, no CS queue involved</span></div>
+            <div style="display: flex; flex-direction: row; gap: 8px; align-items: flex-start;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#155FFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 4px;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1116 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><span style="font-size: 16px; line-height: 24px; color: #52525B;">Address changes validated via Google Maps before the order ships</span></div>
+          </div>
+        </div>
+        <a href="#" style="width: 160px; height: 48px; border-radius: 4px; border: 1px solid #52525B; display: flex; flex-direction: row; gap: 8px; padding: 12px 20px; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; color: #52525B; white-space: nowrap; transition: background 160ms ease-out;" style-hover="background: #F1F1F1; color: #52525B;">Learn more<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </div>
+
+      <div style="position: relative; width: 624px; height: 500px; border-radius: 16px; background: #F1F1F1; overflow: hidden; flex-shrink: 0;">
+        <div style="position: absolute; left: 62px; top: 32px; width: 500px; height: 436px; border-radius: 8.57px; background: #ffffff; box-shadow: 0 14.266px 29.577px rgba(0,0,0,0.06); padding: 17.141px; display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;">
+            <img src="assets/w.svg" alt="W" style="width: 16px; height: 10px;">
+            <span style="font-family: 'Abhaya Libre', Georgia, serif; font-weight: 700; font-size: 13px; color: #252525;">Willow &amp; Wren</span>
+          </div>
+          <div style="display: flex; flex-direction: row; gap: 12px; align-items: flex-start;">
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; padding: 10px; border-radius: 6px; background: #F1F1F1;">
+                <div style="width: 44px; height: 52px; border-radius: 4px; background: linear-gradient(135deg, #F6F6F6 0%, #E9EDF5 55%, #D6E4FF 100%); flex-shrink: 0;"></div>
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 3px;">
+                  <span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 11px; color: #263238;">Genius</span>
+                  <span style="font-family: Inter, sans-serif; font-size: 9px; color: #617D8A;">300 ML</span>
+                </div>
+                <span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 11px; color: #263238;">$6.72</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 6px; padding: 0 4px;">
+                <div style="display: flex; justify-content: space-between;"><span style="font-family: Inter, sans-serif; font-size: 10px; color: #617D8A;">Subtotal</span><span style="font-family: Inter, sans-serif; font-size: 10px; color: #263238;">$6.72</span></div>
+                <div style="display: flex; justify-content: space-between;"><span style="font-family: Inter, sans-serif; font-size: 10px; color: #617D8A;">Shipping</span><span style="font-family: Inter, sans-serif; font-size: 10px; color: #00A587;">Free</span></div>
+                <div style="height: 1px; background: #E2E8F0;"></div>
+                <div style="display: flex; justify-content: space-between;"><span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 11px; color: #263238;">Total</span><span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 11px; color: #263238;">$6.72</span></div>
+              </div>
+            </div>
+            <div style="width: 210px; border-radius: 6px; background: #FDF2F2; padding: 10px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0;">
+              <span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 11px; color: #263238;">Too good to miss!</span>
+              <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;">
+                <div style="position: relative; width: 42px; height: 50px; border-radius: 4px; background: linear-gradient(135deg, #F6F6F6 0%, #E9EDF5 55%, #D6E4FF 100%); flex-shrink: 0;">
+                  <div style="position: absolute; left: 2px; top: 2px; border-radius: 20px; background: #FDD8D8; padding: 1px 4px;"><span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 5.5px; color: #3F0303;">70% OFF</span></div>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 3px;">
+                  <span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 10px; color: #263238;">Cranberry Kombucha</span>
+                  <div style="display: flex; flex-direction: row; gap: 6px; align-items: center;">
+                    <span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 10px; color: #263238;">$3.95</span>
+                    <span style="font-family: Inter, sans-serif; font-size: 9px; color: #617D8A; text-decoration: line-through;">1.19</span>
+                  </div>
+                </div>
+              </div>
+              <div style="height: 24px; border-radius: 4px; background: #005BD1; display: flex; justify-content: center; align-items: center;"><span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 10px; color: #ffffff;">Add to order</span></div>
+            </div>
+          </div>
+          <div style="height: 1px; background: #E2E8F0;"></div>
+          <span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 13px; color: #263238;">Make changes to your order</span>
+          <div style="display: flex; flex-direction: row; gap: 8px; align-items: center; padding: 8px 10px; border-radius: 4px; background: #FFF7E6; border: 1px solid #FFE0A3;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2" stroke-linecap="round"><path d="M12 9v4M12 17h.01"></path><path d="M10.3 3.9L2.4 18a2 2 0 001.7 3h15.8a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"></path></svg>
+            <span style="font-family: Inter, sans-serif; font-size: 10px; color: #92400E;">You can make changes to order for another 3 hours and 51 mins</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding: 10px 12px; border-radius: 6px; border: 1px solid #E2E8F0;"><span style="font-family: Inter, sans-serif; font-size: 11px; color: #263238;">Edit Shipping Address</span><span style="font-family: Inter, sans-serif; font-size: 9px; color: #B45309;">Address check required</span></div>
+            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding: 10px 12px; border-radius: 6px; border: 1px solid #E2E8F0;"><span style="font-family: Inter, sans-serif; font-size: 11px; color: #263238;">Update your order</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#617D8A" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding: 10px 12px; border-radius: 6px; border: 1px solid #E2E8F0;"><span style="font-family: Inter, sans-serif; font-size: 11px; color: #263238;">Add More Items</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#617D8A" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding: 10px 12px; border-radius: 6px; border: 1px solid #E2E8F0;"><span style="font-family: Inter, sans-serif; font-size: 11px; color: #263238;">Apply Discount Code</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#617D8A" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding: 10px 12px; border-radius: 6px; border: 1px solid #E2E8F0;"><span style="font-family: Inter, sans-serif; font-size: 11px; color: #263238;">Cancel Your Order</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#617D8A" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; align-self: stretch; height: 500px;">
+      <div style="position: relative; width: 624px; height: 500px; border-radius: 16px; background: #F1F1F1; overflow: hidden; flex-shrink: 0;">
+        <div style="position: absolute; left: 162px; top: 130px; width: 300px; height: 300px; border-radius: 50%; border: 1px solid rgba(37,37,37,0.12);"></div>
+        <div style="position: absolute; left: 212px; top: 180px; width: 200px; height: 200px; border-radius: 50%; border: 1px dashed rgba(37,37,37,0.18);"></div>
+        <div style="position: absolute; left: 232px; top: 240px; width: 160px; display: flex; flex-direction: column; gap: 6px; align-items: center;">
+          <span style="font-size: 11px; color: #52525B;">Powered by</span>
+          <img src="assets/wordmark-blue.svg" alt="ClickPost" style="width: 130px; height: 18px;">
+        </div>
+        <div style="position: absolute; left: 75px; top: 71.552px; width: 178px; border-radius: 10.099px; background: #ffffff; box-shadow: inset 0 0 0 1.092px #F1F1F1, 2.184px 14.808px 30.702px rgba(0,0,0,0.04); padding: 10.099px; display: flex; flex-direction: row; gap: 7.574px; align-items: center;">
+          <div style="width: 50.496px; height: 50.496px; border-radius: 50%; background: url(assets/sync-avatar-1.jpg) center / cover no-repeat; flex-shrink: 0;"></div>
+          <div style="flex: 1; border-radius: 5.05px; background: #F1F1F1; padding: 7.574px 10px; display: flex; flex-direction: column; gap: 2.525px;">
+            <div style="display: flex; justify-content: space-between;"><span style="font-family: Inter, sans-serif; font-size: 9px; color: #617D8A;">AOV</span><span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 9px; color: #263238;">$1,944</span></div>
+            <div style="display: flex; justify-content: space-between;"><span style="font-family: Inter, sans-serif; font-size: 9px; color: #617D8A;">Returns:</span><span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 9px; color: #00A587;">5%</span></div>
+            <span style="font-family: Inter, sans-serif; font-size: 8px; color: #155FFF;">Free Returns</span>
+          </div>
+        </div>
+        <div style="position: absolute; right: 42px; bottom: 96px; width: 178px; border-radius: 10.099px; background: #ffffff; box-shadow: inset 0 0 0 1.092px #F1F1F1, 2.184px 14.808px 30.702px rgba(0,0,0,0.04); padding: 10.099px; display: flex; flex-direction: row; gap: 7.574px; align-items: center;">
+          <div style="width: 50.496px; height: 50.496px; border-radius: 50%; background: url(assets/sync-avatar-2.jpg) center / cover no-repeat; flex-shrink: 0;"></div>
+          <div style="flex: 1; border-radius: 5.05px; background: #F1F1F1; padding: 7.574px 10px; display: flex; flex-direction: column; gap: 2.525px;">
+            <div style="display: flex; justify-content: space-between;"><span style="font-family: Inter, sans-serif; font-size: 9px; color: #617D8A;">AOV</span><span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 9px; color: #263238;">$220</span></div>
+            <div style="display: flex; justify-content: space-between;"><span style="font-family: Inter, sans-serif; font-size: 9px; color: #617D8A;">Returns:</span><span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 9px; color: #D75951;">20%</span></div>
+            <span style="font-family: Inter, sans-serif; font-size: 8px; color: #52525B;">Store Credits Only</span>
+          </div>
+        </div>
+        <div style="position: absolute; left: 470px; top: 150px; width: 56px; height: 56px; border-radius: 50%; background: url(assets/sync-avatar-3.jpg) center / cover no-repeat; box-shadow: 0 4px 12px rgba(10,22,40,0.08);"></div>
+        <div style="position: absolute; left: 118px; bottom: 128px; width: 48px; height: 48px; border-radius: 50%; background: url(assets/sync-avatar-1.jpg) center / cover no-repeat; box-shadow: 0 4px 12px rgba(10,22,40,0.08);"></div>
+      </div>
+
+      <div style="width: 520px; display: flex; flex-direction: column; gap: 40px; align-items: flex-start; flex-shrink: 0;">
+        <div style="display: flex; flex-direction: column; gap: 24px; align-items: flex-start; align-self: stretch;">
+          <h3 style="margin: 0; font-size: 24px; font-weight: 500; line-height: 32px; color: #252525;">Cancellations and fulfillment sync</h3>
+          <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start; align-self: stretch;">
+            <div style="display: flex; flex-direction: row; gap: 8px; align-items: flex-start;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#155FFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 4px;"><path d="M20 6L9 17l-5-5"></path></svg><span style="font-size: 16px; line-height: 24px; color: #52525B;">Customers cancel within the window and get an automated refund or store credit</span></div>
+            <div style="display: flex; flex-direction: row; gap: 8px; align-items: flex-start;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#155FFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 4px;"><path d="M21 12a9 9 0 01-9 9 9 9 0 01-8.5-6"></path><path d="M3 12a9 9 0 019-9 9 9 0 018.5 6"></path><path d="M21 3v6h-6"></path><path d="M3 21v-6h6"></path></svg><span style="font-size: 16px; line-height: 24px; color: #52525B;">3PL and WMS integrations keep fulfillment in sync, no manual handoff</span></div>
+            <div style="display: flex; flex-direction: row; gap: 8px; align-items: flex-start;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#155FFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 4px;"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path><path d="M14 2v6h6"></path><path d="M9 15h6"></path></svg><span style="font-size: 16px; line-height: 24px; color: #52525B;">Cancellation reason captured for your records</span></div>
+          </div>
+        </div>
+        <a href="#" style="width: 160px; height: 48px; border-radius: 4px; border: 1px solid #52525B; display: flex; flex-direction: row; gap: 8px; padding: 12px 20px; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; color: #52525B; white-space: nowrap; transition: background 160ms ease-out;" style-hover="background: #F1F1F1; color: #52525B;">Learn more<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Orders ship right (dark) ─────────────────────── -->
+  <section style="background: #001644; padding: 80px 112px; display: flex; flex-direction: column; gap: 64px; align-items: center; overflow: hidden;" data-screen-label="Orders ship right">
+    <h2 style="margin: 0; font-size: 40px; font-weight: 500; line-height: 56px; text-align: center; color: #ffffff;">Orders ship right. Every time.</h2>
+    <div style="display: flex; flex-direction: row; gap: 32px; align-items: flex-start; align-self: stretch; height: 434px;">
+      <div style="width: 400px; display: flex; flex-direction: column; gap: 32px; align-items: flex-start; flex-shrink: 0;">
+        <div style="height: 213px; border-radius: 8px; background: #ffffff; display: flex; flex-direction: column; gap: 12px; padding: 32px 32px 25px; align-items: flex-start; align-self: stretch;">
+          <div style="display: flex; flex-direction: column; gap: 24px; align-items: flex-start; align-self: stretch;">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#155FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>
+            <span style="font-size: 24px; font-weight: 500; line-height: 32px; color: #252525;">Configurable edit window</span>
+          </div>
+          <span style="font-size: 16px; line-height: 24px; color: #52525B; opacity: 0.8;">Set it around your fulfilment cut-offs, edits never delay shipments.</span>
+        </div>
+        <div style="height: 189px; border-radius: 8px; background: #ffffff; display: flex; flex-direction: column; gap: 12px; padding: 32px 32px 25px; align-items: flex-start; align-self: stretch;">
+          <div style="display: flex; flex-direction: column; gap: 24px; align-items: flex-start; align-self: stretch;">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#155FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7"></path><path d="M4 10V3"></path><path d="M12 21v-9"></path><path d="M12 8V3"></path><path d="M20 21v-5"></path><path d="M20 12V3"></path><path d="M1 14h6"></path><path d="M9 8h6"></path><path d="M17 16h6"></path></svg>
+            <span style="font-size: 24px; font-weight: 500; line-height: 32px; color: #252525;">You control the rules</span>
+          </div>
+          <span style="font-size: 16px; line-height: 24px; color: #52525B; opacity: 0.8;">Toggle edit types on or off independently</span>
+        </div>
+      </div>
+
+      <div style="position: relative; border-radius: 12px; background: #F1F1F1; display: flex; flex-direction: column; padding: 32px; justify-content: center; align-items: center; flex-grow: 1; align-self: stretch; overflow: hidden;">
+        <div style="position: relative; width: 504px; height: 328.843px; border-radius: 8.4px; background: #FEFEFE; overflow: hidden; box-shadow: 0 8px 24px rgba(10,22,40,0.1);">
+          <div style="height: 31.5px; border-bottom: 0.35px solid #EDEDED; display: flex; flex-direction: row; padding: 7px 28px; justify-content: space-between; align-items: center;">
+            <div style="display: flex; flex-direction: row; gap: 3.024px; align-items: center;">
+              <img src="assets/w.svg" alt="W" style="width: 14.633px; height: 9.139px;">
+              <span style="font-family: 'Abhaya Libre', Georgia, serif; font-weight: 700; font-size: 9.8px; color: #252525;">Willow &amp; Wren</span>
+            </div>
+            <div style="display: flex; flex-direction: row; gap: 5.95px; align-items: center;">
+              <div style="width: 17.5px; height: 17.5px; border-radius: 50%; background: #F1F1F1; display: flex; justify-content: center; align-items: center;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#252525" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg></div>
+              <div style="width: 17.5px; height: 17.5px; border-radius: 50%; background: #F1F1F1; display: flex; justify-content: center; align-items: center;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#252525" stroke-width="2" stroke-linecap="round"><path d="M6 2l1.5 5h9L18 2"></path><path d="M4 7h16l-1.5 13H5.5z"></path></svg></div>
+              <div style="position: relative; width: 17.5px; height: 17.5px; border-radius: 50%; background: #F1F1F1; display: flex; justify-content: center; align-items: center;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#1C1B1F" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"></path></svg><div style="position: absolute; right: -1px; top: -1px; width: 3.5px; height: 3.5px; border-radius: 999px; background: #D75951; box-shadow: 0 0 0 0.525px #ffffff;"></div></div>
+            </div>
+          </div>
+          <div style="padding: 24px 28px; display: flex; flex-direction: row; gap: 22.4px; justify-content: center; align-items: flex-start;">
+            <div style="width: 205.45px; height: 249.375px; border-radius: 5.6px; background: linear-gradient(135deg, #F6F6F6 0%, #E9EDF5 55%, #D6E4FF 100%); box-shadow: 0 2.707px 10.829px rgba(184,184,184,0.5); flex-shrink: 0;"></div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 11.2px; justify-content: center; align-items: flex-start;">
+              <div style="align-self: stretch; display: flex; flex-direction: column; gap: 4px;">
+                <span style="font-family: Inter, sans-serif; font-size: 7px; color: #252525;">What do you want to do?</span>
+                <div style="height: 16px; border-radius: 2.8px; border: 0.7px solid #D1D1D1; display: flex; align-items: center; padding: 0 5px;"><span style="font-family: Inter, sans-serif; font-size: 7px; color: #617D8A;">Return</span></div>
+              </div>
+              <div style="align-self: stretch; display: flex; flex-direction: column; gap: 4px;">
+                <span style="font-family: Inter, sans-serif; font-size: 7px; color: #252525;">Why do you want to return?</span>
+                <div style="height: 16px; border-radius: 2.8px; border: 0.7px solid #D1D1D1; display: flex; align-items: center; padding: 0 5px;"><span style="font-family: Inter, sans-serif; font-size: 7px; color: #617D8A;">I changed my mind</span></div>
+              </div>
+              <div style="align-self: stretch; display: flex; flex-direction: column; gap: 4px;">
+                <span style="font-family: Inter, sans-serif; font-size: 7px; color: #252525;">Comment (Optional)</span>
+                <div style="height: 16px; border-radius: 2.8px; border: 0.7px solid #D1D1D1; display: flex; align-items: center; padding: 0 5px;"><span style="font-family: Inter, sans-serif; font-size: 7px; color: #617D8A;">Type...</span></div>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 6.3px; align-items: flex-start;">
+                <span style="font-family: Inter, sans-serif; font-size: 7px; color: #252525;">Add image (Optional)</span>
+                <div style="display: flex; flex-direction: row; gap: 8.4px; align-items: flex-end;">
+                  <div style="width: 30.8px; height: 30.8px; border-radius: 4.2px; border: 0.7px solid #D1D1D1; background: linear-gradient(135deg, #F6F6F6 0%, #E9EDF5 55%, #D6E4FF 100%);"></div>
+                  <div style="width: 31.5px; height: 31.5px; border-radius: 4.2px; border: 0.7px dashed #009076; display: flex; justify-content: center; align-items: center;"><span style="font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 14px; color: #009076;">+</span></div>
+                </div>
+              </div>
+              <div style="align-self: stretch; height: 22px; border-radius: 2.8px; background: #009076; display: flex; justify-content: center; align-items: center;"><span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 7px; color: #ffffff;">Next</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 272.557px; border-radius: 7.16px; background: #ffffff; box-shadow: 0 4.258px 14.901px rgba(0,0,0,0.12); padding: 13.794px 12.773px; display: flex; flex-direction: column; gap: 13.358px; align-items: flex-start;">
+          <span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 14.901px; line-height: 20.223px; color: #263238;">Set Custom Returns Protection Fee at Checkout</span>
+          <div style="position: relative; width: 247.012px; height: 57.278px; flex-shrink: 0;">
+            <span style="position: absolute; left: 7.16px; top: 18.766px; font-family: Inter, sans-serif; font-size: 10.74px; color: #263238;">$0</span>
+            <span style="position: absolute; right: 2.375px; top: 18.766px; font-family: Inter, sans-serif; font-size: 10.74px; color: #263238;">$25</span>
+            <div style="position: absolute; left: 6.265px; top: 38.917px; width: 239.852px; height: 8.95px; border-radius: 4.416px; background: #BFFFF3;">
+              <div style="width: 68.018px; height: 8.95px; border-radius: 4.416px; background: #00A587;"></div>
+              <div style="position: absolute; left: -3.133px; top: -4.664px; width: 21.197px; height: 21.197px; border-radius: 50%; background: #00A587; box-shadow: inset 0 0 0 3.533px #ffffff;"></div>
+              <div style="position: absolute; left: 54.146px; top: -5.503px; width: 19.689px; height: 19.689px; border-radius: 50%; background: #00A587; box-shadow: inset 0 0 0 3.234px #ffffff, 0 0 0 3.234px rgba(0,165,135,0.2);"></div>
+              <div style="position: absolute; left: 45.196px; top: -36.463px; width: 38.484px; display: flex; flex-direction: column; align-items: center;">
+                <div style="align-self: stretch; height: 26.378px; border-radius: 28.262px; background: #00A587; display: flex; justify-content: center; align-items: center;"><span style="font-family: Inter, sans-serif; font-size: 10.74px; color: #ffffff;">$5</span></div>
+                <svg width="10.598" height="5.299" viewBox="0 0 10.598 5.299" fill="#00A587"><path d="M 4.639 5.014 C 4.99 5.394 5.608 5.394 5.959 5.014 L 10.598 0 L 0 0 L 4.639 5.014 Z"></path></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#" style="width: fit-content; height: 48px; border-radius: 4px; border: 1px solid #52525B; display: flex; flex-direction: row; gap: 8px; padding: 12px 20px; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; color: #52525B; white-space: nowrap; transition: background 160ms ease-out;" style-hover="background: #F1F1F1; color: #52525B;">Book a free demo<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+  </section>
+
+  <!-- ── Integrations ─────────────────────────────────── -->
+  <section style="padding: 120px 112px 80px; display: flex; flex-direction: column; gap: 64px; align-items: center;" data-screen-label="Integrations">
+    <h2 style="margin: 0; width: 916px; font-size: 40px; font-weight: 500; line-height: 56px; text-align: center; color: #252525;">Leading carriers, shopfronts, WMS, ERP, OMS</h2>
+    <x-import component-from-global-scope="Frame1171276358" from="./components/Components.static.js" hint-size="1216px,180px"></x-import>
+  </section>
+
+  <!-- ── Returns that Drive Retention ─────────────────── -->
+  <section style="padding: 80px 112px 120px; display: flex; flex-direction: column; align-items: center; overflow: hidden;" data-screen-label="Retention CTA">
+    <div style="height: 466px; border-radius: 12px; background: radial-gradient(907.164px 1277.32px at 45.81% 75.50%, #001644 0%, #155FFF 60.78%, #00E6E4 93.43%); display: flex; flex-direction: row; padding: 80px; justify-content: space-between; align-items: center; align-self: stretch;">
+      <div style="width: 544px; display: flex; flex-direction: column; gap: 32px; align-items: flex-start; flex-shrink: 0;">
+        <div style="display: flex; flex-direction: column; gap: 16px; align-items: flex-start; align-self: stretch;">
+          <div style="display: flex; flex-direction: row; gap: 32px; align-items: center;">
+            <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;">
+              <img src="assets/470a26c5c803010a.png" alt="G2" style="width: 17.669px; height: 18px; object-fit: contain;">
+              <span style="font-size: 12px; color: #ffffff;">4.8</span>
+              <div style="display: flex; flex-direction: row; align-items: center;">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="#FFB400"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="18" height="18" viewBox="0 0 18 18" fill="#FFB400"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="18" height="18" viewBox="0 0 18 18" fill="#FFB400"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="18" height="18" viewBox="0 0 18 18" fill="#FFB400"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="18" height="18" viewBox="0 0 18 18" fill="#FFB400"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;">
+              <svg width="17.673" height="18" viewBox="0 0 18 18" fill="#FF9D28"><path d="M0 2.2v13.6L7 9z"></path><path d="M7 9l-7 6.8h13.9z" fill="#68C5ED"></path><path d="M0 2.2L7 9l6.9-6.8z" fill="#044D80"></path><path d="M13.9 2.2L7 9l6.9 6.8z" fill="#E54747"></path></svg>
+              <span style="font-size: 12px; color: #ffffff;">4.4</span>
+              <div style="display: flex; flex-direction: row; align-items: center;">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="#FFB400"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="18" height="18" viewBox="0 0 18 18" fill="#FFB400"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="18" height="18" viewBox="0 0 18 18" fill="#FFB400"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="18" height="18" viewBox="0 0 18 18" fill="#FFB400"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="18" height="18" viewBox="0 0 18 18" fill="#FFB400"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; align-self: stretch;">
+            <h2 style="margin: 0; font-size: 48px; font-weight: 500; line-height: 64px; color: #ffffff;">Returns that Drive Retention</h2>
+            <p style="margin: 0; width: 461px; font-size: 18px; line-height: 28px; color: #ffffff;">Discover how the most loved brands build customer loyalty with ClickPost</p>
+          </div>
+        </div>
+        <a href="#" style="width: fit-content; height: 48px; border-radius: 4px; border: 1px solid #CBD5E1; display: flex; flex-direction: row; gap: 8px; padding: 12px 20px; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; color: #ffffff; white-space: nowrap; transition: background 160ms ease-out;" style-hover="background: rgba(255,255,255,0.12); color: #ffffff;">Book a free demo<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </div>
+      <div style="display: flex; flex-direction: row; gap: 16px; align-items: flex-start; flex-shrink: 0;">
+        <img src="assets/99c9f96101c230c5.png" alt="G2 Users Love Us" style="width: 95px; height: 110px; object-fit: contain;">
+        <img src="assets/85f72f0004978a80.png" alt="G2 badge" style="width: 95px; height: 110px; object-fit: contain;">
+        <img src="assets/2481c3bd2ac3eb3a.png" alt="G2 badge" style="width: 95px; height: 110px; object-fit: contain;">
+        <img src="assets/a76aaf349e5e5ab9.png" alt="G2 badge" style="width: 95px; height: 110px; object-fit: contain;">
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ───────────────────────────────────────── -->
+  <footer style="background: #001644; padding: 104px 112px 64px; display: flex; flex-direction: column; gap: 64px; align-items: center;" data-screen-label="Footer">
+    <div style="display: flex; flex-direction: column; gap: 64px; justify-content: center; align-items: center; align-self: stretch;">
+      <div style="display: flex; flex-direction: row; gap: 56px; align-items: flex-start; align-self: stretch;">
+        <div style="width: 230px; display: flex; flex-direction: column; gap: 32px; align-items: flex-start; flex-shrink: 0;">
+          <div style="width: 216px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start;">
+            <div style="display: flex; flex-direction: row; gap: 16px; justify-content: center; align-items: flex-end;">
+              <img src="assets/77a69d44fe8491ae.png" alt="AICPA SOC" style="width: 100px; height: 100px; object-fit: contain;">
+              <img src="assets/ad8cd3f0e09a89f6.png" alt="GDPR" style="width: 100px; height: 100px; object-fit: contain;">
+            </div>
+            <div style="display: flex; flex-direction: row; gap: 16px; align-items: flex-end;">
+              <img src="assets/4acff783fb402015.png" alt="ISO 27001" style="width: 100px; height: 100px; object-fit: contain;">
+              <img src="assets/d2a2211ccc59a61d.png" alt="ISO 27701" style="width: 100px; height: 100px; object-fit: contain;">
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 23px; align-items: flex-start; align-self: stretch;">
+            <span style="width: 190px; font-size: 14px; font-weight: 300; color: #ffffff;">Subscribe to our newsletter for important updates</span>
+            <div style="height: 43.933px; border-radius: 4px; background: #ffffff; display: flex; flex-direction: row; padding: 4px 4px 4px 16px; align-items: center; align-self: stretch;">
+              <span style="flex-grow: 1; font-size: 12px; font-weight: 300; color: #B5BCCC;">E-mail address*</span>
+              <div style="width: 36.368px; height: 35.933px; border-radius: 4px; background: #155FFF; display: flex; justify-content: center; align-items: center; flex-shrink: 0;">
+                <img src="assets/send-path.svg" alt="Send" style="width: 16.368px; height: 13.597px;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="width: 159px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; flex-shrink: 0;">
+          <span style="font-size: 14px; font-weight: 500; color: #ffffff;">Products</span>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Multi-Carrier Integrations</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Carrier Allocation</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Shipment Tracking</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">NDR Journeys</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Returns and Exchanges</a>
+        </div>
+
+        <div style="width: 159px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; flex-shrink: 0;">
+          <span style="font-size: 14px; font-weight: 500; color: #ffffff;">Apps and Integrations</span>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Shopify Returns App</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Shopify Order Editing App</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Storefront Integrations</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">WMS/OMS Integrations</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Communication Gateways Integrations</a>
+        </div>
+
+        <div style="width: 159px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; flex-shrink: 0;">
+          <span style="font-size: 14px; font-weight: 500; color: #ffffff;">Resources</span>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Blog</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Case Studies and Testimonials</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">ROI Calculator - NDR Management</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Carriers</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Compare</a>
+        </div>
+
+        <div style="width: 159px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; flex-shrink: 0;">
+          <span style="font-size: 14px; font-weight: 500; color: #ffffff;">Legal</span>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Privacy Policy</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Cookie Policy</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Compliance Statement</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Terms &amp; Conditions</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Security Profile</a>
+        </div>
+
+        <div style="width: 70px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; flex-shrink: 0;">
+          <span style="font-size: 14px; font-weight: 500; color: #ffffff;">Company</span>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">About Us</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Press</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Infosec</a>
+          <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Careers</a>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 32px; justify-content: center; align-items: center; align-self: stretch;">
+        <div style="width: 1216px; height: 1px; background: #5B6476;"></div>
+        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; align-self: stretch;">
+          <img src="assets/wordmark-white.svg" alt="ClickPost" style="width: 130px; height: 18px;">
+          <span style="font-size: 12px; color: #B5BCCC;">©2025 Copyright ClickPost - Felurian Technology Private Limited</span>
+          <div style="display: flex; flex-direction: row; gap: 16px; align-items: center;">
+            <a href="#" style="color: #ffffff; display: flex;" style-hover="color: #ffffff; opacity: 0.7;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><path d="M17.5 6.5h.01"></path></svg></a>
+            <a href="#" style="color: #ffffff; display: flex;" style-hover="color: #ffffff; opacity: 0.7;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-6.8 7.8L22.6 22h-6.3l-4.5-6-5.2 6H2l7.2-8.2L2 2h6.4l4.2 5.6zm-1.1 18h1.8L7.3 3.8H5.4z"></path></svg></a>
+            <a href="#" style="color: #ffffff; display: flex;" style-hover="color: #ffffff; opacity: 0.7;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l.5-3.5H13V8.4c0-1 .3-1.7 1.8-1.7h1.9V3.5A25 25 0 0014 3.3c-2.8 0-4.6 1.7-4.6 4.7v2.5H7V14h2.4v8z"></path></svg></a>
+            <a href="#" style="color: #ffffff; display: flex;" style-hover="color: #ffffff; opacity: 0.7;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.2 21H2.6V9h3.6zM4.4 7.4A2.1 2.1 0 112.3 5.3a2.1 2.1 0 012.1 2.1zM21.4 21h-3.6v-6.3c0-1.6-.6-2.6-2-2.6a2.1 2.1 0 00-2 1.5 2.7 2.7 0 00-.1 1V21H10s.1-10.9 0-12h3.6v1.7a3.9 3.9 0 013.6-1.9c2.5 0 4.2 1.6 4.2 5.1z"></path></svg></a>
+            <a href="#" style="color: #ffffff; display: flex;" style-hover="color: #ffffff; opacity: 0.7;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.5 2.5 0 00-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4a2.5 2.5 0 00-1.8 1.8A26 26 0 002 12a26 26 0 00.4 4.8 2.5 2.5 0 001.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 001.8-1.8A26 26 0 0022 12a26 26 0 00-.4-4.8zM10 15.2V8.8l5.2 3.2z"></path></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;carouselAutoplay&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behaviour&quot;}}">
+class Component extends DCLogic {
+  state = { slide: 0, activeStep: 0, stepDir: "fwd" };
+
+  componentDidMount() {
+    // Respect the viewer's motion preference; guard matchMedia for old engines.
+    var reduced = false;
+    try {
+      reduced = window.matchMedia
+        && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    } catch (e) {}
+    if (this.props.carouselAutoplay && !reduced) {
+      this.timer = setInterval(() => {
+        this.setState(s => ({ slide: (s.slide + 1) % 3 }));
+      }, 6000);
+    }
+    this.watchSteps();
+  }
+
+  // Drive the sticky how-it-works stage from whichever step card is centred.
+  // Keeps its own set of in-band cards rather than trusting one callback's
+  // entries, so a fast flick in either direction still resolves to the card
+  // nearest the centre line instead of whichever fired last.
+  watchSteps() {
+    const cards = document.querySelectorAll("[data-step-card]");
+    if (!cards.length || !window.IntersectionObserver) return;
+    this.inBand = new Set();
+    this.stepObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) this.inBand.add(e.target);
+          else this.inBand.delete(e.target);
+        });
+        if (!this.inBand.size) return;
+        const mid = window.innerHeight / 2;
+        let best = null, bestDist = Infinity;
+        this.inBand.forEach(el => {
+          const r = el.getBoundingClientRect();
+          const d = Math.abs(r.top + r.height / 2 - mid);
+          if (d < bestDist) { bestDist = d; best = el; }
+        });
+        if (!best) return;
+        const n = parseInt(best.getAttribute("data-step-card"), 10);
+        if (isNaN(n)) return;
+        this.setState(prev =>
+          prev.activeStep === n
+            ? null
+            : { activeStep: n, stepDir: n > prev.activeStep ? "fwd" : "back" }
+        );
+      },
+      // a narrow band just above centre; with 208px-tall cards this gives each
+      // step a long stretch of scroll before the next one takes over
+      { rootMargin: "-42% 0px -50% 0px", threshold: 0 }
+    );
+    cards.forEach(c => this.stepObserver.observe(c));
+  }
+
+  componentWillUnmount() {
+    if (this.timer) clearInterval(this.timer);
+    if (this.stepObserver) this.stepObserver.disconnect();
+  }
+
+  renderVals() {
+    const i = this.state.slide;
+    const dot = n => (n === i ? "#155FFF" : "rgba(37,37,37,0.2)");
+    return {
+      activeStep: this.state.activeStep,
+      stepDir: this.state.stepDir,
+      trackTransform: "translateX(" + (-i * (1072 + 48)) + "px)",
+      dot0: dot(0), dot1: dot(1), dot2: dot(2),
+      goto0: () => this.setState({ slide: 0 }),
+      goto1: () => this.setState({ slide: 1 }),
+      goto2: () => this.setState({ slide: 2 }),
+    };
+  }
+}
+</script>
+</body>
+</html>

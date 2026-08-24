@@ -1,0 +1,507 @@
+/* ========================================================================
+   ClickPost Design System — Colors & Type
+   Load this in every ClickPost artifact. Goes on top of any reset.
+   ======================================================================== */
+
+/* Webfonts
+   ---------
+   Inter and Libre Bodoni are self-hosted — see fonts/.
+   Inter is the primary typeface: ALL headings and ALL body, on web and collateral.
+   No CDN font is required — everything below is self-hosted. */
+
+/* Inter — the primary typeface (headings + body), self-hosted, two optical cuts.
+   'Inter'          → 18pt text cut, used for body/UI and anything < 24px
+   'Inter Display'  → 24pt display cut, used for headings ≥ 24px
+   Weights: Light 300 · Regular 400 · Medium 500 · SemiBold 600 (Bold 700 banned). */
+
+/* Text cut (18pt) → 'Inter' */
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter_18pt-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter_18pt-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter_18pt-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter_18pt-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Display cut (24pt) → 'Inter Display' */
+@font-face {
+  font-family: 'Inter Display';
+  src: url('fonts/Inter_24pt-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Display';
+  src: url('fonts/Inter_24pt-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Display';
+  src: url('fonts/Inter_24pt-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter Display';
+  src: url('fonts/Inter_24pt-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Libre Bodoni — italic accent only (one or two emphasis words mid-headline) */
+@font-face {
+  font-family: 'Libre Bodoni';
+  src: url('fonts/LibreBodoni-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Libre Bodoni';
+  src: url('fonts/LibreBodoni-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Libre Bodoni';
+  src: url('fonts/LibreBodoni-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Libre Bodoni';
+  src: url('fonts/LibreBodoni-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* =====================================================================
+     COLOR — primary
+     ===================================================================== */
+  --cp-blue:           #155FFF;  /* the only brand color */
+  --cp-blue-hover:     #0A3FCC;  /* button hover / pressed */
+  --cp-blue-press:     #082FA8;
+  --cp-blue-50:        #EEF3FF;  /* light tint — backgrounds, chips */
+  --cp-blue-100:       #D6E4FF;
+  --cp-blue-200:       #93B8FF;  /* secondary bars in charts */
+  --cp-blue-300:       #5B92FF;
+  --cp-blue-400:       #3374FF;
+
+  /* Dark navy — ONLY for dramatic creative backgrounds (event posts, dark decks) */
+  --cp-navy:           #011644;  /* per brand spec — NOT used on web canvas */
+  --cp-navy-soft:      #0A1F4F;
+
+  /* =====================================================================
+     COLOR — neutrals
+     -----
+     Canonical brand neutral scale (N-0 → N-100). Use these for backgrounds,
+     borders, dividers, surfaces, and any non-text gray.
+     -----
+     For TEXT, use the two specific tokens below the scale:
+        • --cp-ink       = #252525 (N-100) — headlines
+        • --cp-ink-body  = #52525B          — body copy (sits between N-100 and N-90)
+     Don't use mid-scale grays for body text — contrast suffers.
+     ===================================================================== */
+  --cp-n-0:            #FFFFFF;  /* canvas */
+  --cp-n-10:           #FDFDFD;
+  --cp-n-20:           #FBFBFB;
+  --cp-n-30:           #F6F6F6;
+  --cp-n-40:           #F1F1F1;  /* surface alt */
+  --cp-n-50:           #D3D3D3;  /* strong border, divider on white */
+  --cp-n-60:           #BEBEBE;
+  --cp-n-70:           #929292;  /* placeholder / disabled */
+  --cp-n-80:           #6E6E6E;
+  --cp-n-90:           #494949;
+  --cp-n-100:          #252525;
+
+  /* Text — fixed canonical values */
+  --cp-ink:            var(--cp-n-100);   /* #252525 — headlines */
+  --cp-ink-body:       #52525B;           /* body copy */
+
+  /* Surface — the alt section background */
+  --cp-surface:        var(--cp-n-40);    /* #F1F1F1 */
+
+  /* Legacy slate scale kept for charts, deep dark canvases, and existing
+     tokens that point at it. Do NOT use for body text. */
+  --cp-ink-900:        #0A1628;
+  --cp-ink-700:        #1E293B;
+  --cp-ink-600:        #52525B;
+  --cp-ink-500:        #475569;
+  --cp-ink-400:        var(--cp-n-70);
+  --cp-ink-300:        var(--cp-n-70);
+  --cp-ink-200:        #E2E8F0;
+  --cp-ink-100:        #F1F5F9;
+  --cp-ink-50:         var(--cp-n-40);
+
+  --cp-white:          #FFFFFF;  /* canvas — always */
+  --cp-black:          #000000;
+
+  /* =====================================================================
+     COLOR — semantic (use sparingly, never as decoration)
+     ===================================================================== */
+  --cp-success:        #1CB16E;
+  --cp-success-bg:     #DCFCE7;
+  --cp-warning:        #D97706;
+  --cp-warning-bg:     #FEF3C7;
+  --cp-error:          #F44336;
+  --cp-error-bg:       #FEE2E2;
+
+  /* Form input neutrals — canonical */
+  --cp-input-stroke:   #D0D5DD;
+  --cp-input-placeholder: #A7A7AB;
+
+  /* =====================================================================
+     COLOR — semantic aliases
+     ===================================================================== */
+  --color-bg:          var(--cp-white);
+  --color-bg-alt:      var(--cp-surface);   /* #F1F1F1 */
+  --color-bg-dark:     var(--cp-navy);
+  --color-fg:          var(--cp-ink);       /* #252525 — headlines */
+  --color-fg-muted:    var(--cp-ink-body);  /* #52525B — body */
+  --color-fg-subtle:   var(--cp-ink-300);
+  --color-fg-inverse:  var(--cp-white);
+  --color-border:      var(--cp-n-50);
+  --color-accent:      var(--cp-blue);
+  --color-accent-bg:   var(--cp-blue-50);
+
+  /* =====================================================================
+     TYPE — families
+     -----
+     Per ClickPost brand spec:
+       • Inter — the primary typeface. ALL headings and ALL body, everywhere
+                 (web + marketing collateral). Weights: Light 300, Regular 400,
+                 Medium 500. Semibold 600 ONLY for H4 tags. Never Bold 700.
+       • Libre Bodoni Italic — ONE or TWO emphasis words in a headline only
+                                Never full headlines. Never body. Never on .com.
+     ===================================================================== */
+  --font-web:          'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-marketing:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display:      'Inter Display', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-emphasis:     'Libre Bodoni', 'Playfair Display', Georgia, serif;
+
+  /* Default aliases (overridable per surface) */
+  --font-heading:      var(--font-display);
+  --font-body:         var(--font-web);
+  --font-accent:       var(--font-emphasis);
+
+  /* =====================================================================
+     TYPE — scale (16px base, slightly tightened headings)
+     ===================================================================== */
+  --text-xs:           12px;
+  --text-sm:           14px;
+  --text-base:         16px;
+  --text-md:           18px;
+  --text-lg:           20px;
+  --text-xl:           24px;
+  --text-2xl:          28px;
+  --text-3xl:          32px;
+  --text-4xl:          40px;
+  --text-5xl:          48px;
+  --text-6xl:          60px;  /* hero — the maximum */
+  --text-7xl:          60px;  /* alias — hero is the ceiling */
+  --text-stat:         48px;
+
+  --weight-light:      300;
+  --weight-regular:    400;
+  --weight-medium:     500;
+  --weight-semibold:   600;  /* marketing collateral headings ONLY — never on web. Bold 700 banned. */
+
+  /* Heading weight is surface-driven: Medium on web, Semibold on collateral.
+     Overridden in .cp-surface-mktg / .cp-surface-dark below. */
+  --weight-heading:    var(--weight-medium);
+
+  --leading-tight:     1.1;
+  --leading-snug:      1.2;
+  --leading-normal:    1.5;
+  --leading-relaxed:   1.6;
+
+  --tracking-tighter:  -0.02em;
+  --tracking-tight:    -0.01em;
+  --tracking-normal:   0;
+  --tracking-wide:     0.08em;
+
+  /* =====================================================================
+     SPACING — 4px base unit
+     ===================================================================== */
+  --space-1:           4px;
+  --space-2:           8px;
+  --space-3:           12px;
+  --space-4:           16px;
+  --space-5:           20px;
+  --space-6:           24px;
+  --space-8:           32px;
+  --space-10:          40px;
+  --space-12:          48px;
+  --space-16:          64px;
+  --space-20:          80px;
+  --space-24:          96px;
+  --space-32:          128px;
+
+  --container:         1280px;
+  --container-text:    640px;
+
+  /* =====================================================================
+     RADIUS — rectangle bias. CTAs are 4px, never pill.
+     ===================================================================== */
+  --radius-sm:         2px;
+  --radius:            4px;   /* CTA buttons, inputs default */
+  --radius-md:         6px;
+  --radius-lg:         8px;   /* cards in product UI */
+  --radius-xl:         12px;  /* cards in marketing */
+  --radius-2xl:        16px;
+  --radius-full:       9999px;
+
+  /* =====================================================================
+     SHADOW — ink-tinted, soft
+     ===================================================================== */
+  --shadow-xs:         0 1px 2px rgba(10, 22, 40, 0.04);
+  --shadow-sm:         0 1px 3px rgba(10, 22, 40, 0.06), 0 1px 2px rgba(10, 22, 40, 0.04);
+  --shadow-md:         0 4px 12px rgba(10, 22, 40, 0.08);
+  --shadow-lg:         0 8px 24px rgba(10, 22, 40, 0.10);
+  --shadow-xl:         0 16px 48px rgba(10, 22, 40, 0.12);
+  --shadow-blue:       0 4px 16px rgba(21, 95, 255, 0.24);
+
+  /* =====================================================================
+     MOTION
+     ===================================================================== */
+  --dur-fast:          160ms; /* @kind other */
+  --dur-base:          240ms; /* @kind other */
+  --dur-slow:          480ms; /* @kind other */
+  --ease-out:          cubic-bezier(0, 0, 0.2, 1); /* @kind other */
+  --ease-in-out:       cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --ease-spring:       cubic-bezier(0.34, 1.56, 0.64, 1); /* @kind other */
+}
+
+/* =====================================================================
+   Surface presets — pick one on the root element of any artifact.
+   <body class="cp-surface-web">    → website (Inter everywhere)
+   <body class="cp-surface-mktg">   → ads/social/decks (Inter headings + body)
+   <body class="cp-surface-dark">   → dark creative (navy canvas, white text)
+   ===================================================================== */
+.cp-surface-web {
+  --font-heading: var(--font-display);
+  --font-body:    var(--font-web);
+  --weight-heading: var(--weight-medium);   /* web headings: Medium */
+  background: var(--cp-white);
+  color: var(--cp-ink);
+  font-family: var(--font-body);
+}
+
+.cp-surface-mktg {
+  --font-heading: var(--font-display);   /* Inter Display (24pt cut) */
+  --font-body:    var(--font-marketing); /* Inter (18pt cut) */
+  --weight-heading: var(--weight-semibold); /* collateral headings: Semibold OK */
+  background: var(--cp-white);
+  color: var(--cp-ink);
+  font-family: var(--font-body);
+}
+
+.cp-surface-dark {
+  --font-heading: var(--font-display);
+  --font-body:    var(--font-marketing);
+  --weight-heading: var(--weight-semibold); /* collateral headings: Semibold OK */
+  background: var(--cp-navy);
+  color: var(--cp-white);
+  font-family: var(--font-body);
+  --color-bg: var(--cp-navy);
+  --color-fg: var(--cp-white);
+  --color-fg-muted: rgba(255,255,255,0.72);
+  --color-fg-subtle: rgba(255,255,255,0.48);
+  --color-border: rgba(255,255,255,0.12);
+}
+
+/* =====================================================================
+   Semantic type roles — apply directly with classes.
+   On the website prefer plain tag selectors; on collateral, use classes.
+   ===================================================================== */
+.cp-overline {
+  font-family: var(--font-heading);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--cp-ink-body);  /* #52525B — default for website */
+}
+.cp-overline--accent { color: var(--cp-blue); }   /* opt-in for marketing surfaces */
+
+/* On marketing collateral surfaces, overlines default to blue */
+.cp-surface-mktg .cp-overline,
+.cp-surface-dark .cp-overline { color: var(--cp-blue); }
+
+.cp-h1, h1.cp {
+  font-family: var(--font-heading);
+  font-size: clamp(40px, 5vw, 60px);
+  font-weight: var(--weight-heading);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-fg);
+  text-wrap: balance;
+}
+.cp-h2, h2.cp {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: var(--weight-heading);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-fg);
+  text-wrap: balance;
+}
+.cp-h3, h3.cp {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-heading);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-fg);
+}
+.cp-h4, h4.cp {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-heading);  /* Medium on web, Semibold on collateral */
+  line-height: var(--leading-snug);
+  color: var(--color-fg);
+}
+
+.cp-lead {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--color-fg-muted);
+}
+.cp-body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-fg);
+}
+.cp-small {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: var(--color-fg-muted);
+}
+.cp-caption {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  color: var(--color-fg-subtle);
+}
+
+.cp-stat {
+  font-family: var(--font-heading);
+  font-size: clamp(36px, 4vw, 48px);
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  letter-spacing: var(--tracking-tighter);
+  color: var(--cp-blue);
+}
+
+/* Emphasis word inside a headline. Never wrap a whole headline.
+   Set ~1.12× the surrounding sans size because Libre Bodoni's
+   italic forms read optically smaller than Inter at the same em.
+   Pair only with Inter Light / Regular / Medium (300/400/500) —
+   never with Semibold or Bold — so the italic carries the weight. */
+.cp-emph {
+  font-family: var(--font-emphasis);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--cp-blue);
+  font-size: 1.12em;
+  line-height: 0.9;
+  letter-spacing: -0.015em;
+  margin: 0 0.02em;
+}
+
+/* =====================================================================
+   CTA button — rectangle, 4px radius. Always.
+   ===================================================================== */
+.cp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);  /* 500 — modern, clean (never Semibold) */
+  line-height: 1;
+  padding: 14px 22px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.cp-btn:active { transform: scale(0.98); }
+.cp-btn:focus-visible {
+  outline: 2px solid var(--cp-blue);
+  outline-offset: 2px;
+}
+.cp-btn--primary {
+  background: var(--cp-blue);
+  color: var(--cp-white);
+}
+.cp-btn--primary:hover {
+  background: var(--cp-blue-hover);
+  box-shadow: var(--shadow-blue);
+}
+.cp-btn--secondary {
+  background: transparent;
+  color: var(--cp-ink-body);          /* #52525B */
+  border-color: var(--cp-ink-body);   /* #52525B */
+}
+.cp-btn--secondary:hover {
+  color: var(--cp-ink);
+  border-color: var(--cp-ink);
+  background: rgba(82, 82, 91, 0.04);
+}
+.cp-btn--ghost {
+  background: transparent;
+  color: var(--cp-ink);
+}
+.cp-btn--ghost:hover {
+  background: var(--cp-ink-100);
+}
+.cp-btn--inverse { /* on dark backgrounds */
+  background: var(--cp-white);
+  color: var(--cp-blue);
+}
+.cp-btn--inverse:hover {
+  background: var(--cp-blue-50);
+}
+.cp-btn--sm { padding: 10px 16px; font-size: var(--text-sm); }
+.cp-btn--lg { padding: 16px 28px; font-size: var(--text-md); }
