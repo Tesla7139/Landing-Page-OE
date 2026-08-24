@@ -962,14 +962,15 @@ class Component extends DCLogic {
   //   1. window.__CP_DEMO_ORIGIN__  — set it from a <script> to override
   //   2. localhost                  — the dev server on :3001
   //   3. anything else              — the deployed demo (Vercel project
-  //      "oe-demo", team clickpost-order-editing). Use the public alias:
-  //      oe-demo-clickpost-order-editing.vercel.app 302s behind team SSO.
+  //      "oe-demo-live", team clickpost-order-editing). Use the bare alias:
+  //      the team-scoped one 302s behind SSO. The older "oe-demo" project
+  //      is wedged — its builds never leave UNKNOWN — hence a fresh project.
   static demoOrigin() {
     if (typeof window === "undefined") return "";
     if (window.__CP_DEMO_ORIGIN__) return window.__CP_DEMO_ORIGIN__;
     const h = window.location.hostname;
     if (h === "localhost" || h === "127.0.0.1") return "http://127.0.0.1:3001";
-    return "https://oe-demo-eight.vercel.app";
+    return "https://oe-demo-live.vercel.app";
   }
 
   slugForStore(v) {
