@@ -984,15 +984,15 @@ class Component extends DCLogic {
   // it here. Resolution order:
   //   1. window.__CP_DEMO_ORIGIN__  — set it from a <script> to override
   //   2. localhost                  — the dev server on :3001
-  //   3. anything else              — TODO: the deployed demo's origin.
-  //      Left empty on purpose: an empty origin keeps the placeholder panel
-  //      visible instead of iframing a URL that cannot resolve in production.
+  //   3. anything else              — the deployed demo (Vercel project
+  //      "oe-demo", team clickpost-order-editing). Use the public alias:
+  //      oe-demo-clickpost-order-editing.vercel.app 302s behind team SSO.
   static demoOrigin() {
     if (typeof window === "undefined") return "";
     if (window.__CP_DEMO_ORIGIN__) return window.__CP_DEMO_ORIGIN__;
     const h = window.location.hostname;
     if (h === "localhost" || h === "127.0.0.1") return "http://127.0.0.1:3001";
-    return "";
+    return "https://oe-demo-eight.vercel.app";
   }
 
   slugForStore(v) {
