@@ -36,6 +36,64 @@
   @keyframes cp-mq-right { from { transform: translateX(-50%); }    to { transform: translateX(0); } }
   .cp-mq:hover .cp-mq__track { animation-play-state: paused; }
 
+  /* ── "Take it for a spin" live demo ────────────────────────────────────
+     The store lookup is server-side (the demo app scrapes the URL you
+     type), so this drives that app in an iframe rather than reimplementing
+     it. Origin is set once in the component script. */
+  .cp-spin__form { display: flex; flex-direction: row; align-items: center; gap: 6px;
+                   width: 420px; padding: 5px; border-radius: 9999px;
+                   background: #ffffff; border: 1px solid #D6E4FF;
+                   box-shadow: 0 10px 40px -14px rgba(15,15,25,0.16);
+                   transition: border-color 160ms ease-out, box-shadow 160ms ease-out; }
+  .cp-spin__form:focus-within { border-color: #155FFF;
+                                box-shadow: 0 14px 50px -14px rgba(21,95,255,0.3); }
+  .cp-spin__input { flex: 1; height: 44px; padding: 0 6px 0 18px; border: none; outline: none;
+                    background: transparent; font-family: Poppins, sans-serif; font-size: 15px;
+                    color: #252525; min-width: 0; }
+  .cp-spin__input::placeholder { color: #A7A7AB; }
+  .cp-spin__go { display: inline-flex; align-items: center; justify-content: center;
+                 width: 44px; height: 44px; flex-shrink: 0; border: none; border-radius: 9999px;
+                 cursor: pointer; background: #155FFF; color: #ffffff;
+                 transition: background 160ms ease-out, transform 160ms ease-out; }
+  .cp-spin__go:hover { background: #0A3FCC; }
+  .cp-spin__go:active { transform: scale(0.94); }
+
+  /* the blue band the stage sits in */
+  .cp-spin__band { align-self: stretch; margin: 0 40px; padding: 32px 40px 40px;
+                   border-radius: 16px; display: flex; flex-direction: column; gap: 24px;
+                   align-items: center;
+                   background: linear-gradient(160deg, #EEF3FF 0%, #93B8FF 46%, #3374FF 100%); }
+
+  /* pill row: example stores + a real CTA, mirroring the reference's tabs */
+  .cp-spin__tabs { display: inline-flex; flex-direction: row; align-items: center; gap: 4px;
+                   padding: 5px; border-radius: 9999px; background: rgba(255,255,255,0.72);
+                   border: 1px solid rgba(255,255,255,0.9); backdrop-filter: blur(6px); }
+  .cp-spin__tab { height: 38px; padding: 0 18px; border: none; border-radius: 9999px; cursor: pointer;
+                  background: transparent; font-family: Poppins, sans-serif; font-size: 14px;
+                  font-weight: 500; color: #252525; white-space: nowrap; display: inline-flex;
+                  align-items: center; transition: background 160ms ease-out, color 160ms ease-out; }
+  .cp-spin__tab:hover { background: #ffffff; }
+  .cp-spin__tab--cta { background: #155FFF; color: #ffffff; text-decoration: none; }
+  .cp-spin__tab--cta:hover { background: #0A3FCC; color: #ffffff; }
+
+  /* browser-chrome frame around the embedded demo */
+  .cp-spin__stage { position: relative; align-self: stretch; height: 720px; border-radius: 12px;
+                    overflow: hidden; background: #ffffff;
+                    box-shadow: 0 24px 60px rgba(10,22,40,0.22); }
+  .cp-spin__chrome { display: flex; flex-direction: row; align-items: center; gap: 8px;
+                     height: 44px; padding: 0 16px; background: #ffffff;
+                     border-bottom: 1px solid #F1F1F1; }
+  .cp-spin__dot { width: 10px; height: 10px; border-radius: 9999px; background: #D3D3D3; flex-shrink: 0; }
+  .cp-spin__bar { flex: 1; max-width: 360px; margin: 0 auto; height: 26px; border-radius: 9999px;
+                  background: #F6F6F6; display: flex; align-items: center; justify-content: center;
+                  font-size: 12px; color: #929292; }
+  .cp-spin__frame { width: 100%; height: calc(100% - 44px); border: 0; display: block; background: #ffffff; }
+  .cp-spin__empty { position: absolute; left: 0; right: 0; top: 44px; bottom: 0; display: flex;
+                    flex-direction: column; gap: 8px; justify-content: center; align-items: center;
+                    background: #F6F6F6; text-align: center; padding: 0 40px; }
+  .cp-spin__stage[data-demo-open="1"] .cp-spin__empty { display: none; }
+  .cp-spin__stage[data-demo-open="0"] .cp-spin__frame { visibility: hidden; }
+
   /* ── Integrations grid stays STATIC ────────────────────────────────────
      Defensive: neutralises any marquee wiring that an older cached bundle
      might still inject into this section, so the logos cannot drift. */
@@ -296,6 +354,44 @@
       </div>
     </div>
   </section>
+
+  <!-- ── Take it for a spin (live demo) ───────────────────── -->
+  <section style="background: #ffffff; padding: 80px 0 96px; display: flex; flex-direction: column; gap: 40px; align-items: center;" data-screen-label="Live demo">
+
+    <div style="align-self: stretch; padding: 0 112px; display: flex; flex-direction: row; gap: 48px; justify-content: space-between; align-items: flex-end;">
+      <h2 style="margin: 0; max-width: 620px; font-size: 48px; font-weight: 500; line-height: 60px; letter-spacing: -0.01em; color: #252525;">Take order editing for a spin</h2>
+      <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start; flex-shrink: 0;">
+        <span style="font-size: 15px; font-weight: 500; line-height: 22px; color: #252525;">See how it would look on your brand</span>
+        <div class="cp-spin__form">
+          <input id="cp-demo-url" class="cp-spin__input" type="text" inputmode="url" spellcheck="false"
+                 placeholder="Enter your store URL…" aria-label="Your store URL" onKeyDown="{{ onDemoKey }}">
+          <button type="button" class="cp-spin__go" aria-label="See it live" onClick="{{ openDemo }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cp-spin__band">
+      <div class="cp-spin__tabs">
+        <button type="button" class="cp-spin__tab" data-store="allbirds.com" onClick="{{ pickDemo }}">Allbirds</button>
+        <button type="button" class="cp-spin__tab" data-store="brooklinen.com" onClick="{{ pickDemo }}">Brooklinen</button>
+        <button type="button" class="cp-spin__tab" data-store="gymshark.com" onClick="{{ pickDemo }}">Gymshark</button>
+        <a href="#" class="cp-spin__tab cp-spin__tab--cta">Book a free demo</a>
+      </div>
+      <div class="cp-spin__stage" data-demo-open="{{ demoOpen }}">
+        <div class="cp-spin__chrome">
+          <span class="cp-spin__dot"></span><span class="cp-spin__dot"></span><span class="cp-spin__dot"></span>
+          <span class="cp-spin__bar">{{ demoLabel }}</span>
+        </div>
+        <div class="cp-spin__empty">
+          <span style="font-size: 18px; font-weight: 500; color: #252525;">Your storefront, with editing switched on</span>
+          <span style="font-size: 15px; color: #52525B;">Enter a store URL above, or pick one of the examples.</span>
+        </div>
+        <iframe class="cp-spin__frame" src="{{ demoSrc }}" title="Order editing demo"
+                loading="lazy" referrerpolicy="no-referrer"></iframe>
+      </div>
+    </div>
+  </section>
+
 
   <!-- ── How order editing works ──────────────────────── -->
     <section style="background: #ffffff; padding: 80px 112px; display: flex; flex-direction: column; gap: 64px; align-items: center;" data-screen-label="How it works" data-active-step="{{ activeStep }}" data-step-dir="{{ stepDir }}">
@@ -822,7 +918,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;carouselAutoplay&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behaviour&quot;}}">
 class Component extends DCLogic {
-  state = { slide: 0, activeStep: 0, stepDir: "fwd" };
+  state = { slide: 0, activeStep: 0, stepDir: "fwd", demoStore: "" };
 
   componentDidMount() {
     // Respect the viewer's motion preference; guard matchMedia for old engines.
@@ -882,10 +978,66 @@ class Component extends DCLogic {
     if (this.stepObserver) this.stepObserver.disconnect();
   }
 
+  // ── live demo ────────────────────────────────────────────────────────
+  // The store lookup runs server-side in the demo app (POST /api/demo scrapes
+  // the URL), so we hand the store off to that app instead of reimplementing
+  // it here. Resolution order:
+  //   1. window.__CP_DEMO_ORIGIN__  — set it from a <script> to override
+  //   2. localhost                  — the dev server on :3001
+  //   3. anything else              — TODO: the deployed demo's origin.
+  //      Left empty on purpose: an empty origin keeps the placeholder panel
+  //      visible instead of iframing a URL that cannot resolve in production.
+  static demoOrigin() {
+    if (typeof window === "undefined") return "";
+    if (window.__CP_DEMO_ORIGIN__) return window.__CP_DEMO_ORIGIN__;
+    const h = window.location.hostname;
+    if (h === "localhost" || h === "127.0.0.1") return "http://127.0.0.1:3001";
+    return "";
+  }
+
+  slugForStore(v) {
+    return String(v).trim()
+      .replace(/^https?:\/\//i, "")
+      .replace(/^www\./i, "")
+      .replace(/\/+$/, "");
+  }
+
+  openDemo() {
+    const el = document.getElementById("cp-demo-url");
+    const store = this.slugForStore(el && el.value);
+    if (!store) return;
+    this.setState({ demoStore: store });
+  }
+
+  // example-store pills all share one handler; the store rides on data-store
+  pickDemo(e) {
+    const el = e && (e.currentTarget || e.target);
+    const store = el && el.getAttribute("data-store");
+    if (!store) return;
+    const input = document.getElementById("cp-demo-url");
+    if (input) input.value = store;
+    this.setState({ demoStore: store });
+  }
+
+  onDemoKey(e) {
+    if (e && e.key === "Enter") {
+      e.preventDefault();
+      this.openDemo();
+    }
+  }
+
   renderVals() {
     const i = this.state.slide;
     const dot = n => (n === i ? "#155FFF" : "rgba(37,37,37,0.2)");
     return {
+      demoOpen: this.state.demoStore && Component.demoOrigin() ? "1" : "0",
+      demoLabel: this.state.demoStore || "yourstore.com",
+      demoSrc: this.state.demoStore && Component.demoOrigin()
+        ? Component.demoOrigin() + "/product-demo/" + encodeURIComponent(this.state.demoStore)
+        : "about:blank",
+      openDemo: () => this.openDemo(),
+      pickDemo: (e) => this.pickDemo(e),
+      onDemoKey: (e) => this.onDemoKey(e),
       activeStep: this.state.activeStep,
       stepDir: this.state.stepDir,
       trackTransform: "translateX(" + (-i * (1072 + 48)) + "px)",
