@@ -59,7 +59,7 @@
   .cp-spin__go:active { transform: scale(0.94); }
 
   /* the blue band the stage sits in */
-  .cp-spin__band { align-self: stretch; max-width: 100%; padding: 32px 40px 40px;
+  .cp-spin__band { align-self: stretch; max-width: 100%; padding: 26px 24px 32px;
                    border-radius: 16px; display: flex; flex-direction: column; gap: 24px;
                    align-items: center;
                    background: linear-gradient(160deg, #EEF3FF 0%, #93B8FF 46%, #3374FF 100%); }
@@ -78,7 +78,7 @@
   .cp-spin__tab--cta:hover { background: #0A3FCC; color: #ffffff; }
 
   /* browser-chrome frame around the embedded demo */
-  .cp-spin__stage { position: relative; align-self: stretch; height: 720px; border-radius: 12px;
+  .cp-spin__stage { position: relative; align-self: stretch; height: 840px; border-radius: 12px;
                     overflow: hidden; background: #ffffff;
                     box-shadow: 0 24px 60px rgba(10,22,40,0.22); }
   .cp-spin__chrome { display: flex; flex-direction: row; align-items: center; gap: 8px;
@@ -373,6 +373,7 @@
 
     <div class="cp-spin__band">
       <div class="cp-spin__tabs">
+        <button type="button" class="cp-spin__tab" data-store="marsghc.com" onClick="{{ pickDemo }}">Mars by GHC</button>
         <button type="button" class="cp-spin__tab" data-store="allbirds.com" onClick="{{ pickDemo }}">Allbirds</button>
         <button type="button" class="cp-spin__tab" data-store="brooklinen.com" onClick="{{ pickDemo }}">Brooklinen</button>
         <button type="button" class="cp-spin__tab" data-store="gymshark.com" onClick="{{ pickDemo }}">Gymshark</button>
@@ -919,7 +920,10 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;carouselAutoplay&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behaviour&quot;}}">
 class Component extends DCLogic {
-  state = { slide: 0, activeStep: 0, stepDir: "fwd", demoStore: "" };
+  state = { slide: 0, activeStep: 0, stepDir: "fwd",
+            // load a real store on arrival so the panel is never empty;
+            // /product-demo/<store> auto-opens the editing view on mount
+            demoStore: "marsghc.com" };
 
   componentDidMount() {
     // Respect the viewer's motion preference; guard matchMedia for old engines.
