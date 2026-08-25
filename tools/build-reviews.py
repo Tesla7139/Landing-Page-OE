@@ -37,20 +37,42 @@ def initials(name, override=None):
     return (parts[0][0] + parts[-1][0]).upper()
 
 
+# Tints for the initials discs, keyed off the name so a store always gets the
+# same colour. Placeholder until real logos land.
+TINTS = [
+    ("#D6E4FF", "#155FFF"), ("#DCF3EC", "#00845F"), ("#FFE8D6", "#B4530A"),
+    ("#EDE0FF", "#6B3FCC"), ("#FFE0EA", "#B32B52"), ("#E2F0D9", "#3E7A22"),
+    ("#FFF1CC", "#8A6100"), ("#DCEFF5", "#0A6B85"),
+]
+
+
+def tint(name):
+    h = 0
+    for ch in name:
+        h = (h * 31 + ord(ch)) & 0xFFFFFFFF
+    return TINTS[h % len(TINTS)]
+
+
 def avatar_html(r):
     if r.get("avatar"):
         return (
             '<span class="cp-rw__face" style="background: url({src}) center / cover no-repeat;" '
             'role="img" aria-label="{name}"></span>'
         ).format(src=html.escape(r["avatar"], quote=True), name=html.escape(r["name"], quote=True))
-    return '<span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">{ini}</span>'.format(
-        ini=html.escape(initials(r["name"], r.get("initials")))
-    )
+    bg, fg = tint(r["name"])
+    return (
+        '<span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" '
+        'style="background: {bg}; color: {fg};">{ini}</span>'
+    ).format(bg=bg, fg=fg, ini=html.escape(initials(r["name"], r.get("initials"))))
 
 
 def logo_html(r):
     if not r.get("logo"):
-        return ""
+        # placeholder: a neutral mark-shaped block. Deliberately NOT the store
+        # name again - that already sits two inches to the left. Adding a
+        # "logo" field to the entry replaces this.
+        return '<span class="cp-rw__logoslot" aria-hidden="true"></span>'
+
     return '<img class="cp-rw__logo" src="{src}" alt="{alt}">'.format(
         src=html.escape(r["logo"], quote=True),
         alt=html.escape(r.get("logoAlt", ""), quote=True),

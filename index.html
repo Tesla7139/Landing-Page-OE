@@ -239,14 +239,20 @@
   .cp-rw__who { display: flex; flex-direction: row; align-items: center; gap: 12px; min-width: 0; }
   .cp-rw__face { width: 44px; height: 44px; border-radius: 9999px; flex-shrink: 0; display: block; }
   .cp-rw__face--txt { display: flex; align-items: center; justify-content: center;
-                      background: #D6E4FF; color: #155FFF; font-size: 15px; font-weight: 500;
-                      letter-spacing: 0.02em; }
+                      font-size: 15px; font-weight: 600; letter-spacing: 0.02em; }
   .cp-rw__id { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
   .cp-rw__name { font-size: 15px; font-weight: 500; line-height: 22px; color: #252525;
                  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .cp-rw__role { font-size: 12px; line-height: 18px; color: #52525B;
                  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .cp-rw__logo { max-width: 104px; max-height: 26px; object-fit: contain; flex-shrink: 0; }
+  /* stands in for a brand mark until a logo file exists for that store */
+  .cp-rw__logoslot { position: relative; flex-shrink: 0; width: 76px; height: 24px;
+                     border-radius: 6px; background: #F4F4F5; }
+  .cp-rw__logoslot::before { content: ""; position: absolute; left: 10px; top: 8px;
+                             width: 22px; height: 8px; border-radius: 3px; background: #E2E2E5; }
+  .cp-rw__logoslot::after  { content: ""; position: absolute; left: 38px; top: 8px;
+                             width: 28px; height: 8px; border-radius: 3px; background: #EBEBEE; }
 
 </style>
 </helmet>
@@ -560,8 +566,8 @@
           <blockquote class="cp-rw__text">Mohit and the team at ClickPost are an exceptional team of developers and nice people to boot. They listen to feedback for improvement and new features, and have built genuinely useful tools for Shopify stores.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">RS</span><span class="cp-rw__id"><span class="cp-rw__name">Renue By Science</span><span class="cp-rw__role">March 10, 2026</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #D6E4FF; color: #155FFF;">RS</span><span class="cp-rw__id"><span class="cp-rw__name">Renue By Science</span><span class="cp-rw__role">March 10, 2026</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -569,8 +575,8 @@
           <blockquote class="cp-rw__text">Clickpost been a great upgrade for our store. Customers can log in, check their info, and manage everything easily, which has made the whole experience feel smoother and more professional.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">GS</span><span class="cp-rw__id"><span class="cp-rw__name">GHAR SOAPS</span><span class="cp-rw__role">February 14, 2026</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE8D6; color: #B4530A;">GS</span><span class="cp-rw__id"><span class="cp-rw__name">GHAR SOAPS</span><span class="cp-rw__role">February 14, 2026</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -578,8 +584,8 @@
           <blockquote class="cp-rw__text">Been using Clickpost for a few months now and it does exactly what we needed. Customers can update addresses or fix mistakes without us having to jump in every time, which saves a lot of back and forth. Setup was pretty easy, and when I had a couple questions, Smit replied super fast and walked me through it. The order editing app runs smoothly and hasn&#x27;t caused any issues with our checkout or fulfillment. Honestly just a solid app that works as expected. Would recommend if you want fewer support tickets and happier customers.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">BT</span><span class="cp-rw__id"><span class="cp-rw__name">Burnt Toast</span><span class="cp-rw__role">February 5, 2026</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE0EA; color: #B32B52;">BT</span><span class="cp-rw__id"><span class="cp-rw__name">Burnt Toast</span><span class="cp-rw__role">February 5, 2026</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -587,7 +593,7 @@
           <blockquote class="cp-rw__text">We’ve been using Clickpost and it’s genuinely been super helpful. Customers can handle order edits themselves, and the post-purchase upsells have been a solid bonus for incremental revenue. Setup was straightforward, everything’s been running smoothly, and support has been great too — the team was quick to respond and got us up and running fast.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">MG</span><span class="cp-rw__id"><span class="cp-rw__name">Mars By GHC</span><span class="cp-rw__role">January 8, 2026</span></span></span>
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE0EA; color: #B32B52;">MG</span><span class="cp-rw__id"><span class="cp-rw__name">Mars By GHC</span><span class="cp-rw__role">January 8, 2026</span></span></span>
             <img class="cp-rw__logo" src="assets/337e134ae1ba1799.png" alt="Mars by GHC">
           </figcaption>
         </figure>
@@ -596,8 +602,8 @@
           <blockquote class="cp-rw__text">Really happy with this app. We installed Clickpost mainly to let customers fix address mistakes and update orders themselves, and it works exactly as expected. Setup was pretty easy, and when I had a question, Smit helped me sort it out fast. Support was quick and friendly, which I really appreciate. It has saved our team a lot of back and forth. We have also seen fewer canceled orders since using it. Overall, solid app that does what it promises. Would definitely recommend if you want smoother order edits and less manual work.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">GL</span><span class="cp-rw__id"><span class="cp-rw__name">Gladful</span><span class="cp-rw__role">December 17, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #E2F0D9; color: #3E7A22;">GL</span><span class="cp-rw__id"><span class="cp-rw__name">Gladful</span><span class="cp-rw__role">December 17, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -605,8 +611,8 @@
           <blockquote class="cp-rw__text">Clickpost has been a game changer for our customer experience. Lots of our customers have come back and told us that they love this feature. We already edit 100+ orders monthly and has resulted in lower support tickets. What I appreciate is the flexibility, from modifying addresses to changing products and even adding upsells, it all just works. The team was very helpful with installation and setup. Just go for it!</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">ST</span><span class="cp-rw__id"><span class="cp-rw__name">Samoh by TATA</span><span class="cp-rw__role">December 10, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #EDE0FF; color: #6B3FCC;">ST</span><span class="cp-rw__id"><span class="cp-rw__name">Samoh by TATA</span><span class="cp-rw__role">December 10, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -614,8 +620,8 @@
           <blockquote class="cp-rw__text">The setup process was smooth, thanks to the incredibly helpful and responsive ClickPost support team. Their guidance made the onboarding quick and effortless. This is honestly one of the best decisions we&#x27;ve made for our operations. A must-have app for any brand looking to enhance post-purchase experience and improve efficiency. Highly recommended!</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">FA</span><span class="cp-rw__id"><span class="cp-rw__name">French Accent</span><span class="cp-rw__role">November 20, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #D6E4FF; color: #155FFF;">FA</span><span class="cp-rw__id"><span class="cp-rw__name">French Accent</span><span class="cp-rw__role">November 20, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -623,8 +629,8 @@
           <blockquote class="cp-rw__text">The app has been very useful to us. We were looking something like this to reduce our support enquiries, and that is what is exactly did. Our customers love this feature and it makes everyone’s life just better. Plus they also have the upsell feature, which replaced my current upsell app! Worked flawlessly. It is an absolute no brainer to install this app. Loved the support provided by the ClickPost team during our setup process. Thanks Team ClickPost.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">BI</span><span class="cp-rw__id"><span class="cp-rw__name">Bichhavans</span><span class="cp-rw__role">November 12, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #E2F0D9; color: #3E7A22;">BI</span><span class="cp-rw__id"><span class="cp-rw__name">Bichhavans</span><span class="cp-rw__role">November 12, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -632,8 +638,8 @@
           <blockquote class="cp-rw__text">Initially we were facing some issues, but the team helped us through the whole process. Been super smooth since then. It&#x27;s easy, efficient and makes our day to day operations easy. No more address change or editing tickets. The upsells are a bonus, they have helped increase our AOV without affecting our conversion rates! Clickpost order editing has become an essential part of our store now. Big thanks to the team for all the support!</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">TS</span><span class="cp-rw__id"><span class="cp-rw__name">The Gareeb Store</span><span class="cp-rw__role">October 14, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE8D6; color: #B4530A;">TS</span><span class="cp-rw__id"><span class="cp-rw__name">The Gareeb Store</span><span class="cp-rw__role">October 14, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -641,8 +647,8 @@
           <blockquote class="cp-rw__text">Works as described. I set an order editing window when customers can change/edit their own orders. They like it because it&#x27;s fast and easy and I like it because it lowers my support tickets. Easily one of the best apps I have because it&#x27;s easy to use and it gives both me and my customers what I want. It&#x27;s a win/win app. The developers are always adding new features too, like upselling, that I appreciate. The more I can do within 1 app so I don&#x27;t have to have a ton of apps, the better. I highly recommend.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">SB</span><span class="cp-rw__id"><span class="cp-rw__name">Shred Finger Boards</span><span class="cp-rw__role">September 22, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #D6E4FF; color: #155FFF;">SB</span><span class="cp-rw__id"><span class="cp-rw__name">Shred Finger Boards</span><span class="cp-rw__role">September 22, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -650,8 +656,8 @@
           <blockquote class="cp-rw__text">Great tool. Easy to install and use. Really easy to quantify the value: Each time an order is edited is one call/email that I didn&#x27;t have to manage. The customer service team is also really good, fast and responsive.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">FU</span><span class="cp-rw__id"><span class="cp-rw__name">Fulton365</span><span class="cp-rw__role">September 15, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE0EA; color: #B32B52;">FU</span><span class="cp-rw__id"><span class="cp-rw__name">Fulton365</span><span class="cp-rw__role">September 15, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -659,8 +665,8 @@
           <blockquote class="cp-rw__text">Great tool to reduce traffic for order modification. Their support is highly helpful.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">GL</span><span class="cp-rw__id"><span class="cp-rw__name">Gully Labs</span><span class="cp-rw__role">August 28, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #EDE0FF; color: #6B3FCC;">GL</span><span class="cp-rw__id"><span class="cp-rw__name">Gully Labs</span><span class="cp-rw__role">August 28, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -668,8 +674,8 @@
           <blockquote class="cp-rw__text">As a growing brand, Clickpost just makes my life easier. Customers used to message me minutes after placing their order for changing their address or if they picked the wrong size. Now they just fix it themselves. Works perfectly with our shipping software and Klaviyo. And the support by Smit is a bonus. I wish that I installed sooner.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">RS</span><span class="cp-rw__id"><span class="cp-rw__name">Recode Studios</span><span class="cp-rw__role">August 12, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #E2F0D9; color: #3E7A22;">RS</span><span class="cp-rw__id"><span class="cp-rw__name">Recode Studios</span><span class="cp-rw__role">August 12, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -677,8 +683,8 @@
           <blockquote class="cp-rw__text">Exactly what we needed. No more customer queries about &#x27;where is my order&#x27;. Everything’s available in their account. Smooth experience!</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">PA</span><span class="cp-rw__id"><span class="cp-rw__name">Paradyes</span><span class="cp-rw__role">July 23, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #EDE0FF; color: #6B3FCC;">PA</span><span class="cp-rw__id"><span class="cp-rw__name">Paradyes</span><span class="cp-rw__role">July 23, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -686,8 +692,8 @@
           <blockquote class="cp-rw__text">We were looking for a way to offer basic order changes without complicating our process. This app nailed it. Clean interface, easy for customers, and fits right into our workflow</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">SA</span><span class="cp-rw__id"><span class="cp-rw__name">Sammvaad</span><span class="cp-rw__role">July 16, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE0EA; color: #B32B52;">SA</span><span class="cp-rw__id"><span class="cp-rw__name">Sammvaad</span><span class="cp-rw__role">July 16, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -695,8 +701,8 @@
           <blockquote class="cp-rw__text">ClickPost’s Order Editing &amp; Cancel tool has been a game-changer for Sudathi. With alot of of our support tickets related to order edits, it helped our customers to self-edit addresses, variants, and even cancel orders before shipping. It drastically reduced support load, and improved customer satisfaction. A must-have tool for brands focused on delivering smooth, scalable customer experiences.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">SU</span><span class="cp-rw__id"><span class="cp-rw__name">Sudathi</span><span class="cp-rw__role">June 30, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFF1CC; color: #8A6100;">SU</span><span class="cp-rw__id"><span class="cp-rw__name">Sudathi</span><span class="cp-rw__role">June 30, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -704,8 +710,8 @@
           <blockquote class="cp-rw__text">Mohit and the team at ClickPost are an exceptional team of developers and nice people to boot. They listen to feedback for improvement and new features, and have built genuinely useful tools for Shopify stores.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">RS</span><span class="cp-rw__id"><span class="cp-rw__name">Renue By Science</span><span class="cp-rw__role">March 10, 2026</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #D6E4FF; color: #155FFF;">RS</span><span class="cp-rw__id"><span class="cp-rw__name">Renue By Science</span><span class="cp-rw__role">March 10, 2026</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -713,8 +719,8 @@
           <blockquote class="cp-rw__text">Clickpost been a great upgrade for our store. Customers can log in, check their info, and manage everything easily, which has made the whole experience feel smoother and more professional.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">GS</span><span class="cp-rw__id"><span class="cp-rw__name">GHAR SOAPS</span><span class="cp-rw__role">February 14, 2026</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE8D6; color: #B4530A;">GS</span><span class="cp-rw__id"><span class="cp-rw__name">GHAR SOAPS</span><span class="cp-rw__role">February 14, 2026</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -722,8 +728,8 @@
           <blockquote class="cp-rw__text">Been using Clickpost for a few months now and it does exactly what we needed. Customers can update addresses or fix mistakes without us having to jump in every time, which saves a lot of back and forth. Setup was pretty easy, and when I had a couple questions, Smit replied super fast and walked me through it. The order editing app runs smoothly and hasn&#x27;t caused any issues with our checkout or fulfillment. Honestly just a solid app that works as expected. Would recommend if you want fewer support tickets and happier customers.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">BT</span><span class="cp-rw__id"><span class="cp-rw__name">Burnt Toast</span><span class="cp-rw__role">February 5, 2026</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE0EA; color: #B32B52;">BT</span><span class="cp-rw__id"><span class="cp-rw__name">Burnt Toast</span><span class="cp-rw__role">February 5, 2026</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -731,7 +737,7 @@
           <blockquote class="cp-rw__text">We’ve been using Clickpost and it’s genuinely been super helpful. Customers can handle order edits themselves, and the post-purchase upsells have been a solid bonus for incremental revenue. Setup was straightforward, everything’s been running smoothly, and support has been great too — the team was quick to respond and got us up and running fast.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">MG</span><span class="cp-rw__id"><span class="cp-rw__name">Mars By GHC</span><span class="cp-rw__role">January 8, 2026</span></span></span>
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE0EA; color: #B32B52;">MG</span><span class="cp-rw__id"><span class="cp-rw__name">Mars By GHC</span><span class="cp-rw__role">January 8, 2026</span></span></span>
             <img class="cp-rw__logo" src="assets/337e134ae1ba1799.png" alt="Mars by GHC">
           </figcaption>
         </figure>
@@ -740,8 +746,8 @@
           <blockquote class="cp-rw__text">Really happy with this app. We installed Clickpost mainly to let customers fix address mistakes and update orders themselves, and it works exactly as expected. Setup was pretty easy, and when I had a question, Smit helped me sort it out fast. Support was quick and friendly, which I really appreciate. It has saved our team a lot of back and forth. We have also seen fewer canceled orders since using it. Overall, solid app that does what it promises. Would definitely recommend if you want smoother order edits and less manual work.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">GL</span><span class="cp-rw__id"><span class="cp-rw__name">Gladful</span><span class="cp-rw__role">December 17, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #E2F0D9; color: #3E7A22;">GL</span><span class="cp-rw__id"><span class="cp-rw__name">Gladful</span><span class="cp-rw__role">December 17, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -749,8 +755,8 @@
           <blockquote class="cp-rw__text">Clickpost has been a game changer for our customer experience. Lots of our customers have come back and told us that they love this feature. We already edit 100+ orders monthly and has resulted in lower support tickets. What I appreciate is the flexibility, from modifying addresses to changing products and even adding upsells, it all just works. The team was very helpful with installation and setup. Just go for it!</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">ST</span><span class="cp-rw__id"><span class="cp-rw__name">Samoh by TATA</span><span class="cp-rw__role">December 10, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #EDE0FF; color: #6B3FCC;">ST</span><span class="cp-rw__id"><span class="cp-rw__name">Samoh by TATA</span><span class="cp-rw__role">December 10, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -758,8 +764,8 @@
           <blockquote class="cp-rw__text">The setup process was smooth, thanks to the incredibly helpful and responsive ClickPost support team. Their guidance made the onboarding quick and effortless. This is honestly one of the best decisions we&#x27;ve made for our operations. A must-have app for any brand looking to enhance post-purchase experience and improve efficiency. Highly recommended!</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">FA</span><span class="cp-rw__id"><span class="cp-rw__name">French Accent</span><span class="cp-rw__role">November 20, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #D6E4FF; color: #155FFF;">FA</span><span class="cp-rw__id"><span class="cp-rw__name">French Accent</span><span class="cp-rw__role">November 20, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -767,8 +773,8 @@
           <blockquote class="cp-rw__text">The app has been very useful to us. We were looking something like this to reduce our support enquiries, and that is what is exactly did. Our customers love this feature and it makes everyone’s life just better. Plus they also have the upsell feature, which replaced my current upsell app! Worked flawlessly. It is an absolute no brainer to install this app. Loved the support provided by the ClickPost team during our setup process. Thanks Team ClickPost.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">BI</span><span class="cp-rw__id"><span class="cp-rw__name">Bichhavans</span><span class="cp-rw__role">November 12, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #E2F0D9; color: #3E7A22;">BI</span><span class="cp-rw__id"><span class="cp-rw__name">Bichhavans</span><span class="cp-rw__role">November 12, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -776,8 +782,8 @@
           <blockquote class="cp-rw__text">Initially we were facing some issues, but the team helped us through the whole process. Been super smooth since then. It&#x27;s easy, efficient and makes our day to day operations easy. No more address change or editing tickets. The upsells are a bonus, they have helped increase our AOV without affecting our conversion rates! Clickpost order editing has become an essential part of our store now. Big thanks to the team for all the support!</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">TS</span><span class="cp-rw__id"><span class="cp-rw__name">The Gareeb Store</span><span class="cp-rw__role">October 14, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE8D6; color: #B4530A;">TS</span><span class="cp-rw__id"><span class="cp-rw__name">The Gareeb Store</span><span class="cp-rw__role">October 14, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -785,8 +791,8 @@
           <blockquote class="cp-rw__text">Works as described. I set an order editing window when customers can change/edit their own orders. They like it because it&#x27;s fast and easy and I like it because it lowers my support tickets. Easily one of the best apps I have because it&#x27;s easy to use and it gives both me and my customers what I want. It&#x27;s a win/win app. The developers are always adding new features too, like upselling, that I appreciate. The more I can do within 1 app so I don&#x27;t have to have a ton of apps, the better. I highly recommend.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">SB</span><span class="cp-rw__id"><span class="cp-rw__name">Shred Finger Boards</span><span class="cp-rw__role">September 22, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #D6E4FF; color: #155FFF;">SB</span><span class="cp-rw__id"><span class="cp-rw__name">Shred Finger Boards</span><span class="cp-rw__role">September 22, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -794,8 +800,8 @@
           <blockquote class="cp-rw__text">Great tool. Easy to install and use. Really easy to quantify the value: Each time an order is edited is one call/email that I didn&#x27;t have to manage. The customer service team is also really good, fast and responsive.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">FU</span><span class="cp-rw__id"><span class="cp-rw__name">Fulton365</span><span class="cp-rw__role">September 15, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE0EA; color: #B32B52;">FU</span><span class="cp-rw__id"><span class="cp-rw__name">Fulton365</span><span class="cp-rw__role">September 15, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -803,8 +809,8 @@
           <blockquote class="cp-rw__text">Great tool to reduce traffic for order modification. Their support is highly helpful.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">GL</span><span class="cp-rw__id"><span class="cp-rw__name">Gully Labs</span><span class="cp-rw__role">August 28, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #EDE0FF; color: #6B3FCC;">GL</span><span class="cp-rw__id"><span class="cp-rw__name">Gully Labs</span><span class="cp-rw__role">August 28, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -812,8 +818,8 @@
           <blockquote class="cp-rw__text">As a growing brand, Clickpost just makes my life easier. Customers used to message me minutes after placing their order for changing their address or if they picked the wrong size. Now they just fix it themselves. Works perfectly with our shipping software and Klaviyo. And the support by Smit is a bonus. I wish that I installed sooner.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">RS</span><span class="cp-rw__id"><span class="cp-rw__name">Recode Studios</span><span class="cp-rw__role">August 12, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #E2F0D9; color: #3E7A22;">RS</span><span class="cp-rw__id"><span class="cp-rw__name">Recode Studios</span><span class="cp-rw__role">August 12, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -821,8 +827,8 @@
           <blockquote class="cp-rw__text">Exactly what we needed. No more customer queries about &#x27;where is my order&#x27;. Everything’s available in their account. Smooth experience!</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">PA</span><span class="cp-rw__id"><span class="cp-rw__name">Paradyes</span><span class="cp-rw__role">July 23, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #EDE0FF; color: #6B3FCC;">PA</span><span class="cp-rw__id"><span class="cp-rw__name">Paradyes</span><span class="cp-rw__role">July 23, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -830,8 +836,8 @@
           <blockquote class="cp-rw__text">We were looking for a way to offer basic order changes without complicating our process. This app nailed it. Clean interface, easy for customers, and fits right into our workflow</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">SA</span><span class="cp-rw__id"><span class="cp-rw__name">Sammvaad</span><span class="cp-rw__role">July 16, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE0EA; color: #B32B52;">SA</span><span class="cp-rw__id"><span class="cp-rw__name">Sammvaad</span><span class="cp-rw__role">July 16, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -839,8 +845,8 @@
           <blockquote class="cp-rw__text">ClickPost’s Order Editing &amp; Cancel tool has been a game-changer for Sudathi. With alot of of our support tickets related to order edits, it helped our customers to self-edit addresses, variants, and even cancel orders before shipping. It drastically reduced support load, and improved customer satisfaction. A must-have tool for brands focused on delivering smooth, scalable customer experiences.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">SU</span><span class="cp-rw__id"><span class="cp-rw__name">Sudathi</span><span class="cp-rw__role">June 30, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFF1CC; color: #8A6100;">SU</span><span class="cp-rw__id"><span class="cp-rw__name">Sudathi</span><span class="cp-rw__role">June 30, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
       </div>
@@ -852,8 +858,8 @@
           <blockquote class="cp-rw__text">Really helped us quickly to fix all issues</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">DO</span><span class="cp-rw__id"><span class="cp-rw__name">Doonails</span><span class="cp-rw__role">March 6, 2026</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #DCF3EC; color: #00845F;">DO</span><span class="cp-rw__id"><span class="cp-rw__name">Doonails</span><span class="cp-rw__role">March 6, 2026</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -861,8 +867,8 @@
           <blockquote class="cp-rw__text">We just installed Clickpost a few days ago and honestly it&#x27;s been a very smooth experience. Setup was way easier than I expected and everything worked right out of the box. The order editing feature is exactly what we needed since customers always want to change something after checkout. Smit helped us get everything configured and answered our questions super fast.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">WG</span><span class="cp-rw__id"><span class="cp-rw__name">Westside Global</span><span class="cp-rw__role">February 13, 2026</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #E2F0D9; color: #3E7A22;">WG</span><span class="cp-rw__id"><span class="cp-rw__name">Westside Global</span><span class="cp-rw__role">February 13, 2026</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -870,8 +876,8 @@
           <blockquote class="cp-rw__text">Been using Clickpost for a few months now and honestly it just works. Customers can update their orders without emailing us back and forth, which saves our team a ton of time. Setup was pretty easy and when I had a question, Smit replied super fast and walked me through it. The order editing app paid for itself within the first week just from fewer support tickets and upsells. If you deal with order change requests a lot, this is a no brainer.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">BB</span><span class="cp-rw__id"><span class="cp-rw__name">Bacca Bucci</span><span class="cp-rw__role">January 28, 2026</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #D6E4FF; color: #155FFF;">BB</span><span class="cp-rw__id"><span class="cp-rw__name">Bacca Bucci</span><span class="cp-rw__role">January 28, 2026</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -879,8 +885,8 @@
           <blockquote class="cp-rw__text">Really happy with Clickpost so far. We added it mainly so customers could fix address/phone number mistakes after checkout and it&#x27;s been super smooth. It has reduced our overall RTO upto 25%. The setup was easy and didn&#x27;t mess with our theme at all. I also like how clean the order editing flow looks on the customer side. Had a small question during setup and Smit replied pretty fast and explained everything clearly. Support actually feels human, which is rare. And they give great upsell functionality as well, while the editing is happening. Great app and team!</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">WA</span><span class="cp-rw__id"><span class="cp-rw__name">World of Asaya</span><span class="cp-rw__role">December 18, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE0EA; color: #B32B52;">WA</span><span class="cp-rw__id"><span class="cp-rw__name">World of Asaya</span><span class="cp-rw__role">December 18, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -888,8 +894,8 @@
           <blockquote class="cp-rw__text">Really happy with this order editing app. It was easy to set up and does exactly what I needed. Smit helped me get everything running in just a few minutes which I really appreciated. Simple and works great.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">MI</span><span class="cp-rw__id"><span class="cp-rw__name">Miniwesst</span><span class="cp-rw__role">December 15, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #DCEFF5; color: #0A6B85;">MI</span><span class="cp-rw__id"><span class="cp-rw__name">Miniwesst</span><span class="cp-rw__role">December 15, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -897,8 +903,8 @@
           <blockquote class="cp-rw__text">A much needed solution to a very common support issue. Customers used to always reach out to us for changing their address or items, now they can edit it on their own. Multiple customers have reached out to us that they love this new feature! The team is superb with their support and responsiveness, and I keep seeing constant improvements in the product. Strongly recommended.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">BO</span><span class="cp-rw__id"><span class="cp-rw__name">Bonhomie</span><span class="cp-rw__role">December 4, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #DCF3EC; color: #00845F;">BO</span><span class="cp-rw__id"><span class="cp-rw__name">Bonhomie</span><span class="cp-rw__role">December 4, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -906,8 +912,8 @@
           <blockquote class="cp-rw__text">Super helpful app! Lets customers edit orders easily and reduced our support load. Simple setup, smooth UI, and great support from the team.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">TK</span><span class="cp-rw__id"><span class="cp-rw__name">Tuco Kids</span><span class="cp-rw__role">November 19, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #D6E4FF; color: #155FFF;">TK</span><span class="cp-rw__id"><span class="cp-rw__name">Tuco Kids</span><span class="cp-rw__role">November 19, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -915,8 +921,8 @@
           <blockquote class="cp-rw__text">Order editing app by clickpost is easy to install with a super responsive support team. It has reduced our support tickets. It has just made our life easier. Was very easy to setup on them. Loving it!</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">MY</span><span class="cp-rw__id"><span class="cp-rw__name">MyBorosil</span><span class="cp-rw__role">October 14, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #D6E4FF; color: #155FFF;">MY</span><span class="cp-rw__id"><span class="cp-rw__name">MyBorosil</span><span class="cp-rw__role">October 14, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -924,8 +930,8 @@
           <blockquote class="cp-rw__text">The app has been a huge help to our support team. With Clickpost order editing we saved a lot of tickets, especially during the sale season. And what stood out was that they got us extra revenue through post purchase upsells, so that was a bonus! Their support is very prompt, and open to feedback.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">WE</span><span class="cp-rw__id"><span class="cp-rw__name">Westside</span><span class="cp-rw__role">September 30, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFF1CC; color: #8A6100;">WE</span><span class="cp-rw__id"><span class="cp-rw__name">Westside</span><span class="cp-rw__role">September 30, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -933,8 +939,8 @@
           <blockquote class="cp-rw__text">Clickpost order editing has made our post purchase process so much better. Customers can now edit their orders without contacting support. Their upsells are a cherry on the top, and have increased our AOV. Real value for money, and absolutely great support from the team.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">WN</span><span class="cp-rw__id"><span class="cp-rw__name">Wellbeing Nutrition</span><span class="cp-rw__role">September 17, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #DCF3EC; color: #00845F;">WN</span><span class="cp-rw__id"><span class="cp-rw__name">Wellbeing Nutrition</span><span class="cp-rw__role">September 17, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -942,8 +948,8 @@
           <blockquote class="cp-rw__text">Great app for letting customers edit or cancel their orders without hassle. It’s easy to set up, reduces support work, and the team is super responsive.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">ST</span><span class="cp-rw__id"><span class="cp-rw__name">Starquik</span><span class="cp-rw__role">August 29, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #D6E4FF; color: #155FFF;">ST</span><span class="cp-rw__id"><span class="cp-rw__name">Starquik</span><span class="cp-rw__role">August 29, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -951,8 +957,8 @@
           <blockquote class="cp-rw__text">Great experience and fantastic support from the ClickPost team with my questions. Our top customer service requests are for order edits, so this immediately cut support tickets making it easy to quantify the ROI. A lot of customization features and various upsell tools are included in the app that I can implement to increase AOV as well. I highly recommend it.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">VA</span><span class="cp-rw__id"><span class="cp-rw__name">VanillaPura</span><span class="cp-rw__role">August 27, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #DCEFF5; color: #0A6B85;">VA</span><span class="cp-rw__id"><span class="cp-rw__name">VanillaPura</span><span class="cp-rw__role">August 27, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -960,8 +966,8 @@
           <blockquote class="cp-rw__text">Great app and an exceptional support from the team. The app allows our customers to modify theirs orders without the need to contact us. This has given our support team to focus on more important tasks, and been a delight for our customers. I highly recommend this app, it will save you a lot of time and money.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">UR</span><span class="cp-rw__id"><span class="cp-rw__name">URturms</span><span class="cp-rw__role">July 28, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE8D6; color: #B4530A;">UR</span><span class="cp-rw__id"><span class="cp-rw__name">URturms</span><span class="cp-rw__role">July 28, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -969,8 +975,8 @@
           <blockquote class="cp-rw__text">We always wanted to give customers more flexibility after placing an order. This app delivered exactly that. Very intuitive and doesn’t affect our existing workflow. On point and instant support by Smit and Mohit</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">RI</span><span class="cp-rw__id"><span class="cp-rw__name">RIJAC</span><span class="cp-rw__role">July 16, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #E2F0D9; color: #3E7A22;">RI</span><span class="cp-rw__id"><span class="cp-rw__name">RIJAC</span><span class="cp-rw__role">July 16, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -978,8 +984,8 @@
           <blockquote class="cp-rw__text">This app does exactly what it promises. We&#x27;ve been able to reduce customer complaints by allowing easy order edits and cancellations. The setup was smooth, and their support team was quick to respond when we had questions. Definitely recommend it if you&#x27;re looking to improve post-purchase experience.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">IC</span><span class="cp-rw__id"><span class="cp-rw__name">Italian Colony</span><span class="cp-rw__role">July 15, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE8D6; color: #B4530A;">IC</span><span class="cp-rw__id"><span class="cp-rw__name">Italian Colony</span><span class="cp-rw__role">July 15, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -987,8 +993,8 @@
           <blockquote class="cp-rw__text">Really helped us quickly to fix all issues</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">DO</span><span class="cp-rw__id"><span class="cp-rw__name">Doonails</span><span class="cp-rw__role">March 6, 2026</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #DCF3EC; color: #00845F;">DO</span><span class="cp-rw__id"><span class="cp-rw__name">Doonails</span><span class="cp-rw__role">March 6, 2026</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -996,8 +1002,8 @@
           <blockquote class="cp-rw__text">We just installed Clickpost a few days ago and honestly it&#x27;s been a very smooth experience. Setup was way easier than I expected and everything worked right out of the box. The order editing feature is exactly what we needed since customers always want to change something after checkout. Smit helped us get everything configured and answered our questions super fast.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">WG</span><span class="cp-rw__id"><span class="cp-rw__name">Westside Global</span><span class="cp-rw__role">February 13, 2026</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #E2F0D9; color: #3E7A22;">WG</span><span class="cp-rw__id"><span class="cp-rw__name">Westside Global</span><span class="cp-rw__role">February 13, 2026</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -1005,8 +1011,8 @@
           <blockquote class="cp-rw__text">Been using Clickpost for a few months now and honestly it just works. Customers can update their orders without emailing us back and forth, which saves our team a ton of time. Setup was pretty easy and when I had a question, Smit replied super fast and walked me through it. The order editing app paid for itself within the first week just from fewer support tickets and upsells. If you deal with order change requests a lot, this is a no brainer.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">BB</span><span class="cp-rw__id"><span class="cp-rw__name">Bacca Bucci</span><span class="cp-rw__role">January 28, 2026</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #D6E4FF; color: #155FFF;">BB</span><span class="cp-rw__id"><span class="cp-rw__name">Bacca Bucci</span><span class="cp-rw__role">January 28, 2026</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -1014,8 +1020,8 @@
           <blockquote class="cp-rw__text">Really happy with Clickpost so far. We added it mainly so customers could fix address/phone number mistakes after checkout and it&#x27;s been super smooth. It has reduced our overall RTO upto 25%. The setup was easy and didn&#x27;t mess with our theme at all. I also like how clean the order editing flow looks on the customer side. Had a small question during setup and Smit replied pretty fast and explained everything clearly. Support actually feels human, which is rare. And they give great upsell functionality as well, while the editing is happening. Great app and team!</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">WA</span><span class="cp-rw__id"><span class="cp-rw__name">World of Asaya</span><span class="cp-rw__role">December 18, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE0EA; color: #B32B52;">WA</span><span class="cp-rw__id"><span class="cp-rw__name">World of Asaya</span><span class="cp-rw__role">December 18, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -1023,8 +1029,8 @@
           <blockquote class="cp-rw__text">Really happy with this order editing app. It was easy to set up and does exactly what I needed. Smit helped me get everything running in just a few minutes which I really appreciated. Simple and works great.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">MI</span><span class="cp-rw__id"><span class="cp-rw__name">Miniwesst</span><span class="cp-rw__role">December 15, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #DCEFF5; color: #0A6B85;">MI</span><span class="cp-rw__id"><span class="cp-rw__name">Miniwesst</span><span class="cp-rw__role">December 15, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -1032,8 +1038,8 @@
           <blockquote class="cp-rw__text">A much needed solution to a very common support issue. Customers used to always reach out to us for changing their address or items, now they can edit it on their own. Multiple customers have reached out to us that they love this new feature! The team is superb with their support and responsiveness, and I keep seeing constant improvements in the product. Strongly recommended.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">BO</span><span class="cp-rw__id"><span class="cp-rw__name">Bonhomie</span><span class="cp-rw__role">December 4, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #DCF3EC; color: #00845F;">BO</span><span class="cp-rw__id"><span class="cp-rw__name">Bonhomie</span><span class="cp-rw__role">December 4, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -1041,8 +1047,8 @@
           <blockquote class="cp-rw__text">Super helpful app! Lets customers edit orders easily and reduced our support load. Simple setup, smooth UI, and great support from the team.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">TK</span><span class="cp-rw__id"><span class="cp-rw__name">Tuco Kids</span><span class="cp-rw__role">November 19, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #D6E4FF; color: #155FFF;">TK</span><span class="cp-rw__id"><span class="cp-rw__name">Tuco Kids</span><span class="cp-rw__role">November 19, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -1050,8 +1056,8 @@
           <blockquote class="cp-rw__text">Order editing app by clickpost is easy to install with a super responsive support team. It has reduced our support tickets. It has just made our life easier. Was very easy to setup on them. Loving it!</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">MY</span><span class="cp-rw__id"><span class="cp-rw__name">MyBorosil</span><span class="cp-rw__role">October 14, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #D6E4FF; color: #155FFF;">MY</span><span class="cp-rw__id"><span class="cp-rw__name">MyBorosil</span><span class="cp-rw__role">October 14, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -1059,8 +1065,8 @@
           <blockquote class="cp-rw__text">The app has been a huge help to our support team. With Clickpost order editing we saved a lot of tickets, especially during the sale season. And what stood out was that they got us extra revenue through post purchase upsells, so that was a bonus! Their support is very prompt, and open to feedback.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">WE</span><span class="cp-rw__id"><span class="cp-rw__name">Westside</span><span class="cp-rw__role">September 30, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFF1CC; color: #8A6100;">WE</span><span class="cp-rw__id"><span class="cp-rw__name">Westside</span><span class="cp-rw__role">September 30, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -1068,8 +1074,8 @@
           <blockquote class="cp-rw__text">Clickpost order editing has made our post purchase process so much better. Customers can now edit their orders without contacting support. Their upsells are a cherry on the top, and have increased our AOV. Real value for money, and absolutely great support from the team.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">WN</span><span class="cp-rw__id"><span class="cp-rw__name">Wellbeing Nutrition</span><span class="cp-rw__role">September 17, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #DCF3EC; color: #00845F;">WN</span><span class="cp-rw__id"><span class="cp-rw__name">Wellbeing Nutrition</span><span class="cp-rw__role">September 17, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -1077,8 +1083,8 @@
           <blockquote class="cp-rw__text">Great app for letting customers edit or cancel their orders without hassle. It’s easy to set up, reduces support work, and the team is super responsive.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">ST</span><span class="cp-rw__id"><span class="cp-rw__name">Starquik</span><span class="cp-rw__role">August 29, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #D6E4FF; color: #155FFF;">ST</span><span class="cp-rw__id"><span class="cp-rw__name">Starquik</span><span class="cp-rw__role">August 29, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -1086,8 +1092,8 @@
           <blockquote class="cp-rw__text">Great experience and fantastic support from the ClickPost team with my questions. Our top customer service requests are for order edits, so this immediately cut support tickets making it easy to quantify the ROI. A lot of customization features and various upsell tools are included in the app that I can implement to increase AOV as well. I highly recommend it.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">VA</span><span class="cp-rw__id"><span class="cp-rw__name">VanillaPura</span><span class="cp-rw__role">August 27, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #DCEFF5; color: #0A6B85;">VA</span><span class="cp-rw__id"><span class="cp-rw__name">VanillaPura</span><span class="cp-rw__role">August 27, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -1095,8 +1101,8 @@
           <blockquote class="cp-rw__text">Great app and an exceptional support from the team. The app allows our customers to modify theirs orders without the need to contact us. This has given our support team to focus on more important tasks, and been a delight for our customers. I highly recommend this app, it will save you a lot of time and money.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">UR</span><span class="cp-rw__id"><span class="cp-rw__name">URturms</span><span class="cp-rw__role">July 28, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE8D6; color: #B4530A;">UR</span><span class="cp-rw__id"><span class="cp-rw__name">URturms</span><span class="cp-rw__role">July 28, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -1104,8 +1110,8 @@
           <blockquote class="cp-rw__text">We always wanted to give customers more flexibility after placing an order. This app delivered exactly that. Very intuitive and doesn’t affect our existing workflow. On point and instant support by Smit and Mohit</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">RI</span><span class="cp-rw__id"><span class="cp-rw__name">RIJAC</span><span class="cp-rw__role">July 16, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #E2F0D9; color: #3E7A22;">RI</span><span class="cp-rw__id"><span class="cp-rw__name">RIJAC</span><span class="cp-rw__role">July 16, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
         <figure class="cp-rw__card">
@@ -1113,8 +1119,8 @@
           <blockquote class="cp-rw__text">This app does exactly what it promises. We&#x27;ve been able to reduce customer complaints by allowing easy order edits and cancellations. The setup was smooth, and their support team was quick to respond when we had questions. Definitely recommend it if you&#x27;re looking to improve post-purchase experience.</blockquote>
           <svg class="cp-rw__q cp-rw__q--end" width="22" height="17" viewBox="0 0 26 20" fill="#252525" aria-hidden="true"><path d="M26 0v8.4c0 6-3.4 10.4-9.6 11.6l-1.2-3.2c3.8-1.2 5.6-3.4 5.6-6h-4.2V0H26ZM11.2 0v8.4c0 6-3.4 10.4-9.6 11.6L.4 16.8c3.8-1.2 5.6-3.4 5.6-6H1.8V0h9.4Z"/></svg>
           <figcaption class="cp-rw__foot">
-            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true">IC</span><span class="cp-rw__id"><span class="cp-rw__name">Italian Colony</span><span class="cp-rw__role">July 15, 2025</span></span></span>
-            
+            <span class="cp-rw__who"><span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" style="background: #FFE8D6; color: #B4530A;">IC</span><span class="cp-rw__id"><span class="cp-rw__name">Italian Colony</span><span class="cp-rw__role">July 15, 2025</span></span></span>
+            <span class="cp-rw__logoslot" aria-hidden="true"></span>
           </figcaption>
         </figure>
       </div>
