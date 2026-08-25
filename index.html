@@ -105,10 +105,9 @@
   .cp-steps__list { display: flex; flex-direction: column; gap: 28px; flex: 1; min-width: 0; }
   /* section heading sits in the step column, not centred above it, so the
      sticky visual and the copy read as one row */
-  .cp-steps__head { display: flex; flex-direction: column; gap: 14px; padding: 8px 0 12px; }
+  .cp-steps__head { display: flex; flex-direction: column; padding: 8px 0 16px; }
   .cp-steps__head h2 { margin: 0; font-size: 56px; font-weight: 500; line-height: 64px;
                        letter-spacing: -0.02em; color: #252525; }
-  .cp-steps__head p  { margin: 0; font-size: 19px; line-height: 30px; color: #52525B; max-width: 30ch; }
   .cp-steps__card { cursor: pointer; display: flex; flex-direction: row; gap: 28px;
                     padding: 44px 40px; min-height: 208px; align-items: center;
                     border-radius: 12px; background: #ffffff; border: 1px solid #F1F1F1;
@@ -430,7 +429,6 @@
       <div class="cp-steps__list">
         <div class="cp-steps__head">
           <h2>How order editing works</h2>
-          <p>From the thank-you page to fulfilment, in four steps.</p>
         </div>
         <div class="cp-steps__card" data-step-card="0" role="button" tabindex="0" aria-label="Show step 1" onClick="{{ pickStep0 }}" onKeyDown="{{ onStepKey0 }}">
           <div class="cp-steps__num">1</div>
