@@ -308,21 +308,19 @@
   </section>
 
   <!-- ── Live demo on the visitor’s own store ───────────────────── -->
-  <section style="background: #ffffff; padding: 80px 112px 96px; display: flex; flex-direction: column; gap: 40px; align-items: center; overflow: hidden;" data-screen-label="Live demo">
+  <section style="background: #ffffff; padding: 80px 112px 96px; display: flex; flex-direction: row; gap: 48px; align-items: center; overflow: hidden;" data-screen-label="Live demo">
 
-    <div style="align-self: stretch; display: flex; flex-direction: row; gap: 48px; justify-content: space-between; align-items: flex-end; flex-wrap: wrap;">
-      <h2 style="margin: 0; max-width: 620px; min-width: 0; font-size: 48px; font-weight: 500; line-height: 60px; letter-spacing: -0.01em; color: #252525;">See it running on your own store</h2>
-      <div style="width: 420px; max-width: 100%; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; flex-shrink: 0;">
-        <span style="font-size: 15px; font-weight: 500; line-height: 22px; color: #252525;">Paste a store URL — we’ll pull in your real products</span>
-        <div class="cp-spin__form">
-          <input id="cp-demo-url" class="cp-spin__input" type="text" inputmode="url" spellcheck="false"
-                 placeholder="yourstore.com" aria-label="Your store URL" onKeyDown="{{ onDemoKey }}">
-          <button type="button" class="cp-spin__go" aria-label="Load the demo" onClick="{{ openDemo }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
-        </div>
+    <div style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 20px; align-items: flex-start;">
+      <h2 style="margin: 0; font-size: 40px; font-weight: 500; line-height: 50px; letter-spacing: -0.01em; color: #252525;">See it running on your own store</h2>
+      <span style="font-size: 15px; font-weight: 500; line-height: 22px; color: #252525;">Paste a store URL — we’ll pull in your real products</span>
+      <div class="cp-spin__form">
+        <input id="cp-demo-url" class="cp-spin__input" type="text" inputmode="url" spellcheck="false"
+               placeholder="yourstore.com" aria-label="Your store URL" onKeyDown="{{ onDemoKey }}">
+        <button type="button" class="cp-spin__go" aria-label="Load the demo" onClick="{{ openDemo }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
       </div>
     </div>
 
-    <div class="cp-spin__stage" data-demo-open="{{ demoOpen }}">
+    <div class="cp-spin__stage" style="width: 648px; flex-shrink: 0; align-self: center; height: 720px;" data-demo-open="{{ demoOpen }}">
         <div class="cp-spin__chrome">
           <span class="cp-spin__dot"></span><span class="cp-spin__dot"></span><span class="cp-spin__dot"></span>
           <span class="cp-spin__bar">{{ demoLabel }}</span>
