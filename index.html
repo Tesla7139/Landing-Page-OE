@@ -102,7 +102,13 @@
   /* the active card's accent leans the way you're travelling */
   [data-step-dir="back"] .cp-steps__card { transform: translateX(0); }
 
-  .cp-steps__list { display: flex; flex-direction: column; gap: 28px; flex: 1; }
+  .cp-steps__list { display: flex; flex-direction: column; gap: 28px; flex: 1; min-width: 0; }
+  /* section heading sits in the step column, not centred above it, so the
+     sticky visual and the copy read as one row */
+  .cp-steps__head { display: flex; flex-direction: column; gap: 14px; padding: 8px 0 12px; }
+  .cp-steps__head h2 { margin: 0; font-size: 56px; font-weight: 500; line-height: 64px;
+                       letter-spacing: -0.02em; color: #252525; }
+  .cp-steps__head p  { margin: 0; font-size: 19px; line-height: 30px; color: #52525B; max-width: 30ch; }
   .cp-steps__card { display: flex; flex-direction: row; gap: 28px;
                     padding: 44px 40px; min-height: 208px; align-items: center;
                     border-radius: 12px; background: #ffffff; border: 1px solid #F1F1F1;
@@ -341,8 +347,7 @@
   </section>
 
   <!-- ── How order editing works ──────────────────────── -->
-    <section style="background: #ffffff; padding: 80px 112px; display: flex; flex-direction: column; gap: 64px; align-items: center;" data-screen-label="How it works" data-active-step="{{ activeStep }}" data-step-dir="{{ stepDir }}">
-    <h2 style="margin: 0; width: 900px; font-size: 40px; font-weight: 500; line-height: 56px; text-align: center; color: #252525;">How order editing works</h2>
+    <section style="background: #ffffff; padding: 80px 112px 96px; display: flex; flex-direction: column; align-items: stretch;" data-screen-label="How it works" data-active-step="{{ activeStep }}" data-step-dir="{{ stepDir }}">
     <div class="cp-steps__grid">
       <div class="cp-steps__stagewrap">
         <div class="cp-steps__stage">
@@ -423,6 +428,10 @@
         </div>
       </div>
       <div class="cp-steps__list">
+        <div class="cp-steps__head">
+          <h2>How order editing works</h2>
+          <p>From the thank-you page to fulfilment, in four steps.</p>
+        </div>
         <div class="cp-steps__card" data-step-card="0">
           <div class="cp-steps__num">1</div>
           <p class="cp-steps__copy">Customers edit from the Thank You page or Order Status page. No login or contact form</p>
