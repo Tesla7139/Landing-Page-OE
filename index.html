@@ -108,8 +108,8 @@
   .cp-steps__head { display: flex; flex-direction: column; padding: 8px 0 16px; }
   .cp-steps__head h2 { margin: 0; font-size: 56px; font-weight: 500; line-height: 64px;
                        letter-spacing: -0.02em; color: #252525; }
-  .cp-steps__card { cursor: pointer; display: flex; flex-direction: row; gap: 28px;
-                    padding: 44px 40px; min-height: 208px; align-items: center;
+  .cp-steps__card { cursor: pointer; display: flex; flex-direction: column; gap: 18px;
+                    padding: 34px 38px 36px; min-height: 0; align-items: flex-start;
                     border-radius: 12px; background: #ffffff; border: 1px solid #F1F1F1;
                     box-shadow: inset 0 0 0 0 #155FFF;
                     transition: background 260ms cubic-bezier(0.4, 0, 0.2, 1),
@@ -120,7 +120,9 @@
                    color: #ffffff; display: flex; justify-content: center; align-items: center;
                    font-size: 20px; font-weight: 500; line-height: 1; flex-shrink: 0;
                    transition: transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1); }
-  .cp-steps__copy { margin: 0; font-size: 20px; line-height: 32px; color: #252525; }
+  .cp-steps__title { margin: 0; font-size: 23px; font-weight: 600; line-height: 32px;
+                     letter-spacing: -0.01em; color: #252525; }
+  .cp-steps__copy { margin: 0; font-size: 17px; line-height: 28px; color: #52525B; }
 
   /* active step: unfold its visual, tint + accent its card */
   [data-active-step="0"] [data-step-visual="0"],
@@ -351,7 +353,7 @@
       <div class="cp-steps__stagewrap">
         <div class="cp-steps__stage">
           <div class="cp-steps__visual" data-step-visual="0"><div style="width: 504px; height: 296px; border-radius: 28px 0 12px 0; background: linear-gradient(135deg, #F6F6F6 0%, #E9EDF5 55%, #D6E4FF 100%); flex-shrink: 0;"></div></div>
-          <div class="cp-steps__visual" data-step-visual="1"><div style="width: 338px; height: 296px; border-radius: 12.094px 12.094px 0 0; background: #ffffff; border: 1.209px solid #E5E7EB; box-shadow: 0 -5.81px 30.235px -6.047px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 20px; padding: 20px; align-items: flex-start; flex-shrink: 0;">
+          <div class="cp-steps__visual" data-step-visual="2"><div style="width: 338px; height: 296px; border-radius: 12.094px 12.094px 0 0; background: #ffffff; border: 1.209px solid #E5E7EB; box-shadow: 0 -5.81px 30.235px -6.047px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 20px; padding: 20px; align-items: flex-start; flex-shrink: 0;">
             <span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 16px; color: #263238;">Customers can edit</span>
             <div style="display: flex; flex-direction: column; gap: 5.925px; align-items: flex-start; align-self: stretch;">
               <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;"><div style="width: 22px; height: 12px; border-radius: 999px; background: #00A587; display: flex; align-items: center; justify-content: flex-end; padding: 1.5px;"><div style="width: 9px; height: 9px; border-radius: 999px; background: #ffffff;"></div></div><span style="font-family: Inter, sans-serif; font-size: 12px; color: #263238;">Contact Information</span></div>
@@ -362,7 +364,7 @@
               <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;"><div style="width: 22px; height: 12px; border-radius: 999px; background: #D1D5DC; display: flex; align-items: center; justify-content: flex-start; padding: 1.5px;"><div style="width: 9px; height: 9px; border-radius: 999px; background: #ffffff;"></div></div><span style="font-family: Inter, sans-serif; font-size: 12px; color: #6A7282;">Cancel Order</span></div>
             </div>
           </div></div>
-          <div class="cp-steps__visual" data-step-visual="2"><div style="width: 357.209px; border-radius: 12.094px 12.094px 0 0; background: #ffffff; border: 1.209px solid #E5E7EB; box-shadow: 0 -5.81px 30.235px -6.047px rgba(0,0,0,0.1); display: flex; flex-direction: column; padding: 20px; align-items: flex-start; flex-grow: 1;">
+          <div class="cp-steps__visual" data-step-visual="3"><div style="width: 357.209px; border-radius: 12.094px 12.094px 0 0; background: #ffffff; border: 1.209px solid #E5E7EB; box-shadow: 0 -5.81px 30.235px -6.047px rgba(0,0,0,0.1); display: flex; flex-direction: column; padding: 20px; align-items: flex-start; flex-grow: 1;">
             <div style="display: flex; flex-direction: column; gap: 13.736px; align-items: flex-start; align-self: stretch;">
               <span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #263238;">You may also like these products</span>
               <div style="display: flex; flex-direction: row; gap: 8.625px; align-items: flex-start; align-self: stretch;">
@@ -387,7 +389,7 @@
               </div>
             </div>
           </div></div>
-          <div class="cp-steps__visual" data-step-visual="3"><div style="width: 451.419px; height: 266.942px; border-radius: 12.094px 12.094px 0 0; background: #ffffff; border: 1.209px solid #E5E7EB; box-shadow: 0 -5.81px 30.235px -6.047px rgba(0,0,0,0.1); display: flex; flex-direction: column; padding: 20px; align-items: flex-start; flex-shrink: 0;">
+          <div class="cp-steps__visual" data-step-visual="1"><div style="width: 451.419px; height: 266.942px; border-radius: 12.094px 12.094px 0 0; background: #ffffff; border: 1.209px solid #E5E7EB; box-shadow: 0 -5.81px 30.235px -6.047px rgba(0,0,0,0.1); display: flex; flex-direction: column; padding: 20px; align-items: flex-start; flex-shrink: 0;">
             <div style="display: flex; flex-direction: column; gap: 24px; align-items: flex-start;">
               <span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 16px; color: #263238;">Select the time limit for customers to edit their orders</span>
               <div style="display: flex; flex-direction: column; gap: 18px; align-items: flex-start; width: 409px;">
@@ -432,19 +434,23 @@
         </div>
         <div class="cp-steps__card" data-step-card="0" role="button" tabindex="0" aria-label="Show step 1" onClick="{{ pickStep0 }}" onKeyDown="{{ onStepKey0 }}">
           <div class="cp-steps__num">1</div>
-          <p class="cp-steps__copy">Customers edit from the Thank You page or Order Status page. No login or contact form</p>
+          <h3 class="cp-steps__title">Connect your store and integrations</h3>
+          <p class="cp-steps__copy">Connect Shopify and your fulfillment stack so edited orders sync and process normally.</p>
         </div>
         <div class="cp-steps__card" data-step-card="1" role="button" tabindex="0" aria-label="Show step 2" onClick="{{ pickStep1 }}" onKeyDown="{{ onStepKey1 }}">
           <div class="cp-steps__num">2</div>
-          <p class="cp-steps__copy">Control what can be edited: address, variant, quantity, or discount code</p>
+          <h3 class="cp-steps__title">Set your edit window</h3>
+          <p class="cp-steps__copy">Orders stay held in Shopify until the edit window closes, then ship as normal.</p>
         </div>
         <div class="cp-steps__card" data-step-card="2" role="button" tabindex="0" aria-label="Show step 3" onClick="{{ pickStep2 }}" onKeyDown="{{ onStepKey2 }}">
           <div class="cp-steps__num">3</div>
-          <p class="cp-steps__copy">Set the edit window. Orders stay held in Shopify until it closes, then ship as normal</p>
+          <h3 class="cp-steps__title">Let customers edit their order</h3>
+          <p class="cp-steps__copy">Customers edit from the Thank You or Order Status page — no login or contact form.</p>
         </div>
         <div class="cp-steps__card" data-step-card="3" role="button" tabindex="0" aria-label="Show step 4" onClick="{{ pickStep3 }}" onKeyDown="{{ onStepKey3 }}">
           <div class="cp-steps__num">4</div>
-          <p class="cp-steps__copy">Recommend products while they edit</p>
+          <h3 class="cp-steps__title">Recommend products while they edit</h3>
+          <p class="cp-steps__copy">Show relevant products during editing to turn order changes into additional sales.</p>
         </div>
       </div>
     </div>
