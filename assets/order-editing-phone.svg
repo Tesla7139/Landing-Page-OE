@@ -198,64 +198,52 @@
   </g>
   </g>
 
-  <!-- ============ floating cards over the device ============ -->
+  <!-- ============ floating stat cards over the device ============ -->
   <g class="f">
-    <!-- edits applied -->
-    <g filter="url(#cardShadow)"><rect x="8" y="120" width="236" height="168" rx="16" fill="#ffffff"/></g>
-    <path d="M32 143l-7 7 7 7" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <text x="46" y="157" class="b ink" font-size="17">Order edits</text>
-    <rect x="168" y="136" width="62" height="24" rx="12" fill="#00A587" fill-opacity=".12"/>
-    <text x="199" y="152" class="b" font-size="11" fill="#00A587" text-anchor="middle">Applied</text>
+    <!-- support costs -->
+    <g filter="url(#cardShadow)"><rect x="8" y="118" width="248" height="146" rx="16" fill="#ffffff"/></g>
+    <text x="30" y="150" class="sb mut" font-size="10.5" letter-spacing="1.4">SUPPORT COSTS</text>
+    <text x="30" y="202" class="ink" font-size="42" style="font-weight:500">40%</text>
+    <text x="30" y="228" class="sb mut" font-size="12">lower support costs</text>
     <g>
-      <circle cx="38" cy="188" r="9" fill="#00A587"/>
-      <path d="M34 188l3 3 5-6" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <text x="58" y="193" class="sb ink" font-size="13">Address updated</text>
-      <circle cx="38" cy="220" r="9" fill="#00A587"/>
-      <path d="M34 220l3 3 5-6" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <text x="58" y="225" class="sb ink" font-size="13">Size swapped M → L</text>
-      <circle cx="38" cy="252" r="9" fill="#00A587"/>
-      <path d="M34 252l3 3 5-6" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <text x="58" y="257" class="sb ink" font-size="13">Discount applied</text>
+      <rect x="162" y="196" width="12" height="44" rx="3" fill="url(#barFill)"/>
+      <rect x="182" y="206" width="12" height="34" rx="3" fill="url(#barFill)"/>
+      <rect x="202" y="218" width="12" height="22" rx="3" fill="url(#barFill)"/>
+      <rect x="222" y="228" width="12" height="12" rx="3" fill="url(#barFill)"/>
+      <path d="M162 172l60 18" stroke="#00A587" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <path d="M214 184l10 6-8 5z" fill="#00A587"/>
     </g>
-    <line x1="26" y1="268" x2="226" y2="268" stroke="#F1F1F1" stroke-width="1.5"/>
-    <text x="26" y="282" class="sb" font-size="11.5" fill="#155FFF">Synced to fulfilment</text>
 
     <!-- edit window -->
-    <g filter="url(#cardShadow)"><rect x="8" y="326" width="206" height="84" rx="16" fill="#ffffff"/></g>
-    <circle cx="46" cy="368" r="20" fill="#FFB400" fill-opacity=".16"/>
-    <circle cx="46" cy="368" r="11" fill="none" stroke="#FFB400" stroke-width="2.2"/>
-    <path d="M46 361v7l5 3" stroke="#FFB400" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-    <text x="78" y="363" class="b ink" font-size="15">Edit window</text>
-    <text x="78" y="385" class="sb mut" font-size="13">58:12 left to change</text>
+    <g filter="url(#cardShadow)"><rect x="8" y="300" width="206" height="84" rx="16" fill="#ffffff"/></g>
+    <circle cx="46" cy="342" r="20" fill="#FFB400" fill-opacity=".16"/>
+    <circle cx="46" cy="342" r="11" fill="none" stroke="#FFB400" stroke-width="2.2"/>
+    <path d="M46 335v7l5 3" stroke="#FFB400" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    <text x="78" y="337" class="b ink" font-size="15">Edit window</text>
+    <text x="78" y="359" class="sb mut" font-size="13">58:12 left to change</text>
 
-    <!-- upsell revenue -->
-    <g filter="url(#cardShadow)"><rect x="8" y="452" width="250" height="244" rx="16" fill="#ffffff"/></g>
-    <text x="30" y="486" class="sb mut" font-size="11" letter-spacing="1.4">UPSELL REVENUE</text>
-    <text x="30" y="514" class="eb ink" font-size="19">Added During Edits</text>
-    <g class="mut" font-size="9">
-      <text x="30" y="544">100%</text>
-      <text x="34" y="578">75%</text>
-      <text x="34" y="608">50%</text>
-      <text x="38" y="664">0%</text>
-    </g>
-    <line x1="64" y1="540" x2="240" y2="540" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="4 4"/>
-    <line x1="64" y1="574" x2="240" y2="574" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="4 4"/>
-    <line x1="64" y1="660" x2="240" y2="660" stroke="#E5E7EB" stroke-width="1.5"/>
+    <!-- AOV from upsells -->
+    <g filter="url(#cardShadow)"><rect x="8" y="420" width="246" height="232" rx="16" fill="#ffffff"/></g>
+    <text x="30" y="452" class="sb mut" font-size="10.5" letter-spacing="1.4">AOV FROM UPSELLS</text>
+    <text x="30" y="502" class="ink" font-size="42" style="font-weight:500">5%</text>
+    <text x="94" y="494" class="sb mut" font-size="13">higher AOV</text>
+    <text x="94" y="511" class="sb mut" font-size="13">from upsells</text>
+    <line x1="40" y1="620" x2="230" y2="620" stroke="#E5E7EB" stroke-width="1.5"/>
     <g>
-      <rect x="70" y="608" width="18" height="52" rx="4" fill="url(#barFill)"/>
-      <rect x="98" y="572" width="18" height="88" rx="4" fill="url(#barFill)"/>
-      <rect x="126" y="594" width="18" height="66" rx="4" fill="url(#barFill)"/>
-      <rect x="154" y="556" width="18" height="104" rx="4" fill="url(#barFill)"/>
-      <rect x="182" y="582" width="18" height="78" rx="4" fill="url(#barFill)"/>
-      <rect x="210" y="544" width="18" height="116" rx="4" fill="url(#barFill)"/>
+      <rect x="40" y="590" width="18" height="30" rx="4" fill="url(#barFill)"/>
+      <rect x="70" y="576" width="18" height="44" rx="4" fill="url(#barFill)"/>
+      <rect x="100" y="564" width="18" height="56" rx="4" fill="url(#barFill)"/>
+      <rect x="130" y="550" width="18" height="70" rx="4" fill="url(#barFill)"/>
+      <rect x="160" y="536" width="18" height="84" rx="4" fill="url(#barFill)"/>
+      <rect x="190" y="522" width="18" height="98" rx="4" fill="url(#barFill)"/>
     </g>
     <g class="mut sb" font-size="9" text-anchor="middle">
-      <text x="79" y="678">APR</text>
-      <text x="107" y="678">MAY</text>
-      <text x="135" y="678">JUN</text>
-      <text x="163" y="678">JUL</text>
-      <text x="191" y="678">AUG</text>
-      <text x="219" y="678">SEP</text>
+      <text x="49" y="638">APR</text>
+      <text x="79" y="638">MAY</text>
+      <text x="109" y="638">JUN</text>
+      <text x="139" y="638">JUL</text>
+      <text x="169" y="638">AUG</text>
+      <text x="199" y="638">SEP</text>
     </g>
   </g>
 </svg>
