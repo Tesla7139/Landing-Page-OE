@@ -109,7 +109,7 @@
   .cp-steps__head h2 { margin: 0; font-size: 56px; font-weight: 500; line-height: 64px;
                        letter-spacing: -0.02em; color: #252525; }
   .cp-steps__head p  { margin: 0; font-size: 19px; line-height: 30px; color: #52525B; max-width: 30ch; }
-  .cp-steps__card { display: flex; flex-direction: row; gap: 28px;
+  .cp-steps__card { cursor: pointer; display: flex; flex-direction: row; gap: 28px;
                     padding: 44px 40px; min-height: 208px; align-items: center;
                     border-radius: 12px; background: #ffffff; border: 1px solid #F1F1F1;
                     box-shadow: inset 0 0 0 0 #155FFF;
@@ -143,7 +143,7 @@
   [data-active-step="2"] [data-step-card="2"],
   [data-active-step="3"] [data-step-card="3"] {
     background: #EEF3FF; border-color: #D6E4FF;
-    box-shadow: inset 4px 0 0 0 #155FFF;
+    box-shadow: none;
   }
   [data-active-step="0"] [data-step-card="0"],
   [data-active-step="1"] [data-step-card="1"],
@@ -432,19 +432,19 @@
           <h2>How order editing works</h2>
           <p>From the thank-you page to fulfilment, in four steps.</p>
         </div>
-        <div class="cp-steps__card" data-step-card="0">
+        <div class="cp-steps__card" data-step-card="0" role="button" tabindex="0" aria-label="Show step 1" onClick="{{ pickStep0 }}" onKeyDown="{{ onStepKey0 }}">
           <div class="cp-steps__num">1</div>
           <p class="cp-steps__copy">Customers edit from the Thank You page or Order Status page. No login or contact form</p>
         </div>
-        <div class="cp-steps__card" data-step-card="1">
+        <div class="cp-steps__card" data-step-card="1" role="button" tabindex="0" aria-label="Show step 2" onClick="{{ pickStep1 }}" onKeyDown="{{ onStepKey1 }}">
           <div class="cp-steps__num">2</div>
           <p class="cp-steps__copy">Control what can be edited: address, variant, quantity, or discount code</p>
         </div>
-        <div class="cp-steps__card" data-step-card="2">
+        <div class="cp-steps__card" data-step-card="2" role="button" tabindex="0" aria-label="Show step 3" onClick="{{ pickStep2 }}" onKeyDown="{{ onStepKey2 }}">
           <div class="cp-steps__num">3</div>
           <p class="cp-steps__copy">Set the edit window. Orders stay held in Shopify until it closes, then ship as normal</p>
         </div>
-        <div class="cp-steps__card" data-step-card="3">
+        <div class="cp-steps__card" data-step-card="3" role="button" tabindex="0" aria-label="Show step 4" onClick="{{ pickStep3 }}" onKeyDown="{{ onStepKey3 }}">
           <div class="cp-steps__num">4</div>
           <p class="cp-steps__copy">Recommend products while they edit</p>
         </div>
@@ -1471,6 +1471,26 @@ class Component extends DCLogic {
   // Keeps its own set of in-band cards rather than trusting one callback's
   // entries, so a fast flick in either direction still resolves to the card
   // nearest the centre line instead of whichever fired last.
+  // Tapping a card selects that step. The card is scrolled to the middle so
+  // the IntersectionObserver agrees with the click instead of overriding it
+  // on the next scroll frame.
+  pickStep(n) {
+    this.setState(prev =>
+      prev.activeStep === n ? null : { activeStep: n, stepDir: n > prev.activeStep ? "fwd" : "back" }
+    );
+    const card = document.querySelector('[data-step-card="' + n + '"]');
+    if (!card || !card.scrollIntoView) return;
+    const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    card.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
+  }
+
+  onStepKey(e, n) {
+    if (e && (e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      this.pickStep(n);
+    }
+  }
+
   watchSteps() {
     const cards = document.querySelectorAll("[data-step-card]");
     if (!cards.length || !window.IntersectionObserver) return;
@@ -1515,6 +1535,10 @@ class Component extends DCLogic {
     const dot = n => (n === i ? "#155FFF" : "rgba(37,37,37,0.2)");
     return {
       activeStep: this.state.activeStep,
+      pickStep0: () => this.pickStep(0), pickStep1: () => this.pickStep(1),
+      pickStep2: () => this.pickStep(2), pickStep3: () => this.pickStep(3),
+      onStepKey0: e => this.onStepKey(e, 0), onStepKey1: e => this.onStepKey(e, 1),
+      onStepKey2: e => this.onStepKey(e, 2), onStepKey3: e => this.onStepKey(e, 3),
       stepDir: this.state.stepDir,
       trackTransform: "translateX(" + (-i * (1072 + 48)) + "px)",
       dot0: dot(0), dot1: dot(1), dot2: dot(2),
