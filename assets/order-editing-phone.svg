@@ -55,15 +55,6 @@
   <g>
     <ellipse cx="556" cy="248" rx="216" ry="166" fill="url(#bgSwirlA)" transform="rotate(-26 556 248)"/>
     <ellipse cx="74" cy="700" rx="196" ry="142" fill="url(#bgSwirlA)" transform="rotate(16 74 700)"/>
-    <g stroke="#B9D0FF" fill="none" stroke-linecap="round" opacity=".75">
-      <path d="M512 34c130 102 152 258 64 384s-96 242 22 354" stroke-width="18"/>
-      <path d="M584 94c102 114 104 254 16 372s-66 218 46 310" stroke-width="14" opacity=".7"/>
-      <path d="M62 250c-68 122-42 254 56 336s126 180 80 272" stroke-width="16" opacity=".55"/>
-    </g>
-    <g stroke="#ffffff" fill="none" stroke-linecap="round" opacity=".8">
-      <path d="M552 60c118 104 134 252 52 370s-84 228 28 338" stroke-width="7"/>
-      <path d="M34 292c-56 116-26 238 66 314" stroke-width="6" opacity=".8"/>
-    </g>
   </g>
 
   <!-- ============ the phone ============ -->
