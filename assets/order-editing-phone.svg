@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 900" width="620" height="900" fill="none" role="img" aria-labelledby="oePhoneTitle oePhoneDesc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 900" width="700" height="900" fill="none" role="img" aria-labelledby="oePhoneTitle oePhoneDesc">
   <title id="oePhoneTitle">The order-editing screen a shopper sees</title>
   <desc id="oePhoneDesc">A phone showing the Gully Labs thank-you page: a countdown on how long the order stays editable, accordion rows for contact details, shipping address, order updates, discount codes and cancellation, then cross-sell products and a featured offer.</desc>
 
@@ -214,13 +214,13 @@
       <path d="M214 184l10 6-8 5z" fill="#00A587"/>
     </g>
 
-    <!-- edit window: pushed right, over the device -->
-    <g filter="url(#cardShadow)"><rect x="112" y="330" width="244" height="88" rx="16" fill="#ffffff"/></g>
-    <circle cx="150" cy="374" r="20" fill="#FFB400" fill-opacity=".16"/>
-    <circle cx="150" cy="374" r="11" fill="none" stroke="#FFB400" stroke-width="2.2"/>
-    <path d="M150 367v7l5 3" stroke="#FFB400" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-    <text x="182" y="368" class="b ink" font-size="15">Edit window</text>
-    <text x="182" y="389" class="sb mut" font-size="12.5">Customise the time yourself</text>
+    <!-- edit window: overhanging the right edge of the device -->
+    <g filter="url(#cardShadow)"><rect x="434" y="248" width="238" height="88" rx="16" fill="#ffffff"/></g>
+    <circle cx="470" cy="292" r="20" fill="#FFB400" fill-opacity=".16"/>
+    <circle cx="470" cy="292" r="11" fill="none" stroke="#FFB400" stroke-width="2.2"/>
+    <path d="M470 285v7l5 3" stroke="#FFB400" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    <text x="500" y="286" class="b ink" font-size="15">Edit window</text>
+    <text x="500" y="307" class="sb mut" font-size="12">Customise the time yourself</text>
 
     <!-- AOV from upsells -->
     <g filter="url(#cardShadow)"><rect x="8" y="420" width="246" height="232" rx="16" fill="#ffffff"/></g>
