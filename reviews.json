@@ -12,29 +12,6 @@
   },
   "reviews": [
     {
-      "quote": "Love Carrier Onboarding with rapid resolutions, 24x7 support and quick TAT. Would rate them 10/10.",
-      "name": "Balaji Kunjeti",
-      "role": "Group Product Manager, Walmart International Tech",
-      "logo": "assets/001_Walmart.svg",
-      "logoAlt": "Walmart"
-    },
-    {
-      "quote": "ClickPost’s team were experts in their systems and integrated seamlessly with ours. They proactively resolved every issue, ensuring a smooth experience.",
-      "name": "Sonali Das",
-      "role": "D2C Tech and Product Head, Birkenstock",
-      "logo": "assets/006_Birkenstock.svg",
-      "logoAlt": "Birkenstock"
-    },
-    {
-      "quote": "We’ve been using Clickpost and it’s genuinely been super helpful. Customers can handle order edits themselves, and the post-purchase upsells have been a solid bonus for incremental revenue. Setup was straightforward, everything’s been running smoothly, and support has been great too — the team was quick to respond and got us up and running fast.",
-      "name": "Samarth Sindhi",
-      "role": "Chief Executive Officer, MarsGHC",
-      "date": "January 8, 2026",
-      "logo": "assets/337e134ae1ba1799.png",
-      "logoAlt": "MarsGHC",
-      "avatar": "assets/2d357ebfa6b30d6f.png"
-    },
-    {
       "quote": "Mohit and the team at ClickPost are an exceptional team of developers and nice people to boot. They listen to feedback for improvement and new features, and have built genuinely useful tools for Shopify stores.",
       "name": "Renue By Science",
       "date": "March 10, 2026"
@@ -63,6 +40,13 @@
       "quote": "Been using Clickpost for a few months now and honestly it just works. Customers can update their orders without emailing us back and forth, which saves our team a ton of time. Setup was pretty easy and when I had a question, Smit replied super fast and walked me through it. The order editing app paid for itself within the first week just from fewer support tickets and upsells. If you deal with order change requests a lot, this is a no brainer.",
       "name": "Bacca Bucci",
       "date": "January 28, 2026"
+    },
+    {
+      "quote": "We’ve been using Clickpost and it’s genuinely been super helpful. Customers can handle order edits themselves, and the post-purchase upsells have been a solid bonus for incremental revenue. Setup was straightforward, everything’s been running smoothly, and support has been great too — the team was quick to respond and got us up and running fast.",
+      "name": "Mars By GHC",
+      "date": "January 8, 2026",
+      "logo": "assets/337e134ae1ba1799.png",
+      "logoAlt": "Mars by GHC"
     },
     {
       "quote": "Really happy with Clickpost so far. We added it mainly so customers could fix address/phone number mistakes after checkout and it's been super smooth. It has reduced our overall RTO upto 25%. The setup was easy and didn't mess with our theme at all. I also like how clean the order editing flow looks on the customer side. Had a small question during setup and Smit replied pretty fast and explained everything clearly. Support actually feels human, which is rare. And they give great upsell functionality as well, while the editing is happening. Great app and team!",
