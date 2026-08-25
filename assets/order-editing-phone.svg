@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 880" width="620" height="880" fill="none" role="img" aria-labelledby="oePhoneTitle oePhoneDesc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 980" width="620" height="980" fill="none" role="img" aria-labelledby="oePhoneTitle oePhoneDesc">
   <title id="oePhoneTitle">The order-editing screen a shopper sees</title>
-  <desc id="oePhoneDesc">A phone showing a thank-you page with an edit window counting down and self-serve actions: add products, edit shipping address, change variant or quantity, apply discounts, cancel order — plus an upsell offer.</desc>
+  <desc id="oePhoneDesc">A phone showing the Gully Labs thank-you page: a countdown on how long the order stays editable, accordion rows for contact details, shipping address, order updates, discount codes and cancellation, then cross-sell products and a featured offer.</desc>
 
   <defs>
     <style>
@@ -8,16 +8,13 @@
       .b  { font-weight: 700; }
       .sb { font-weight: 600; }
       .eb { font-weight: 800; }
-      .ink { fill: #252525; }
-      .mut { fill: #52525B; }
-      .blu { fill: #155FFF; }
+      .ink { fill: #111827; }
+      .mut { fill: #6A7282; }
+      .grn { fill: #00A587; }
     </style>
 
     <filter id="pShadow" x="-40%" y="-25%" width="180%" height="155%">
       <feDropShadow dx="0" dy="26" stdDeviation="30" flood-color="#0A1628" flood-opacity="0.26"/>
-    </filter>
-    <filter id="pSoft" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="4" stdDeviation="7" flood-color="#263238" flood-opacity="0.10"/>
     </filter>
 
     <!-- brushed-metal frame -->
@@ -30,162 +27,173 @@
       <stop offset="93%"  stop-color="#EDF1F6"/>
       <stop offset="100%" stop-color="#7C8794"/>
     </linearGradient>
-    <linearGradient id="glassSheen" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.55"/>
-      <stop offset="38%"  stop-color="#ffffff" stop-opacity="0.06"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.00"/>
-    </linearGradient>
     <linearGradient id="bgSwirlA" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#D6E4FF"/>
       <stop offset="100%" stop-color="#EEF3FF"/>
     </linearGradient>
-    <linearGradient id="upsell" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#F6F8FC"/>
-      <stop offset="100%" stop-color="#EEF3FF"/>
-    </linearGradient>
-    <linearGradient id="tote" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#EFE9DC"/>
-      <stop offset="100%" stop-color="#DED5C3"/>
+    <linearGradient id="shelf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FAFAFA"/>
+      <stop offset="100%" stop-color="#EFEFEF"/>
     </linearGradient>
 
-    <clipPath id="clipScreen"><rect x="132" y="52" width="356" height="756" rx="42"/></clipPath>
-    <clipPath id="clipTote"><rect x="160" y="606" width="122" height="128" rx="8"/></clipPath>
+    <clipPath id="clipScreen"><rect x="132" y="52" width="356" height="856" rx="42"/></clipPath>
+    <clipPath id="clipP1"><rect x="166" y="646" width="92" height="92" rx="6"/></clipPath>
+    <clipPath id="clipP2"><rect x="270" y="646" width="92" height="92" rx="6"/></clipPath>
+    <clipPath id="clipP3"><rect x="374" y="646" width="92" height="92" rx="6"/></clipPath>
+    <clipPath id="clipHero"><rect x="166" y="872" width="76" height="60" rx="6"/></clipPath>
   </defs>
 
   <!-- ============ abstract backdrop ============ -->
   <g>
-    <ellipse cx="556" cy="236" rx="220" ry="164" fill="url(#bgSwirlA)" transform="rotate(-26 556 236)"/>
-    <ellipse cx="74" cy="706" rx="200" ry="146" fill="url(#bgSwirlA)" transform="rotate(16 74 706)"/>
+    <ellipse cx="556" cy="264" rx="220" ry="176" fill="url(#bgSwirlA)" transform="rotate(-26 556 264)"/>
+    <ellipse cx="74" cy="756" rx="200" ry="150" fill="url(#bgSwirlA)" transform="rotate(16 74 756)"/>
     <g stroke="#B9D0FF" fill="none" stroke-linecap="round" opacity=".75">
-      <path d="M512 34c132 100 156 254 66 378s-98 238 24 348" stroke-width="18"/>
-      <path d="M584 96c104 112 106 252 16 368s-68 214 48 304" stroke-width="14" opacity=".7"/>
-      <path d="M62 244c-70 120-44 252 58 332s128 178 82 270" stroke-width="16" opacity=".55"/>
+      <path d="M512 34c132 110 156 280 66 416s-98 262 24 384" stroke-width="18"/>
+      <path d="M584 96c104 122 106 276 16 404s-68 236 48 336" stroke-width="14" opacity=".7"/>
+      <path d="M62 264c-70 132-44 276 58 364s128 196 82 296" stroke-width="16" opacity=".55"/>
     </g>
     <g stroke="#ffffff" fill="none" stroke-linecap="round" opacity=".8">
-      <path d="M552 62c120 102 136 248 54 364s-86 226 30 332" stroke-width="7"/>
-      <path d="M34 288c-58 114-28 234 68 308" stroke-width="6" opacity=".8"/>
+      <path d="M552 62c120 112 136 272 54 400s-86 248 30 366" stroke-width="7"/>
+      <path d="M34 308c-58 126-28 258 68 340" stroke-width="6" opacity=".8"/>
     </g>
   </g>
 
-  <!-- ============ the phone, tilted ============ -->
+  <!-- ============ the phone ============ -->
   <g>
-    <!-- frame -->
     <g filter="url(#pShadow)">
-      <rect x="112" y="32" width="396" height="796" rx="62" fill="url(#frame)"/>
+      <rect x="112" y="32" width="396" height="896" rx="62" fill="url(#frame)"/>
     </g>
-    <rect x="122" y="42" width="376" height="776" rx="54" fill="#12181F"/>
-    <rect x="132" y="52" width="356" height="756" rx="42" fill="#ffffff"/>
+    <rect x="122" y="42" width="376" height="876" rx="54" fill="#12181F"/>
+    <rect x="132" y="52" width="356" height="856" rx="42" fill="#ffffff"/>
 
     <!-- side buttons -->
-    <rect x="506" y="250" width="5" height="86" rx="2.5" fill="#6B7683"/>
-    <rect x="109" y="220" width="5" height="46" rx="2.5" fill="#6B7683"/>
-    <rect x="109" y="286" width="5" height="76" rx="2.5" fill="#6B7683"/>
+    <rect x="506" y="270" width="5" height="92" rx="2.5" fill="#6B7683"/>
+    <rect x="109" y="238" width="5" height="48" rx="2.5" fill="#6B7683"/>
+    <rect x="109" y="306" width="5" height="80" rx="2.5" fill="#6B7683"/>
 
     <!-- ============ screen ============ -->
     <g clip-path="url(#clipScreen)" class="f">
-      <!-- dynamic island -->
       <rect x="272" y="68" width="78" height="24" rx="12" fill="#12181F"/>
-      <circle cx="341" cy="80" r="4" fill="#1E3A5F"/>
 
-      <!-- store bar -->
-      <g stroke="#252525" stroke-width="1.8" stroke-linecap="round">
-        <path d="M152 112h16M152 118h16M152 124h16"/>
+      <!-- store bar: mark + url pill -->
+      <g fill="#111827">
+        <path d="M154 128l7-22 7 6-7 22z"/>
+        <path d="M168 128l7-22 7 6-7 22z"/>
       </g>
-      <text x="310" y="124" class="ink" font-size="17" letter-spacing="4.5" text-anchor="middle" style="font-weight:600">GULLY LABS</text>
-      <g stroke="#252525" stroke-width="1.8" fill="none">
-        <path d="M456 112h18v18h-18z" rx="2"/>
-        <path d="M461 112c0-5 8-5 8 0"/>
-      </g>
+      <rect x="232" y="106" width="140" height="28" rx="14" fill="#F6F6F6" stroke="#E5E7EB" stroke-width="1.2"/>
+      <text x="302" y="124" class="b ink" font-size="13" text-anchor="middle">gullylabs.com</text>
 
-      <!-- thank-you card -->
-      <rect x="148" y="146" width="324" height="106" rx="12" fill="#ffffff" stroke="#E5E7EB" stroke-width="1.5"/>
-      <circle cx="180" cy="184" r="17" fill="none" stroke="#00A587" stroke-width="2.4"/>
-      <path d="M172 184l6 6 10-12" stroke="#00A587" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <text x="208" y="180" class="b ink" font-size="17">Thank you, Aarav!</text>
-      <text x="208" y="199" class="sb mut" font-size="12">Order #GL-78291</text>
-      <text x="208" y="222" class="mut" font-size="11.5">We have your order and are getting it</text>
-      <text x="208" y="237" class="mut" font-size="11.5">ready to ship.</text>
+      <!-- confirmation -->
+      <circle cx="168" cy="184" r="16" fill="none" stroke="#111827" stroke-width="1.8"/>
+      <path d="M161 184l5 5 9-11" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <text x="196" y="174" class="mut" font-size="11.5">Confirmation #JDTNH5Z6N</text>
+      <text x="196" y="198" class="b ink" font-size="18">Thank you, Mohit!</text>
 
-      <!-- edit header + countdown -->
-      <text x="148" y="292" class="eb ink" font-size="21">Edit your order</text>
-      <rect x="352" y="272" width="120" height="26" rx="13" fill="#EEF3FF"/>
-      <circle cx="369" cy="285" r="7" fill="none" stroke="#155FFF" stroke-width="1.8"/>
-      <path d="M369 281v4l3 2" stroke="#155FFF" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-      <text x="382" y="289" class="b blu" font-size="11">58 min left to edit</text>
-      <text x="148" y="313" class="mut" font-size="12">Need a change? Make it yourself — no email, no wait.</text>
+      <!-- ===== make changes panel ===== -->
+      <rect x="148" y="220" width="324" height="386" rx="12" fill="#ffffff" stroke="#E5E7EB" stroke-width="1.5"/>
+      <text x="166" y="252" class="b ink" font-size="15">Make changes to your order</text>
 
-      <!-- action rows -->
+      <!-- countdown notice -->
+      <rect x="166" y="264" width="288" height="62" rx="8" fill="#FEF8E4"/>
+      <path d="M186 288l9 16h-18z" fill="none" stroke="#F0B429" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M186 294v4M186 301v.5" stroke="#F0B429" stroke-width="1.8" stroke-linecap="round"/>
+      <text x="212" y="284" class="mut" font-size="11.5">You can make changes to order</text>
+      <text x="212" y="300" class="mut" font-size="11.5">for another <tspan class="b" fill="#E0322E">59 minutes and</tspan></text>
+      <text x="212" y="316" class="b" font-size="11.5" fill="#E0322E">46 seconds</text>
+
+      <!-- accordion rows -->
       <g>
-        <!-- add products -->
-        <rect x="148" y="330" width="324" height="48" rx="10" fill="#ffffff" stroke="#E5E7EB" stroke-width="1.5"/>
-        <path d="M170 350h16v14h-16z" fill="none" stroke="#155FFF" stroke-width="1.8" stroke-linejoin="round"/>
-        <path d="M174 350c0-5 8-5 8 0" fill="none" stroke="#155FFF" stroke-width="1.8"/>
-        <text x="204" y="359" class="b ink" font-size="14">Add products</text>
-        <path d="M448 349l7 7-7 7" stroke="#52525B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <rect x="166" y="338" width="288" height="46" rx="9" fill="#ffffff" stroke="#E5E7EB" stroke-width="1.4"/>
+        <circle cx="190" cy="356" r="5.5" fill="none" stroke="#111827" stroke-width="1.6"/>
+        <path d="M183 369c1.4-5.5 12.6-5.5 14 0" stroke="#111827" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        <text x="212" y="366" class="b ink" font-size="12.5">Change Contact Information</text>
+        <path d="M430 357l6 6 6-6" stroke="#6A7282" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 
-        <!-- shipping address -->
-        <rect x="148" y="386" width="324" height="48" rx="10" fill="#ffffff" stroke="#E5E7EB" stroke-width="1.5"/>
-        <path d="M178 400c-7 0-12 5-12 12 0 9 12 18 12 18s12-9 12-18c0-7-5-12-12-12z" fill="none" stroke="#155FFF" stroke-width="1.8"/>
-        <circle cx="178" cy="412" r="4" fill="#155FFF"/>
-        <text x="204" y="415" class="b ink" font-size="14">Edit shipping address</text>
-        <path d="M448 405l7 7-7 7" stroke="#52525B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <rect x="166" y="392" width="288" height="46" rx="9" fill="#ffffff" stroke="#E5E7EB" stroke-width="1.4"/>
+        <path d="M190 404c-6 0-10 4-10 10 0 6 10 14 10 14s10-8 10-14c0-6-4-10-10-10z" fill="none" stroke="#111827" stroke-width="1.6"/>
+        <circle cx="190" cy="414" r="3" fill="#111827"/>
+        <text x="212" y="420" class="b ink" font-size="12.5">Edit Shipping Address</text>
+        <path d="M430 411l6 6 6-6" stroke="#6A7282" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 
-        <!-- variant / quantity -->
-        <rect x="148" y="442" width="324" height="48" rx="10" fill="#ffffff" stroke="#E5E7EB" stroke-width="1.5"/>
-        <path d="M168 462l10-6 10 6v12l-10 6-10-6z" fill="none" stroke="#155FFF" stroke-width="1.8" stroke-linejoin="round"/>
-        <path d="M168 462l10 6 10-6M178 468v12" stroke="#155FFF" stroke-width="1.8" stroke-linejoin="round"/>
-        <text x="204" y="471" class="b ink" font-size="14">Change variant or quantity</text>
-        <path d="M448 461l7 7-7 7" stroke="#52525B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <rect x="166" y="446" width="288" height="46" rx="9" fill="#ffffff" stroke="#E5E7EB" stroke-width="1.4"/>
+        <path d="M182 478l14-14 5 5-14 14h-5z" fill="none" stroke="#111827" stroke-width="1.6" stroke-linejoin="round"/>
+        <text x="212" y="474" class="b ink" font-size="12.5">Update your order</text>
+        <path d="M430 465l6 6 6-6" stroke="#6A7282" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 
-        <!-- discounts -->
-        <rect x="148" y="498" width="324" height="48" rx="10" fill="#ffffff" stroke="#E5E7EB" stroke-width="1.5"/>
-        <path d="M186 512l4 12-12 12-12-12 12-12z" fill="none" stroke="#155FFF" stroke-width="1.8" stroke-linejoin="round"/>
-        <circle cx="181" cy="519" r="2.4" fill="#155FFF"/>
-        <text x="204" y="527" class="b ink" font-size="14">Apply a discount code</text>
-        <path d="M448 517l7 7-7 7" stroke="#52525B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <rect x="166" y="500" width="288" height="46" rx="9" fill="#ffffff" stroke="#E5E7EB" stroke-width="1.4"/>
+        <path d="M198 512l4 11-11 11-11-11 11-11z" fill="none" stroke="#111827" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="193" cy="519" r="2.2" fill="#111827"/>
+        <text x="212" y="528" class="b ink" font-size="12.5">Apply Discount Code</text>
+        <path d="M430 519l6 6 6-6" stroke="#6A7282" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 
-        <!-- cancel -->
-        <rect x="148" y="554" width="324" height="48" rx="10" fill="#ffffff" stroke="#E5E7EB" stroke-width="1.5"/>
-        <circle cx="178" cy="578" r="11" fill="none" stroke="#155FFF" stroke-width="1.8"/>
-        <path d="M174 574l8 8M182 574l-8 8" stroke="#155FFF" stroke-width="1.8" stroke-linecap="round"/>
-        <text x="204" y="583" class="b ink" font-size="14">Cancel the order</text>
-        <path d="M448 573l7 7-7 7" stroke="#52525B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <rect x="166" y="554" width="288" height="46" rx="9" fill="#ffffff" stroke="#E5E7EB" stroke-width="1.4"/>
+        <path d="M184 571l12 12M196 571l-12 12" stroke="#111827" stroke-width="1.8" stroke-linecap="round"/>
+        <text x="212" y="582" class="b ink" font-size="12.5">Cancel Your Order</text>
+        <path d="M430 573l6 6 6-6" stroke="#6A7282" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       </g>
 
-      <!-- upsell -->
-      <rect x="148" y="618" width="324" height="146" rx="12" fill="url(#upsell)" stroke="#D6E4FF" stroke-width="1.5"/>
-      <rect x="160" y="630" width="122" height="122" rx="8" fill="url(#tote)"/>
-      <g clip-path="url(#clipTote)">
-        <!-- Gully Number 001 — side profile -->
-        <ellipse cx="221" cy="726" rx="52" ry="5" fill="#C4B79E" opacity=".7"/>
-        <path d="M172 704h98a6 6 0 0 1 6 6v4a6 6 0 0 1-6 6h-92a6 6 0 0 1-6-6v-10z" fill="#F5F2EA" stroke="#D8CFBB" stroke-width="1.2"/>
-        <path d="M174 700h96v6h-96z" fill="#ffffff" stroke="#D8CFBB" stroke-width="1"/>
-        <path d="M178 700c-2-14 4-24 16-28l14-5c6-2 12 0 16 5l6 7c7 7 20 10 30 13 6 2 8 6 8 8z" fill="#2B2B2B"/>
-        <path d="M186 686c4-8 12-13 20-16" stroke="#4A4A4A" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M232 678c8 6 18 10 28 13" stroke="#4A4A4A" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <g stroke="#E8E4DA" stroke-width="1.6" stroke-linecap="round">
-          <path d="M206 674l8 5M210 668l8 5M214 662l8 5"/>
-        </g>
-        <path d="M262 672c6 1 8 5 8 9l-10-2z" fill="#3E3E3E"/>
+      <!-- ===== cross-sell ===== -->
+      <rect x="148" y="612" width="324" height="212" rx="12" fill="#ffffff" stroke="#E5E7EB" stroke-width="1.5"/>
+      <text x="166" y="638" class="b ink" font-size="14">You may also like these products</text>
+
+      <!-- card 1 — Kara Pleat Trouser, Navy -->
+      <rect x="166" y="646" width="92" height="92" rx="6" fill="url(#shelf)"/>
+      <g clip-path="url(#clipP1)">
+        <rect x="196" y="666" width="32" height="12" rx="3" fill="#E7E5E0"/>
+        <path d="M196 676h32l4 62h-15l-5-40-5 40h-15z" fill="#232B3A"/>
       </g>
-      <rect x="166" y="636" width="56" height="21" rx="6" fill="#155FFF"/>
-      <text x="194" y="651" class="b" font-size="11" fill="#ffffff" text-anchor="middle">15% OFF</text>
+      <text x="166" y="752" class="ink" font-size="9">Kara - Pleat</text>
+      <text x="166" y="763" class="ink" font-size="9">Trouser - Navy F...</text>
+      <text x="166" y="778" class="mut" font-size="8.5" text-decoration="line-through">₹3,290</text>
+      <text x="199" y="778" class="b grn" font-size="9.5">₹1,645</text>
+      <rect x="166" y="786" width="92" height="24" rx="7" fill="#111827"/>
+      <text x="212" y="802" class="b" font-size="9" fill="#ffffff" text-anchor="middle">Add · ₹1,645</text>
 
-      <text x="296" y="652" class="b ink" font-size="14">Gully Number 001</text>
-      <text x="296" y="669" class="mut" font-size="11.5">Baaz Faris Black</text>
-      <text x="296" y="691" class="mut" font-size="12.5" text-decoration="line-through">₹3,790</text>
-      <text x="348" y="691" class="eb blu" font-size="13.5">₹3,221</text>
-      <text x="296" y="710" class="mut" font-size="11">Add it to this order — one</text>
-      <text x="296" y="723" class="mut" font-size="11">parcel, one delivery.</text>
-      <rect x="296" y="732" width="164" height="30" rx="7" fill="#155FFF"/>
-      <text x="378" y="752" class="b" font-size="13" fill="#ffffff" text-anchor="middle">Add to order</text>
+      <!-- card 2 — Kara Cross-collar Shirt, Brown -->
+      <rect x="270" y="646" width="92" height="92" rx="6" fill="url(#shelf)"/>
+      <g clip-path="url(#clipP2)">
+        <circle cx="316" cy="672" r="9" fill="#C9AE94"/>
+        <path d="M298 686h36l6 52h-48z" fill="#A8927B"/>
+        <path d="M310 686l6 8 6-8" fill="#8F7A64"/>
+      </g>
+      <text x="270" y="752" class="ink" font-size="9">Kara - Cross-collar</text>
+      <text x="270" y="763" class="ink" font-size="9">Shirt - Brown For...</text>
+      <text x="270" y="778" class="mut" font-size="8.5" text-decoration="line-through">₹3,425</text>
+      <text x="303" y="778" class="b grn" font-size="9.5">₹1,713</text>
+      <rect x="270" y="786" width="92" height="24" rx="7" fill="#111827"/>
+      <text x="316" y="802" class="b" font-size="9" fill="#ffffff" text-anchor="middle">Add · ₹1,713</text>
 
-      <!-- reassurance strip -->
-      <path d="M156 782c0-4 4-6 8-8 4 2 8 4 8 8 0 6-4 10-8 12-4-2-8-6-8-12z" fill="none" stroke="#52525B" stroke-width="1.6"/>
-      <text x="182" y="794" class="mut" font-size="11.5">Every change syncs to fulfilment instantly.</text>
+      <!-- card 3 — Kara Pintuck Pant, Olive (runs off the edge, as it does live) -->
+      <rect x="374" y="646" width="92" height="92" rx="6" fill="url(#shelf)"/>
+      <g clip-path="url(#clipP3)">
+        <rect x="404" y="666" width="32" height="12" rx="3" fill="#E7E5E0"/>
+        <path d="M404 676h32l4 62h-15l-5-40-5 40h-15z" fill="#6B7043"/>
+      </g>
+      <text x="374" y="752" class="ink" font-size="9">Kara - Pintuck</text>
+      <text x="374" y="763" class="ink" font-size="9">Pant - Oliv...</text>
+      <text x="374" y="778" class="mut" font-size="8.5" text-decoration="line-through">₹2,995</text>
+      <text x="407" y="778" class="b grn" font-size="9.5">₹1,498</text>
+      <rect x="374" y="786" width="92" height="24" rx="7" fill="#111827"/>
+      <text x="420" y="802" class="b" font-size="9" fill="#ffffff" text-anchor="middle">Add · ₹1,498</text>
+      <!-- scroll hint -->
+      <rect x="166" y="816" width="60" height="3" rx="1.5" fill="#111827" opacity=".35"/>
 
-      <!-- glass sheen over the whole screen -->
-      <path d="M132 52h356v300L132 560z" fill="url(#glassSheen)" opacity=".5"/>
+      <!-- ===== featured offer, cut off by the fold like the real screen ===== -->
+      <rect x="148" y="836" width="324" height="120" rx="12" fill="#ffffff" stroke="#E5E7EB" stroke-width="1.5"/>
+      <text x="166" y="862" class="b ink" font-size="14">Too good to miss!</text>
+      <rect x="166" y="872" width="76" height="60" rx="6" fill="#F1F1F1"/>
+      <g clip-path="url(#clipHero)">
+        <path d="M176 916h56a4 4 0 0 1 4 4v4h-64v-4a4 4 0 0 1 4-4z" fill="#ffffff" stroke="#DDDDDD" stroke-width="1"/>
+        <path d="M180 916c-2-11 3-19 12-22l10-4c5-2 9 0 12 4l5 6c5 5 14 8 21 10 4 1 5 6 5 6z" fill="#E8E6E1"/>
+        <path d="M196 898c4-6 9-9 15-11" stroke="#C9C7C1" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </g>
+      <rect x="170" y="876" width="44" height="15" rx="4" fill="#FDE8E8"/>
+      <text x="192" y="887" class="b" font-size="8.5" fill="#E0322E" text-anchor="middle">50% OFF</text>
+      <text x="254" y="884" class="b ink" font-size="12.5">Gully Number 001 –</text>
+      <text x="254" y="900" class="b ink" font-size="12.5">Megh White For</text>
+      <text x="254" y="916" class="b ink" font-size="12.5">Women</text>
+      <text x="254" y="938" class="mut" font-size="10" text-decoration="line-through">₹3,990</text>
+      <text x="292" y="938" class="b grn" font-size="12">₹1,995</text>
     </g>
   </g>
 </svg>
