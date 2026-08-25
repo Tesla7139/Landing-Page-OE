@@ -214,13 +214,13 @@
       <path d="M214 184l10 6-8 5z" fill="#00A587"/>
     </g>
 
-    <!-- edit window -->
-    <g filter="url(#cardShadow)"><rect x="8" y="300" width="206" height="84" rx="16" fill="#ffffff"/></g>
-    <circle cx="46" cy="342" r="20" fill="#FFB400" fill-opacity=".16"/>
-    <circle cx="46" cy="342" r="11" fill="none" stroke="#FFB400" stroke-width="2.2"/>
-    <path d="M46 335v7l5 3" stroke="#FFB400" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-    <text x="78" y="337" class="b ink" font-size="15">Edit window</text>
-    <text x="78" y="359" class="sb mut" font-size="13">58:12 left to change</text>
+    <!-- edit window: pushed right, over the device -->
+    <g filter="url(#cardShadow)"><rect x="112" y="330" width="244" height="88" rx="16" fill="#ffffff"/></g>
+    <circle cx="150" cy="374" r="20" fill="#FFB400" fill-opacity=".16"/>
+    <circle cx="150" cy="374" r="11" fill="none" stroke="#FFB400" stroke-width="2.2"/>
+    <path d="M150 367v7l5 3" stroke="#FFB400" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    <text x="182" y="368" class="b ink" font-size="15">Edit window</text>
+    <text x="182" y="389" class="sb mut" font-size="12.5">Customise the time yourself</text>
 
     <!-- AOV from upsells -->
     <g filter="url(#cardShadow)"><rect x="8" y="420" width="246" height="232" rx="16" fill="#ffffff"/></g>
