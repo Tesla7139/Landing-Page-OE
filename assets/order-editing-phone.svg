@@ -3,6 +3,13 @@
   <desc id="oePhoneDesc">A phone showing the Gully Labs thank-you page: a countdown on how long the order stays editable, accordion rows for contact details, shipping address, order updates, discount codes and cancellation, then cross-sell products and a featured offer.</desc>
 
   <defs>
+    <filter id="cardShadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#263238" flood-opacity="0.16"/>
+    </filter>
+    <linearGradient id="barFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#155FFF" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#155FFF" stop-opacity="0.95"/>
+    </linearGradient>
     <style>
       .f  { font-family: Inter, "Helvetica Neue", Arial, sans-serif; }
       .b  { font-weight: 700; }
@@ -43,6 +50,7 @@
     <clipPath id="clipHero"><rect x="166" y="838" width="76" height="56" rx="6"/></clipPath>
   </defs>
 
+  <g transform="translate(96 0)">
   <!-- ============ abstract backdrop ============ -->
   <g>
     <ellipse cx="556" cy="248" rx="216" ry="166" fill="url(#bgSwirlA)" transform="rotate(-26 556 248)"/>
@@ -186,6 +194,68 @@
       <text x="192" y="853" class="b" font-size="8.5" fill="#E0322E" text-anchor="middle">50% OFF</text>
       <text x="254" y="850" class="b ink" font-size="12.5">Gully Number 001 –</text>
       <text x="254" y="866" class="b ink" font-size="12.5">Megh White For Women</text>
+    </g>
+  </g>
+  </g>
+
+  <!-- ============ floating cards over the device ============ -->
+  <g class="f">
+    <!-- edits applied -->
+    <g filter="url(#cardShadow)"><rect x="8" y="120" width="236" height="168" rx="16" fill="#ffffff"/></g>
+    <path d="M32 143l-7 7 7 7" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <text x="46" y="157" class="b ink" font-size="17">Order edits</text>
+    <rect x="168" y="136" width="62" height="24" rx="12" fill="#00A587" fill-opacity=".12"/>
+    <text x="199" y="152" class="b" font-size="11" fill="#00A587" text-anchor="middle">Applied</text>
+    <g>
+      <circle cx="38" cy="188" r="9" fill="#00A587"/>
+      <path d="M34 188l3 3 5-6" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <text x="58" y="193" class="sb ink" font-size="13">Address updated</text>
+      <circle cx="38" cy="220" r="9" fill="#00A587"/>
+      <path d="M34 220l3 3 5-6" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <text x="58" y="225" class="sb ink" font-size="13">Size swapped M → L</text>
+      <circle cx="38" cy="252" r="9" fill="#00A587"/>
+      <path d="M34 252l3 3 5-6" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <text x="58" y="257" class="sb ink" font-size="13">Discount applied</text>
+    </g>
+    <line x1="26" y1="268" x2="226" y2="268" stroke="#F1F1F1" stroke-width="1.5"/>
+    <text x="26" y="282" class="sb" font-size="11.5" fill="#155FFF">Synced to fulfilment</text>
+
+    <!-- edit window -->
+    <g filter="url(#cardShadow)"><rect x="8" y="326" width="206" height="84" rx="16" fill="#ffffff"/></g>
+    <circle cx="46" cy="368" r="20" fill="#FFB400" fill-opacity=".16"/>
+    <circle cx="46" cy="368" r="11" fill="none" stroke="#FFB400" stroke-width="2.2"/>
+    <path d="M46 361v7l5 3" stroke="#FFB400" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    <text x="78" y="363" class="b ink" font-size="15">Edit window</text>
+    <text x="78" y="385" class="sb mut" font-size="13">58:12 left to change</text>
+
+    <!-- upsell revenue -->
+    <g filter="url(#cardShadow)"><rect x="8" y="452" width="250" height="244" rx="16" fill="#ffffff"/></g>
+    <text x="30" y="486" class="sb mut" font-size="11" letter-spacing="1.4">UPSELL REVENUE</text>
+    <text x="30" y="514" class="eb ink" font-size="19">Added During Edits</text>
+    <g class="mut" font-size="9">
+      <text x="30" y="544">100%</text>
+      <text x="34" y="578">75%</text>
+      <text x="34" y="608">50%</text>
+      <text x="38" y="664">0%</text>
+    </g>
+    <line x1="64" y1="540" x2="240" y2="540" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="4 4"/>
+    <line x1="64" y1="574" x2="240" y2="574" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="4 4"/>
+    <line x1="64" y1="660" x2="240" y2="660" stroke="#E5E7EB" stroke-width="1.5"/>
+    <g>
+      <rect x="70" y="608" width="18" height="52" rx="4" fill="url(#barFill)"/>
+      <rect x="98" y="572" width="18" height="88" rx="4" fill="url(#barFill)"/>
+      <rect x="126" y="594" width="18" height="66" rx="4" fill="url(#barFill)"/>
+      <rect x="154" y="556" width="18" height="104" rx="4" fill="url(#barFill)"/>
+      <rect x="182" y="582" width="18" height="78" rx="4" fill="url(#barFill)"/>
+      <rect x="210" y="544" width="18" height="116" rx="4" fill="url(#barFill)"/>
+    </g>
+    <g class="mut sb" font-size="9" text-anchor="middle">
+      <text x="79" y="678">APR</text>
+      <text x="107" y="678">MAY</text>
+      <text x="135" y="678">JUN</text>
+      <text x="163" y="678">JUL</text>
+      <text x="191" y="678">AUG</text>
+      <text x="219" y="678">SEP</text>
     </g>
   </g>
 </svg>
