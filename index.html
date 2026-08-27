@@ -36,6 +36,46 @@
   @keyframes cp-mq-right { from { transform: translateX(-50%); }    to { transform: translateX(0); } }
   .cp-mq:hover .cp-mq__track { animation-play-state: paused; }
 
+  /* ── Live demo on the visitor’s own store ────────────────────────────────────
+     The store lookup is server-side (the demo app scrapes the URL you
+     type), so this drives that app in an iframe rather than reimplementing
+     it. Origin is set once in the component script. */
+  .cp-spin__form { display: flex; flex-direction: row; align-items: center; gap: 6px;
+                   width: 100%; max-width: 420px; padding: 5px; border-radius: 9999px;
+                   background: #ffffff; border: 1px solid #D6E4FF;
+                   box-shadow: 0 10px 40px -14px rgba(15,15,25,0.16);
+                   transition: border-color 160ms ease-out, box-shadow 160ms ease-out; }
+  .cp-spin__form:focus-within { border-color: #155FFF;
+                                box-shadow: 0 14px 50px -14px rgba(21,95,255,0.3); }
+  .cp-spin__input { flex: 1; height: 44px; padding: 0 6px 0 18px; border: none; outline: none;
+                    background: transparent; font-family: Poppins, sans-serif; font-size: 15px;
+                    color: #252525; min-width: 0; }
+  .cp-spin__input::placeholder { color: #A7A7AB; }
+  .cp-spin__go { display: inline-flex; align-items: center; justify-content: center;
+                 width: 44px; height: 44px; flex-shrink: 0; border: none; border-radius: 9999px;
+                 cursor: pointer; background: #155FFF; color: #ffffff;
+                 transition: background 160ms ease-out, transform 160ms ease-out; }
+  .cp-spin__go:hover { background: #0A3FCC; }
+  .cp-spin__go:active { transform: scale(0.94); }
+
+  /* browser-chrome frame around the embedded demo */
+  .cp-spin__stage { position: relative; align-self: stretch; height: 840px; border-radius: 12px;
+                    overflow: hidden; background: #ffffff;
+                    box-shadow: 0 24px 60px rgba(10,22,40,0.22); }
+  .cp-spin__chrome { display: flex; flex-direction: row; align-items: center; gap: 8px;
+                     height: 44px; padding: 0 16px; background: #ffffff;
+                     border-bottom: 1px solid #F1F1F1; }
+  .cp-spin__dot { width: 10px; height: 10px; border-radius: 9999px; background: #D3D3D3; flex-shrink: 0; }
+  .cp-spin__bar { flex: 1; max-width: 360px; margin: 0 auto; height: 26px; border-radius: 9999px;
+                  background: #F6F6F6; display: flex; align-items: center; justify-content: center;
+                  font-size: 12px; color: #929292; }
+  .cp-spin__frame { width: 100%; height: calc(100% - 44px); border: 0; display: block; background: #ffffff; }
+  .cp-spin__empty { position: absolute; left: 0; right: 0; top: 44px; bottom: 0; display: flex;
+                    flex-direction: column; gap: 8px; justify-content: center; align-items: center;
+                    background: #F6F6F6; text-align: center; padding: 0 40px; }
+  .cp-spin__stage[data-demo-open="1"] .cp-spin__empty { display: none; }
+  .cp-spin__stage[data-demo-open="0"] .cp-spin__frame { visibility: hidden; }
+
   /* ── Integrations grid stays STATIC ────────────────────────────────────
      Defensive: neutralises any marquee wiring that an older cached bundle
      might still inject into this section, so the logos cannot drift. */
@@ -273,11 +313,11 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#155FFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2.5" width="16" height="19" rx="2.5"></rect><path d="M8 7h8M8 12h3M8 16.5h3M15 12v4.5M13 14.2h4"></path></svg>
               <span>Revenue leak calculator<span class="cp-nav-link__sub">See what unedited orders cost you</span></span>
             </a>
-            <a class="cp-nav-link" href="case-studies.html">
+            <a class="cp-nav-link" href="#case-studies">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#155FFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3.5h9l5 5v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-15a2 2 0 0 1 2-2z"></path><path d="M14 3.5v5h5M8 13h8M8 17h5"></path></svg>
               <span>Case studies<span class="cp-nav-link__sub">How brands run order editing</span></span>
             </a>
-            <a class="cp-nav-link" href="demo.html">
+            <a class="cp-nav-link" href="#demo">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#155FFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="13" rx="2.5"></rect><path d="M9 21h6M12 17v4M10.5 8.6l4 1.9-4 1.9z"></path></svg>
               <span>Demo<span class="cp-nav-link__sub">Run it on your own store</span></span>
             </a>
@@ -1335,6 +1375,109 @@
     </div>
   </section>
 
+  <!-- ── Testimonial carousel ─────────────────────────── -->
+  <section id="case-studies" style="padding: 80px 112px; display: flex; flex-direction: column; gap: 64px; justify-content: center; align-items: center; scroll-margin-top: 104px;" data-screen-label="Testimonials">
+    <div style="width: 1216px; overflow: hidden;">
+      <div style="display: flex; flex-direction: row; gap: 48px; align-items: stretch; padding-left: 72px; transition: transform 480ms ease-out; transform: {{ trackTransform }};">
+
+        <div style="width: 1072px; height: 447px; border-radius: 16px; display: flex; flex-direction: row; align-items: center; flex-shrink: 0;">
+          <div style="position: relative; width: 468px; align-self: stretch; overflow: hidden; flex-shrink: 0;">
+            <div style="position: absolute; left: 0; top: 0; width: 468px; height: 447px; border-radius: 12px 8px 8px 12px; background: url(assets/63ee346ace7a9191.jpg) 5.885% 50% / 195.312% 100% no-repeat;"></div>
+          </div>
+          <div style="border-radius: 0 12px 12px 0; background: #F1F1F1; display: flex; flex-direction: column; gap: 40px; padding: 40px 64px; justify-content: center; align-items: flex-start; flex-grow: 1; align-self: stretch;">
+            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; align-self: stretch;"><div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start;"><img src="assets/001_Walmart.svg" alt="Walmart" style="width: 127px; height: 30px;"><span style="font-size: 13px; font-weight: 400; line-height: 18px; color: #52525B;">United States</span></div><div role="img" aria-label="Rated 5 out of 5" style="display: flex; flex-direction: row; gap: 3px; align-items: center; flex-shrink: 0;"><svg width="16" height="16" viewBox="0 0 18 18" fill="#FFB400" aria-hidden="true"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="16" height="16" viewBox="0 0 18 18" fill="#FFB400" aria-hidden="true"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="16" height="16" viewBox="0 0 18 18" fill="#FFB400" aria-hidden="true"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="16" height="16" viewBox="0 0 18 18" fill="#FFB400" aria-hidden="true"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="16" height="16" viewBox="0 0 18 18" fill="#FFB400" aria-hidden="true"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg></div></div>
+            <div style="display: flex; flex-direction: column; gap: 24px; align-items: flex-start; align-self: stretch;">
+              <p style="margin: 0; font-size: 18px; line-height: 28px; color: #252525;">Love Carrier Onboarding with rapid resolutions, 24x7 support and quick TAT. Would rate them 10/10.</p>
+              <div style="display: flex; flex-direction: row; gap: 16px; align-items: center;">
+                <div data-placeholder-for="assets/974e3206572b166f.png" title="Placeholder for Balaji Kunjeti’s photo. Drop assets/974e3206572b166f.png in to restore." style="width: 48px; height: 48px; border-radius: 999px; background: #D6E4FF; color: #155FFF; display: flex; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; letter-spacing: 0.02em; flex-shrink: 0;">BK</div>
+                <div style="display: flex; flex-direction: column; gap: 4px; justify-content: center; align-items: flex-start;">
+                  <span style="font-size: 16px; line-height: 24px; color: #252525;">Balaji Kunjeti</span>
+                  <span style="font-size: 12px; line-height: 20px; color: #52525B;">Group Product Manager, Walmart International Tech</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="width: 1072px; height: 447px; border-radius: 16px; display: flex; flex-direction: row; align-items: center; flex-shrink: 0;">
+          <div style="position: relative; width: 468px; align-self: stretch; overflow: hidden; flex-shrink: 0;">
+            <div style="position: absolute; left: 0; top: 0; width: 468px; height: 447px; border-radius: 12px 20px 20px 12px; background: linear-gradient(135deg, #E7EFE9 0%, #D4E0D7 52%, #C3D4C8 100%)" data-placeholder-for="assets/d778eeb1c584b97c.png" title="Placeholder — MarsGHC product shot. Drop assets/d778eeb1c584b97c.png in to restore.";"></div>
+          </div>
+          <div style="border-radius: 0 12px 12px 0; background: #F1F1F1; display: flex; flex-direction: column; gap: 40px; padding: 40px 64px; justify-content: center; align-items: flex-start; flex-grow: 1; align-self: stretch;">
+            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; align-self: stretch;"><div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start;"><img src="assets/337e134ae1ba1799.png" alt="MarsGHC" style="width: 113px; height: 24px; object-fit: contain;"><span style="font-size: 13px; font-weight: 400; line-height: 18px; color: #52525B;">India</span></div><div role="img" aria-label="Rated 5 out of 5" style="display: flex; flex-direction: row; gap: 3px; align-items: center; flex-shrink: 0;"><svg width="16" height="16" viewBox="0 0 18 18" fill="#FFB400" aria-hidden="true"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="16" height="16" viewBox="0 0 18 18" fill="#FFB400" aria-hidden="true"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="16" height="16" viewBox="0 0 18 18" fill="#FFB400" aria-hidden="true"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="16" height="16" viewBox="0 0 18 18" fill="#FFB400" aria-hidden="true"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="16" height="16" viewBox="0 0 18 18" fill="#FFB400" aria-hidden="true"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg></div></div>
+            <div style="display: flex; flex-direction: column; gap: 24px; align-items: flex-start; align-self: stretch;">
+              <p style="margin: 0; font-size: 18px; line-height: 28px; color: #252525;">We’ve been using Clickpost and it’s genuinely been super helpful. Customers can handle order edits themselves, and the post-purchase upsells have been a solid bonus for incremental revenue.</p>
+              <div style="display: flex; flex-direction: row; gap: 16px; align-items: center;">
+                <div style="width: 55px; height: 56px; border-radius: 35.5px; background: url(assets/2d357ebfa6b30d6f.png) center / cover no-repeat; flex-shrink: 0;"></div>
+                <div style="display: flex; flex-direction: column; gap: 4px; justify-content: center; align-items: flex-start;">
+                  <span style="font-size: 16px; line-height: 24px; color: #252525;">Samarth Sindhi</span>
+                  <span style="font-size: 12px; line-height: 20px; color: #52525B;">Chief Executive Officer, MarsGHC</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="width: 1072px; height: 447px; border-radius: 16px; display: flex; flex-direction: row; align-items: center; flex-shrink: 0;">
+          <div style="position: relative; width: 468px; align-self: stretch; overflow: hidden; flex-shrink: 0;">
+            <div style="position: absolute; left: 0; top: 0; width: 468px; height: 447px; border-radius: 20px; background: linear-gradient(160deg, #DCC9A0 0%, #C5B285 45%, #A8AD89 100%)" data-placeholder-for="assets/3719c6a948953fe4.png" title="Placeholder — slide 3 photo. Drop assets/3719c6a948953fe4.png in to restore.";"></div>
+          </div>
+          <div style="border-radius: 0 12px 12px 0; background: #F1F1F1; display: flex; flex-direction: column; gap: 40px; padding: 40px 64px; justify-content: center; align-items: flex-start; flex-grow: 1; align-self: stretch;">
+            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; align-self: stretch;"><div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start;"><img src="assets/006_Birkenstock.svg" alt="Birkenstock" style="width: 167.292px; height: 27.096px;"><span style="font-size: 13px; font-weight: 400; line-height: 18px; color: #52525B;">Germany</span></div><div role="img" aria-label="Rated 5 out of 5" style="display: flex; flex-direction: row; gap: 3px; align-items: center; flex-shrink: 0;"><svg width="16" height="16" viewBox="0 0 18 18" fill="#FFB400" aria-hidden="true"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="16" height="16" viewBox="0 0 18 18" fill="#FFB400" aria-hidden="true"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="16" height="16" viewBox="0 0 18 18" fill="#FFB400" aria-hidden="true"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="16" height="16" viewBox="0 0 18 18" fill="#FFB400" aria-hidden="true"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg><svg width="16" height="16" viewBox="0 0 18 18" fill="#FFB400" aria-hidden="true"><path d="M9 1.5l2.2 4.6 5 .6-3.7 3.4 1 5L9 12.6 3.5 15.1l1-5L.8 6.7l5-.6z"></path></svg></div></div>
+            <div style="display: flex; flex-direction: column; gap: 24px; align-items: flex-start; align-self: stretch;">
+              <p style="margin: 0; font-size: 18px; line-height: 28px; color: #252525;">ClickPost’s team were experts in their systems and integrated seamlessly with ours. They proactively resolved every issue, ensuring a smooth experience.</p>
+              <div style="display: flex; flex-direction: row; gap: 16px; align-items: center;">
+                <div data-placeholder-for="assets/17bcbef74d00e805.png" title="Placeholder for Sonali Das’s photo. Drop assets/17bcbef74d00e805.png in to restore." style="width: 56px; height: 56px; border-radius: 999px; background: #D6E4FF; color: #155FFF; display: flex; justify-content: center; align-items: center; font-size: 19px; font-weight: 500; letter-spacing: 0.02em; flex-shrink: 0;">SD</div>
+                <div style="display: flex; flex-direction: column; gap: 4px; justify-content: center; align-items: flex-start;">
+                  <span style="font-size: 16px; line-height: 24px; color: #252525;">Sonali Das</span>
+                  <span style="font-size: 12px; line-height: 20px; color: #52525B;">D2C Tech and Product Head, Birkenstock</span>
+                </div>
+              </div>
+            </div>
+            <a href="#" style="display: flex; flex-direction: row; gap: 8px; align-items: center; font-size: 16px; font-weight: 500; color: #155FFF;">Read Success Story<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"></path></svg></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: row; gap: 16px; align-items: flex-start;">
+      <button type="button" onClick="{{ goto0 }}" style="width: 24px; height: 8px; border: none; padding: 0; border-radius: 192.879px; cursor: pointer; background: {{ dot0 }};"></button>
+      <button type="button" onClick="{{ goto1 }}" style="width: 24px; height: 8px; border: none; padding: 0; border-radius: 192.879px; cursor: pointer; background: {{ dot1 }};"></button>
+      <button type="button" onClick="{{ goto2 }}" style="width: 24px; height: 8px; border: none; padding: 0; border-radius: 192.879px; cursor: pointer; background: {{ dot2 }};"></button>
+    </div>
+
+    <a href="#" style="width: fit-content; height: 48px; border-radius: 4px; border: 1px solid #52525B; display: flex; flex-direction: row; gap: 8px; padding: 12px 20px; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; color: #52525B; white-space: nowrap; transition: background 160ms ease-out;" style-hover="background: #F1F1F1; color: #52525B;">Book a free demo<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+  </section>
+
+  <!-- ── Live demo on the visitor’s own store ───────────────────── -->
+  <section id="demo" style="background: #ffffff; padding: 80px 112px 96px; display: flex; flex-direction: row; gap: 48px; align-items: center; overflow: hidden; scroll-margin-top: 104px;" data-screen-label="Live demo">
+
+    <div style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 20px; align-items: flex-start;">
+      <h2 style="margin: 0; font-size: 40px; font-weight: 500; line-height: 50px; letter-spacing: -0.01em; color: #252525;">See it running on your own store</h2>
+      <span style="font-size: 15px; font-weight: 500; line-height: 22px; color: #252525;">Paste a store URL — we’ll pull in your real products</span>
+      <div class="cp-spin__form">
+        <input id="cp-demo-url" class="cp-spin__input" type="text" inputmode="url" spellcheck="false"
+               placeholder="yourstore.com" aria-label="Your store URL" onKeyDown="{{ onDemoKey }}">
+        <button type="button" class="cp-spin__go" aria-label="Load the demo" onClick="{{ openDemo }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+      </div>
+    </div>
+
+    <div class="cp-spin__stage" style="width: 648px; flex-shrink: 0; align-self: center; height: 720px;" data-demo-open="{{ demoOpen }}">
+        <div class="cp-spin__chrome">
+          <span class="cp-spin__dot"></span><span class="cp-spin__dot"></span><span class="cp-spin__dot"></span>
+          <span class="cp-spin__bar">{{ demoLabel }}</span>
+        </div>
+        <div class="cp-spin__empty">
+          <span style="font-size: 18px; font-weight: 500; color: #252525;">Your products, inside the editor</span>
+          <span style="font-size: 15px; color: #52525B;">Add a store above, or open one of the examples.</span>
+        </div>
+        <iframe class="cp-spin__frame" src="{{ demoSrc }}" title="Order editing demo"
+                loading="lazy" referrerpolicy="no-referrer"></iframe>
+      </div>
+  </section>
+
+
   <!-- ── Returns that Drive Retention ─────────────────── -->
   <section style="padding: 80px 112px 120px; display: flex; flex-direction: column; align-items: center; overflow: hidden;" data-screen-label="Retention CTA">
     <div style="height: 466px; border-radius: 12px; background: radial-gradient(907.164px 1277.32px at 45.81% 75.50%, #001644 0%, #155FFF 60.78%, #00E6E4 93.43%); display: flex; flex-direction: row; padding: 80px; justify-content: space-between; align-items: center; align-self: stretch;">
@@ -1463,7 +1606,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;carouselAutoplay&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behaviour&quot;}}">
 class Component extends DCLogic {
-  state = { activeStep: 0, stepDir: "fwd" };
+  state = { activeStep: 0, stepDir: "fwd", slide: 0, demoStore: "marsghc.com" };
 
   componentDidMount() {
     // Respect the viewer's motion preference; guard matchMedia for old engines.
@@ -1543,14 +1686,67 @@ class Component extends DCLogic {
     if (this.stepObserver) this.stepObserver.disconnect();
   }
 
+  // ── live demo ────────────────────────────────────────────────────────
+  // The store lookup runs server-side in the demo app (POST /api/demo scrapes
+  // the URL), so we hand the store off to that app instead of reimplementing
+  // it here. Resolution order:
+  //   1. window.__CP_DEMO_ORIGIN__  — set it from a <script> to override
+  //   2. localhost                  — the dev server on :3001
+  //   3. anything else              — the deployed demo (Vercel project
+  //      "oe-demo-live", team clickpost-order-editing). Use the bare alias:
+  //      the team-scoped one 302s behind SSO. The older "oe-demo" project
+  //      is wedged — its builds never leave UNKNOWN — hence a fresh project.
+  static demoOrigin() {
+    if (typeof window === "undefined") return "";
+    if (window.__CP_DEMO_ORIGIN__) return window.__CP_DEMO_ORIGIN__;
+    const h = window.location.hostname;
+    if (h === "localhost" || h === "127.0.0.1") return "http://127.0.0.1:3001";
+    return "https://oe-demo-fullbleed.vercel.app";
+  }
+
+  slugForStore(v) {
+    return String(v).trim()
+      .replace(/^https?:\/\//i, "")
+      .replace(/^www\./i, "")
+      .replace(/\/+$/, "");
+  }
+
+  openDemo() {
+    const el = document.getElementById("cp-demo-url");
+    const store = this.slugForStore(el && el.value);
+    if (!store) return;
+    this.setState({ demoStore: store });
+  }
+
+  onDemoKey(e) {
+    if (e && e.key === "Enter") {
+      e.preventDefault();
+      this.openDemo();
+    }
+  }
+
   renderVals() {
     return {
+      demoOpen: this.state.demoStore && Component.demoOrigin() ? "1" : "0",
+      demoLabel: this.state.demoStore || "yourstore.com",
+      demoSrc: this.state.demoStore && Component.demoOrigin()
+        ? Component.demoOrigin() + "/product-demo/" + encodeURIComponent(this.state.demoStore)
+        : "about:blank",
+      openDemo: () => this.openDemo(),
+      onDemoKey: (e) => this.onDemoKey(e),
       activeStep: this.state.activeStep,
       pickStep0: () => this.pickStep(0), pickStep1: () => this.pickStep(1),
       pickStep2: () => this.pickStep(2), pickStep3: () => this.pickStep(3),
       onStepKey0: e => this.onStepKey(e, 0), onStepKey1: e => this.onStepKey(e, 1),
       onStepKey2: e => this.onStepKey(e, 2), onStepKey3: e => this.onStepKey(e, 3),
       stepDir: this.state.stepDir,
+      trackTransform: "translateX(" + (-this.state.slide * (1072 + 48)) + "px)",
+      dot0: this.state.slide === 0 ? "#155FFF" : "rgba(37,37,37,0.2)",
+      dot1: this.state.slide === 1 ? "#155FFF" : "rgba(37,37,37,0.2)",
+      dot2: this.state.slide === 2 ? "#155FFF" : "rgba(37,37,37,0.2)",
+      goto0: () => this.setState({ slide: 0 }),
+      goto1: () => this.setState({ slide: 1 }),
+      goto2: () => this.setState({ slide: 2 }),
     };
   }
 }
