@@ -48,8 +48,6 @@ def card(b, dupe):
     ]
     if b.get("tier"):
         bits.append('            <span class="cp-bs__tier">%s</span>' % html.escape(b["tier"]))
-    if b.get("country"):
-        bits.append('            <span class="cp-bs__country">%s</span>' % html.escape(b["country"]))
     bits.append('          </div>')
 
     if b.get("review"):
@@ -61,7 +59,10 @@ def card(b, dupe):
     bits += [
         '          <div class="cp-bs__panel"><div class="cp-bs__panelin">',
         '            <p class="%s">%s</p>' % (cls, quote),
-        '            <div class="cp-bs__who">%s</div>' % html.escape(b["reviewer"]),
+        '            <div class="cp-bs__who">{name}{where}</div>'.format(
+            name=html.escape(b["reviewer"]),
+            where=('<span class="cp-bs__where">%s</span>' % html.escape(b["country"])) if b.get("country") else "",
+        ),
         '          </div></div>',
         '        </div>',
     ]

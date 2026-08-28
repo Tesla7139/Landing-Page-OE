@@ -53,8 +53,10 @@
                  background: linear-gradient(to bottom, #FFFBEB, #FEF3C7);
                  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
                  font-size: 11px; font-weight: 700; color: #B45309; }
-  .cp-bs__country { margin-top: 6px; font-size: 11px; font-weight: 600;
-                    letter-spacing: 0.02em; color: #D97706; }
+  /* the country used to caption the logo; it reads better next to the
+     reviewer, where there is room for the full name */
+  .cp-bs__where { font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+                  color: #D97706; white-space: nowrap; }
   .cp-bs__panel { overflow: hidden; max-width: 0; opacity: 0;
                   transition: max-width 300ms ease-out, opacity 300ms ease-out; }
   .cp-bs__item:hover .cp-bs__panel { max-width: 320px; opacity: 1; }
@@ -64,7 +66,8 @@
                   color: var(--color-fg); display: -webkit-box; -webkit-line-clamp: 4;
                   -webkit-box-orient: vertical; overflow: hidden; }
   .cp-bs__quote--none { color: var(--color-fg-muted); }
-  .cp-bs__who { margin-top: 8px; font-size: 13px; font-weight: 700; color: var(--color-fg); }
+  .cp-bs__who { margin-top: 8px; display: flex; flex-direction: row; align-items: baseline;
+                gap: 8px; font-size: 13px; font-weight: 700; color: var(--color-fg); }
 
   /* ── Live demo on the visitor’s own store ────────────────────────────────────
      The store lookup is server-side (the demo app scrapes the URL you
@@ -405,252 +408,228 @@
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/curlwarehouse.png" alt="Curl Warehouse"></span>
             <span class="cp-bs__tier">7-figure brand</span>
-            <span class="cp-bs__country">Canada</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“This has reduced the number of emails we receive to update orders. It&#x27;s easy to use and set up, and the developers have been very receptive to changes.”</p>
-            <div class="cp-bs__who">Curl Warehouse</div>
+            <div class="cp-bs__who">Curl Warehouse<span class="cp-bs__where">Canada</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/mateina.png" alt="Mateina"></span>
             <span class="cp-bs__tier">Andrew Huberman&#x27;s favourite</span>
-            <span class="cp-bs__country">Canada</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“One of the best order editing apps available that actually works! I&#x27;ve tested about a dozen, and this was by far one of the best. Amazing team and support.”</p>
-            <div class="cp-bs__who">Mateina</div>
+            <div class="cp-bs__who">Mateina<span class="cp-bs__where">Canada</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/renuebyscience.svg" alt="Renue By Science"></span>
-            <span class="cp-bs__country">USA</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“The team at Clickpost are exceptional developers and great people. They listen to feedback and have built genuinely useful tools for Shopify stores.”</p>
-            <div class="cp-bs__who">Renue By Science</div>
+            <div class="cp-bs__who">Renue By Science<span class="cp-bs__where">USA</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/doonails.svg" alt="Doonails"></span>
             <span class="cp-bs__tier">$100M+ brand</span>
-            <span class="cp-bs__country">Germany</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“Really helped us quickly to fix all issues.”</p>
-            <div class="cp-bs__who">Doonails</div>
+            <div class="cp-bs__who">Doonails<span class="cp-bs__where">Germany</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/modomu.png" alt="Modomu"></span>
-            <span class="cp-bs__country">India</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“Really happy with Clickpost so far. We added it mainly for order edits but ended up using the upsell part too, which brought in a bit of extra revenue.”</p>
-            <div class="cp-bs__who">Modomu</div>
+            <div class="cp-bs__who">Modomu<span class="cp-bs__where">India</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/hautesauce.png" alt="Haute Sauce"></span>
-            <span class="cp-bs__country">India</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“Installed Clickpost recently and it works great. Customers can edit their orders and even add extra items, which is a nice bonus.”</p>
-            <div class="cp-bs__who">Haute Sauce</div>
+            <div class="cp-bs__who">Haute Sauce<span class="cp-bs__where">India</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/westside.png" alt="Westside Global"></span>
-            <span class="cp-bs__country">India</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“We just installed Clickpost a few days ago and honestly it&#x27;s been a very smooth experience. Setup was way easier than I expected and everything worked right out of the box. The order editing feature is exactly what we needed since customers always want to change something after checkout. Smit helped us get everything configured and answered our questions super fast.”</p>
-            <div class="cp-bs__who">Westside Global</div>
+            <div class="cp-bs__who">Westside Global<span class="cp-bs__where">India</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/myborosil.png" alt="MyBorosil"></span>
-            <span class="cp-bs__country">India</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“Order editing app by clickpost is easy to install with a super responsive support team. It has reduced our support tickets. It has just made our life easier. Was very easy to setup on them. Loving it!”</p>
-            <div class="cp-bs__who">MyBorosil</div>
+            <div class="cp-bs__who">MyBorosil<span class="cp-bs__where">India</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/wellbeingnutrition.png" alt="Wellbeing Nutrition"></span>
-            <span class="cp-bs__country">India</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“Clickpost order editing has made our post purchase process so much better. Customers can now edit their orders without contacting support. Their upsells are a cherry on the top, and have increased our AOV. Real value for money, and absolutely great support from the team.”</p>
-            <div class="cp-bs__who">Wellbeing Nutrition</div>
+            <div class="cp-bs__who">Wellbeing Nutrition<span class="cp-bs__where">India</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/marsbyghc.png" alt="Mars By GHC"></span>
             <span class="cp-bs__tier">7-figure brand</span>
-            <span class="cp-bs__country">India</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“We’ve been using Clickpost and it’s genuinely been super helpful. Customers can handle order edits themselves, and the post-purchase upsells have been a solid bonus for incremental revenue. Setup was straightforward, everything’s been running smoothly, and support has been great too — the team was quick to respond and got us up and running fast.”</p>
-            <div class="cp-bs__who">Mars By GHC</div>
+            <div class="cp-bs__who">Mars By GHC<span class="cp-bs__where">India</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/vanillapura.png" alt="VanillaPura"></span>
             <span class="cp-bs__tier">7-figure brand</span>
-            <span class="cp-bs__country">Utah, USA</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“Great experience and fantastic support from the ClickPost team with my questions. Our top customer service requests are for order edits, so this immediately cut support tickets making it easy to quantify the ROI. A lot of customization features and various upsell tools are included in the app that I can implement to increase AOV as well. I highly recommend it.”</p>
-            <div class="cp-bs__who">VanillaPura</div>
+            <div class="cp-bs__who">VanillaPura<span class="cp-bs__where">Utah, USA</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/gharsoaps.png" alt="GHAR SOAPS"></span>
             <span class="cp-bs__tier">8-figure brand</span>
-            <span class="cp-bs__country">UAE</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“Clickpost been a great upgrade for our store. Customers can log in, check their info, and manage everything easily, which has made the whole experience feel smoother and more professional.”</p>
-            <div class="cp-bs__who">GHAR SOAPS</div>
+            <div class="cp-bs__who">GHAR SOAPS<span class="cp-bs__where">UAE</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item" aria-hidden="true">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/curlwarehouse.png" alt="Curl Warehouse"></span>
             <span class="cp-bs__tier">7-figure brand</span>
-            <span class="cp-bs__country">Canada</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“This has reduced the number of emails we receive to update orders. It&#x27;s easy to use and set up, and the developers have been very receptive to changes.”</p>
-            <div class="cp-bs__who">Curl Warehouse</div>
+            <div class="cp-bs__who">Curl Warehouse<span class="cp-bs__where">Canada</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item" aria-hidden="true">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/mateina.png" alt="Mateina"></span>
             <span class="cp-bs__tier">Andrew Huberman&#x27;s favourite</span>
-            <span class="cp-bs__country">Canada</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“One of the best order editing apps available that actually works! I&#x27;ve tested about a dozen, and this was by far one of the best. Amazing team and support.”</p>
-            <div class="cp-bs__who">Mateina</div>
+            <div class="cp-bs__who">Mateina<span class="cp-bs__where">Canada</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item" aria-hidden="true">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/renuebyscience.svg" alt="Renue By Science"></span>
-            <span class="cp-bs__country">USA</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“The team at Clickpost are exceptional developers and great people. They listen to feedback and have built genuinely useful tools for Shopify stores.”</p>
-            <div class="cp-bs__who">Renue By Science</div>
+            <div class="cp-bs__who">Renue By Science<span class="cp-bs__where">USA</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item" aria-hidden="true">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/doonails.svg" alt="Doonails"></span>
             <span class="cp-bs__tier">$100M+ brand</span>
-            <span class="cp-bs__country">Germany</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“Really helped us quickly to fix all issues.”</p>
-            <div class="cp-bs__who">Doonails</div>
+            <div class="cp-bs__who">Doonails<span class="cp-bs__where">Germany</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item" aria-hidden="true">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/modomu.png" alt="Modomu"></span>
-            <span class="cp-bs__country">India</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“Really happy with Clickpost so far. We added it mainly for order edits but ended up using the upsell part too, which brought in a bit of extra revenue.”</p>
-            <div class="cp-bs__who">Modomu</div>
+            <div class="cp-bs__who">Modomu<span class="cp-bs__where">India</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item" aria-hidden="true">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/hautesauce.png" alt="Haute Sauce"></span>
-            <span class="cp-bs__country">India</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“Installed Clickpost recently and it works great. Customers can edit their orders and even add extra items, which is a nice bonus.”</p>
-            <div class="cp-bs__who">Haute Sauce</div>
+            <div class="cp-bs__who">Haute Sauce<span class="cp-bs__where">India</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item" aria-hidden="true">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/westside.png" alt="Westside Global"></span>
-            <span class="cp-bs__country">India</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“We just installed Clickpost a few days ago and honestly it&#x27;s been a very smooth experience. Setup was way easier than I expected and everything worked right out of the box. The order editing feature is exactly what we needed since customers always want to change something after checkout. Smit helped us get everything configured and answered our questions super fast.”</p>
-            <div class="cp-bs__who">Westside Global</div>
+            <div class="cp-bs__who">Westside Global<span class="cp-bs__where">India</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item" aria-hidden="true">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/myborosil.png" alt="MyBorosil"></span>
-            <span class="cp-bs__country">India</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“Order editing app by clickpost is easy to install with a super responsive support team. It has reduced our support tickets. It has just made our life easier. Was very easy to setup on them. Loving it!”</p>
-            <div class="cp-bs__who">MyBorosil</div>
+            <div class="cp-bs__who">MyBorosil<span class="cp-bs__where">India</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item" aria-hidden="true">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/wellbeingnutrition.png" alt="Wellbeing Nutrition"></span>
-            <span class="cp-bs__country">India</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“Clickpost order editing has made our post purchase process so much better. Customers can now edit their orders without contacting support. Their upsells are a cherry on the top, and have increased our AOV. Real value for money, and absolutely great support from the team.”</p>
-            <div class="cp-bs__who">Wellbeing Nutrition</div>
+            <div class="cp-bs__who">Wellbeing Nutrition<span class="cp-bs__where">India</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item" aria-hidden="true">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/marsbyghc.png" alt="Mars By GHC"></span>
             <span class="cp-bs__tier">7-figure brand</span>
-            <span class="cp-bs__country">India</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“We’ve been using Clickpost and it’s genuinely been super helpful. Customers can handle order edits themselves, and the post-purchase upsells have been a solid bonus for incremental revenue. Setup was straightforward, everything’s been running smoothly, and support has been great too — the team was quick to respond and got us up and running fast.”</p>
-            <div class="cp-bs__who">Mars By GHC</div>
+            <div class="cp-bs__who">Mars By GHC<span class="cp-bs__where">India</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item" aria-hidden="true">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/vanillapura.png" alt="VanillaPura"></span>
             <span class="cp-bs__tier">7-figure brand</span>
-            <span class="cp-bs__country">Utah, USA</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“Great experience and fantastic support from the ClickPost team with my questions. Our top customer service requests are for order edits, so this immediately cut support tickets making it easy to quantify the ROI. A lot of customization features and various upsell tools are included in the app that I can implement to increase AOV as well. I highly recommend it.”</p>
-            <div class="cp-bs__who">VanillaPura</div>
+            <div class="cp-bs__who">VanillaPura<span class="cp-bs__where">Utah, USA</span></div>
           </div></div>
         </div>
         <div class="cp-bs__item" aria-hidden="true">
           <div class="cp-bs__brand">
             <span class="cp-bs__mark"><img src="assets/customers/gharsoaps.png" alt="GHAR SOAPS"></span>
             <span class="cp-bs__tier">8-figure brand</span>
-            <span class="cp-bs__country">UAE</span>
           </div>
           <div class="cp-bs__panel"><div class="cp-bs__panelin">
             <p class="cp-bs__quote">“Clickpost been a great upgrade for our store. Customers can log in, check their info, and manage everything easily, which has made the whole experience feel smoother and more professional.”</p>
-            <div class="cp-bs__who">GHAR SOAPS</div>
+            <div class="cp-bs__who">GHAR SOAPS<span class="cp-bs__where">UAE</span></div>
           </div></div>
         </div>
         </div>
