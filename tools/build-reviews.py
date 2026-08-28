@@ -123,12 +123,29 @@ def row(reviews, direction):
     ).format(d=direction, cards=cards)
 
 
+def lead_with_non_india(reviews):
+    """Put the international reviews at the front of both rows.
+
+    The listing is India-heavy (39 of 57), so without this the strip opens on
+    a run of Indian stores. Entries with no country ride with the India group
+    rather than the international one - most of them are Indian brands, and
+    guessing the other way would overstate the spread. Order within each group
+    is unchanged, so both stay newest-first.
+    """
+    intl = [r for r in reviews if r.get("country") and r["country"] != "India"]
+    rest = [r for r in reviews if not (r.get("country") and r["country"] != "India")]
+    print("leading with %d non-India review(s), %d after" % (len(intl), len(rest)))
+    return intl + rest
+
+
 def main():
     with open(DATA, encoding="utf-8") as fh:
         reviews = json.load(fh)["reviews"]
 
     if not reviews:
         sys.exit("reviews.json has no entries")
+
+    reviews = lead_with_non_india(reviews)
 
     # alternate so both rows stay balanced however many reviews there are
     top = reviews[0::2]
