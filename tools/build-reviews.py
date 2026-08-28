@@ -37,7 +37,9 @@ def mark_html(r):
             src=html.escape(r["logo"], quote=True),
             alt=html.escape(r.get("logoAlt") or r["name"], quote=True),
         )
-    return '<span class="cp-rw__mark cp-rw__mark--word">{name}</span>'.format(
+    # inner span so the outer box can centre while the text still clamps -
+    # a few store names run past one line at this width
+    return '<span class="cp-rw__mark cp-rw__mark--word"><span>{name}</span></span>'.format(
         name=html.escape(r["name"])
     )
 
