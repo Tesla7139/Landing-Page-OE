@@ -3,6 +3,11 @@
 
 Usage:  python tools/fetch-shopify-reviews.py [--dry-run]
 
+CAUTION: reviews.json currently holds the CSV export (reviews-export.ts,
+imported by tools/import-review-export.py), which is the wording the page
+is signed off on. Running this replaces it with whatever the listing shows
+today - the two sets overlap by 36 of 51. Use --dry-run first.
+
 Defaults to the CP: Order Editing & Upsell listing. Note that
 /order-editing is a DIFFERENT app (OrderEditing.com, a competitor) -
 the handle matters.
