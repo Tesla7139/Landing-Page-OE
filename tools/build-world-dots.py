@@ -1,91 +1,118 @@
-"""Build a dotted world map SVG from a blank equirectangular basemap.
+#!/usr/bin/env python3
+"""Build the dotted world map SVG in assets/ from a blank basemap.
 
-Basemap: Wikimedia Commons "BlankMap-Equirectangular.svg" (public domain),
-1920x960 and exactly 2:1, so pixel <-> lon/lat is linear:
-    x = (lon + 180) / 360 * W
-    y = (90  - lat) / 180 * H
+Usage:  python tools/build-world-dots.py path/to/robinson-basemap.png
 
-which is what lets the pins land on real cities rather than being nudged
-into place by eye.
+Basemap: Wikimedia Commons "BlankMap-World.svg" (public domain), rendered
+to PNG. That file is a Robinson projection and its canvas is exactly the
+projection's bounding box, which is what lets pins be placed by formula
+rather than by eye.
+
+Equirectangular was the obvious choice - pixel position is just linear in
+lon/lat - but it renders the world at 2:1 and stretches everything near the
+poles sideways, which read as a squashed, over-wide map. Robinson is 1.97:1
+and keeps the continents the shape people expect, at the cost of needing
+the projection maths below.
 """
-from PIL import Image
+
 import io
+import math
+import os
+import sys
 
-SRC = "eqmap.png"
-OUT = r"c:\Users\sarth\Desktop\Landing Page OE\assets\world-dots.svg"
+from PIL import Image
 
-STEP = 15          # sample grid, source px
-R = 2.1            # dot radius in output units
-LAT_TOP, LAT_BOTTOM = 80.0, -56.0   # trim the poles: no customers, and
-                                    # Antarctica just weighs the shape down
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(ROOT, "assets", "world-dots.svg")
 
-im = Image.open(SRC).convert("LA")
-W, H = im.size
-px = im.load()
+STEP = 10            # sample grid, source px
+R = 2.0              # dot radius, output units
+UNIT = 5.4           # output units per grid step
+DOT = "#CDD1D8"      # neutral grey; the pins carry the only colour
+PIN = "#155FFF"
 
-
-def to_xy(lon, lat):
-    return ((lon + 180.0) / 360.0 * W, (90.0 - lat) / 180.0 * H)
-
-
-x0, y0 = to_xy(-180, LAT_TOP)
-x1, y1 = to_xy(180, LAT_BOTTOM)
-vw, vh = (x1 - x0) / STEP * 6.0, (y1 - y0) / STEP * 6.0   # 6 units per dot
-
-
-def is_land(sx, sy):
-    lum, a = px[int(sx), int(sy)]
-    return a > 40 and lum > 40
+# Robinson's lookup table: length of the parallel (X) and its distance from
+# the equator (Y), per 5 degrees of latitude.
+RX = [1.0000, 0.9986, 0.9954, 0.9900, 0.9822, 0.9730, 0.9600, 0.9427, 0.9216,
+      0.8962, 0.8679, 0.8350, 0.7986, 0.7597, 0.7186, 0.6732, 0.6213, 0.5722, 0.5322]
+RY = [0.0000, 0.0620, 0.1240, 0.1860, 0.2480, 0.3100, 0.3720, 0.4340, 0.4958,
+      0.5571, 0.6176, 0.6769, 0.7346, 0.7903, 0.8435, 0.8936, 0.9394, 0.9761, 1.0000]
 
 
-dots = []
-sy = y0
-while sy < y1:
-    sx = x0
-    while sx < x1:
-        if is_land(sx, sy):
-            cx = (sx - x0) / STEP * 6.0
-            cy = (sy - y0) / STEP * 6.0
-            # r has to sit on the element: it is a geometry attribute, so a
-            # group cannot hand it down the way it does fill
-            dots.append('<circle cx="%.0f" cy="%.0f" r="%s"/>' % (cx, cy, R))
-        sx += STEP
-    sy += STEP
+def _interp(table, lat):
+    a = abs(lat) / 5.0
+    i = min(int(a), len(table) - 2)
+    f = a - i
+    return table[i] + (table[i + 1] - table[i]) * f
 
-# real coordinates of the places this page can actually claim: every country
-# that appears in reviews.json or brands.json
-PINS = [
-    ("Vancouver", 49.28, -123.12),
-    ("Toronto", 43.65, -79.38),
-    ("Salt Lake City", 40.76, -111.89),
-    ("New York", 40.71, -74.01),
-    ("Berlin", 52.52, 13.40),
-    ("Nicosia", 35.17, 33.36),
-    ("Dubai", 25.20, 55.27),
-    ("Delhi", 28.61, 77.21),
-    ("Mumbai", 19.08, 72.88),
-    ("Bengaluru", 12.97, 77.59),
-]
 
-pins = []
-for name, lat, lon in PINS:
-    sx, sy = to_xy(lon, lat)
-    cx = (sx - x0) / STEP * 6.0
-    cy = (sy - y0) / STEP * 6.0
-    pins.append(
-        '<g transform="translate(%.1f %.1f)">'
-        '<path d="M0 2c-4.4 0-8 3.5-8 7.9 0 5.9 8 14.1 8 14.1s8-8.2 8-14.1C8 5.5 4.4 2 0 2z" '
-        'fill="#155FFF"/><circle cy="9.6" r="3" fill="#ffffff"/></g>' % (cx, cy - 24)
-    )
+def project(lon, lat, w, h):
+    """lon/lat -> pixel on a Robinson canvas that is exactly the projection box."""
+    x = w / 2.0 + _interp(RX, lat) * (lon / 180.0) * (w / 2.0)
+    y = h / 2.0 - math.copysign(_interp(RY, lat), lat) * (h / 2.0)
+    return x, y
 
-svg = (
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %.0f %.0f" width="%.0f" height="%.0f" '
-    'fill="none" role="img" aria-label="World map with pins on the countries using ClickPost order editing: '
-    'Canada, the United States, Germany, Cyprus, the UAE and India">' % (vw, vh, vw, vh)
-    + '<g fill="#C9CEDC">' + "".join(dots) + "</g>"
-    + "".join(pins)
-    + "</svg>"
-)
-io.open(OUT, "w", encoding="utf-8", newline="\n").write(svg)
-print("dots: %d   pins: %d   viewBox: %.0f x %.0f   bytes: %d"
-      % (len(dots), len(pins), vw, vh, len(svg)))
+
+def main():
+    src = sys.argv[1] if len(sys.argv) > 1 else "worldmap.png"
+    im = Image.open(src).convert("LA")
+    W, H = im.size
+    px = im.load()
+
+    # trim the poles: no customers up there, and Antarctica only adds width
+    _, y_top = project(0, 84, W, H)
+    _, y_bottom = project(0, -60, W, H)
+
+    def is_land(sx, sy):
+        lum, a = px[int(sx), int(sy)]
+        return a > 40 and 60 < lum < 245
+
+    dots = []
+    sy = y_top
+    while sy < y_bottom:
+        sx = 0
+        while sx < W:
+            if is_land(sx, sy):
+                # r is a geometry attribute - a parent group cannot hand it
+                # down the way it does fill, so it goes on every circle
+                dots.append('<circle cx="%.0f" cy="%.0f" r="%s"/>'
+                            % (sx / STEP * UNIT, (sy - y_top) / STEP * UNIT, R))
+            sx += STEP
+        sy += STEP
+
+    vw = W / STEP * UNIT
+    vh = (y_bottom - y_top) / STEP * UNIT
+
+    # every country this page can actually point to: the countries appearing
+    # in reviews.json or brands.json, nothing beyond them
+    PINS = [
+        ("Vancouver", 49.28, -123.12), ("Toronto", 43.65, -79.38),
+        ("Salt Lake City", 40.76, -111.89), ("New York", 40.71, -74.01),
+        ("Berlin", 52.52, 13.40), ("Nicosia", 35.17, 33.36),
+        ("Dubai", 25.20, 55.27), ("Delhi", 28.61, 77.21),
+        ("Mumbai", 19.08, 72.88), ("Bengaluru", 12.97, 77.59),
+    ]
+    pins = []
+    for _, lat, lon in PINS:
+        sx, sy = project(lon, lat, W, H)
+        cx, cy = sx / STEP * UNIT, (sy - y_top) / STEP * UNIT
+        pins.append(
+            '<g transform="translate(%.1f %.1f)">'
+            '<path d="M0 2c-4.2 0-7.6 3.4-7.6 7.6 0 5.6 7.6 13.4 7.6 13.4s7.6-7.8 7.6-13.4'
+            'C7.6 5.4 4.2 2 0 2z" fill="%s"/><circle cy="9.2" r="2.8" fill="#ffffff"/></g>'
+            % (cx, cy - 23, PIN))
+
+    svg = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %.0f %.0f" width="%.0f" '
+           'height="%.0f" fill="none" role="img" aria-label="World map with pins on the '
+           'countries running ClickPost order editing: Canada, the United States, Germany, '
+           'Cyprus, the UAE and India">' % (vw, vh, vw, vh)
+           + '<g fill="%s">' % DOT + "".join(dots) + "</g>" + "".join(pins) + "</svg>")
+
+    with io.open(OUT, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(svg)
+    print("dots %d  pins %d  viewBox %.0f x %.0f (%.2f:1)  %d bytes"
+          % (len(dots), len(pins), vw, vh, vw / vh, len(svg)))
+
+
+if __name__ == "__main__":
+    main()
