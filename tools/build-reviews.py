@@ -54,6 +54,16 @@ def tint(name):
 
 
 def avatar_html(r):
+    """The slot at the head of the footer: brand mark when we have one, the
+    store's initials otherwise."""
+    if r.get("logo"):
+        return (
+            '<span class="cp-rw__face cp-rw__face--logo">'
+            '<img src="{src}" alt="{alt}"></span>'
+        ).format(
+            src=html.escape(r["logo"], quote=True),
+            alt=html.escape(r.get("logoAlt") or r["name"], quote=True),
+        )
     if r.get("avatar"):
         return (
             '<span class="cp-rw__face" style="background: url({src}) center / cover no-repeat;" '
@@ -64,17 +74,6 @@ def avatar_html(r):
         '<span class="cp-rw__face cp-rw__face--txt" aria-hidden="true" '
         'style="background: {bg}; color: {fg};">{ini}</span>'
     ).format(bg=bg, fg=fg, ini=html.escape(initials(r["name"], r.get("initials"))))
-
-
-def logo_html(r):
-    """The brand mark, top-right. Empty for a store we have no logo for -
-    only the brands that also appear in the strip have one."""
-    if not r.get("logo"):
-        return ""
-    return '<img class="cp-rw__logo" src="{src}" alt="{alt}">'.format(
-        src=html.escape(r["logo"], quote=True),
-        alt=html.escape(r.get("logoAlt", ""), quote=True),
-    )
 
 
 QUOTE_OPEN = (
@@ -93,14 +92,13 @@ def card(r):
     country = r.get("country") or ""
     return (
         '        <figure class="cp-rw__card">\n'
-        '          <div class="cp-rw__top">{qopen}{logo}</div>\n'
+        "          {qopen}\n"
         '          <blockquote class="cp-rw__text">{quote}</blockquote>\n'
         "          {qclose}\n"
         '          <figcaption class="cp-rw__foot">\n'
         '            <span class="cp-rw__who">{avatar}<span class="cp-rw__id">'
-        '<span class="cp-rw__name">{name}</span>'
-        '<span class="cp-rw__role">{role}</span></span></span>\n'
-        "            {country}\n"
+        '<span class="cp-rw__name">{name}</span>{role}</span></span>\n'
+        '            <span class="cp-rw__meta">{date}{country}</span>\n'
         "          </figcaption>\n"
         "        </figure>"
     ).format(
@@ -108,9 +106,9 @@ def card(r):
         qclose=QUOTE_CLOSE,
         quote=html.escape(r["quote"]),
         name=html.escape(r["name"]),
-        role=html.escape(r.get("role") or r.get("date") or ""),
+        role=('<span class="cp-rw__role">%s</span>' % html.escape(r["role"])) if r.get("role") else "",
+        date=('<span class="cp-rw__date">%s</span>' % html.escape(r["date"])) if r.get("date") else "",
         avatar=avatar_html(r),
-        logo=logo_html(r),
         country=('<span class="cp-rw__country">%s</span>' % html.escape(country)) if country else "",
     )
 
