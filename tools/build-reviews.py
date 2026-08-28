@@ -67,12 +67,10 @@ def avatar_html(r):
 
 
 def logo_html(r):
+    """The brand mark, top-right. Empty for a store we have no logo for -
+    only the brands that also appear in the strip have one."""
     if not r.get("logo"):
-        # placeholder: a neutral mark-shaped block. Deliberately NOT the store
-        # name again - that already sits two inches to the left. Adding a
-        # "logo" field to the entry replaces this.
-        return '<span class="cp-rw__logoslot" aria-hidden="true"></span>'
-
+        return ""
     return '<img class="cp-rw__logo" src="{src}" alt="{alt}">'.format(
         src=html.escape(r["logo"], quote=True),
         alt=html.escape(r.get("logoAlt", ""), quote=True),
@@ -92,16 +90,17 @@ QUOTE_CLOSE = (
 
 
 def card(r):
+    country = r.get("country") or ""
     return (
         '        <figure class="cp-rw__card">\n'
-        "          {qopen}\n"
+        '          <div class="cp-rw__top">{qopen}{logo}</div>\n'
         '          <blockquote class="cp-rw__text">{quote}</blockquote>\n'
         "          {qclose}\n"
         '          <figcaption class="cp-rw__foot">\n'
         '            <span class="cp-rw__who">{avatar}<span class="cp-rw__id">'
         '<span class="cp-rw__name">{name}</span>'
         '<span class="cp-rw__role">{role}</span></span></span>\n'
-        "            {logo}\n"
+        "            {country}\n"
         "          </figcaption>\n"
         "        </figure>"
     ).format(
@@ -112,6 +111,7 @@ def card(r):
         role=html.escape(r.get("role") or r.get("date") or ""),
         avatar=avatar_html(r),
         logo=logo_html(r),
+        country=('<span class="cp-rw__country">%s</span>' % html.escape(country)) if country else "",
     )
 
 

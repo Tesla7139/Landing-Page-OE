@@ -36,6 +36,8 @@ RATING = re.compile(r'aria-label="(\d) out of 5 stars"')
 DATE = re.compile(r'tw-text-fg-tertiary">\s*([A-Z][a-z]+ \d{1,2}, \d{4})\s*<')
 BODY = re.compile(r'<p class="tw-break-words">(.*?)</p>', re.S)
 NAME = re.compile(r'<span class="tw-overflow-hidden[^"]*"\s*title="([^"]*)"')
+# the store's country sits in a bare <div> just before the 'using the app' line
+COUNTRY = re.compile(r"<div>([^<>]{2,60})</div>\s*<div>[^<>]*using the app</div>")
 TAGS = re.compile(r"<[^>]+>")
 
 
@@ -61,12 +63,14 @@ def parse(page_html):
             continue  # a star rating with no words - nothing to put on a card
         rating = RATING.search(blk)
         date = DATE.search(blk)
+        country = COUNTRY.search(blk)
         out.append({
             "id": rid,
             "quote": text(body.group(1)),
             "name": html.unescape(name.group(1)).strip(),
             "date": date.group(1) if date else "",
             "rating": int(rating.group(1)) if rating else None,
+            "country": html.unescape(country.group(1)).strip() if country else "",
         })
     return out
 
@@ -81,6 +85,33 @@ def sort_key(r):
     if not m or m.group(1) not in MONTHS:
         return (0, 0, 0)
     return (int(m.group(3)), MONTHS.index(m.group(1)) + 1, int(m.group(2)))
+
+
+def attach_logos(reviews):
+    """Give a review the brand-strip logo when the store is one of those brands.
+
+    Matched loosely - the app store shows the store's current name, which
+    is not always spelled the way the strip has it.
+    """
+    path = os.path.join(ROOT, "brands.json")
+    if not os.path.exists(path):
+        return
+    with io.open(path, encoding="utf-8") as fh:
+        brands = json.load(fh)["brands"]
+
+    def key(s):
+        return re.sub(r"[^a-z0-9]", "", s.lower())
+
+    by_key = {key(b["name"]): b for b in brands}
+    hits = 0
+    for r in reviews:
+        b = by_key.get(key(r["name"]))
+        if b and not r.get("logo"):
+            r["logo"] = "assets/customers/" + b["file"]
+            r["logoAlt"] = b["name"]
+            hits += 1
+    if hits:
+        print("matched %d review(s) to a brand-strip logo" % hits)
 
 
 def main():
@@ -132,6 +163,8 @@ def main():
     merged = []
     for r in scraped:
         entry = {"quote": r["quote"], "name": r["name"], "date": r["date"]}
+        if r["country"]:
+            entry["country"] = r["country"]
         # kept so the wall can be filtered by rating - the listing is not
         # all five stars, and a landing page may not want the low ones
         if r["rating"] is not None:
@@ -152,6 +185,7 @@ def main():
         print("dropped %d review(s) no longer on the listing: %s"
               % (len(stale), ", ".join(r["name"] for r in stale)))
 
+    attach_logos(merged)
     merged.sort(key=sort_key, reverse=True)
 
     stars = {}
