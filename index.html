@@ -92,7 +92,22 @@
   .cp-spin__go:active { transform: scale(0.94); }
 
   /* browser-chrome frame around the embedded demo */
-  .cp-spin__stage { position: relative; align-self: stretch; height: 840px; border-radius: 12px;
+  /* the demo sits on a light-blue stage with the section's one tab hanging
+     into it from the top, the way clickpost.ai frames the same panel */
+  .cp-spin__band { position: relative; width: 736px; flex-shrink: 0; align-self: center;
+                   border-radius: 20px; padding: 0 44px 44px;
+                   background: linear-gradient(163deg, #FBFCFF 0%, #E4EEFF 42%, #C3DBFF 100%); }
+  .cp-spin__tabs { display: flex; justify-content: center; }
+  .cp-spin__tab { display: inline-flex; align-items: center; height: 42px; padding: 0 22px;
+                  border-radius: 9999px; background: #0A1628; color: #ffffff;
+                  font-size: 15px; font-weight: 500; white-space: nowrap; }
+  /* white shoulder so the pill reads as cut into the stage, not floating on it */
+  .cp-spin__tabs::before, .cp-spin__tabs::after { content: ""; flex: 1; height: 62px;
+                                                  background: #ffffff; }
+  .cp-spin__tabs::before { border-radius: 0 0 20px 0; }
+  .cp-spin__tabs::after  { border-radius: 0 0 0 20px; }
+  .cp-spin__tab { margin: 10px 18px 0; }
+  .cp-spin__stage { position: relative; height: 620px; border-radius: 12px;
                     overflow: hidden; background: #ffffff;
                     box-shadow: 0 24px 60px rgba(10,22,40,0.22); }
   .cp-spin__chrome { display: flex; flex-direction: row; align-items: center; gap: 8px;
@@ -2067,7 +2082,9 @@
       </div>
     </div>
 
-    <div class="cp-spin__stage" style="width: 648px; flex-shrink: 0; align-self: center; height: 720px;" data-demo-open="{{ demoOpen }}">
+    <div class="cp-spin__band">
+      <div class="cp-spin__tabs"><span class="cp-spin__tab">Order editing</span></div>
+      <div class="cp-spin__stage" data-demo-open="{{ demoOpen }}">
         <div class="cp-spin__chrome">
           <span class="cp-spin__dot"></span><span class="cp-spin__dot"></span><span class="cp-spin__dot"></span>
           <span class="cp-spin__bar">{{ demoLabel }}</span>
@@ -2079,6 +2096,7 @@
         <iframe class="cp-spin__frame" src="{{ demoSrc }}" title="Order editing demo"
                 loading="lazy" referrerpolicy="no-referrer"></iframe>
       </div>
+    </div>
   </section>
 
 
