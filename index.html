@@ -19,22 +19,52 @@
   a { color: #155FFF; text-decoration: none; }
   a:hover { color: #0A3FCC; }
 
-  /* ── Trusted-by logo marquees ─────────────────────────────────────────
-     Two rows drifting in opposite directions. Each track holds an even
-     number of identical logo sets and animates by exactly -50%, so the
-     loop is seamless. Spacing lives in each logo's margin-right (not a
-     flex gap) — that keeps the 50% shift landing exactly on a set edge. */
-  .cp-mq { position: relative; width: 100%; overflow: hidden;
-           -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
-                   mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%); }
-  .cp-mq__track { display: flex; flex-direction: row; align-items: center;
-                  width: max-content; will-change: transform; }
-  .cp-mq__track > img { flex-shrink: 0; }
-  .cp-mq__track--left  { animation: cp-mq-left  45s linear infinite; }
-  .cp-mq__track--right { animation: cp-mq-right 43s linear infinite; }
-  @keyframes cp-mq-left  { from { transform: translateX(0); }       to { transform: translateX(-50%); } }
-  @keyframes cp-mq-right { from { transform: translateX(-50%); }    to { transform: translateX(0); } }
-  .cp-mq:hover .cp-mq__track { animation-play-state: paused; }
+  /* ── Trusted-by brand strip ────────────────────────────────────────
+     Port of BrandStrip.tsx from the OE demo. Hovering a logo expands its
+     review inline to the right, sliding its neighbours along; hovering
+     anywhere on the strip pauses the drift so the open card holds still.
+     The original eased to 15% speed instead of stopping, which needs a
+     rAF loop — a CSS keyframe cannot change rate without jumping.
+     The track holds two identical sets and shifts by one set width in
+     PIXELS, not -50%: an expanded card widens the track, so a percentage
+     shift would drift off the seam. The generator writes --cp-bs-span. */
+  .cp-bs { position: relative; width: 100%; overflow: hidden;
+           -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+                   mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%); }
+  .cp-bs__track { display: flex; flex-direction: row; align-items: center;
+                  width: max-content; will-change: transform;
+                  animation: cp-bs-drift 70s linear infinite; }
+  @keyframes cp-bs-drift { from { transform: translateX(0); }
+                           to   { transform: translateX(calc(-1 * var(--cp-bs-span))); } }
+  .cp-bs:hover .cp-bs__track { animation-play-state: paused; }
+
+  .cp-bs__item { display: flex; flex-direction: row; align-items: center;
+                 flex-shrink: 0; margin-right: 32px; }
+  .cp-bs__brand { display: flex; flex-direction: column; align-items: center;
+                  flex-shrink: 0; width: 176px; }
+  .cp-bs__mark { display: flex; align-items: center; justify-content: center;
+                 width: 176px; height: 64px; transition: transform 300ms ease-out; }
+  .cp-bs__item:hover .cp-bs__mark { transform: translateY(-2px); }
+  .cp-bs__mark img { max-height: 48px; max-width: 150px; object-fit: contain;
+                     filter: brightness(0); }
+  .cp-bs__tier { margin-top: 8px; display: inline-flex; align-items: center;
+                 padding: 2px 10px; border-radius: 9999px; white-space: nowrap;
+                 border: 1px solid rgba(252,211,77,0.7);
+                 background: linear-gradient(to bottom, #FFFBEB, #FEF3C7);
+                 box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+                 font-size: 11px; font-weight: 700; color: #B45309; }
+  .cp-bs__country { margin-top: 6px; font-size: 11px; font-weight: 600;
+                    letter-spacing: 0.02em; color: #D97706; }
+  .cp-bs__panel { overflow: hidden; max-width: 0; opacity: 0;
+                  transition: max-width 300ms ease-out, opacity 300ms ease-out; }
+  .cp-bs__item:hover .cp-bs__panel { max-width: 320px; opacity: 1; }
+  .cp-bs__panelin { width: 304px; margin-left: 16px; padding: 0 8px 0 16px;
+                    border-left: 2px solid var(--color-border); text-align: left; }
+  .cp-bs__quote { margin: 0; font-size: 14px; line-height: 1.625; font-style: italic;
+                  color: var(--color-fg); display: -webkit-box; -webkit-line-clamp: 4;
+                  -webkit-box-orient: vertical; overflow: hidden; }
+  .cp-bs__quote--none { color: var(--color-fg-muted); }
+  .cp-bs__who { margin-top: 8px; font-size: 13px; font-weight: 700; color: var(--color-fg); }
 
   /* ── Live demo on the visitor’s own store ────────────────────────────────────
      The store lookup is server-side (the demo app scrapes the URL you
@@ -222,11 +252,11 @@
     .cp-steps__visual { clip-path: none; transform: none; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .cp-mq { -webkit-mask-image: none; mask-image: none; }
-    .cp-mq__track { animation: none; width: 100%; justify-content: center; }
-    /* show a single static set: row 1 has 8 logos per set, row 2 has 4 */
-    .cp-mq__track--left  > img:nth-child(n+9) { display: none; }
-    .cp-mq__track--right > img:nth-child(n+5) { display: none; }
+    .cp-bs { -webkit-mask-image: none; mask-image: none; }
+    .cp-bs__track { animation: none; width: 100%; flex-wrap: wrap;
+                    justify-content: center; row-gap: 24px; }
+    /* one static set — the duplicate exists only to wrap the loop */
+    .cp-bs__item[aria-hidden="true"] { display: none; }
   }
   /* ── Nav dropdown ───────────────────────────────────────────────────────
      Hover/focus only, no JS. The item carries padding-bottom + negative
@@ -360,49 +390,267 @@
   </section>
 
   <!-- ── Trusted by ───────────────────────────────────── -->
-  <section style="padding: 64px 112px; display: flex; flex-direction: column; align-items: center;" data-screen-label="Trusted by">
+  <section style="padding: 64px 112px; display: flex; flex-direction: column; align-items: center;" data-screen-label="Trusted by" aria-label="Brands working with us">
     <div style="display: flex; flex-direction: column; gap: 32px; align-items: center; align-self: stretch;">
       <span style="font-size: 16px; color: #52525B;">Trusted by 450+ global brands</span>
-      <div class="cp-mq" style="height: 50px; align-self: stretch;">
-        <div class="cp-mq__track cp-mq__track--left">
-          <img src="assets/004_Puma.svg" alt="Puma" style="flex-shrink: 0; margin-right: 72px; width: 68.733px; height: 34px;">
-          <img src="assets/f2ed47f5874b1977.png" alt="Client" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 28.822px; object-fit: contain;">
-          <img src="assets/005_Adidas.svg" alt="Adidas" style="flex-shrink: 0; margin-right: 72px; width: 54.807px; height: 37px;">
-          <img src="assets/75919cbefb88ceba.png" alt="Jackery" style="flex-shrink: 0; margin-right: 72px; width: 103.705px; height: 30px; object-fit: contain;">
-          <img src="assets/2704df9e09cadaa1.png" alt="Client" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 24.711px; object-fit: contain;">
-          <img src="assets/006_Birkenstock.svg" alt="Birkenstock" style="flex-shrink: 0; margin-right: 72px; width: 119.63px; height: 19.364px;">
-          <img src="assets/008_Sotheby-s.svg" alt="Sotheby's" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 24.461px; object-fit: contain;">
-          <img src="assets/010_Decathlon.svg" alt="Decathlon" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 18.028px; object-fit: contain;">
-          <img src="assets/004_Puma.svg" alt="Puma" style="flex-shrink: 0; margin-right: 72px; width: 68.733px; height: 34px;">
-          <img src="assets/f2ed47f5874b1977.png" alt="Client" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 28.822px; object-fit: contain;">
-          <img src="assets/005_Adidas.svg" alt="Adidas" style="flex-shrink: 0; margin-right: 72px; width: 54.807px; height: 37px;">
-          <img src="assets/75919cbefb88ceba.png" alt="Jackery" style="flex-shrink: 0; margin-right: 72px; width: 103.705px; height: 30px; object-fit: contain;">
-          <img src="assets/2704df9e09cadaa1.png" alt="Client" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 24.711px; object-fit: contain;">
-          <img src="assets/006_Birkenstock.svg" alt="Birkenstock" style="flex-shrink: 0; margin-right: 72px; width: 119.63px; height: 19.364px;">
-          <img src="assets/008_Sotheby-s.svg" alt="Sotheby's" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 24.461px; object-fit: contain;">
-          <img src="assets/010_Decathlon.svg" alt="Decathlon" style="flex-shrink: 0; margin-right: 72px; width: 120px; height: 18.028px; object-fit: contain;">
+      <!-- BRANDSTRIP:START — generated by tools/build-brand-strip.py, do not edit by hand -->
+      <div class="cp-bs" style="align-self: stretch;">
+        <div class="cp-bs__track" style="--cp-bs-span: 2496px;">
+        <div class="cp-bs__item">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/curlwarehouse.png" alt="Curl Warehouse"></span>
+            <span class="cp-bs__tier">7-figure brand</span>
+            <span class="cp-bs__country">Canada</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“This has reduced the number of emails we receive to update orders. It&#x27;s easy to use and set up, and the developers have been very receptive to changes.”</p>
+            <div class="cp-bs__who">Curl Warehouse</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/mateina.png" alt="Mateina"></span>
+            <span class="cp-bs__tier">Andrew Huberman&#x27;s favourite</span>
+            <span class="cp-bs__country">Canada</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“One of the best order editing apps available that actually works! I&#x27;ve tested about a dozen, and this was by far one of the best. Amazing team and support.”</p>
+            <div class="cp-bs__who">Mateina</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/renuebyscience.svg" alt="Renue By Science"></span>
+            <span class="cp-bs__country">USA</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“The team at Clickpost are exceptional developers and great people. They listen to feedback and have built genuinely useful tools for Shopify stores.”</p>
+            <div class="cp-bs__who">Renue By Science</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/doonails.svg" alt="Doonails"></span>
+            <span class="cp-bs__tier">$100M+ brand</span>
+            <span class="cp-bs__country">Germany</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“Really helped us quickly to fix all issues.”</p>
+            <div class="cp-bs__who">Doonails</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/modomu.png" alt="Modomu"></span>
+            <span class="cp-bs__country">India</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“Really happy with Clickpost so far. We added it mainly for order edits but ended up using the upsell part too, which brought in a bit of extra revenue.”</p>
+            <div class="cp-bs__who">Modomu</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/hautesauce.png" alt="Haute Sauce"></span>
+            <span class="cp-bs__country">India</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“Installed Clickpost recently and it works great. Customers can edit their orders and even add extra items, which is a nice bonus.”</p>
+            <div class="cp-bs__who">Haute Sauce</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/westside.png" alt="Westside Global"></span>
+            <span class="cp-bs__country">India</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“We just installed Clickpost a few days ago and honestly it&#x27;s been a very smooth experience. Setup was way easier than I expected and everything worked right out of the box. The order editing feature is exactly what we needed since customers always want to change something after checkout. Smit helped us get everything configured and answered our questions super fast.”</p>
+            <div class="cp-bs__who">Westside Global</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/myborosil.png" alt="MyBorosil"></span>
+            <span class="cp-bs__country">India</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“Order editing app by clickpost is easy to install with a super responsive support team. It has reduced our support tickets. It has just made our life easier. Was very easy to setup on them. Loving it!”</p>
+            <div class="cp-bs__who">MyBorosil</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/wellbeingnutrition.png" alt="Wellbeing Nutrition"></span>
+            <span class="cp-bs__country">India</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“Clickpost order editing has made our post purchase process so much better. Customers can now edit their orders without contacting support. Their upsells are a cherry on the top, and have increased our AOV. Real value for money, and absolutely great support from the team.”</p>
+            <div class="cp-bs__who">Wellbeing Nutrition</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/marsbyghc.png" alt="Mars By GHC"></span>
+            <span class="cp-bs__tier">7-figure brand</span>
+            <span class="cp-bs__country">India</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“We’ve been using Clickpost and it’s genuinely been super helpful. Customers can handle order edits themselves, and the post-purchase upsells have been a solid bonus for incremental revenue. Setup was straightforward, everything’s been running smoothly, and support has been great too — the team was quick to respond and got us up and running fast.”</p>
+            <div class="cp-bs__who">Mars By GHC</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/vanillapura.png" alt="VanillaPura"></span>
+            <span class="cp-bs__tier">7-figure brand</span>
+            <span class="cp-bs__country">Utah, USA</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“Great experience and fantastic support from the ClickPost team with my questions. Our top customer service requests are for order edits, so this immediately cut support tickets making it easy to quantify the ROI. A lot of customization features and various upsell tools are included in the app that I can implement to increase AOV as well. I highly recommend it.”</p>
+            <div class="cp-bs__who">VanillaPura</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/gharsoaps.png" alt="GHAR SOAPS"></span>
+            <span class="cp-bs__tier">8-figure brand</span>
+            <span class="cp-bs__country">UAE</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“Clickpost been a great upgrade for our store. Customers can log in, check their info, and manage everything easily, which has made the whole experience feel smoother and more professional.”</p>
+            <div class="cp-bs__who">GHAR SOAPS</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item" aria-hidden="true">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/curlwarehouse.png" alt="Curl Warehouse"></span>
+            <span class="cp-bs__tier">7-figure brand</span>
+            <span class="cp-bs__country">Canada</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“This has reduced the number of emails we receive to update orders. It&#x27;s easy to use and set up, and the developers have been very receptive to changes.”</p>
+            <div class="cp-bs__who">Curl Warehouse</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item" aria-hidden="true">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/mateina.png" alt="Mateina"></span>
+            <span class="cp-bs__tier">Andrew Huberman&#x27;s favourite</span>
+            <span class="cp-bs__country">Canada</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“One of the best order editing apps available that actually works! I&#x27;ve tested about a dozen, and this was by far one of the best. Amazing team and support.”</p>
+            <div class="cp-bs__who">Mateina</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item" aria-hidden="true">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/renuebyscience.svg" alt="Renue By Science"></span>
+            <span class="cp-bs__country">USA</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“The team at Clickpost are exceptional developers and great people. They listen to feedback and have built genuinely useful tools for Shopify stores.”</p>
+            <div class="cp-bs__who">Renue By Science</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item" aria-hidden="true">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/doonails.svg" alt="Doonails"></span>
+            <span class="cp-bs__tier">$100M+ brand</span>
+            <span class="cp-bs__country">Germany</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“Really helped us quickly to fix all issues.”</p>
+            <div class="cp-bs__who">Doonails</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item" aria-hidden="true">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/modomu.png" alt="Modomu"></span>
+            <span class="cp-bs__country">India</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“Really happy with Clickpost so far. We added it mainly for order edits but ended up using the upsell part too, which brought in a bit of extra revenue.”</p>
+            <div class="cp-bs__who">Modomu</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item" aria-hidden="true">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/hautesauce.png" alt="Haute Sauce"></span>
+            <span class="cp-bs__country">India</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“Installed Clickpost recently and it works great. Customers can edit their orders and even add extra items, which is a nice bonus.”</p>
+            <div class="cp-bs__who">Haute Sauce</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item" aria-hidden="true">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/westside.png" alt="Westside Global"></span>
+            <span class="cp-bs__country">India</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“We just installed Clickpost a few days ago and honestly it&#x27;s been a very smooth experience. Setup was way easier than I expected and everything worked right out of the box. The order editing feature is exactly what we needed since customers always want to change something after checkout. Smit helped us get everything configured and answered our questions super fast.”</p>
+            <div class="cp-bs__who">Westside Global</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item" aria-hidden="true">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/myborosil.png" alt="MyBorosil"></span>
+            <span class="cp-bs__country">India</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“Order editing app by clickpost is easy to install with a super responsive support team. It has reduced our support tickets. It has just made our life easier. Was very easy to setup on them. Loving it!”</p>
+            <div class="cp-bs__who">MyBorosil</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item" aria-hidden="true">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/wellbeingnutrition.png" alt="Wellbeing Nutrition"></span>
+            <span class="cp-bs__country">India</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“Clickpost order editing has made our post purchase process so much better. Customers can now edit their orders without contacting support. Their upsells are a cherry on the top, and have increased our AOV. Real value for money, and absolutely great support from the team.”</p>
+            <div class="cp-bs__who">Wellbeing Nutrition</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item" aria-hidden="true">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/marsbyghc.png" alt="Mars By GHC"></span>
+            <span class="cp-bs__tier">7-figure brand</span>
+            <span class="cp-bs__country">India</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“We’ve been using Clickpost and it’s genuinely been super helpful. Customers can handle order edits themselves, and the post-purchase upsells have been a solid bonus for incremental revenue. Setup was straightforward, everything’s been running smoothly, and support has been great too — the team was quick to respond and got us up and running fast.”</p>
+            <div class="cp-bs__who">Mars By GHC</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item" aria-hidden="true">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/vanillapura.png" alt="VanillaPura"></span>
+            <span class="cp-bs__tier">7-figure brand</span>
+            <span class="cp-bs__country">Utah, USA</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“Great experience and fantastic support from the ClickPost team with my questions. Our top customer service requests are for order edits, so this immediately cut support tickets making it easy to quantify the ROI. A lot of customization features and various upsell tools are included in the app that I can implement to increase AOV as well. I highly recommend it.”</p>
+            <div class="cp-bs__who">VanillaPura</div>
+          </div></div>
+        </div>
+        <div class="cp-bs__item" aria-hidden="true">
+          <div class="cp-bs__brand">
+            <span class="cp-bs__mark"><img src="assets/customers/gharsoaps.png" alt="GHAR SOAPS"></span>
+            <span class="cp-bs__tier">8-figure brand</span>
+            <span class="cp-bs__country">UAE</span>
+          </div>
+          <div class="cp-bs__panel"><div class="cp-bs__panelin">
+            <p class="cp-bs__quote">“Clickpost been a great upgrade for our store. Customers can log in, check their info, and manage everything easily, which has made the whole experience feel smoother and more professional.”</p>
+            <div class="cp-bs__who">GHAR SOAPS</div>
+          </div></div>
+        </div>
         </div>
       </div>
-      <div class="cp-mq" style="height: 40px; align-self: stretch;">
-        <div class="cp-mq__track cp-mq__track--right">
-          <img src="assets/6d28619ddab577d9.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 16.947px; object-fit: contain; mix-blend-mode: darken;">
-          <img src="assets/Union.svg" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 33.101px; object-fit: contain;">
-          <img src="assets/337e134ae1ba1799.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 110px; height: 23px; object-fit: contain;">
-          <img src="assets/ccf9eaabba3e1b26.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 75px; height: 40px; object-fit: contain; mix-blend-mode: darken;">
-          <img src="assets/6d28619ddab577d9.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 16.947px; object-fit: contain; mix-blend-mode: darken;">
-          <img src="assets/Union.svg" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 33.101px; object-fit: contain;">
-          <img src="assets/337e134ae1ba1799.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 110px; height: 23px; object-fit: contain;">
-          <img src="assets/ccf9eaabba3e1b26.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 75px; height: 40px; object-fit: contain; mix-blend-mode: darken;">
-          <img src="assets/6d28619ddab577d9.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 16.947px; object-fit: contain; mix-blend-mode: darken;">
-          <img src="assets/Union.svg" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 33.101px; object-fit: contain;">
-          <img src="assets/337e134ae1ba1799.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 110px; height: 23px; object-fit: contain;">
-          <img src="assets/ccf9eaabba3e1b26.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 75px; height: 40px; object-fit: contain; mix-blend-mode: darken;">
-          <img src="assets/6d28619ddab577d9.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 16.947px; object-fit: contain; mix-blend-mode: darken;">
-          <img src="assets/Union.svg" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 120px; height: 33.101px; object-fit: contain;">
-          <img src="assets/337e134ae1ba1799.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 110px; height: 23px; object-fit: contain;">
-          <img src="assets/ccf9eaabba3e1b26.png" alt="Client" style="flex-shrink: 0; margin-right: 60px; width: 75px; height: 40px; object-fit: contain; mix-blend-mode: darken;">
-        </div>
-      </div>
+      <!-- BRANDSTRIP:END -->
     </div>
   </section>
 
