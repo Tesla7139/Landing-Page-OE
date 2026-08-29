@@ -140,23 +140,11 @@
   /* hide duplicated cells if a stale bundle repeated them */
   [data-screen-label="Integrations"] .cp-int > *:nth-child(n+7) { display: none !important; }
 
-  /* ── Integrations grid: wordmark stand-ins for two unavailable bitmaps ──
-     Klaviyo (row 1, cell 3) and ShipStation (row 1, cell 5) ship as 4096px
-     PNGs that exceed the file-read cap, so they never downloaded. Rendering
-     the brand name keeps the wall complete instead of leaving two holes.
-     Drop components/assets/a65cbe3604bea791.png and 5715b723523760d5.png in
-     and delete this block to get the real marks back. */
+  /* ── Integrations grid: Klaviyo and ShipStation marks ─────────────────
+     fig-assets.css sets these as `center / cover`, which crops a wide
+     wordmark to fill its box. Both are wordmarks, so they need contain. */
   .fig-asset-a65cbe3604bea791,
-  .fig-asset-5715b723523760d5 {
-    display: flex !important; align-items: center; justify-content: center;
-  }
-  .fig-asset-a65cbe3604bea791::after,
-  .fig-asset-5715b723523760d5::after {
-    font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600;
-    letter-spacing: -0.01em; color: #252525; white-space: nowrap;
-  }
-  .fig-asset-a65cbe3604bea791::after { content: "Klaviyo"; }
-  .fig-asset-5715b723523760d5::after { content: "ShipStation"; }
+  .fig-asset-5715b723523760d5 { background-size: contain !important; }
 
   /* ── How-it-works: sticky stage + scroll-linked step cards ─────────────
      One binding drives it all: the section carries data-active-step="N",
@@ -1977,13 +1965,12 @@
     <h2 style="margin: 0; width: 916px; font-size: 40px; font-weight: 500; line-height: 56px; text-align: center; color: #252525;">Leading carriers, shopfronts, WMS, ERP, OMS</h2>
     <div style="display: flex; flex-direction: column; gap: 44px; align-items: center; align-self: stretch;">
       <x-import component-from-global-scope="Frame1171276358" from="./components/Components.static.js" hint-size="1216px,180px"></x-import>
-      <!-- second row: these four have no mark in the Figma export, so they use the
-           same wordmark treatment Klaviyo and ShipStation already use above -->
+      <!-- second row: marks taken from each vendor's own site -->
       <div style="display: flex; flex-direction: row; gap: 40px; justify-content: center; align-items: center;">
-        <span style="width: 160px; text-align: center; font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: #252525; white-space: nowrap;">Recharge</span>
-        <span style="width: 160px; text-align: center; font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: #252525; white-space: nowrap;">Loop Subscriptions</span>
-        <span style="width: 160px; text-align: center; font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: #252525; white-space: nowrap;">Shop app</span>
-        <span style="width: 160px; text-align: center; font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: #252525; white-space: nowrap;">Order Desk</span>
+        <img src="assets/integrations/recharge.svg" alt="Recharge" width="150" height="30" style="width: 160px; height: 34px; object-fit: contain; display: block;">
+        <img src="assets/integrations/loop.png" alt="Loop Subscriptions" width="738" height="272" style="width: 160px; height: 34px; object-fit: contain; display: block;">
+        <img src="assets/integrations/shop.png" alt="Shop app" width="1200" height="627" style="width: 160px; height: 34px; object-fit: contain; display: block;">
+        <img src="assets/integrations/orderdesk.png" alt="Order Desk" width="700" height="110" style="width: 160px; height: 34px; object-fit: contain; display: block;">
       </div>
     </div>
     <div style="align-self: stretch; border-radius: 12px; background: #EEF3FF; border: 1px solid #D6E4FF; padding: 48px 56px; display: flex; flex-direction: row; gap: 48px; justify-content: space-between; align-items: center;">
