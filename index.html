@@ -1975,7 +1975,17 @@
   <!-- ── Integrations ─────────────────────────────────── -->
   <section style="padding: 120px 112px 80px; display: flex; flex-direction: column; gap: 64px; align-items: center;" data-screen-label="Integrations">
     <h2 style="margin: 0; width: 916px; font-size: 40px; font-weight: 500; line-height: 56px; text-align: center; color: #252525;">Leading carriers, shopfronts, WMS, ERP, OMS</h2>
-    <x-import component-from-global-scope="Frame1171276358" from="./components/Components.static.js" hint-size="1216px,180px"></x-import>
+    <div style="display: flex; flex-direction: column; gap: 44px; align-items: center; align-self: stretch;">
+      <x-import component-from-global-scope="Frame1171276358" from="./components/Components.static.js" hint-size="1216px,180px"></x-import>
+      <!-- second row: these four have no mark in the Figma export, so they use the
+           same wordmark treatment Klaviyo and ShipStation already use above -->
+      <div style="display: flex; flex-direction: row; gap: 40px; justify-content: center; align-items: center;">
+        <span style="width: 160px; text-align: center; font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: #252525; white-space: nowrap;">Recharge</span>
+        <span style="width: 160px; text-align: center; font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: #252525; white-space: nowrap;">Loop Subscriptions</span>
+        <span style="width: 160px; text-align: center; font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: #252525; white-space: nowrap;">Shop app</span>
+        <span style="width: 160px; text-align: center; font-family: Poppins, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: #252525; white-space: nowrap;">Order Desk</span>
+      </div>
+    </div>
     <div style="align-self: stretch; border-radius: 12px; background: #EEF3FF; border: 1px solid #D6E4FF; padding: 48px 56px; display: flex; flex-direction: row; gap: 48px; justify-content: space-between; align-items: center;">
       <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
         <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #155FFF;">Don’t see your stack?</span>
