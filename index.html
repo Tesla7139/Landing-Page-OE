@@ -150,24 +150,30 @@
   .cp-vid[data-playing="1"] .cp-vid__frame { display: block; }
 
   /* ── FAQ ───────────────────────────────────────────
-     One item open at a time, the first by default. data-open carries
-     "true"/"false" so the same value drives both the CSS and the button's
-     aria-expanded, rather than the component rendering two of everything.
-     Answers are height-animated with a max-height ceiling, so the ceiling
-     has to clear the tallest answer or the last line is clipped mid-open. */
-  .cp-faq { align-self: stretch; display: flex; flex-direction: column; }
+     Two columns: the left one introduces the set and holds the fallback
+     for anyone whose question is not here, the accordion runs down the
+     wider right column.
+
+     One item is open at a time, the first by default. data-open carries
+     "true"/"false" so the same value drives the CSS and the button's
+     aria-expanded, rather than the component rendering two of everything. */
+  .cp-faq__grid { align-self: stretch; display: flex; flex-direction: row;
+                  gap: 80px; align-items: flex-start; }
+  .cp-faq__intro { width: 372px; flex-shrink: 0; display: flex;
+                   flex-direction: column; align-items: flex-start; }
+  .cp-faq__list { flex-grow: 1; display: flex; flex-direction: column; }
   .cp-faq__item { border-top: 1px solid #E5E7EB; }
   .cp-faq__item:last-child { border-bottom: 1px solid #E5E7EB; }
   .cp-faq__q { width: 100%; display: flex; flex-direction: row; gap: 40px;
                justify-content: space-between; align-items: flex-start;
-               padding: 28px 4px; background: none; border: 0; cursor: pointer;
+               padding: 24px 4px; background: none; border: 0; cursor: pointer;
                text-align: left; font: inherit; }
-  .cp-faq__qt { font-size: 20px; font-weight: 500; line-height: 30px;
+  .cp-faq__qt { font-size: 18px; font-weight: 500; line-height: 28px;
                 letter-spacing: -0.01em; color: #252525; }
   .cp-faq__q:hover .cp-faq__qt { color: #155FFF; }
   .cp-faq__q:focus-visible { outline: 2px solid #155FFF; outline-offset: -4px;
                              border-radius: 4px; }
-  .cp-faq__sign { width: 28px; height: 28px; flex-shrink: 0; margin-top: 1px;
+  .cp-faq__sign { width: 26px; height: 26px; flex-shrink: 0; margin-top: 1px;
                   border-radius: 9999px; border: 1px solid #C7CCD6; color: #52525B;
                   display: flex; justify-content: center; align-items: center;
                   transition: border-color 160ms ease-out, color 160ms ease-out; }
@@ -175,15 +181,28 @@
   .cp-faq__bar { transform-origin: 12px 12px;
                  transition: opacity 180ms ease-out, transform 180ms ease-out; }
   .cp-faq__item[data-open="true"] .cp-faq__bar { opacity: 0; transform: rotate(90deg); }
+  /* max-height is a ceiling, so it has to clear the tallest answer or the
+     last line is clipped part-way through opening */
   .cp-faq__a { max-height: 0; opacity: 0; overflow: hidden;
-               padding: 0 88px 0 4px; margin: 0;
-               font-size: 17px; line-height: 28px; color: #52525B;
+               padding: 0 40px 0 4px; margin: 0;
+               font-size: 16px; line-height: 26px; color: #52525B;
                transition: max-height 280ms ease, opacity 200ms ease,
                            padding-bottom 280ms ease; }
-  .cp-faq__item[data-open="true"] .cp-faq__a { max-height: 220px; opacity: 1;
-                                               padding-bottom: 30px; }
+  .cp-faq__item[data-open="true"] .cp-faq__a { max-height: 260px; opacity: 1;
+                                               padding-bottom: 28px; }
 
-  /* ── Integrations grid stays STATIC ────────────────────────────────────
+  /* the answer arrives a word at a time, out of focus and settling. Each
+     span carries its own delay; the animation only exists while the item
+     is open, so reopening replays it. */
+  .cp-faq__w { display: inline-block; opacity: 0; filter: blur(10px); }
+  .cp-faq__item[data-open="true"] .cp-faq__w {
+    animation: cp-faq-word 300ms ease-out both; }
+  @keyframes cp-faq-word {
+    from { opacity: 0; filter: blur(10px); }
+    to   { opacity: 1; filter: blur(0); } }
+  @media (prefers-reduced-motion: reduce) {
+    .cp-faq__w { opacity: 1; filter: none; }
+    .cp-faq__item[data-open="true"] .cp-faq__w { animation: none; } }
      Defensive: neutralises any marquee wiring that an older cached bundle
      might still inject into this section, so the logos cannot drift. */
   [data-screen-label="Integrations"] .cp-mq,
@@ -2187,50 +2206,57 @@
   </section>
 
   <!-- ── FAQ ────────────────────────────── -->
-  <section style="background: #ffffff; padding: 24px 112px 112px; display: flex; flex-direction: column; gap: 40px; align-items: center;" data-screen-label="FAQ">
-    <h2 style="margin: 0; font-size: 40px; font-weight: 500; line-height: 50px; letter-spacing: -0.01em; text-align: center; color: #252525;">Frequently asked questions</h2>
-    <div class="cp-faq">
-      <div class="cp-faq__item" data-open="{{ faq0 }}">
-        <button type="button" class="cp-faq__q" aria-expanded="{{ faq0 }}" aria-controls="cp-faq-a0" onClick="{{ faqT0 }}">
+  <section style="background: #ffffff; padding: 24px 112px 112px; display: flex; flex-direction: column; align-items: center;" data-screen-label="FAQ">
+    <div class="cp-faq__grid">
+      <div class="cp-faq__intro">
+        <h2 style="margin: 0; font-size: 40px; font-weight: 600; line-height: 48px; letter-spacing: -0.02em; color: #252525;">FAQs</h2>
+        <p style="margin: 16px 0 0; font-size: 18px; line-height: 28px; color: #52525B;">Everything you need to know about order editing on Shopify.</p>
+        <p style="margin: 24px 0 0; font-size: 16px; line-height: 26px; color: #52525B;">Can’t find what you’re looking for? Reach out to our <a href="#demo" style="font-weight: 500; color: #155FFF;">support team</a> for assistance.</p>
+      </div>
+
+      <div class="cp-faq__list">
+        <div class="cp-faq__item" data-open="{{ faq0 }}">
+          <button type="button" class="cp-faq__q" aria-expanded="{{ faq0 }}" aria-controls="cp-faq-a0" onClick="{{ faqT0 }}">
           <span class="cp-faq__qt">How long do customers have to edit their order?</span>
           <span class="cp-faq__sign" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14"></path><path class="cp-faq__bar" d="M12 5v14"></path></svg></span>
-        </button>
-        <p class="cp-faq__a" id="cp-faq-a0">Merchants have full control over the editing window. Usually brands offer 30-60 mins, but it is completely customisable.</p>
-      </div>
-      <div class="cp-faq__item" data-open="{{ faq1 }}">
-        <button type="button" class="cp-faq__q" aria-expanded="{{ faq1 }}" aria-controls="cp-faq-a1" onClick="{{ faqT1 }}">
+          </button>
+          <p class="cp-faq__a" id="cp-faq-a0"><span class="cp-faq__w" style="animation-delay: 0ms">Merchants</span> <span class="cp-faq__w" style="animation-delay: 22ms">have</span> <span class="cp-faq__w" style="animation-delay: 44ms">full</span> <span class="cp-faq__w" style="animation-delay: 66ms">control</span> <span class="cp-faq__w" style="animation-delay: 88ms">over</span> <span class="cp-faq__w" style="animation-delay: 110ms">the</span> <span class="cp-faq__w" style="animation-delay: 132ms">editing</span> <span class="cp-faq__w" style="animation-delay: 154ms">window.</span> <span class="cp-faq__w" style="animation-delay: 176ms">Usually</span> <span class="cp-faq__w" style="animation-delay: 198ms">brands</span> <span class="cp-faq__w" style="animation-delay: 220ms">offer</span> <span class="cp-faq__w" style="animation-delay: 242ms">30-60</span> <span class="cp-faq__w" style="animation-delay: 264ms">mins,</span> <span class="cp-faq__w" style="animation-delay: 286ms">but</span> <span class="cp-faq__w" style="animation-delay: 308ms">it</span> <span class="cp-faq__w" style="animation-delay: 330ms">is</span> <span class="cp-faq__w" style="animation-delay: 352ms">completely</span> <span class="cp-faq__w" style="animation-delay: 374ms">customisable.</span></p>
+        </div>
+        <div class="cp-faq__item" data-open="{{ faq1 }}">
+          <button type="button" class="cp-faq__q" aria-expanded="{{ faq1 }}" aria-controls="cp-faq-a1" onClick="{{ faqT1 }}">
           <span class="cp-faq__qt">Does it integrate with my 3PL/WMS?</span>
           <span class="cp-faq__sign" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14"></path><path class="cp-faq__bar" d="M12 5v14"></path></svg></span>
-        </button>
-        <p class="cp-faq__a" id="cp-faq-a1">By default we introduce a delay for the duration of the order editing window before passing your order for fulfilment, but we can integrate with your 3PL/WMS where required for a better customer experience.</p>
-      </div>
-      <div class="cp-faq__item" data-open="{{ faq2 }}">
-        <button type="button" class="cp-faq__q" aria-expanded="{{ faq2 }}" aria-controls="cp-faq-a2" onClick="{{ faqT2 }}">
+          </button>
+          <p class="cp-faq__a" id="cp-faq-a1"><span class="cp-faq__w" style="animation-delay: 0ms">By</span> <span class="cp-faq__w" style="animation-delay: 22ms">default</span> <span class="cp-faq__w" style="animation-delay: 44ms">we</span> <span class="cp-faq__w" style="animation-delay: 66ms">introduce</span> <span class="cp-faq__w" style="animation-delay: 88ms">a</span> <span class="cp-faq__w" style="animation-delay: 110ms">delay</span> <span class="cp-faq__w" style="animation-delay: 132ms">for</span> <span class="cp-faq__w" style="animation-delay: 154ms">the</span> <span class="cp-faq__w" style="animation-delay: 176ms">duration</span> <span class="cp-faq__w" style="animation-delay: 198ms">of</span> <span class="cp-faq__w" style="animation-delay: 220ms">the</span> <span class="cp-faq__w" style="animation-delay: 242ms">order</span> <span class="cp-faq__w" style="animation-delay: 264ms">editing</span> <span class="cp-faq__w" style="animation-delay: 286ms">window</span> <span class="cp-faq__w" style="animation-delay: 308ms">before</span> <span class="cp-faq__w" style="animation-delay: 330ms">passing</span> <span class="cp-faq__w" style="animation-delay: 352ms">your</span> <span class="cp-faq__w" style="animation-delay: 374ms">order</span> <span class="cp-faq__w" style="animation-delay: 396ms">for</span> <span class="cp-faq__w" style="animation-delay: 418ms">fulfilment,</span> <span class="cp-faq__w" style="animation-delay: 440ms">but</span> <span class="cp-faq__w" style="animation-delay: 462ms">we</span> <span class="cp-faq__w" style="animation-delay: 484ms">can</span> <span class="cp-faq__w" style="animation-delay: 506ms">integrate</span> <span class="cp-faq__w" style="animation-delay: 528ms">with</span> <span class="cp-faq__w" style="animation-delay: 550ms">your</span> <span class="cp-faq__w" style="animation-delay: 572ms">3PL/WMS</span> <span class="cp-faq__w" style="animation-delay: 594ms">where</span> <span class="cp-faq__w" style="animation-delay: 616ms">required</span> <span class="cp-faq__w" style="animation-delay: 638ms">for</span> <span class="cp-faq__w" style="animation-delay: 660ms">a</span> <span class="cp-faq__w" style="animation-delay: 682ms">better</span> <span class="cp-faq__w" style="animation-delay: 704ms">customer</span> <span class="cp-faq__w" style="animation-delay: 726ms">experience.</span></p>
+        </div>
+        <div class="cp-faq__item" data-open="{{ faq2 }}">
+          <button type="button" class="cp-faq__q" aria-expanded="{{ faq2 }}" aria-controls="cp-faq-a2" onClick="{{ faqT2 }}">
           <span class="cp-faq__qt">Can I use Order editing but not offer cancellation or refund options to customers?</span>
           <span class="cp-faq__sign" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14"></path><path class="cp-faq__bar" d="M12 5v14"></path></svg></span>
-        </button>
-        <p class="cp-faq__a" id="cp-faq-a2">Yes! The choice is completely yours, on what edits and changes do you want to allow. You can also put custom tags to prevent cancellation for certain orders. And all of this can be disabled with a simple click on our admin panel.</p>
-      </div>
-      <div class="cp-faq__item" data-open="{{ faq3 }}">
-        <button type="button" class="cp-faq__q" aria-expanded="{{ faq3 }}" aria-controls="cp-faq-a3" onClick="{{ faqT3 }}">
+          </button>
+          <p class="cp-faq__a" id="cp-faq-a2"><span class="cp-faq__w" style="animation-delay: 0ms">Yes!</span> <span class="cp-faq__w" style="animation-delay: 22ms">The</span> <span class="cp-faq__w" style="animation-delay: 44ms">choice</span> <span class="cp-faq__w" style="animation-delay: 66ms">is</span> <span class="cp-faq__w" style="animation-delay: 88ms">completely</span> <span class="cp-faq__w" style="animation-delay: 110ms">yours,</span> <span class="cp-faq__w" style="animation-delay: 132ms">on</span> <span class="cp-faq__w" style="animation-delay: 154ms">what</span> <span class="cp-faq__w" style="animation-delay: 176ms">edits</span> <span class="cp-faq__w" style="animation-delay: 198ms">and</span> <span class="cp-faq__w" style="animation-delay: 220ms">changes</span> <span class="cp-faq__w" style="animation-delay: 242ms">do</span> <span class="cp-faq__w" style="animation-delay: 264ms">you</span> <span class="cp-faq__w" style="animation-delay: 286ms">want</span> <span class="cp-faq__w" style="animation-delay: 308ms">to</span> <span class="cp-faq__w" style="animation-delay: 330ms">allow.</span> <span class="cp-faq__w" style="animation-delay: 352ms">You</span> <span class="cp-faq__w" style="animation-delay: 374ms">can</span> <span class="cp-faq__w" style="animation-delay: 396ms">also</span> <span class="cp-faq__w" style="animation-delay: 418ms">put</span> <span class="cp-faq__w" style="animation-delay: 440ms">custom</span> <span class="cp-faq__w" style="animation-delay: 462ms">tags</span> <span class="cp-faq__w" style="animation-delay: 484ms">to</span> <span class="cp-faq__w" style="animation-delay: 506ms">prevent</span> <span class="cp-faq__w" style="animation-delay: 528ms">cancellation</span> <span class="cp-faq__w" style="animation-delay: 550ms">for</span> <span class="cp-faq__w" style="animation-delay: 572ms">certain</span> <span class="cp-faq__w" style="animation-delay: 594ms">orders.</span> <span class="cp-faq__w" style="animation-delay: 616ms">And</span> <span class="cp-faq__w" style="animation-delay: 638ms">all</span> <span class="cp-faq__w" style="animation-delay: 660ms">of</span> <span class="cp-faq__w" style="animation-delay: 682ms">this</span> <span class="cp-faq__w" style="animation-delay: 704ms">can</span> <span class="cp-faq__w" style="animation-delay: 726ms">be</span> <span class="cp-faq__w" style="animation-delay: 748ms">disabled</span> <span class="cp-faq__w" style="animation-delay: 770ms">with</span> <span class="cp-faq__w" style="animation-delay: 792ms">a</span> <span class="cp-faq__w" style="animation-delay: 814ms">simple</span> <span class="cp-faq__w" style="animation-delay: 836ms">click</span> <span class="cp-faq__w" style="animation-delay: 858ms">on</span> <span class="cp-faq__w" style="animation-delay: 880ms">our</span> <span class="cp-faq__w" style="animation-delay: 902ms">admin</span> <span class="cp-faq__w" style="animation-delay: 924ms">panel.</span></p>
+        </div>
+        <div class="cp-faq__item" data-open="{{ faq3 }}">
+          <button type="button" class="cp-faq__q" aria-expanded="{{ faq3 }}" aria-controls="cp-faq-a3" onClick="{{ faqT3 }}">
           <span class="cp-faq__qt">How does it work with my Shipping and warehouse management software and/or ERP?</span>
           <span class="cp-faq__sign" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14"></path><path class="cp-faq__bar" d="M12 5v14"></path></svg></span>
-        </button>
-        <p class="cp-faq__a" id="cp-faq-a3">We put orders on hold after checkout to give customers a short period to make changes. After the editing period we disable editing and trigger orders to be pulled (and remove the hold status).</p>
-      </div>
-      <div class="cp-faq__item" data-open="{{ faq4 }}">
-        <button type="button" class="cp-faq__q" aria-expanded="{{ faq4 }}" aria-controls="cp-faq-a4" onClick="{{ faqT4 }}">
+          </button>
+          <p class="cp-faq__a" id="cp-faq-a3"><span class="cp-faq__w" style="animation-delay: 0ms">We</span> <span class="cp-faq__w" style="animation-delay: 22ms">put</span> <span class="cp-faq__w" style="animation-delay: 44ms">orders</span> <span class="cp-faq__w" style="animation-delay: 66ms">on</span> <span class="cp-faq__w" style="animation-delay: 88ms">hold</span> <span class="cp-faq__w" style="animation-delay: 110ms">after</span> <span class="cp-faq__w" style="animation-delay: 132ms">checkout</span> <span class="cp-faq__w" style="animation-delay: 154ms">to</span> <span class="cp-faq__w" style="animation-delay: 176ms">give</span> <span class="cp-faq__w" style="animation-delay: 198ms">customers</span> <span class="cp-faq__w" style="animation-delay: 220ms">a</span> <span class="cp-faq__w" style="animation-delay: 242ms">short</span> <span class="cp-faq__w" style="animation-delay: 264ms">period</span> <span class="cp-faq__w" style="animation-delay: 286ms">to</span> <span class="cp-faq__w" style="animation-delay: 308ms">make</span> <span class="cp-faq__w" style="animation-delay: 330ms">changes.</span> <span class="cp-faq__w" style="animation-delay: 352ms">After</span> <span class="cp-faq__w" style="animation-delay: 374ms">the</span> <span class="cp-faq__w" style="animation-delay: 396ms">editing</span> <span class="cp-faq__w" style="animation-delay: 418ms">period</span> <span class="cp-faq__w" style="animation-delay: 440ms">we</span> <span class="cp-faq__w" style="animation-delay: 462ms">disable</span> <span class="cp-faq__w" style="animation-delay: 484ms">editing</span> <span class="cp-faq__w" style="animation-delay: 506ms">and</span> <span class="cp-faq__w" style="animation-delay: 528ms">trigger</span> <span class="cp-faq__w" style="animation-delay: 550ms">orders</span> <span class="cp-faq__w" style="animation-delay: 572ms">to</span> <span class="cp-faq__w" style="animation-delay: 594ms">be</span> <span class="cp-faq__w" style="animation-delay: 616ms">pulled</span> <span class="cp-faq__w" style="animation-delay: 638ms">(and</span> <span class="cp-faq__w" style="animation-delay: 660ms">remove</span> <span class="cp-faq__w" style="animation-delay: 682ms">the</span> <span class="cp-faq__w" style="animation-delay: 704ms">hold</span> <span class="cp-faq__w" style="animation-delay: 726ms">status).</span></p>
+        </div>
+        <div class="cp-faq__item" data-open="{{ faq4 }}">
+          <button type="button" class="cp-faq__q" aria-expanded="{{ faq4 }}" aria-controls="cp-faq-a4" onClick="{{ faqT4 }}">
           <span class="cp-faq__qt">How much does Order Editing by ClickPost cost?</span>
           <span class="cp-faq__sign" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14"></path><path class="cp-faq__bar" d="M12 5v14"></path></svg></span>
-        </button>
-        <p class="cp-faq__a" id="cp-faq-a4">We have a free plan, in which you can test out all the features at zero cost. Post that our basic plans start from $49/month.</p>
-      </div>
-      <div class="cp-faq__item" data-open="{{ faq5 }}">
-        <button type="button" class="cp-faq__q" aria-expanded="{{ faq5 }}" aria-controls="cp-faq-a5" onClick="{{ faqT5 }}">
+          </button>
+          <p class="cp-faq__a" id="cp-faq-a4"><span class="cp-faq__w" style="animation-delay: 0ms">We</span> <span class="cp-faq__w" style="animation-delay: 22ms">have</span> <span class="cp-faq__w" style="animation-delay: 44ms">a</span> <span class="cp-faq__w" style="animation-delay: 66ms">free</span> <span class="cp-faq__w" style="animation-delay: 88ms">plan,</span> <span class="cp-faq__w" style="animation-delay: 110ms">in</span> <span class="cp-faq__w" style="animation-delay: 132ms">which</span> <span class="cp-faq__w" style="animation-delay: 154ms">you</span> <span class="cp-faq__w" style="animation-delay: 176ms">can</span> <span class="cp-faq__w" style="animation-delay: 198ms">test</span> <span class="cp-faq__w" style="animation-delay: 220ms">out</span> <span class="cp-faq__w" style="animation-delay: 242ms">all</span> <span class="cp-faq__w" style="animation-delay: 264ms">the</span> <span class="cp-faq__w" style="animation-delay: 286ms">features</span> <span class="cp-faq__w" style="animation-delay: 308ms">at</span> <span class="cp-faq__w" style="animation-delay: 330ms">zero</span> <span class="cp-faq__w" style="animation-delay: 352ms">cost.</span> <span class="cp-faq__w" style="animation-delay: 374ms">Post</span> <span class="cp-faq__w" style="animation-delay: 396ms">that</span> <span class="cp-faq__w" style="animation-delay: 418ms">our</span> <span class="cp-faq__w" style="animation-delay: 440ms">basic</span> <span class="cp-faq__w" style="animation-delay: 462ms">plans</span> <span class="cp-faq__w" style="animation-delay: 484ms">start</span> <span class="cp-faq__w" style="animation-delay: 506ms">from</span> <span class="cp-faq__w" style="animation-delay: 528ms">$49/month.</span></p>
+        </div>
+        <div class="cp-faq__item" data-open="{{ faq5 }}">
+          <button type="button" class="cp-faq__q" aria-expanded="{{ faq5 }}" aria-controls="cp-faq-a5" onClick="{{ faqT5 }}">
           <span class="cp-faq__qt">How can this product help increase my revenue?</span>
           <span class="cp-faq__sign" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 12h14"></path><path class="cp-faq__bar" d="M12 5v14"></path></svg></span>
-        </button>
-        <p class="cp-faq__a" id="cp-faq-a5">While the customer is editing their order, we provide upsell opportunities on the Thank You and Order Status Page, allowing customers to add an item even after the purchase is complete. Thus increasing your average order value.</p>
+          </button>
+          <p class="cp-faq__a" id="cp-faq-a5"><span class="cp-faq__w" style="animation-delay: 0ms">While</span> <span class="cp-faq__w" style="animation-delay: 22ms">the</span> <span class="cp-faq__w" style="animation-delay: 44ms">customer</span> <span class="cp-faq__w" style="animation-delay: 66ms">is</span> <span class="cp-faq__w" style="animation-delay: 88ms">editing</span> <span class="cp-faq__w" style="animation-delay: 110ms">their</span> <span class="cp-faq__w" style="animation-delay: 132ms">order,</span> <span class="cp-faq__w" style="animation-delay: 154ms">we</span> <span class="cp-faq__w" style="animation-delay: 176ms">provide</span> <span class="cp-faq__w" style="animation-delay: 198ms">upsell</span> <span class="cp-faq__w" style="animation-delay: 220ms">opportunities</span> <span class="cp-faq__w" style="animation-delay: 242ms">on</span> <span class="cp-faq__w" style="animation-delay: 264ms">the</span> <span class="cp-faq__w" style="animation-delay: 286ms">Thank</span> <span class="cp-faq__w" style="animation-delay: 308ms">You</span> <span class="cp-faq__w" style="animation-delay: 330ms">and</span> <span class="cp-faq__w" style="animation-delay: 352ms">Order</span> <span class="cp-faq__w" style="animation-delay: 374ms">Status</span> <span class="cp-faq__w" style="animation-delay: 396ms">Page,</span> <span class="cp-faq__w" style="animation-delay: 418ms">allowing</span> <span class="cp-faq__w" style="animation-delay: 440ms">customers</span> <span class="cp-faq__w" style="animation-delay: 462ms">to</span> <span class="cp-faq__w" style="animation-delay: 484ms">add</span> <span class="cp-faq__w" style="animation-delay: 506ms">an</span> <span class="cp-faq__w" style="animation-delay: 528ms">item</span> <span class="cp-faq__w" style="animation-delay: 550ms">even</span> <span class="cp-faq__w" style="animation-delay: 572ms">after</span> <span class="cp-faq__w" style="animation-delay: 594ms">the</span> <span class="cp-faq__w" style="animation-delay: 616ms">purchase</span> <span class="cp-faq__w" style="animation-delay: 638ms">is</span> <span class="cp-faq__w" style="animation-delay: 660ms">complete.</span> <span class="cp-faq__w" style="animation-delay: 682ms">Thus</span> <span class="cp-faq__w" style="animation-delay: 704ms">increasing</span> <span class="cp-faq__w" style="animation-delay: 726ms">your</span> <span class="cp-faq__w" style="animation-delay: 748ms">average</span> <span class="cp-faq__w" style="animation-delay: 770ms">order</span> <span class="cp-faq__w" style="animation-delay: 792ms">value.</span></p>
+        </div>
       </div>
     </div>
   </section>
