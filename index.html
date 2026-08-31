@@ -294,8 +294,10 @@
                    grid-template-columns: repeat(3, 1fr);
                    grid-auto-flow: column; gap: 9px; width: 100%;
                    margin-top: 34px; }
+  /* flag then name, the pair centred in the button */
   .cp-lang__chip { display: flex; flex-direction: row; align-items: center;
-                   justify-content: center; height: 48px; padding: 0 11px;
+                   justify-content: center; gap: 9px; height: 48px;
+                   padding: 0 11px;
                    border-radius: 11px; border: 1px solid #E4E8F0;
                    background: #ffffff;
                    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
@@ -306,6 +308,9 @@
                       button white with white text on it */
                    transition: transform 150ms ease-out, box-shadow 150ms ease-out,
                                border-color 150ms ease-out; }
+  .cp-lang__chip img { width: 21px; height: 15px; flex-shrink: 0;
+                       object-fit: cover; border-radius: 3px;
+                       box-shadow: 0 0 0 1px rgba(16, 24, 40, 0.10); }
   .cp-lang__chip:hover { transform: translateY(-2px); border-color: #B9CEFF;
                          box-shadow: 0 10px 22px rgba(21, 95, 255, 0.14); }
   .cp-lang__chip:focus-visible { outline: 2px solid #155FFF; outline-offset: 2px; }
@@ -2777,24 +2782,24 @@
       <div class="cp-lang__inner">
         <h2 style="margin: 0; width: 560px; font-size: 40px; font-weight: 700; line-height: 48px; letter-spacing: -0.02em; color: #101828;">Let shoppers edit orders in their <span style="color: #155FFF;">own language.</span></h2>
         <div class="cp-lang__wrap">
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang1 }}" onClick="{{ pickLang1 }}"><span>Spanish</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang2 }}" onClick="{{ pickLang2 }}"><span>French</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang3 }}" onClick="{{ pickLang3 }}"><span>Italian</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang4 }}" onClick="{{ pickLang4 }}"><span>Dutch</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang5 }}" onClick="{{ pickLang5 }}"><span>German</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang6 }}" onClick="{{ pickLang6 }}"><span>Chinese</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang7 }}" onClick="{{ pickLang7 }}"><span>Croatian</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang8 }}" onClick="{{ pickLang8 }}"><span>Slovenian</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang9 }}" onClick="{{ pickLang9 }}"><span>Hungarian</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang10 }}" onClick="{{ pickLang10 }}"><span>Romanian</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang11 }}" onClick="{{ pickLang11 }}"><span>Bulgarian</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang12 }}" onClick="{{ pickLang12 }}"><span>Greek</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang13 }}" onClick="{{ pickLang13 }}"><span>Polish</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang14 }}" onClick="{{ pickLang14 }}"><span>Danish</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang15 }}" onClick="{{ pickLang15 }}"><span>Finnish</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang16 }}" onClick="{{ pickLang16 }}"><span>Slovak</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang17 }}" onClick="{{ pickLang17 }}"><span>Estonian</span></button>
-          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang18 }}" onClick="{{ pickLang18 }}"><span>Lithuanian</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang1 }}" onClick="{{ pickLang1 }}"><img src="assets/flags/es.png" alt="" width="80" height="53"><span>Spanish</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang2 }}" onClick="{{ pickLang2 }}"><img src="assets/flags/fr.png" alt="" width="80" height="53"><span>French</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang3 }}" onClick="{{ pickLang3 }}"><img src="assets/flags/it.png" alt="" width="80" height="53"><span>Italian</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang4 }}" onClick="{{ pickLang4 }}"><img src="assets/flags/nl.png" alt="" width="80" height="53"><span>Dutch</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang5 }}" onClick="{{ pickLang5 }}"><img src="assets/flags/de.png" alt="" width="80" height="53"><span>German</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang6 }}" onClick="{{ pickLang6 }}"><img src="assets/flags/cn.png" alt="" width="80" height="53"><span>Chinese</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang7 }}" onClick="{{ pickLang7 }}"><img src="assets/flags/hr.png" alt="" width="80" height="53"><span>Croatian</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang8 }}" onClick="{{ pickLang8 }}"><img src="assets/flags/si.png" alt="" width="80" height="53"><span>Slovenian</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang9 }}" onClick="{{ pickLang9 }}"><img src="assets/flags/hu.png" alt="" width="80" height="53"><span>Hungarian</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang10 }}" onClick="{{ pickLang10 }}"><img src="assets/flags/ro.png" alt="" width="80" height="53"><span>Romanian</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang11 }}" onClick="{{ pickLang11 }}"><img src="assets/flags/bg.png" alt="" width="80" height="53"><span>Bulgarian</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang12 }}" onClick="{{ pickLang12 }}"><img src="assets/flags/gr.png" alt="" width="80" height="53"><span>Greek</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang13 }}" onClick="{{ pickLang13 }}"><img src="assets/flags/pl.png" alt="" width="80" height="53"><span>Polish</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang14 }}" onClick="{{ pickLang14 }}"><img src="assets/flags/dk.png" alt="" width="80" height="53"><span>Danish</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang15 }}" onClick="{{ pickLang15 }}"><img src="assets/flags/fi.png" alt="" width="80" height="53"><span>Finnish</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang16 }}" onClick="{{ pickLang16 }}"><img src="assets/flags/sk.png" alt="" width="80" height="53"><span>Slovak</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang17 }}" onClick="{{ pickLang17 }}"><img src="assets/flags/ee.png" alt="" width="80" height="53"><span>Estonian</span></button>
+          <button type="button" class="cp-lang__chip" aria-pressed="{{ lang18 }}" onClick="{{ pickLang18 }}"><img src="assets/flags/lt.png" alt="" width="80" height="53"><span>Lithuanian</span></button>
           <div class="cp-lang__more">
             <span>
               <b>Your language isn’t here?</b>
@@ -3392,22 +3397,6 @@ class Component extends DCLogic {
     let seen = Component.selSeq || 0;
     const RAD = Math.PI / 180;
 
-    // one flag per country, not per language: selecting English lights up
-    // nine pins carrying nine different flags
-    let flags = {};
-    const loadFlag = () => {
-      flags = {};
-      const g = sel >= 0 ? Component.GLOBE[sel] : null;
-      if (!g) return;
-      for (let k = 0; k < g.pts.length; k++) {
-        const c = g.pts[k].code;
-        if (flags[c]) continue;
-        const im = new Image();
-        im.src = "assets/flags/" + c + ".png";
-        flags[c] = im;
-      }
-    };
-    loadFlag();
 
     const project = (lon, lat) => {
       const p = lat * RAD, l = (lon - lon0) * RAD, p0 = lat0 * RAD;
@@ -3466,11 +3455,10 @@ class Component extends DCLogic {
 
     // A map pin: a round head on a tail that comes to a point at the
     // location itself, so what is marked is the tip and not the middle.
-    // Size is a parameter because the set is drawn small and the selected
-    // one full size - one routine, so they cannot drift apart.
-    const pin = (x, y, HEAD, body, img) => {
+    // Size and colour are parameters because the set is drawn small and
+    // the selected one large - one routine, so they cannot drift apart.
+    const pin = (x, y, HEAD, body) => {
       const LIFT = HEAD * 1.75;
-      const RING = Math.max(1.2, HEAD * 0.19);
       ctx.save();
       ctx.beginPath();
       ctx.arc(x, y - LIFT, HEAD, Math.PI * 0.82, Math.PI * 0.18);
@@ -3482,28 +3470,12 @@ class Component extends DCLogic {
       ctx.shadowOffsetY = HEAD * 0.2;
       ctx.fill();
       ctx.restore();
-
-      // the flag sits in the head, clipped round
-      if (img && img.complete && img.naturalWidth) {
-        const r = HEAD - RING;
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(x, y - LIFT, r, 0, 2 * Math.PI);
-        ctx.clip();
-        // cover the circle: the flag is 3:2, so it is scaled to the
-        // diameter by height and centred, not squashed to fit
-        const fh = r * 2, fw = fh * (img.naturalWidth / img.naturalHeight);
-        ctx.drawImage(img, x - fw / 2, y - LIFT - r, fw, fh);
-        ctx.restore();
-      }
       ctx.beginPath();
-      ctx.arc(x, y - LIFT, img ? HEAD - RING : HEAD * 0.42,
-              0, 2 * Math.PI);
+      ctx.arc(x, y - LIFT, HEAD * 0.42, 0, 2 * Math.PI);
       ctx.strokeStyle = "#ffffff";
-      ctx.lineWidth = img ? RING * 0.9 : Math.max(1, HEAD * 0.16);
+      ctx.lineWidth = Math.max(1, HEAD * 0.16);
       ctx.stroke();
     };
-
     const draw = () => {
       ctx.clearRect(0, 0, CSS, CSS);
       ctx.beginPath();
@@ -3545,12 +3517,12 @@ class Component extends DCLogic {
       shown.sort((p, r) => p.y - r.y);
       for (let k = 0; k < shown.length; k++) {
         if (shown[k].li === sel) continue;   // drawn after, over the rest
-        pin(shown[k].x, shown[k].y, SMALL, "#6D97F5", null);
+        pin(shown[k].x, shown[k].y, SMALL, "#6D97F5");
       }
       // the whole selected language, every country of it, still back to front
       for (let k = 0; k < shown.length; k++) {
         if (shown[k].li !== sel) continue;
-        pin(shown[k].x, shown[k].y, BIG, "#0A1628", flags[shown[k].code]);
+        pin(shown[k].x, shown[k].y, BIG, "#0A1628");
       }
     };
 
@@ -3562,7 +3534,6 @@ class Component extends DCLogic {
       if ((Component.selSeq || 0) !== seen) {
         seen = Component.selSeq || 0;
         sel = Component.sel === undefined ? -1 : Component.sel;
-        loadFlag();
         const g = sel >= 0 ? Component.GLOBE[sel] : null;
         const t = g ? g.pts[0] : null;   // the first country listed
         if (t) {
