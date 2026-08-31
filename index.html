@@ -69,6 +69,35 @@
   .cp-bs__who { margin-top: 8px; display: flex; flex-direction: row; align-items: baseline;
                 gap: 8px; font-size: 13px; font-weight: 700; color: var(--color-fg); }
 
+  /* ── Outcome band ──────────────────────────────────
+     Full bleed on the fixed 1440 column, so everything is placed against
+     the wedge by absolute position. The hairlines run to the page edge
+     and stop at the wedge, which is what gives the two panels their
+     width without a border. */
+  .cp-ob { position: relative; width: 1440px; height: 400px; background: #ffffff;
+           overflow: hidden; }
+  .cp-ob__shape { position: absolute; left: 0; top: 0; display: block; }
+  .cp-ob__mid { position: absolute; left: 490px; top: 146px; width: 460px;
+                text-align: center; }
+  .cp-ob__mid h2 { margin: 0; font-size: 34px; font-weight: 600; line-height: 46px;
+                   letter-spacing: -0.01em; color: #ffffff; }
+  .cp-ob__stat { position: absolute; top: 116px; display: flex;
+                 flex-direction: column; }
+  .cp-ob__stat--l { left: 0; width: 396px; align-items: flex-start;
+                    padding-left: 64px; }
+  .cp-ob__stat--r { right: 0; width: 396px; align-items: flex-end;
+                    padding-right: 64px; text-align: right; }
+  .cp-ob__pill { height: 38px; padding: 0 20px; border-radius: 9999px;
+                 border: 1px solid #D5D9E2; display: inline-flex;
+                 align-items: center; font-size: 15px; color: #52525B;
+                 white-space: nowrap; }
+  .cp-ob__rule { width: 396px; height: 1px; margin: 26px 0 0; background: #E5E7EB; }
+  .cp-ob__stat--l .cp-ob__rule { margin-left: -64px; }
+  .cp-ob__stat--r .cp-ob__rule { margin-right: -64px; }
+  .cp-ob__big { margin-top: 22px; font-size: 46px; font-weight: 500; line-height: 54px;
+                letter-spacing: -0.02em; color: #155FFF; white-space: nowrap; }
+  .cp-ob__cap { margin-top: 8px; font-size: 19px; line-height: 28px; color: #252525; }
+
   /* ── Product video ────────────────────────────────────
      A click-to-play facade. The poster is a local file and the frame holds
      about:blank until the button is pressed, so a visitor who never watches
@@ -661,6 +690,40 @@
         </div>
       </div>
       <!-- BRANDSTRIP:END -->
+    </div>
+  </section>
+
+  <!-- ── Outcome band ───────────────────── -->
+  <section class="cp-ob" data-screen-label="Outcome band">
+    <svg class="cp-ob__shape" width="1440" height="400" viewBox="0 0 1440 400" fill="none" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="cp-ob-g" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#1440C8"></stop>
+          <stop offset="0.34" stop-color="#3F74FF"></stop>
+          <stop offset="0.5" stop-color="#8FB3FF"></stop>
+          <stop offset="0.66" stop-color="#3F74FF"></stop>
+          <stop offset="1" stop-color="#1440C8"></stop>
+        </linearGradient>
+      </defs>
+      <path d="M0 0h1440v72h-346q-40 0-53.1 37.8L940 400H500L399.1 109.8Q386 72 346 72H0Z" fill="url(#cp-ob-g)"></path>
+    </svg>
+
+    <div class="cp-ob__stat cp-ob__stat--l">
+      <span class="cp-ob__pill">Across stores globally</span>
+      <span class="cp-ob__rule"></span>
+      <span class="cp-ob__big">5%</span>
+      <span class="cp-ob__cap">average increase in revenue.</span>
+    </div>
+
+    <div class="cp-ob__mid">
+      <h2>Simplifying post-purchase experience</h2>
+    </div>
+
+    <div class="cp-ob__stat cp-ob__stat--r">
+      <span class="cp-ob__pill">Across stores globally</span>
+      <span class="cp-ob__rule"></span>
+      <span class="cp-ob__big">Up to 30%</span>
+      <span class="cp-ob__cap">lower support cost per store.</span>
     </div>
   </section>
 
