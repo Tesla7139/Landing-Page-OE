@@ -69,6 +69,56 @@
   .cp-bs__who { margin-top: 8px; display: flex; flex-direction: row; align-items: baseline;
                 gap: 8px; font-size: 13px; font-weight: 700; color: var(--color-fg); }
 
+  /* ── Built for store operations ───────────────────────
+     This and the Used-by band share one background so there is no seam
+     between them: the wrapper paints the gradient, both sections are
+     transparent. Two adjacent gradients cannot meet cleanly, one long
+     one can. */
+  .cp-blend { background: linear-gradient(168deg, #FFFFFF 0%, #FAFBFE 26%,
+                                          #F4F6FD 58%, #E9EEFB 100%); }
+  .cp-bfo { display: flex; flex-direction: row; gap: 72px; align-items: center;
+            padding: 104px 112px 64px; }
+  .cp-bfo__art { position: relative; width: 544px; height: 452px; flex-shrink: 0;
+                 border-radius: 26px; background: #ffffff; overflow: hidden;
+                 box-shadow: 0 26px 64px rgba(10, 22, 40, 0.09); }
+  /* the stack runs off the bottom of the card and is faded out, so it reads
+     as a list that carries on rather than three items that happen to end */
+  .cp-bfo__art::after { content: ""; position: absolute; left: 0; right: 0;
+                        bottom: 0; height: 190px; pointer-events: none;
+                        background: linear-gradient(to bottom,
+                                    rgba(255,255,255,0) 0%, #ffffff 82%); }
+  .cp-bfo__stack { position: absolute; left: 44px; top: 84px; width: 400px;
+                   display: flex; flex-direction: column; gap: 16px; }
+  .cp-bfo__card { display: flex; flex-direction: row; gap: 14px;
+                  align-items: flex-start; padding: 16px 18px; border-radius: 16px;
+                  background: #ffffff; border: 1px solid #EEF0F5;
+                  box-shadow: 0 12px 28px rgba(10, 22, 40, 0.08); }
+  .cp-bfo__card--a { transform: rotate(-2.4deg); }
+  .cp-bfo__card--b { transform: rotate(1.8deg); margin-left: 34px; }
+  .cp-bfo__card--c { margin-left: 16px; opacity: 0.4; }
+  .cp-bfo__ico { width: 34px; height: 34px; flex-shrink: 0; border-radius: 10px;
+                 border: 1px solid #EEF0F5; color: #52525B; display: flex;
+                 justify-content: center; align-items: center; }
+  .cp-bfo__ct { flex-grow: 1; display: flex; flex-direction: column; gap: 3px; }
+  .cp-bfo__ct b { font-size: 15px; font-weight: 600; line-height: 21px;
+                  color: #252525; }
+  .cp-bfo__ct span { font-size: 13px; line-height: 18px; color: #8A8F9B; }
+  .cp-bfo__tag { flex-shrink: 0; padding: 4px 10px; border-radius: 9999px;
+                 font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .cp-bfo__tag--warn { background: #FFF1DC; color: #B45309; }
+  .cp-bfo__tag--ok   { background: #DCFCE7; color: #15803D; }
+  .cp-bfo__tag--wip  { background: #EDE9FE; color: #6D28D9; }
+  .cp-bfo__copy { display: flex; flex-direction: column; align-items: flex-start; }
+  .cp-bfo__copy h2 { margin: 0; font-size: 46px; font-weight: 700; line-height: 58px;
+                     letter-spacing: -0.02em; color: #252525; }
+  .cp-bfo__copy p { margin: 28px 0 0; font-size: 21px; line-height: 34px;
+                    color: #52525B; }
+  .cp-bfo__copy p b { font-weight: 600; color: #155FFF; }
+  .cp-bfo__more { margin-top: 34px; font-size: 15px; font-weight: 600;
+                  letter-spacing: 0.06em; text-transform: uppercase;
+                  color: #155FFF; text-decoration: underline;
+                  text-underline-offset: 4px; }
+
   /* ── Outcome band ──────────────────────────────────
      Full bleed on the fixed 1440 column, so everything is placed against
      the wedge by absolute position. The hairlines run to the page edge
@@ -910,8 +960,39 @@
     </div>
   </section>
 
+  <!-- ── Built for store operations + Used by ────────
+       One wrapper, one gradient: the two run together with no seam. -->
+  <div class="cp-blend">
+  <section class="cp-bfo" data-screen-label="Built for store ops">
+    <div class="cp-bfo__art">
+      <div class="cp-bfo__stack">
+        <div class="cp-bfo__card cp-bfo__card--a">
+          <span class="cp-bfo__ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.4 7-11a7 7 0 1 0-14 0c0 4.6 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg></span>
+          <span class="cp-bfo__ct"><b>Wrong address caught</b><span>Validated via Google Maps</span></span>
+          <span class="cp-bfo__tag cp-bfo__tag--warn">3 flagged</span>
+        </div>
+        <div class="cp-bfo__card cp-bfo__card--b">
+          <span class="cp-bfo__ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 1.8"></path></svg></span>
+          <span class="cp-bfo__ct"><b>Edit window open</b><span>Order held before fulfilment</span></span>
+          <span class="cp-bfo__tag cp-bfo__tag--ok">Automated</span>
+        </div>
+        <div class="cp-bfo__card cp-bfo__card--c">
+          <span class="cp-bfo__ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l2 10h9l2-7H7"></path><circle cx="10" cy="19" r="1.4"></circle><circle cx="17" cy="19" r="1.4"></circle></svg></span>
+          <span class="cp-bfo__ct"><b>Upsell shown at edit</b><span>Thank You • Order Status</span></span>
+          <span class="cp-bfo__tag cp-bfo__tag--wip">In progress</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cp-bfo__copy">
+      <h2>Built for the way<br>stores actually run</h2>
+      <p><b>ClickPost</b> hands the edit back to the shopper — address fixes, item swaps and cancellations straight from the <b>Thank You page</b>, while the order waits. Every change is a chance to <b>upsell</b>, and nobody on your team touches a ticket.</p>
+      <a class="cp-bfo__more" href="#">Explore order editing</a>
+    </div>
+  </section>
+
   <!-- ── Used by ──────────────────────────────────────── -->
-  <section style="padding: 96px 112px; background: linear-gradient(115deg, #FFFFFF 0%, #F7F8FE 46%, #EDF0FC 100%); display: flex; flex-direction: row; gap: 64px; align-items: center;" data-screen-label="Used by">
+  <section style="padding: 96px 112px; display: flex; flex-direction: row; gap: 64px; align-items: center;" data-screen-label="Used by">
     <div style="width: 420px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
       <span style="font-size: 34px; font-weight: 600; line-height: 42px; letter-spacing: -0.01em; text-transform: uppercase; color: #252525;">Used by</span>
       <span style="font-size: 96px; font-weight: 600; line-height: 100px; letter-spacing: -0.03em; color: #252525;">600+</span>
@@ -920,6 +1001,8 @@
     </div>
     <img src="assets/world-dots.svg" alt="World map with pins on the countries running ClickPost order editing: Canada, the United States, Germany, Cyprus, the UAE and India." width="691" height="299" style="width: 712px; max-width: 100%; height: auto; display: block;">
   </section>
+  </div>
+
   <!-- ── Reviews wall ─────────────────────────────────── -->
   <section style="padding: 24px 0 96px; display: flex; flex-direction: column; gap: 40px; align-items: center;" data-screen-label="Reviews">
     <div style="padding: 0 112px; display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center;">
