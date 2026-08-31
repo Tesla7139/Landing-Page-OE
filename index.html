@@ -69,6 +69,25 @@
   .cp-bs__who { margin-top: 8px; display: flex; flex-direction: row; align-items: baseline;
                 gap: 8px; font-size: 13px; font-weight: 700; color: var(--color-fg); }
 
+  /* ── Languages ───────────────────────────────────
+     Poppins carries none of the CJK, Greek or Cyrillic in this list, so the
+     chips name a fallback stack. Without one the browser resolves the
+     fallback per glyph and a row of chips lands in three different faces. */
+  .cp-lang__auto { display: inline-flex; flex-direction: row; gap: 10px;
+                   align-items: center; height: 44px; padding: 0 22px;
+                   border-radius: 9999px; border: 1px solid #C3D9FF;
+                   background: linear-gradient(to bottom, #F5F9FF, #E7F0FF);
+                   color: #0A3FCC; font-size: 15px; font-weight: 600; }
+  .cp-lang__wrap { display: flex; flex-direction: row; flex-wrap: wrap; gap: 12px;
+                   justify-content: center; align-self: stretch; }
+  .cp-lang__chip { display: inline-flex; flex-direction: row; gap: 8px;
+                   align-items: baseline; height: 46px; padding: 0 20px;
+                   border-radius: 9999px; border: 1px solid #E5E7EB;
+                   background: #ffffff;
+                   font-family: Poppins, "Noto Sans", "Segoe UI", sans-serif; }
+  .cp-lang__chip b { font-size: 16px; font-weight: 600; color: #252525; }
+  .cp-lang__chip span { font-size: 13px; color: #8A8F9B; }
+
   /* ── Built for store operations ───────────────────────
      This and the Used-by band share one background so there is no seam
      between them: the wrapper paints the gradient, both sections are
@@ -2142,6 +2161,36 @@
       </div>
     </div>
     <a href="#" style="width: fit-content; height: 48px; border-radius: 4px; border: 1px solid #52525B; display: flex; flex-direction: row; gap: 8px; padding: 12px 20px; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; color: #52525B; white-space: nowrap; transition: background 160ms ease-out;" style-hover="background: #F1F1F1; color: #52525B;">Book a free demo<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+  </section>
+
+  <!-- ── Languages ─────────────────────── -->
+  <section style="background: #ffffff; padding: 96px 112px; display: flex; flex-direction: column; gap: 32px; align-items: center;" data-screen-label="Languages">
+    <div style="display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center;">
+      <h2 style="margin: 0; font-size: 40px; font-weight: 500; line-height: 50px; letter-spacing: -0.01em; color: #252525;">In your shopper’s language</h2>
+      <p style="margin: 0; width: 620px; font-size: 17px; line-height: 26px; color: #52525B;">The edit flow renders in the language your customer reads. Pin one for the store, or let it follow whatever locale they arrive with.</p>
+    </div>
+    <span class="cp-lang__auto"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"></path></svg> Automatic — based on the customer’s locale</span>
+    <div class="cp-lang__wrap">
+      <span class="cp-lang__chip"><b>English</b></span>
+      <span class="cp-lang__chip"><b>Español</b><span>Spanish</span></span>
+      <span class="cp-lang__chip"><b>Français</b><span>French</span></span>
+      <span class="cp-lang__chip"><b>Italiano</b><span>Italian</span></span>
+      <span class="cp-lang__chip"><b>Nederlands</b><span>Dutch</span></span>
+      <span class="cp-lang__chip"><b>Deutsch</b><span>German</span></span>
+      <span class="cp-lang__chip"><b>简体中文</b><span>Chinese</span></span>
+      <span class="cp-lang__chip"><b>Hrvatski</b><span>Croatian</span></span>
+      <span class="cp-lang__chip"><b>Slovenščina</b><span>Slovenian</span></span>
+      <span class="cp-lang__chip"><b>Magyar</b><span>Hungarian</span></span>
+      <span class="cp-lang__chip"><b>Română</b><span>Romanian</span></span>
+      <span class="cp-lang__chip"><b>Български</b><span>Bulgarian</span></span>
+      <span class="cp-lang__chip"><b>Ελληνικά</b><span>Greek</span></span>
+      <span class="cp-lang__chip"><b>Polski</b><span>Polish</span></span>
+      <span class="cp-lang__chip"><b>Dansk</b><span>Danish</span></span>
+      <span class="cp-lang__chip"><b>Suomi</b><span>Finnish</span></span>
+      <span class="cp-lang__chip"><b>Slovenčina</b><span>Slovak</span></span>
+      <span class="cp-lang__chip"><b>Eesti</b><span>Estonian</span></span>
+      <span class="cp-lang__chip"><b>Lietuvių</b><span>Lithuanian</span></span>
+    </div>
   </section>
 
   <!-- ── Integrations ─────────────────────────────────── -->
