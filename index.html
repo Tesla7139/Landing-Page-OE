@@ -1033,8 +1033,17 @@
     .cp-steps__stagewrap { position: static !important; width: 100% !important; }
     .cp-steps__stage { width: 100% !important; height: 258px !important;
                        min-height: 0 !important; }
+    /* Two things the desktop rule cannot give a 350px-wide frame.
+       Height: it is derived from the frame's there, and this frame is 258,
+       which left the panel 108 tall and the mock crushed.
+       Scale: 0.75 painted the panel 420 wide into 350 and the frame clipped
+       about 35px off each edge - Pricing read as cing. 0.60 paints 336.
+       Width stays 560 so the mock keeps the desktop layout at a smaller
+       size, rather than a narrower box the rules below would reflow. */
     .cp-steps__visual > * { max-width: none !important;
-                            transform: scale(0.75) !important; }
+                            height: 330px !important;
+                            max-height: none !important;
+                            transform: scale(0.60) !important; }
     .cp-steps__visual * { max-width: none !important; }
     .cp-steps__grid .cp-steps__stage .cp-steps__visual [style*="flex-direction: row"],
     .cp-steps__grid .cp-steps__stage .cp-steps__visual [style*="flex-flow: row"] {
