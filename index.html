@@ -106,12 +106,28 @@
 
   /* ── Built for store operations ───────────────────────
      This and the Used-by band share one surface, so there is no seam
-     between them. It was a gradient; it is flat white now, which is the
-     same idea taken further - nothing separates them at all, and the run
-     from the video down to the reviews reads as one page rather than a
-     stack of tinted bands. The wrapper stays because it is where a tint
-     would go back if one is ever wanted. */
-  .cp-blend { background: #ffffff; }
+     between them.
+
+     Two soft washes rather than a flat tint. The flat version read as a
+     coloured band - a different section - which is what it was told off
+     for. These are radial, anchored behind the card and off to the right,
+     and both reach transparent well before the section ends, so the page
+     stays one surface and the card has something to sit against instead
+     of white on white.
+
+     Tinted with the brand blue at 5-6% rather than the reference's
+     lavender, which belongs to its own palette. */
+  .cp-blend {
+    background:
+      /* the washes are at full strength on the wrapper's first row, which
+         put a hard line across the page where the white section above
+         ended - this whites out the top 150px so they come in instead */
+      linear-gradient(to bottom, #ffffff 0%, rgba(255, 255, 255, 0) 150px),
+      radial-gradient(1180px 660px at 24% 2%,
+                      rgba(21, 95, 255, 0.062) 0%, rgba(21, 95, 255, 0) 68%),
+      radial-gradient(900px 620px at 92% 26%,
+                      rgba(21, 95, 255, 0.042) 0%, rgba(21, 95, 255, 0) 70%),
+      #ffffff; }
   .cp-bfo { display: flex; flex-direction: row; gap: 72px; align-items: center;
             padding: 104px 112px 64px; }
   .cp-bfo__art { position: relative; width: 544px; height: 452px; flex-shrink: 0;
