@@ -200,6 +200,12 @@
   .cp-ob__rule { width: 410px; height: 1px; margin: 26px 0 0; background: #E5E7EB; }
   .cp-ob__stat--l .cp-ob__rule { margin-left: -56px; }
   .cp-ob__stat--r .cp-ob__rule { margin-right: -56px; }
+  /* The figure sits centred over its caption. Both stretch to the panel's
+     content box and centre their text inside it, so they share one axis -
+     centring the figure alone would have centred it on the panel, which
+     the caption does not quite fill. The pill keeps its own edge.
+     Mirrored on the right so the band stays symmetric. */
+  .cp-ob__big, .cp-ob__cap { align-self: stretch; text-align: center; }
   .cp-ob__big { margin-top: 20px; font-size: 54px; font-weight: 500; line-height: 62px;
                 letter-spacing: -0.02em; color: #155FFF; white-space: nowrap; }
   .cp-ob__cap { margin-top: 10px; font-size: 26px; font-weight: 500;
