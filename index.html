@@ -580,7 +580,7 @@
   .cp-rw__text { margin: 14px 0 0; font-size: 16px; line-height: 26px; color: #252525;
                  font-style: italic;
                  font-weight: 400; flex-grow: 1; display: -webkit-box; -webkit-box-orient: vertical;
-                 -webkit-line-clamp: 7; max-height: 182px; overflow: hidden; }
+                 -webkit-line-clamp: 6; max-height: 156px; overflow: hidden; }
   .cp-rw__foot { display: flex; flex-direction: row; align-items: center; gap: 16px;
                  justify-content: space-between; margin-top: 20px; padding-top: 18px;
                  border-top: 1px solid #F1F1F1; }
@@ -588,11 +588,12 @@
                 gap: 4px; min-width: 0; }
   /* no frame around it - the mark sits straight on the card. Logos are wide
      wordmarks, so the box is a bounding box, not a visible container. */
-  .cp-rw__mark { display: block; width: 148px; height: 32px;
-                 object-fit: contain; object-position: left center; flex-shrink: 0; }
+  .cp-rw__mark { display: block; width: 148px; height: 46px;
+                 object-fit: contain; object-position: left center;
+                 flex-shrink: 0; }
   /* stores with no logo file get their name set as a mark, the same
      fallback the OE demo's brand strip uses */
-  .cp-rw__mark--word { width: 148px; height: 32px; display: flex; align-items: center;
+  .cp-rw__mark--word { width: 148px; height: 46px; display: flex; align-items: center;
                        font-size: 13px; font-weight: 700;
                        line-height: 16px; letter-spacing: -0.01em; text-transform: uppercase;
                        color: #252525; overflow: hidden; }
