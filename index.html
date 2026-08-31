@@ -286,9 +286,13 @@
   .cp-lang__inner { position: relative; z-index: 1; width: 680px;
                     display: flex; flex-direction: column;
                     align-items: flex-start; }
-  /* Four across, which is what makes five rows of 19 - 4x5 seats 20 and
-     leaves one cell spare, left empty rather than padded with something. */
-  .cp-lang__wrap { display: grid; grid-template-columns: repeat(4, 1fr);
+  /* Six rows. Nineteen cannot make six flowing across - four columns give
+     five rows, three give seven - so it flows down instead: 6, 6, 6, 1.
+     The fourth column carries one button, and the request card takes a
+     seventh row across three of the four, so it lines up with the buttons
+     and stops short of the right edge. */
+  .cp-lang__wrap { display: grid; grid-template-rows: repeat(6, 48px);
+                   grid-auto-flow: column; grid-auto-columns: 1fr;
                    gap: 9px; width: 100%; margin-top: 30px; }
   .cp-lang__chip { display: flex; flex-direction: row; align-items: center;
                    justify-content: center; height: 48px; padding: 0 11px;
@@ -307,9 +311,10 @@
   .cp-lang__chip:focus-visible { outline: 2px solid #155FFF; outline-offset: 2px; }
   /* Runs the full grid width under the buttons, where there is room for
      the line and the button - a single grid cell would not seat either. */
-  .cp-lang__more { display: flex; flex-direction: row; gap: 20px;
+  .cp-lang__more { grid-column: 1 / span 3; grid-row: 7;
+                   display: flex; flex-direction: row; gap: 20px;
                    align-items: center; justify-content: space-between;
-                   width: 100%; margin-top: 14px; padding: 16px 18px;
+                   margin-top: 5px; padding: 16px 18px;
                    border-radius: 12px; border: 1px dashed #C9D6F5;
                    background: #F7FAFF; }
   .cp-lang__more b { display: block; font-size: 14px; font-weight: 600;
@@ -1110,7 +1115,12 @@
     .cp-lang__more { flex-direction: column !important; align-items: stretch;
                      text-align: left; gap: 14px !important; }
     .cp-lang__more a { justify-content: center; }
-    .cp-lang__wrap { grid-template-columns: repeat(2, 1fr) !important;
+    /* two across and flowing across again; the down-the-column order only
+       makes sense while there are enough rows for it */
+    .cp-lang__more { grid-column: 1 / -1 !important; grid-row: auto !important; }
+    .cp-lang__wrap { grid-auto-flow: row !important;
+                     grid-template-rows: none !important;
+                     grid-template-columns: repeat(2, 1fr) !important;
                      gap: 8px !important; }
     .cp-lang__chip { height: 40px !important; font-size: 13.5px !important; }
     .cp-lang__wrap { gap: 8px !important; }
@@ -2787,13 +2797,13 @@
           <button type="button" class="cp-lang__chip" aria-pressed="{{ lang16 }}" onClick="{{ pickLang16 }}"><span>Slovak</span></button>
           <button type="button" class="cp-lang__chip" aria-pressed="{{ lang17 }}" onClick="{{ pickLang17 }}"><span>Estonian</span></button>
           <button type="button" class="cp-lang__chip" aria-pressed="{{ lang18 }}" onClick="{{ pickLang18 }}"><span>Lithuanian</span></button>
-        </div>
-        <div class="cp-lang__more">
-          <span>
-            <b>Your language isn’t here?</b>
-            <span>Tell us which one and we add it within 24 hours.</span>
-          </span>
-          <a href="#">Request a language<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+          <div class="cp-lang__more">
+            <span>
+              <b>Your language isn’t here?</b>
+              <span>Tell us which one and we add it within 24 hours.</span>
+            </span>
+            <a href="#">Request a language<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+          </div>
         </div>
       </div>
     </div>
@@ -3269,8 +3279,8 @@ class Component extends DCLogic {
 
   startGlobe() {
     // Stop any loop from an earlier mount. Two loops drawing one canvas
-    // from two state objects is what hid the pin: the tap set it on one,
-    // the loop doing the drawing held the other.
+    // from two state objects is what hid the pin once: the tap set it on
+    // one, the loop doing the drawing held the other.
     if (Component.globeRAF) cancelAnimationFrame(Component.globeRAF);
     const cv = document.getElementById("cp-globe-canvas");
     const tag = document.getElementById("cp-globe-dots");
@@ -3289,35 +3299,33 @@ class Component extends DCLogic {
       reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     } catch (e) {}
 
-    // The loop owns rotation. A tap only posts Component.want plus a
+    // The loop owns rotation. A tap only posts Component.sel plus a
     // sequence number; the loop reads it on its next frame.
-    let lon0 = -20, lat0 = 18, pin = null;
-    let fromLon = 0, fromLat = 0, toLon = 0, toLat = 0, tw = 1;
-    let seen = Component.wantSeq || 0;
+    let lon0 = -20, lat0 = 18;
+    let sel = Component.sel === undefined ? 0 : Component.sel;
+    let seen = Component.selSeq || 0;
     const RAD = Math.PI / 180;
 
     // the flag is drawn into the pin, so it is loaded as an Image and
     // painted only once it has decoded
     let flagImg = null;
-
-    // The section should not open on a bare globe, so English is pinned
-    // until something else is picked. Adopting Component.want rather than
-    // posting a new one means a re-mount keeps whatever is already picked
-    // instead of snapping back to English.
-    if (Component.want === undefined) {
-      const d = Component.GLOBE[0];
-      Component.want = { lat: d.lat, lon: d.lon, code: d.code, label: d.label };
-    }
-    if (Component.want) {
-      const w = Component.want;
-      pin = { lat: w.lat, lon: w.lon };
-      fromLon = lon0; fromLat = lat0;
-      toLon = lon0 + ((((w.lon - lon0) + 540) % 360) - 180);
-      toLat = w.lat;
-      tw = 0;
+    const loadFlag = () => {
+      const t = sel >= 0 ? Component.GLOBE[sel] : null;
+      if (!t) { flagImg = null; return; }
       flagImg = new Image();
-      flagImg.src = "assets/flags/" + w.code + ".png";
-    }
+      flagImg.src = "assets/flags/" + t.code + ".png";
+    };
+    loadFlag();
+
+    const project = (lon, lat) => {
+      const p = lat * RAD, l = (lon - lon0) * RAD, p0 = lat0 * RAD;
+      const cosc = Math.sin(p0) * Math.sin(p)
+                 + Math.cos(p0) * Math.cos(p) * Math.cos(l);
+      if (cosc <= 0) return null;
+      return [cx + R * Math.cos(p) * Math.sin(l),
+              cy - R * (Math.cos(p0) * Math.sin(p)
+                      - Math.sin(p0) * Math.cos(p) * Math.cos(l))];
+    };
 
     // Turn it by hand. Handlers are assigned rather than added, so a second
     // mount replaces them instead of stacking a second set; pointer capture
@@ -3335,7 +3343,6 @@ class Component extends DCLogic {
       const dy = (e.clientY - b.top) / sc - cy;
       if (dx * dx + dy * dy > R * R) return;
       drag = { x: e.clientX, y: e.clientY, sc: sc };
-      tw = 1;                                  // a hand beats a tween
       try { cv.setPointerCapture(e.pointerId); } catch (err) {}
     };
     cv.onpointermove = (e) => {
@@ -3348,16 +3355,6 @@ class Component extends DCLogic {
       drag = { x: e.clientX, y: e.clientY, sc: drag.sc };
     };
     cv.onpointerup = cv.onpointercancel = () => { drag = null; };
-
-    const project = (lon, lat) => {
-      const p = lat * RAD, l = (lon - lon0) * RAD, p0 = lat0 * RAD;
-      const cosc = Math.sin(p0) * Math.sin(p)
-                 + Math.cos(p0) * Math.cos(p) * Math.cos(l);
-      if (cosc <= 0) return null;
-      return [cx + R * Math.cos(p) * Math.sin(l),
-              cy - R * (Math.cos(p0) * Math.sin(p)
-                      - Math.sin(p0) * Math.cos(p) * Math.cos(l))];
-    };
 
     const ring = (lonFrom, lonTo, latFrom, latTo, stepDeg) => {
       ctx.beginPath();
@@ -3375,38 +3372,9 @@ class Component extends DCLogic {
       ctx.stroke();
     };
 
-    const draw = () => {
-      ctx.clearRect(0, 0, CSS, CSS);
-      ctx.beginPath();
-      ctx.arc(cx, cy, R, 0, 2 * Math.PI);
-      ctx.fillStyle = "#FBFCFE";
-      ctx.fill();
-      ctx.strokeStyle = "#EDF1F7";
-      ctx.lineWidth = 1;
-      ctx.stroke();
-
-      ctx.strokeStyle = "#F2F5FA";
-      for (let lon = -180; lon < 180; lon += 30) ring(lon, lon, -85, 85, 4);
-      for (let lat = -60; lat <= 60; lat += 30) ring(-180, 180, lat, lat, 4);
-
-      ctx.fillStyle = "#DBE0EA";
-      for (let i = 0; i < dots.length; i++) {
-        const q = project(dots[i][0], dots[i][1]);
-        if (!q) continue;
-        ctx.beginPath();
-        ctx.arc(q[0], q[1], DOT, 0, 2 * Math.PI);
-        ctx.fill();
-      }
-
-      if (!pin) return;
-      const pt = project(pin.lon, pin.lat);
-      if (!pt) return;
-
-      // A map pin: a round head on a tail that comes to a point at the
-      // location itself, so what is marked is the tip and not the middle.
-      const x = pt[0], y = pt[1];
-      // sized off the globe, with a floor: the phone override draws the
-      // same pin on a 380px sphere, where a proportional one is unreadable
+    // A map pin: a round head on a tail that comes to a point at the
+    // location itself, so what is marked is the tip and not the middle.
+    const pin = (x, y) => {
       const HEAD = Math.max(13, Math.round(CSS * 0.035)), LIFT = HEAD * 1.75;
       const RING = Math.max(2.5, HEAD * 0.19);
       ctx.save();
@@ -3441,76 +3409,86 @@ class Component extends DCLogic {
       ctx.stroke();
     };
 
-    const ease = (x) => (x < 0.5 ? 4 * x * x * x
-                                : 1 - Math.pow(-2 * x + 2, 3) / 2);
+    const draw = () => {
+      ctx.clearRect(0, 0, CSS, CSS);
+      ctx.beginPath();
+      ctx.arc(cx, cy, R, 0, 2 * Math.PI);
+      ctx.fillStyle = "#FBFCFE";
+      ctx.fill();
+      ctx.strokeStyle = "#EDF1F7";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.strokeStyle = "#F2F5FA";
+      for (let lon = -180; lon < 180; lon += 30) ring(lon, lon, -85, 85, 4);
+      for (let lat = -60; lat <= 60; lat += 30) ring(-180, 180, lat, lat, 4);
+
+      ctx.fillStyle = "#DBE0EA";
+      for (let i = 0; i < dots.length; i++) {
+        const q = project(dots[i][0], dots[i][1]);
+        if (!q) continue;
+        ctx.beginPath();
+        ctx.arc(q[0], q[1], DOT, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+
+      // Every language is marked, all the time. Eighteen of the nineteen
+      // are European capitals and land inside about 150x130px here, so
+      // they are dots rather than pins - and each carries a white ring,
+      // or the ones that overlap read as one shape.
+      const MK = Math.max(2.6, CSS * 0.0058);
+      for (let i = 0; i < Component.GLOBE.length; i++) {
+        if (i === sel) continue;   // drawn last, on top of its neighbours
+        const t = Component.GLOBE[i];
+        const q = project(t.lon, t.lat);
+        if (!q) continue;
+        ctx.beginPath();
+        ctx.arc(q[0], q[1], MK, 0, 2 * Math.PI);
+        ctx.fillStyle = "#7FA6FF";
+        ctx.fill();
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+      }
+
+      if (sel < 0) return;
+      const t = Component.GLOBE[sel];
+      if (!t) return;
+      const q = project(t.lon, t.lat);
+      if (!q) return;
+      pin(q[0], q[1]);
+    };
+
     let last = null;
     const frame = (now) => {
       const dt = last === null ? 16 : Math.min(48, now - last);
       last = now;
 
-      if ((Component.wantSeq || 0) !== seen) {
-        seen = Component.wantSeq || 0;
-        const want = Component.want;
-        if (!want) {
-          pin = null;
-          flagImg = null;
-          tw = 1;
-        } else {
-          pin = { lat: want.lat, lon: want.lon };
-          fromLon = lon0; fromLat = lat0;
-          const d = ((want.lon - lon0 + 540) % 360) - 180;   // short way round
-          toLon = lon0 + d; toLat = want.lat;
-          tw = 0;
-          flagImg = new Image();
-          flagImg.src = "assets/flags/" + want.code + ".png";
-        }
+      if ((Component.selSeq || 0) !== seen) {
+        seen = Component.selSeq || 0;
+        sel = Component.sel === undefined ? -1 : Component.sel;
+        loadFlag();
       }
 
-      if (tw < 1) {
-        tw = Math.min(1, tw + dt / 850);
-        const e = ease(tw);
-        lon0 = fromLon + (toLon - fromLon) * e;
-        lat0 = fromLat + (toLat - fromLat) * e;
-      } else if (!pin && !reduced) {
-        lon0 = (lon0 + dt * 0.006) % 360;
-      }
+      // Constant. A selection highlights a marker; it no longer parks the
+      // globe, so the highlighted one travels and goes round the back like
+      // every other point on the sphere.
+      if (!drag && !reduced) lon0 = (lon0 + dt * 0.006) % 360;
       draw();
       Component.globeRAF = requestAnimationFrame(frame);
     };
     Component.globeRAF = requestAnimationFrame(frame);
   }
 
-  bookSubmit(e) {
-    // There is no endpoint yet. Without this the press submits the form to
-    // the page's own URL and throws away everything typed into it.
-    if (e && e.preventDefault) e.preventDefault();
-  }
-
-  playVT(i) {
-    // No setState: the page re-renders its markup from the template on
-    // every state change, and a re-render mid-playback risks resetting the
-    // element. Nothing else reads this, so the DOM is the whole state.
-    const card = document.getElementById("cp-vt-" + i);
-    if (!card) return;
-    const v = card.querySelector("video");
-    if (!v) return;
-    card.setAttribute("data-playing", "1");
-    v.controls = true;
-    const p = v.play();
-    if (p && p.catch) p.catch(() => {});
-  }
-
   pickLang(i) {
-    const t = Component.GLOBE[i];
-    if (!t) return;
+    if (!Component.GLOBE[i]) return;
     // setState flushes synchronously here - support.js wires onClick as a
     // native listener, outside React's batching - so the decision is taken
     // before it, or every first tap reads as a second one
     const wasOpen = this.state.lang === i;
     this.setState({ lang: wasOpen ? -1 : i });
-    Component.want = wasOpen ? null
-      : { lat: t.lat, lon: t.lon, code: t.code, label: t.label };
-    Component.wantSeq = (Component.wantSeq || 0) + 1;
+    Component.sel = wasOpen ? -1 : i;
+    Component.selSeq = (Component.selSeq || 0) + 1;
   }
   // ── Case-study ring ──────────────────────────────
   // The transform goes straight onto the element. Through state this would
