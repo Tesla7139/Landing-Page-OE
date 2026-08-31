@@ -465,7 +465,7 @@
 
      !important is not decoration here - the layout it overrides is in
      inline style attributes, which outrank a stylesheet without it. */
-  @media (max-width: 900px) {
+  @media (max-width: 1000px) {
     .cp-page { width: 100% !important; max-width: 100% !important; overflow-x: hidden; }
 
     /* no descendant keeps a desktop pixel width */
@@ -696,6 +696,28 @@
     [data-screen-label="Header"] img { width: 96px !important; height: 13px !important; }
 
   }
+
+  /* ══ Between the phone layout and the 1440 artboard ═══════════════════
+     A 1200px window used to lay the page out at 1440 and clip the right
+     side off. The design is fixed-pixel, so it scales rather than
+     reflows: one ratio for the whole page keeps every section exactly as
+     drawn, the band's 1440-wide SVG and the product mocks included.
+
+     zoom only takes a plain number here - calc(100vw / 1440) is not
+     dependable across engines - so the ratio steps every 40px. Each step
+     scales to the narrow end of its own range, so the page always fits
+     rather than nearly fits. */
+  @media (min-width: 1440px) and (max-width: 1479px) { .cp-page { zoom: 0.986; } }
+  @media (min-width: 1400px) and (max-width: 1439px) { .cp-page { zoom: 0.958; } }
+  @media (min-width: 1360px) and (max-width: 1399px) { .cp-page { zoom: 0.931; } }
+  @media (min-width: 1320px) and (max-width: 1359px) { .cp-page { zoom: 0.903; } }
+  @media (min-width: 1280px) and (max-width: 1319px) { .cp-page { zoom: 0.875; } }
+  @media (min-width: 1240px) and (max-width: 1279px) { .cp-page { zoom: 0.847; } }
+  @media (min-width: 1200px) and (max-width: 1239px) { .cp-page { zoom: 0.819; } }
+  @media (min-width: 1160px) and (max-width: 1199px) { .cp-page { zoom: 0.792; } }
+  @media (min-width: 1120px) and (max-width: 1159px) { .cp-page { zoom: 0.764; } }
+  @media (min-width: 1080px) and (max-width: 1119px) { .cp-page { zoom: 0.736; } }
+  @media (min-width: 1040px) and (max-width: 1079px) { .cp-page { zoom: 0.708; } }
 </style>
 </helmet>
 <div class="cp-page" style="width: 1440px; margin: 0 auto; background: #ffffff; font-family: Poppins, sans-serif; -webkit-font-smoothing: antialiased;">
