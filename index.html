@@ -85,7 +85,43 @@
   .cp-bs__who { margin-top: 8px; display: flex; flex-direction: row; align-items: baseline;
                 gap: 8px; font-size: 13px; font-weight: 700; color: var(--color-fg); }
 
-
+
+  /* ── Case study: DOONAILS ─────────────────────
+     The two screens are stacked rather than set side by side: the upsell
+     happens on top of the edit panel, so it sits on top of it here. */
+  .cp-cse { background: #001644; padding: 88px 112px 96px; display: flex;
+            flex-direction: row; gap: 72px; align-items: center; }
+  .cp-cse__copy { width: 496px; flex-shrink: 0; display: flex;
+                  flex-direction: column; align-items: flex-start; }
+  .cp-cse__eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
+                     text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  .cp-cse__mark { display: block; margin-top: 14px; width: 168px;
+                  height: auto; opacity: 0.95; }
+  .cp-cse__h { margin: 26px 0 0; font-size: 36px; font-weight: 600;
+               line-height: 46px; letter-spacing: -0.02em; color: #ffffff; }
+  .cp-cse__stats { display: flex; flex-direction: row; gap: 44px;
+                   margin-top: 32px; }
+  .cp-cse__stats b { display: block; font-size: 46px; font-weight: 700;
+                     line-height: 50px; letter-spacing: -0.03em;
+                     color: #5A9CFF; }
+  .cp-cse__stats span { display: block; margin-top: 8px; max-width: 176px;
+                        font-size: 13.5px; line-height: 20px;
+                        color: rgba(255,255,255,0.58); }
+  .cp-cse__p { margin: 30px 0 0; font-size: 16.5px; line-height: 27px;
+               color: rgba(255,255,255,0.72); }
+  /* the back one is offset up and right, so both browser bars stay
+     readable and the front one does not simply hide it */
+  .cp-cse__shots { position: relative; flex: 1 1 auto; height: 470px; }
+  /* height: auto, or the img keeps the 750 from its height attribute and
+     the picture stretches to nearly twice its shape */
+  .cp-cse__shot { position: absolute; display: block; height: auto;
+                  border-radius: 14px;
+                  border: 1px solid rgba(255,255,255,0.10); }
+  .cp-cse__shot--back { right: 0; top: 0; width: 484px;
+                        box-shadow: 0 24px 56px rgba(0, 8, 26, 0.55); }
+  .cp-cse__shot--front { left: 0; bottom: 0; width: 484px;
+                         box-shadow: 0 30px 70px rgba(0, 8, 26, 0.65); }
+
   /* ── Customer stories (video) ─────────────────
      A dark band, so the clips read as footage rather than as more page.
      The row is a scroll-snap track: a second card needs markup and no
@@ -1172,7 +1208,22 @@
     .cp-lang__chip { height: 32px !important; gap: 9px !important; }
     .cp-lang__chip b { font-size: 14px !important; }
     .cp-lang__chip span { font-size: 12px !important; }
-
+
+    /* ── Case study ─────────────────────────────────────────────────── */
+    .cp-cse { flex-direction: column !important; gap: 34px !important;
+              padding: 56px 20px 60px !important; }
+    .cp-cse__copy { width: 100% !important; align-items: center !important;
+                    text-align: center; }
+    .cp-cse__h { font-size: 26px !important; line-height: 34px !important; }
+    .cp-cse__stats { gap: 28px !important; justify-content: center; }
+    .cp-cse__stats b { font-size: 34px !important; line-height: 38px !important; }
+    .cp-cse__p { font-size: 15.5px !important; line-height: 25px !important; }
+    /* stacked overlap needs room the phone does not have, so they run in
+       the flow instead */
+    .cp-cse__shots { height: auto !important; width: 100%;
+                     display: flex; flex-direction: column; gap: 16px; }
+    .cp-cse__shot { position: static !important; width: 100% !important; }
+
     /* ── Customer stories (video) ────────────────── */
     .cp-vt { padding: 56px 20px 60px !important; gap: 30px !important; }
     .cp-vt__h { font-size: 28px !important; line-height: 36px !important; }
@@ -2888,11 +2939,23 @@
     <!-- REVIEWS:END -->
   </section>
 
-  <!-- ── Case study (dark band) ───────────────────
-       Empty on purpose: the field is held for the case study that goes
-       here. min-height stands in for content, or the band would
-       collapse to its own padding. -->
-  <section style="background: #001644; padding: 80px 112px; min-height: 520px; display: flex; flex-direction: column; gap: 64px; justify-content: center; align-items: center; overflow: hidden;" data-screen-label="Case study"></section>
+  <!-- ── Case study: DOONAILS ─────────────────── -->
+  <section class="cp-cse" data-screen-label="Case study">
+    <div class="cp-cse__copy">
+      <span class="cp-cse__eyebrow">Case study</span>
+      <img class="cp-cse__mark" src="assets/case-study/doonails.svg" alt="DOONAILS" width="137" height="17">
+      <h2 class="cp-cse__h">Customers edit their own orders — and add to them on the way out.</h2>
+      <div class="cp-cse__stats">
+        <div><b>4,000</b><span>orders edited in the first 30 days</span></div>
+        <div><b>$20,000</b><span>saved over the same period</span></div>
+      </div>
+      <p class="cp-cse__p">DOONAILS put order editing on their Thank You page. Shoppers fix an address, swap a shade or cancel without opening a ticket — and the same screen offers a one-tap upsell before they leave.</p>
+    </div>
+    <div class="cp-cse__shots">
+      <img class="cp-cse__shot cp-cse__shot--back" src="assets/case-study/doonails-edit.jpg" alt="The DOONAILS Thank You page with ClickPost’s edit panel: change contact information, edit shipping address, update the order, apply a discount code or cancel." width="1140" height="750">
+      <img class="cp-cse__shot cp-cse__shot--front" src="assets/case-study/doonails-upsell.jpg" alt="The one-tap upsell that follows: a DOONAILS press-on set at half price, added to the order without a second checkout." width="1140" height="750">
+    </div>
+  </section>
 
   <!-- ── Customer stories (video) ─────────── -->
   <section class="cp-vt" data-screen-label="Customer stories (video)">
