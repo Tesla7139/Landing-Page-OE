@@ -592,11 +592,17 @@
      scroll before the next one takes over. The swap is an "unfold":
      a clip-path curtain plus a small rise, staggered against opacity —
      not a straight cross-fade. */
-  .cp-steps__grid { display: flex; flex-direction: row; gap: 56px;
+  .cp-steps__grid { display: flex; flex-direction: row; gap: 76px;
                     align-items: flex-start; align-self: stretch; }
   /* Pinned through steps 1-3, then it releases and travels with the
      cards for step 4 - the sticky container is the grid, and the grid
      now ends exactly at the last card, so the release lands them level.
+
+     This is why the frame got wider without getting taller. The release
+     point is grid height minus frame height, and the grid's height is
+     pinned to the last card by the level ending - so every pixel of frame
+     height moves the release a pixel earlier, and there is nothing to pay
+     for it with. Width costs nothing.
 
      The frame's height is what times this. Release happens when the
      grid's bottom reaches top + height; step 4 lights up when its card
@@ -604,9 +610,9 @@
      light up while still pinned, height has to stay under about 520 on a
      900-tall viewport. 648 was over it, which is why the visual used to
      let go while step 3 was still the active one. */
-  .cp-steps__stagewrap { position: sticky; top: 96px; width: 480px;
+  .cp-steps__stagewrap { position: sticky; top: 96px; width: 528px;
                          flex-shrink: 0; }
-  .cp-steps__stage { position: relative; width: 480px; height: 560px;
+  .cp-steps__stage { position: relative; width: 528px; height: 560px;
                      border-radius: 20px; overflow: hidden;
                      background: linear-gradient(160deg, #F4F8FF 0%, #E6EEFF 55%, #D6E4FF 100%); }
   /* Every panel is forced to one shape so the four steps read as a set.
@@ -614,7 +620,7 @@
      an auto-height one), and the inline sizes need !important to override.
      Swap this for real artwork per step when it exists. */
   .cp-steps__visual > * {
-    width: 452px !important; height: 304px !important;
+    width: 497px !important; height: 334px !important;
     transform: scale(0.92);
     border-radius: 18px !important; flex-grow: 0 !important; flex-shrink: 0 !important;
     overflow: hidden; box-shadow: 0 20px 44px -26px rgba(10,22,40,0.42) !important;
