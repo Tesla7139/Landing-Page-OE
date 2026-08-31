@@ -392,6 +392,7 @@
                       letter-spacing: -0.02em; color: #101828; }
   .cp-bfs__whylede { margin: 14px 0 0; max-width: 720px; text-align: center;
                      font-size: 17px; line-height: 27px; color: #52525B; }
+  /* ── Built for store operations ───────────────────────
      This and the Used-by band share one surface, so there is no seam
      between them - the same shape getamply.co uses, where one .map
      section holds both the card and the figure.
@@ -401,26 +402,35 @@
      reads because their card is only 387px wide and the circle is 520, so
      it shows past the right edge and below.
 
-     Ours is 544 wide, which swallowed a 520px circle whole, so the
-     geometry is scaled by 544/387: radius 363, centre 506,393, keeping
-     their offset of the circle from the card's own centre. Falls to
-     nothing before the section's top edge, so no fade is needed there -
-     the full-width washes this replaces drew a hard line across the page
-     where the white section above ended.
+     Ours is 544 wide, which swallowed a 520px circle whole, so it is an
+     ellipse instead: 620 x 400 at 560,405, keeping their offset of the
+     glow from the card's own centre.
+
+     Both radii are chosen to fade to nothing inside the page rather than
+     at its edges. Vertically it reaches y=5, so it does not draw a hard
+     line where the white section above ends - which is what the
+     full-width washes this replaces did. Horizontally it reaches x=-60,
+     where its alpha is down to 0.03: the page is a fixed 1440 box on a
+     white body, so anything still coloured at x=0 shows a step at the
+     page's edge.
 
      Hue is ours. Theirs is #807DFE, a periwinkle from their palette; this
-     is the same value taken round to the blue this page already uses. */
+     is the same value taken round to the blue this page already uses -
+     and taken further towards it since, because at the old alpha and
+     saturation the wash landed close to neutral over white. */
   .cp-blend {
     background:
-      radial-gradient(circle 363px at 506px 393px,
-                      rgba(125, 149, 255, 0.22) 0%,
-                      rgba(125, 149, 255, 0) 100%),
+      radial-gradient(620px 400px at 560px 405px,
+                      rgba(84, 122, 255, 0.34) 0%,
+                      rgba(84, 122, 255, 0) 100%),
       #ffffff; }
   .cp-bfo { display: flex; flex-direction: row; gap: 72px; align-items: center;
             padding: 104px 112px 64px; }
   .cp-bfo__art { position: relative; width: 544px; height: 452px; flex-shrink: 0;
                  border-radius: 26px; background: #ffffff; overflow: hidden;
-                 box-shadow: 0 26px 64px rgba(10, 22, 40, 0.09); }
+                 /* tinted to the wash: a near-black shadow over a blue
+                    field is what read as grey */
+                 box-shadow: 0 26px 64px rgba(38, 74, 168, 0.17); }
   /* the stack runs off the bottom of the card and is faded out, so it reads
      as a list that carries on rather than three items that happen to end */
   .cp-bfo__art::after { content: ""; position: absolute; left: 0; right: 0;
@@ -432,7 +442,7 @@
   .cp-bfo__card { display: flex; flex-direction: row; gap: 14px;
                   align-items: flex-start; padding: 16px 18px; border-radius: 16px;
                   background: #ffffff; border: 1px solid #EEF0F5;
-                  box-shadow: 0 12px 28px rgba(10, 22, 40, 0.08); }
+                  box-shadow: 0 12px 28px rgba(38, 74, 168, 0.14); }
   .cp-bfo__card--a { transform: rotate(-2.4deg); }
   .cp-bfo__card--b { transform: rotate(1.8deg); margin-left: 34px; }
   .cp-bfo__card--c { margin-left: 16px; opacity: 0.4; }
@@ -578,6 +588,7 @@
   @media (prefers-reduced-motion: reduce) {
     .cp-faq__w { opacity: 1; filter: none; }
     .cp-faq__item[data-open="true"] .cp-faq__w { animation: none; } }
+  /* ── Integrations grid stays STATIC ────────────────────────────────────
      Defensive: neutralises any marquee wiring that an older cached bundle
      might still inject into this section, so the logos cannot drift. */
   [data-screen-label="Integrations"] .cp-mq,
@@ -1175,9 +1186,9 @@
 
     /* Built for store operations: the stack was sized for a 452px card */
     .cp-blend { background:
-      radial-gradient(circle 210px at 50% 220px,
-                      rgba(125, 149, 255, 0.2) 0%,
-                      rgba(125, 149, 255, 0) 100%),
+      radial-gradient(ellipse 300px 235px at 50% 240px,
+                      rgba(84, 122, 255, 0.30) 0%,
+                      rgba(84, 122, 255, 0) 100%),
       #ffffff !important; }
     .cp-bfo__art { height: 268px !important; }
     .cp-bfo__art::after { height: 104px !important; }
