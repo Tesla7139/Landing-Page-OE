@@ -135,6 +135,68 @@
   .cp-vt__card[data-playing="1"] .cp-vt__hit { display: none; }
   .cp-vt__title { margin: 16px 0 0; font-size: 17px; font-weight: 500;
                   line-height: 25px; color: #ffffff; }
+  /* ── Book a call ──────────────────────────────
+     Two columns edge to edge, not a card: it is the last thing on the
+     page, so it can run to both margins and close the page off. */
+  .cp-bk { display: flex; flex-direction: row; align-items: stretch;
+           scroll-margin-top: 104px; }
+  .cp-bk__left { flex: 0 0 620px; background: #ffffff;
+                 padding: 84px 56px 92px 112px; display: flex;
+                 flex-direction: column; }
+  .cp-bk__right { flex: 1 1 auto; background: #E9EDF8;
+                  padding: 96px 112px 92px 72px; display: flex;
+                  flex-direction: column; justify-content: center; }
+  .cp-bk__head { display: flex; flex-direction: column; gap: 10px; }
+  .cp-bk__h { margin: 0; font-size: 34px; font-weight: 600; line-height: 44px;
+              letter-spacing: -0.02em; color: #101828; }
+  .cp-bk__lede { margin: 0; font-size: 15.5px; line-height: 24px; color: #52525B; }
+  .cp-bk__form { margin-top: 28px; display: flex; flex-direction: column;
+                 gap: 16px; padding: 28px 28px 30px; border-radius: 14px;
+                 border: 1px solid #E4E8F0; background: #ffffff;
+                 box-shadow: 0 10px 34px rgba(16, 24, 40, 0.06); }
+  .cp-bk__f { display: flex; flex-direction: column; gap: 7px; }
+  .cp-bk__f > span { font-size: 14px; font-weight: 500; color: #252525; }
+  .cp-bk__f i, .cp-bk__agree i { font-style: normal; color: #E5484D; }
+  .cp-bk__f input, .cp-bk__sel select {
+    width: 100%; height: 46px; padding: 0 14px; border-radius: 8px;
+    border: 1px solid #D7DDE9; background: #ffffff; font-family: inherit;
+    font-size: 15px; color: #252525; }
+  .cp-bk__f input::placeholder { color: #98A2B3; }
+  .cp-bk__f input:focus, .cp-bk__sel select:focus { outline: none;
+    border-color: #155FFF; box-shadow: 0 0 0 3px rgba(21, 95, 255, 0.14); }
+  /* the arrow is drawn, so the control looks the same in every browser */
+  .cp-bk__sel { position: relative; display: block; width: 100%; }
+  .cp-bk__sel select { -webkit-appearance: none; -moz-appearance: none;
+                       appearance: none; padding-right: 38px; cursor: pointer; }
+  .cp-bk__chev { position: absolute; right: 13px; top: 50%; margin-top: -9px;
+                 color: #667085; pointer-events: none; }
+  .cp-bk__row { display: flex; flex-direction: row; gap: 10px; }
+  .cp-bk__sel--cc { flex: 0 0 180px; width: 180px; }
+  .cp-bk__agree { display: flex; flex-direction: row; gap: 9px;
+                  align-items: flex-start; margin-top: 2px; cursor: pointer; }
+  .cp-bk__agree input { width: 16px; height: 16px; margin: 2px 0 0;
+                        accent-color: #155FFF; flex-shrink: 0; }
+  .cp-bk__agree span { font-size: 13.5px; line-height: 20px; color: #52525B; }
+  .cp-bk__agree a { color: #155FFF; }
+  .cp-bk__agree a:hover { color: #0A3FCC; }
+  .cp-bk__submit { margin-top: 6px; width: 100%; height: 50px; border: 0;
+                   border-radius: 8px; background: #155FFF; color: #ffffff;
+                   font-family: inherit; font-size: 15.5px; font-weight: 600;
+                   cursor: pointer; transition: background 160ms ease-out; }
+  .cp-bk__submit:hover { background: #0A3FCC; }
+  .cp-bk__rh { margin: 0; max-width: 560px; font-size: 36px; font-weight: 500;
+               line-height: 46px; letter-spacing: -0.02em; color: #101828; }
+  .cp-bk__rh em { font-style: normal; color: #155FFF; }
+  .cp-bk__list { margin: 32px 0 0; padding: 0; list-style: none; display: flex;
+                 flex-direction: column; gap: 14px; max-width: 560px; }
+  .cp-bk__list li { display: flex; flex-direction: row; gap: 12px;
+                    align-items: flex-start; }
+  .cp-bk__list svg { flex-shrink: 0; margin-top: 3px; }
+  .cp-bk__list span { font-size: 17px; line-height: 27px; color: #252525; }
+  .cp-bk__stat { margin: 44px 0 0; max-width: 560px; font-size: 26px;
+                 font-weight: 600; line-height: 38px; letter-spacing: -0.01em;
+                 color: #101828; }
+  .cp-bk__stat em { font-style: normal; color: #155FFF; }
   /* ── Case-study ring ─────────────────────────────
      Cards on a circle in 3D: each is turned to its own angle and pushed
      out by the radius, and the whole ring spins. The generator writes the
@@ -1054,6 +1116,23 @@
                    line-height: 25px !important; }
     .cp-vt__card { width: 280px !important; }
     .cp-vt__media { width: 280px !important; height: 498px !important; }
+    /* ── Book a call ────────────────────────────────────────────────── */
+    .cp-bk { flex-direction: column !important; }
+    /* the phone rules centre section text; a form reads wrong that way -
+       labels drift off their fields and the checks leave their lines */
+    .cp-bk__left, .cp-bk__right { text-align: left !important; }
+    .cp-bk__left { flex: 1 1 auto !important;
+                   padding: 48px 20px 44px !important; }
+    .cp-bk__right { padding: 44px 20px 52px !important; }
+    .cp-bk__h { font-size: 27px !important; line-height: 36px !important; }
+    .cp-bk__form { padding: 20px 18px 22px !important; }
+    /* the code select and the number will not both fit on one line */
+    .cp-bk__row { flex-direction: column !important; }
+    .cp-bk__sel--cc { flex: 1 1 auto !important; width: 100% !important; }
+    .cp-bk__rh { font-size: 27px !important; line-height: 36px !important; }
+    .cp-bk__list span { font-size: 15.5px !important; line-height: 25px !important; }
+    .cp-bk__stat { margin-top: 32px !important; font-size: 21px !important;
+                   line-height: 31px !important; }
     /* ── Footer ─────────────────────────────────────────────────────── */
     [data-screen-label="Footer"] { padding: 56px 20px 40px !important;
                                    gap: 36px !important; }
@@ -1187,7 +1266,7 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#155FFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3.5h9l5 5v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-15a2 2 0 0 1 2-2z"></path><path d="M14 3.5v5h5M8 13h8M8 17h5"></path></svg>
               <span>Case studies<span class="cp-nav-link__sub">How brands run order editing</span></span>
             </a>
-            <a class="cp-nav-link" href="#demo">
+            <a class="cp-nav-link" href="#book-a-call">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#155FFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="13" rx="2.5"></rect><path d="M9 21h6M12 17v4M10.5 8.6l4 1.9-4 1.9z"></path></svg>
               <span>Demo<span class="cp-nav-link__sub">Run it on your own store</span></span>
             </a>
@@ -1224,7 +1303,7 @@
         <div class="cp-drawer__sub">
           <a href="#">Revenue leak calculator</a>
           <a href="#case-studies">Case studies</a>
-          <a href="#demo">Demo</a>
+          <a href="#book-a-call">Demo</a>
         </div>
       </div>
       <a class="cp-drawer__row" href="#">Pricing</a>
@@ -1244,7 +1323,7 @@
           <p style="margin: 0; font-size: 20px; font-weight: 400; line-height: 30px; color: #454545;">Addresses, variant swaps, quantity, discount codes, cancellations - self serve edits before you ship.</p>
         </div>
         <div style="height: 48px; display: flex; flex-direction: row; gap: 16px; align-items: center; align-self: stretch; flex-wrap: wrap;">
-          <a href="#demo" style="width: fit-content; height: 48px; border-radius: 4px; border: 1px solid #52525B; display: flex; flex-direction: row; gap: 8px; padding: 12px 20px; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; color: #52525B; white-space: nowrap; transition: background 160ms ease-out;" style-hover="background: #F1F1F1; color: #52525B;">Book a demo<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+          <a href="#book-a-call" style="width: fit-content; height: 48px; border-radius: 4px; border: 1px solid #52525B; display: flex; flex-direction: row; gap: 8px; padding: 12px 20px; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; color: #52525B; white-space: nowrap; transition: background 160ms ease-out;" style-hover="background: #F1F1F1; color: #52525B;">Book a demo<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
           <div style="display: flex; flex-direction: row; gap: 8px; align-items: center;">
             <svg width="21.28" height="24" viewBox="0 0 22 24" fill="none"><path d="M11 1.2 13.6 7.5 20.4 8l-5.2 4.4 1.6 6.6L11 15.4 5.2 19l1.6-6.6L1.6 8l6.8-.5z" fill="#FF492C"></path><path d="M11 15.4V1.2L8.4 7.5 1.6 8l5.2 4.4L5.2 19z" fill="#FF6B52"></path></svg>
             <div style="display: flex; flex-direction: row; gap: 6px; align-items: center;">
@@ -3134,6 +3213,57 @@
       </div>
     </div>
   </section>
+
+  <!-- ── Book a call ──────────────────────── -->
+  <section class="cp-bk" id="book-a-call" data-screen-label="Book a call">
+    <div class="cp-bk__left">
+      <div class="cp-bk__head">
+        <h2 class="cp-bk__h">Book a 15 minute call</h2>
+        <p class="cp-bk__lede">Plug-and-play integration to save time, cut costs and increase revenue.</p>
+      </div>
+      <!-- no action: the endpoint goes here when there is one, and the
+           handler stops the default so a press does not reload the page -->
+      <form class="cp-bk__form" onSubmit="{{ bookSubmit }}">
+        <label class="cp-bk__f">
+          <span>Full name<i>*</i></span>
+          <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
+        </label>
+        <label class="cp-bk__f">
+          <span>Work email<i>*</i></span>
+          <input type="email" name="email" placeholder="yourname@workemail.com" autocomplete="email" required>
+        </label>
+        <div class="cp-bk__f">
+          <span>Phone number<i>*</i></span>
+          <div class="cp-bk__row">
+            <span class="cp-bk__sel cp-bk__sel--cc">
+              <select name="country" aria-label="Country dialling code"><option>United States +1</option><option>Canada +1</option><option>United Kingdom +44</option><option>Australia +61</option><option>Germany +49</option><option>France +33</option><option>Netherlands +31</option><option>Spain +34</option><option>Italy +39</option><option>Ireland +353</option><option>Singapore +65</option><option>United Arab Emirates +971</option><option>India +91</option><option>Other</option></select><svg class="cp-bk__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+            </span>
+            <input type="tel" name="phone" placeholder="(555) 000-0000" autocomplete="tel" required>
+          </div>
+        </div>
+        <label class="cp-bk__f">
+          <span>Orders per month<i>*</i></span>
+          <span class="cp-bk__sel">
+            <select name="volume" required><option value="">Please select</option><option>Under 1,000</option><option>1,000 – 5,000</option><option>5,000 – 25,000</option><option>25,000 – 100,000</option><option>Over 100,000</option></select><svg class="cp-bk__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+          </span>
+        </label>
+        <label class="cp-bk__agree">
+          <input type="checkbox" name="terms" required>
+          <span>I agree to ClickPost’s <a href="https://www.clickpost.ai/terms-and-conditions" target="_blank" rel="noopener noreferrer">Terms</a> and <a href="https://www.clickpost.ai/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.<i>*</i></span>
+        </label>
+        <button type="submit" class="cp-bk__submit">Talk to an expert</button>
+      </form>
+    </div>
+    <div class="cp-bk__right">
+      <h3 class="cp-bk__rh"><em>Lower support cost,</em> more revenue</h3>
+      <ul class="cp-bk__list">
+        <li><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#155FFF"></circle><path d="m7 12.4 3.2 3.2L17 8.8" stroke="#ffffff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Let customers self-serve their order edits</span></li>
+        <li><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#155FFF"></circle><path d="m7 12.4 3.2 3.2L17 8.8" stroke="#ffffff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Give a great customer accounts experience, just like Amazon</span></li>
+        <li><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#155FFF"></circle><path d="m7 12.4 3.2 3.2L17 8.8" stroke="#ffffff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Upsell them add-on products while they edit their order</span></li>
+      </ul>
+      <p class="cp-bk__stat">Brands see an increase in revenue by 5% <em>and a decrease in support cost of up to 30%</em></p>
+    </div>
+  </section>
 
   <!-- ── Footer ───────────────────────────────────────── -->
   <footer style="background: #001644; padding: 104px 112px 64px; display: flex; flex-direction: column; gap: 64px; align-items: center;" data-screen-label="Footer">
@@ -3565,6 +3695,12 @@ class Component extends DCLogic {
     Component.globeRAF = requestAnimationFrame(frame);
   }
 
+  bookSubmit(e) {
+    // There is no endpoint yet. Without this the press submits the form to
+    // the page's own URL and throws away everything typed into it.
+    if (e && e.preventDefault) e.preventDefault();
+  }
+
   playVT(i) {
     // No setState: the page re-renders its markup from the template on
     // every state change, and a re-render mid-playback risks resetting the
@@ -3673,6 +3809,7 @@ class Component extends DCLogic {
       lang16: this.state.lang === 16 ? "true" : "false",
       lang17: this.state.lang === 17 ? "true" : "false",
       lang18: this.state.lang === 18 ? "true" : "false",
+      bookSubmit: (e) => this.bookSubmit(e),
       playVT0: () => this.playVT(0),
       pickLang0: () => this.pickLang(0),
       pickLang1: () => this.pickLang(1),
