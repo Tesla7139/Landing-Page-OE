@@ -106,27 +106,28 @@
 
   /* ── Built for store operations ───────────────────────
      This and the Used-by band share one surface, so there is no seam
-     between them.
+     between them - the same shape getamply.co uses, where one .map
+     section holds both the card and the figure.
 
-     Two soft washes rather than a flat tint. The flat version read as a
-     coloured band - a different section - which is what it was told off
-     for. These are radial, anchored behind the card and off to the right,
-     and both reach transparent well before the section ends, so the page
-     stays one surface and the card has something to sit against instead
-     of white on white.
+     Their glow is a 520px circle placed at top 130 left 140, so its centre
+     sits at 400,390 - behind the card, not spread across the section. It
+     reads because their card is only 387px wide and the circle is 520, so
+     it shows past the right edge and below.
 
-     Tinted with the brand blue at 5-6% rather than the reference's
-     lavender, which belongs to its own palette. */
+     Ours is 544 wide, which swallowed a 520px circle whole, so the
+     geometry is scaled by 544/387: radius 363, centre 506,393, keeping
+     their offset of the circle from the card's own centre. Falls to
+     nothing before the section's top edge, so no fade is needed there -
+     the full-width washes this replaces drew a hard line across the page
+     where the white section above ended.
+
+     Hue is ours. Theirs is #807DFE, a periwinkle from their palette; this
+     is the same value taken round to the blue this page already uses. */
   .cp-blend {
     background:
-      /* the washes are at full strength on the wrapper's first row, which
-         put a hard line across the page where the white section above
-         ended - this whites out the top 150px so they come in instead */
-      linear-gradient(to bottom, #ffffff 0%, rgba(255, 255, 255, 0) 150px),
-      radial-gradient(1180px 660px at 24% 2%,
-                      rgba(21, 95, 255, 0.062) 0%, rgba(21, 95, 255, 0) 68%),
-      radial-gradient(900px 620px at 92% 26%,
-                      rgba(21, 95, 255, 0.042) 0%, rgba(21, 95, 255, 0) 70%),
+      radial-gradient(circle 363px at 506px 393px,
+                      rgba(125, 149, 255, 0.22) 0%,
+                      rgba(125, 149, 255, 0) 100%),
       #ffffff; }
   .cp-bfo { display: flex; flex-direction: row; gap: 72px; align-items: center;
             padding: 104px 112px 64px; }
@@ -781,6 +782,11 @@
              margin-left: -20px !important; margin-right: -20px !important; }
 
     /* Built for store operations: the stack was sized for a 452px card */
+    .cp-blend { background:
+      radial-gradient(circle 210px at 50% 220px,
+                      rgba(125, 149, 255, 0.2) 0%,
+                      rgba(125, 149, 255, 0) 100%),
+      #ffffff !important; }
     .cp-bfo__art { height: 268px !important; }
     .cp-bfo__art::after { height: 104px !important; }
     .cp-bfo__stack { left: 16px !important; right: 16px !important;
