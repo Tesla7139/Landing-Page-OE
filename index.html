@@ -3499,11 +3499,11 @@ class Component extends DCLogic {
       }
 
       // Every country of every language is marked, all the time. There are
-      // 55 of them and Europe holds about half, so the set is drawn small;
+      // 55 of them and Europe holds about half, so they are small and all
+      // one size - the selection reads as colour, not scale - and painted
       // back to front by screen y, so where two overlap the nearer one is
       // in front rather than whichever came first in the list.
       const SMALL = Math.max(5, CSS * 0.0115);
-      const BIG = Math.max(13, Math.round(CSS * 0.035));
       const shown = [];
       for (let li = 0; li < Component.GLOBE.length; li++) {
         const g = Component.GLOBE[li];
@@ -3521,7 +3521,7 @@ class Component extends DCLogic {
       // the whole selected language, every country of it, still back to front
       for (let k = 0; k < shown.length; k++) {
         if (shown[k].li !== sel) continue;
-        pin(shown[k].x, shown[k].y, BIG, "#0A1628");
+        pin(shown[k].x, shown[k].y, SMALL, "#0A1628");
       }
     };
 
