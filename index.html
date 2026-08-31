@@ -105,12 +105,13 @@
   .cp-lang__chip span { font-size: 13px; color: #8A8F9B; }
 
   /* ── Built for store operations ───────────────────────
-     This and the Used-by band share one background so there is no seam
-     between them: the wrapper paints the gradient, both sections are
-     transparent. Two adjacent gradients cannot meet cleanly, one long
-     one can. */
-  .cp-blend { background: linear-gradient(168deg, #FFFFFF 0%, #FAFBFE 26%,
-                                          #F4F6FD 58%, #E9EEFB 100%); }
+     This and the Used-by band share one surface, so there is no seam
+     between them. It was a gradient; it is flat white now, which is the
+     same idea taken further - nothing separates them at all, and the run
+     from the video down to the reviews reads as one page rather than a
+     stack of tinted bands. The wrapper stays because it is where a tint
+     would go back if one is ever wanted. */
+  .cp-blend { background: #ffffff; }
   .cp-bfo { display: flex; flex-direction: row; gap: 72px; align-items: center;
             padding: 104px 112px 64px; }
   .cp-bfo__art { position: relative; width: 544px; height: 452px; flex-shrink: 0;
