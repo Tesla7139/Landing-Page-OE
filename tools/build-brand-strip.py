@@ -82,6 +82,9 @@ def main():
             sys.exit("missing logo: %s" % path)
 
     span = len(brands) * (ITEM_W + ITEM_GAP)
+    # the drift starts half a cell in, so the first frame already shows a
+    # logo cut at each edge instead of one sitting flush against the left
+    half = (ITEM_W + ITEM_GAP) // 2
 
     # emitted twice - the second set is what the loop wraps onto
     cards = "\n".join(card(b, False) for b in brands)
@@ -89,7 +92,8 @@ def main():
     block = "\n".join([
         START,
         '      <div class="cp-bs" style="align-self: stretch;">',
-        '        <div class="cp-bs__track" style="--cp-bs-span: %dpx;">' % span,
+        '        <div class="cp-bs__track" style="--cp-bs-span: %dpx; '
+        '--cp-bs-half: %dpx;">' % (span, half),
         cards,
         dupes,
         "        </div>",
@@ -111,7 +115,8 @@ def main():
     with io.open(PAGE, "w", encoding="utf-8", newline="") as fh:
         fh.write(page)
 
-    print("wrote %d brands, one set spans %dpx" % (len(brands), span))
+    print("wrote %d brands, one set spans %dpx, half cell %dpx"
+          % (len(brands), span, half))
 
 
 if __name__ == "__main__":
