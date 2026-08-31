@@ -652,20 +652,13 @@
      let go while step 3 was still the active one. */
   .cp-steps__stagewrap { position: sticky; top: 96px; width: 581px;
                          flex-shrink: 0; }
-  /* Height is what pinning through step 4 and ending level cost between
-     them. The grid ends at the last card, so travel is 1081 - frameH -
-     96; step 4 goes active when the midpoint of cards 3 and 4 crosses the
-     middle of the window, 872 into the grid. Pinned until then means
-     frameH <= 50vh + 113, so the frame is half the window's height, not
-     all of it - 514 on an 805 window where filling it wanted 693. Filling
-     the window, staying pinned to step 4, and ending level are any two of
-     three; this picks the last two.
-
-     100 rather than 113 leaves a little under the limit, since the 872 is
-     measured off the cards and moves with their text and column width.
-
-     The zoom still has to divide out: the ladder scales this subtree, so
-     a height in CSS px paints at that many times the ratio.
+  /* Fills the window. Both terms have to divide out the page's zoom: the
+     ladder scales this whole subtree, so a height in CSS px paints at
+     that many times the ratio, and the sticky 96px of top becomes 96 *
+     zoom on screen. (100vh - 16) / zoom - 96 paints as 100vh - 16 -
+     96*zoom, which is flush to 16px off the bottom at every rung.
+     Without it the frame fell 53px short at 1440 and 276px at 1080.
+     Floored so a short window cannot crush it.
 
      The ceiling is the column beside it, not a number picked to look
      right. A sticky element cannot exceed the container it sticks in:
@@ -675,8 +668,8 @@
      already 8 over. 950 keeps a margin under it, since the grid's height
      is the list's and moves with type and column width. */
   .cp-steps__stage { position: relative; width: 581px;
-                     height: calc(50vh / var(--cp-zoom) + 100px);
-                     min-height: 420px; max-height: 950px;
+                     height: calc((100vh - 16px) / var(--cp-zoom) - 96px);
+                     min-height: 560px; max-height: 950px;
                      border-radius: 20px; overflow: hidden;
                      background: linear-gradient(160deg, #F4F8FF 0%, #E6EEFF 55%, #D6E4FF 100%); }
   /* Every panel is forced to one shape so the four steps read as a set.
@@ -697,10 +690,7 @@
        mock screens sized element by element inline, so resizing their box
        only rearranges them. */
     width: 452px !important;
-    /* floored: the frame is 433 on a short window, and 100% - 200 would
-       leave the panel 233 tall with the mock clipped inside it */
-    height: calc(100% - 150px) !important;
-    min-height: 300px !important; max-height: 500px !important;
+    height: calc(100% - 200px) !important; max-height: 500px !important;
     transform: scale(1.19);
     border-radius: 18px !important; flex-grow: 0 !important; flex-shrink: 0 !important;
     overflow: hidden; box-shadow: 0 20px 44px -26px rgba(10,22,40,0.42) !important;
@@ -722,11 +712,18 @@
   /* the active card's accent leans the way you're travelling */
   [data-step-dir="back"] .cp-steps__card { transform: translateX(0); }
 
-  /* No padding here. The grid has to end at the last card, or the frame's
-     bottom does not land level with it - and the frame's height is what
-     pays for that instead. */
+  /* The padding is travel for the sticky frame, not spacing. Sticky moves
+     container height minus element height, and a 693 frame in a 1081 grid
+     has 292 - while step 4 becomes active 470 into the grid, where the
+     midpoint of cards 3 and 4 crosses the middle of the window. This makes
+     up the difference, and tracks the window because both terms do. */
   .cp-steps__list { display: flex; flex-direction: column; gap: 28px; flex: 1;
-                    min-width: 0; }
+                    min-width: 0;
+                    /* capped: below 1440 the frame hits its own ceiling
+                       while this keeps growing, and the surplus is only
+                       dead space - 432px of it at 1300 before the cap */
+                    padding-bottom: clamp(0px,
+                      calc((50vh - 16px) / var(--cp-zoom) - 190px), 300px); }
   /* section heading sits in the step column, not centred above it, so the
      visual and the copy read as one row */
   .cp-steps__head { display: flex; flex-direction: column; padding: 8px 0 16px; }
@@ -1051,6 +1048,8 @@
           visual sits above its own card ────────────────────────────── */
     .cp-steps__grid { flex-direction: column !important; gap: 28px !important; }
     .cp-steps__stagewrap { position: static !important; width: 100% !important; }
+    /* the frame is not sticky here, so that travel is only a hole */
+    .cp-steps__list { padding-bottom: 0 !important; }
     .cp-steps__stage { width: 100% !important; height: 258px !important;
                        min-height: 0 !important; }
     /* Two things the desktop rule cannot give a 350px-wide frame.
