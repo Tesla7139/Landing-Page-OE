@@ -47,7 +47,9 @@
       "quote": "After using the app for a month, we’ve definitely noticed fewer customer support requests related to order updates. The experience for customers feels seamless, and the app has been stable without any major issues",
       "name": "Berry - Wellwithlife",
       "date": "May 20, 2026",
-      "rating": 5
+      "rating": 5,
+      "logo": "assets/reviews/wellwith.png",
+      "logoAlt": "Berry - Wellwithlife"
     },
     {
       "quote": "Works well, has helped us reduce our returns.",
@@ -80,14 +82,18 @@
       "quote": "This app solved a real problem for us. Earlier, our team had to manually handle cancellations and changes, which was time-consuming. Now customers can do it themselves within a set window. The app is easy to configure and does what it says. No complaints so far.",
       "name": "Wow - Wellwithlife",
       "date": "May 13, 2026",
-      "rating": 5
+      "rating": 5,
+      "logo": "assets/reviews/wellwith.png",
+      "logoAlt": "Wow - Wellwithlife"
     },
     {
       "quote": "Really useful tool if you deal with frequent order changes. We especially like the flexibility it gives customers without affecting our operations. The UI is straightforward, and the team behind it seems quite proactive. Looking forward to exploring more of the upsell features.",
       "name": "MIRAGGIO",
       "date": "May 12, 2026",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/miraggio.png",
+      "logoAlt": "MIRAGGIO"
     },
     {
       "quote": "Nice little app. Clickpost made it easy for customers to edit orders without contacting us all the time. Setup was quick, and Mohit was super helpful when we had a small issue. Solid support and does the job well.",
@@ -137,7 +143,9 @@
       "name": "HoneyVeda",
       "date": "April 2, 2026",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/honeyveda.png",
+      "logoAlt": "HoneyVeda"
     },
     {
       "quote": "Simple, does exactly what we needed. Customers can fix their own orders without reaching out, and it’s honestly saved our team a lot of time.",
@@ -279,7 +287,9 @@
       "name": "Tuco Kids",
       "date": "November 19, 2025",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/tuco-kids.png",
+      "logoAlt": "Tuco Kids"
     },
     {
       "quote": "The app has been very useful to us. We were looking something like this to reduce our support enquiries, and that is what is exactly did. Our customers love this feature and it makes everyone’s life just better. Plus they also have the upsell feature, which replaced my current upsell app! Worked flawlessly. It is an absolute no brainer to install this app. Loved the support provided by the ClickPost team during our setup process. Thanks Team ClickPost.",
@@ -354,7 +364,9 @@
       "name": "Gully Labs",
       "date": "August 28, 2025",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/gully-labs.png",
+      "logoAlt": "Gully Labs"
     },
     {
       "quote": "Great experience and fantastic support from the ClickPost team with my questions. Our top customer service requests are for order edits, so this immediately cut support tickets making it easy to quantify the ROI. A lot of customization features and various upsell tools are included in the app that I can implement to increase AOV as well. I highly recommend it.",

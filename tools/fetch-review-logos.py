@@ -58,6 +58,14 @@ HINTS = {
     "Bacca Bucci": ["baccabucci.com"],
     "Tuco Kids": ["tucokids.com", "tuco.in"],
     "French Accent": ["frenchaccent.in", "frenchaccent.com"],
+    "bearhouseindia": ["bearhouse.in", "bearhouseindia.com", "bearhouse.co.in"],
+    "HoneyVeda": ["honeyveda.in", "honeyveda.co.in"],
+    "MIRAGGIO": ["miraggio.in", "miraggiolife.com", "miraggio.co.in"],
+    "Pinacolada": ["pinacolada.in", "pinacoladaindia.com", "shoppinacolada.com"],
+    "Paradyes": ["paradyes.in", "paradyes.com"],
+    "Gladful": ["gladful.com", "gladful.in"],
+    "Tuco Kids": ["tucokids.com", "tucointelligentwear.com"],
+    "sanskritagain": ["sanskritagain.com", "sanskritagain.in"],
 }
 TLDS = [".com", ".in", ".co.in", ".store"]
 
@@ -116,6 +124,18 @@ def absolute(src, base):
     return root + ("" if src.startswith("/") else "/") + src
 
 
+def upscale(url):
+    """A Shopify CDN asset asked for at favicon size is the same file as
+    the store's logo asked for at any other size. Drop the sizing query
+    and request something usable."""
+    if "/cdn/shop/" not in url and "cdn.shopify.com" not in url:
+        return url
+    base = url.split("?")[0]
+    m = re.search(r"[?&]v=(\d+)", url)
+    q = "?width=600" + (("&v=" + m.group(1)) if m else "")
+    return base + q
+
+
 def candidates(html, base):
     out = []
     for m in re.finditer(r"<img[^>]+>", html[:250000], re.I):
@@ -137,6 +157,7 @@ def candidates(html, base):
             out.append(("touch", absolute(href.group(1), base)))
         elif "icon" in rel:
             out.append(("icon", absolute(href.group(1), base)))
+    out = [(k, upscale(u)) for k, u in out]
     rank = {"logo": 0, "touch": 1, "icon": 2}
     out.sort(key=lambda p: rank[p[0]])
     return out
