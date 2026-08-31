@@ -125,32 +125,34 @@
                 font-weight: 700; color: #252525; }
   .cp-cs__where { font-size: 10.5px; font-weight: 600;
                   letter-spacing: 0.02em; color: #D97706; }
-  /* ── Globe ──────────────────────────────────────
-     Canvas, because it is a few thousand dots redrawn every frame - as
-     elements that would be a few thousand DOM nodes moving at 60fps. */
-  .cp-globe { position: relative; width: 380px; height: 380px; flex-shrink: 0; }
-  .cp-globe canvas { display: block; width: 380px; height: 380px; }
-  .cp-globe__flag { position: absolute; left: 0; top: 0; display: flex;
-                    flex-direction: row; gap: 7px; align-items: center;
-                    padding: 5px 11px 5px 8px; border-radius: 9999px;
-                    background: #ffffff; border: 1px solid #E5E7EB;
-                    box-shadow: 0 6px 18px rgba(10, 22, 40, 0.14);
-                    font-size: 12.5px; font-weight: 600; color: #252525;
-                    white-space: nowrap; pointer-events: none;
-                    opacity: 0; transform: translate(-50%, -140%);
-                    transition: opacity 200ms ease-out; }
-  .cp-globe[data-pin="on"] .cp-globe__flag { opacity: 1; }
-  .cp-globe__flag em { font-style: normal; font-size: 15px; line-height: 1; }
-  .cp-lang__row { display: flex; flex-direction: row; gap: 52px;
-                  align-items: center; align-self: stretch;
-                  justify-content: center; }
-  /* the chips are buttons now, so they need the type reset back */
-  .cp-lang__chip { border: 1px solid #E5E7EB; background: #ffffff;
-                   cursor: pointer; font-family: inherit; }
-  .cp-lang__chip[aria-pressed="true"] { border-color: #155FFF;
-                                        background: #F5F9FF; }
-  .cp-lang__chip[aria-pressed="true"] b { color: #155FFF; }
+  /* ── Globe ─────────────────────────────────────
+     Sits behind the content, so it is dialled back with opacity - at full
+     strength the dots fight the type over them. Canvas, because it is a
+     few thousand dots redrawn every frame; as elements that would be a
+     few thousand DOM nodes moving at 60fps.
 
+     No z-index on the wrapper on purpose. With one it would open a
+     stacking context and trap the flag label underneath the buttons -
+     the label has to clear them, since a button can otherwise land on
+     exactly the pin the tap was for. */
+  .cp-globe { position: absolute; left: 50%; top: 50%; width: 620px;
+              height: 620px; margin: -310px 0 0 -310px;
+              pointer-events: none; }
+  .cp-globe canvas { display: block; width: 620px; height: 620px;
+                     opacity: 0.55; position: relative; z-index: 0; }
+  /* parked in the globe's clear top-right rather than on the pin: the pin
+     sits at the centre, which is where the heading and buttons are */
+  .cp-globe__flag { position: absolute; right: 34px; top: 84px; z-index: 3;
+                    display: flex; flex-direction: row; gap: 8px;
+                    align-items: center; padding: 6px 14px 6px 10px;
+                    border-radius: 9999px; background: #0A1628;
+                    box-shadow: 0 8px 22px rgba(10, 22, 40, 0.28);
+                    font-size: 13px; font-weight: 600; color: #ffffff;
+                    white-space: nowrap; pointer-events: none;
+                    opacity: 0;
+                    transition: opacity 220ms ease-out; }
+  .cp-globe[data-pin="on"] .cp-globe__flag { opacity: 1; }
+  .cp-globe__flag em { font-style: normal; font-size: 16px; line-height: 1; }
   /* ── Languages ───────────────────────────────────
      Poppins carries none of the CJK, Greek or Cyrillic in this list, so the
      chips name a fallback stack. Without one the browser resolves the
@@ -160,15 +162,28 @@
                    border-radius: 9999px; border: 1px solid #C3D9FF;
                    background: linear-gradient(to bottom, #F5F9FF, #E7F0FF);
                    color: #0A3FCC; font-size: 15px; font-weight: 600; }
-  .cp-lang__wrap { display: flex; flex-direction: row; flex-wrap: wrap; gap: 12px;
-                   justify-content: center; align-self: stretch; }
-  .cp-lang__chip { display: inline-flex; flex-direction: row; gap: 8px;
-                   align-items: baseline; height: 46px; padding: 0 20px;
-                   border-radius: 9999px; border: 1px solid #E5E7EB;
-                   background: #ffffff;
-                   font-family: Poppins, "Noto Sans", "Segoe UI", sans-serif; }
-  .cp-lang__chip b { font-size: 16px; font-weight: 600; color: #252525; }
-  .cp-lang__chip span { font-size: 13px; color: #8A8F9B; }
+  .cp-lang__wrap { display: flex; flex-direction: row; flex-wrap: wrap;
+                   gap: 12px; justify-content: center; max-width: 780px; }
+  /* translucent with a blur, so the globe reads through rather than being
+     blocked out; the picked one fills in */
+  .cp-lang__chip { display: inline-flex; align-items: center; height: 44px;
+                   padding: 0 22px; border-radius: 9999px;
+                   border: 1px solid rgba(16, 24, 40, 0.10);
+                   background: rgba(255, 255, 255, 0.72);
+                   -webkit-backdrop-filter: blur(7px);
+                           backdrop-filter: blur(7px);
+                   box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+                   font-family: inherit; font-size: 15px; font-weight: 500;
+                   color: #252525; white-space: nowrap; cursor: pointer;
+                   transition: transform 160ms ease-out, box-shadow 160ms ease-out,
+                               border-color 160ms ease-out, background 160ms ease-out; }
+  .cp-lang__chip:hover { transform: translateY(-2px);
+                         border-color: rgba(21, 95, 255, 0.35);
+                         box-shadow: 0 8px 20px rgba(21, 95, 255, 0.16); }
+  .cp-lang__chip:focus-visible { outline: 2px solid #155FFF; outline-offset: 2px; }
+  .cp-lang__chip[aria-pressed="true"] { background: #155FFF;
+                                        border-color: #155FFF; color: #ffffff;
+                                        box-shadow: 0 10px 24px rgba(21, 95, 255, 0.30); }
 
   /* ── Built for store operations ───────────────────────
      This and the Used-by band share one surface, so there is no seam
@@ -833,11 +848,12 @@
 
     /* ── Languages ──────────────────────────────────────────────────── */
     [data-screen-label="Languages"] { padding: 56px 20px !important; }
-    .cp-lang__row { flex-direction: column !important; gap: 26px !important; }
-    /* the canvas is authored at 380 CSS px; shrinking the element scales
-       the bitmap down, which is what the 2x backing store is for */
-    .cp-globe { width: 288px !important; height: 288px !important; }
-    .cp-globe canvas { width: 288px !important; height: 288px !important; }
+    /* the globe stays behind the buttons, just smaller */
+    .cp-globe { width: 330px !important; height: 330px !important;
+                margin-left: -165px !important; top: 300px !important; }
+    .cp-globe canvas { width: 330px !important; height: 330px !important; }
+    .cp-lang__chip { height: 38px !important; padding: 0 15px !important;
+                     font-size: 13.5px !important; }
     .cp-lang__wrap { gap: 8px !important; }
     .cp-lang__chip { height: 38px !important; padding: 0 14px !important;
                      gap: 6px !important; }
@@ -2660,38 +2676,36 @@
   <!-- GLOBEDOTS:END -->
 
   <!-- ── Languages ─────────────────────── -->
-  <section style="background: #ffffff; padding: 96px 112px; display: flex; flex-direction: column; gap: 32px; align-items: center;" data-screen-label="Languages">
-    <div style="display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center;">
+  <section style="position: relative; background: #ffffff; padding: 132px 112px 140px; display: flex; flex-direction: column; gap: 30px; align-items: center; overflow: hidden;" data-screen-label="Languages">
+    <div class="cp-globe" data-pin="{{ globePin }}">
+      <canvas id="cp-globe-canvas" width="1240" height="1240" role="img" aria-label="A globe of land dots, turning; picking a language moves it to that country"></canvas>
+      <span class="cp-globe__flag" id="cp-globe-flag"></span>
+    </div>
+    <div style="position: relative; z-index: 1; display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center;">
       <h2 style="margin: 0; font-size: 40px; font-weight: 500; line-height: 50px; letter-spacing: -0.01em; color: #252525;">In your shopper’s language</h2>
       <p style="margin: 0; width: 620px; font-size: 17px; line-height: 26px; color: #52525B;">The edit flow renders in the language your customer reads. Pin one for the store, or let it follow whatever locale they arrive with.</p>
     </div>
-    <span class="cp-lang__auto"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"></path></svg> Automatic — based on the customer’s locale</span>
-    <div class="cp-lang__row">
-      <div class="cp-globe" data-pin="{{ globePin }}">
-        <canvas id="cp-globe-canvas" width="760" height="760" role="img" aria-label="A globe of land dots that turns to the country of whichever language you pick"></canvas>
-        <span class="cp-globe__flag" id="cp-globe-flag"></span>
-      </div>
-      <div class="cp-lang__wrap">
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang0 }}" onClick="{{ pickLang0 }}"><b>English</b></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang1 }}" onClick="{{ pickLang1 }}"><b>Español</b><span>Spanish</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang2 }}" onClick="{{ pickLang2 }}"><b>Français</b><span>French</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang3 }}" onClick="{{ pickLang3 }}"><b>Italiano</b><span>Italian</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang4 }}" onClick="{{ pickLang4 }}"><b>Nederlands</b><span>Dutch</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang5 }}" onClick="{{ pickLang5 }}"><b>Deutsch</b><span>German</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang6 }}" onClick="{{ pickLang6 }}"><b>简体中文</b><span>Chinese</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang7 }}" onClick="{{ pickLang7 }}"><b>Hrvatski</b><span>Croatian</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang8 }}" onClick="{{ pickLang8 }}"><b>Slovenščina</b><span>Slovenian</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang9 }}" onClick="{{ pickLang9 }}"><b>Magyar</b><span>Hungarian</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang10 }}" onClick="{{ pickLang10 }}"><b>Română</b><span>Romanian</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang11 }}" onClick="{{ pickLang11 }}"><b>Български</b><span>Bulgarian</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang12 }}" onClick="{{ pickLang12 }}"><b>Ελληνικά</b><span>Greek</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang13 }}" onClick="{{ pickLang13 }}"><b>Polski</b><span>Polish</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang14 }}" onClick="{{ pickLang14 }}"><b>Dansk</b><span>Danish</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang15 }}" onClick="{{ pickLang15 }}"><b>Suomi</b><span>Finnish</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang16 }}" onClick="{{ pickLang16 }}"><b>Slovenčina</b><span>Slovak</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang17 }}" onClick="{{ pickLang17 }}"><b>Eesti</b><span>Estonian</span></button>
-        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang18 }}" onClick="{{ pickLang18 }}"><b>Lietuvių</b><span>Lithuanian</span></button>
-      </div>
+    <span class="cp-lang__auto" style="position: relative; z-index: 1;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"></path></svg> Automatic — based on the customer’s locale</span>
+    <div class="cp-lang__wrap" style="position: relative; z-index: 1;">
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang0 }}" onClick="{{ pickLang0 }}">English</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang1 }}" onClick="{{ pickLang1 }}">Spanish</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang2 }}" onClick="{{ pickLang2 }}">French</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang3 }}" onClick="{{ pickLang3 }}">Italian</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang4 }}" onClick="{{ pickLang4 }}">Dutch</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang5 }}" onClick="{{ pickLang5 }}">German</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang6 }}" onClick="{{ pickLang6 }}">Chinese</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang7 }}" onClick="{{ pickLang7 }}">Croatian</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang8 }}" onClick="{{ pickLang8 }}">Slovenian</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang9 }}" onClick="{{ pickLang9 }}">Hungarian</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang10 }}" onClick="{{ pickLang10 }}">Romanian</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang11 }}" onClick="{{ pickLang11 }}">Bulgarian</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang12 }}" onClick="{{ pickLang12 }}">Greek</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang13 }}" onClick="{{ pickLang13 }}">Polish</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang14 }}" onClick="{{ pickLang14 }}">Danish</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang15 }}" onClick="{{ pickLang15 }}">Finnish</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang16 }}" onClick="{{ pickLang16 }}">Slovak</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang17 }}" onClick="{{ pickLang17 }}">Estonian</button>
+        <button type="button" class="cp-lang__chip" aria-pressed="{{ lang18 }}" onClick="{{ pickLang18 }}">Lithuanian</button>
     </div>
   </section>
 
@@ -3058,7 +3072,7 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     if (this.stepObserver) this.stepObserver.disconnect();
-    if (this.globeRAF) cancelAnimationFrame(this.globeRAF);
+    if (Component.globeRAF) cancelAnimationFrame(Component.globeRAF);
     if (this.ringRAF) cancelAnimationFrame(this.ringRAF);
     if (this.onEsc) document.removeEventListener("keydown", this.onEsc);
     try { document.body.style.overflow = ""; } catch (e) {}
@@ -3073,36 +3087,41 @@ class Component extends DCLogic {
   // there is no request and no point-in-polygon work at load.
   static GLOBE = [
     { flag: "🇬🇧", label: "English", lat: 51.51, lon: -0.13 },
-    { flag: "🇪🇸", label: "Español", lat: 40.42, lon: -3.70 },
-    { flag: "🇫🇷", label: "Français", lat: 48.86, lon: 2.35 },
-    { flag: "🇮🇹", label: "Italiano", lat: 41.90, lon: 12.50 },
-    { flag: "🇳🇱", label: "Nederlands", lat: 52.37, lon: 4.90 },
-    { flag: "🇩🇪", label: "Deutsch", lat: 52.52, lon: 13.40 },
-    { flag: "🇨🇳", label: "简体中文", lat: 39.90, lon: 116.41 },
-    { flag: "🇭🇷", label: "Hrvatski", lat: 45.81, lon: 15.98 },
-    { flag: "🇸🇮", label: "Slovenščina", lat: 46.06, lon: 14.51 },
-    { flag: "🇭🇺", label: "Magyar", lat: 47.50, lon: 19.04 },
-    { flag: "🇷🇴", label: "Română", lat: 44.43, lon: 26.10 },
-    { flag: "🇧🇬", label: "Български", lat: 42.70, lon: 23.32 },
-    { flag: "🇬🇷", label: "Ελληνικά", lat: 37.98, lon: 23.73 },
-    { flag: "🇵🇱", label: "Polski", lat: 52.23, lon: 21.01 },
-    { flag: "🇩🇰", label: "Dansk", lat: 55.68, lon: 12.57 },
-    { flag: "🇫🇮", label: "Suomi", lat: 60.17, lon: 24.94 },
-    { flag: "🇸🇰", label: "Slovenčina", lat: 48.15, lon: 17.11 },
-    { flag: "🇪🇪", label: "Eesti", lat: 59.44, lon: 24.75 },
-    { flag: "🇱🇹", label: "Lietuvių", lat: 54.69, lon: 25.28 },
+    { flag: "🇪🇸", label: "Spanish", lat: 40.42, lon: -3.70 },
+    { flag: "🇫🇷", label: "French", lat: 48.86, lon: 2.35 },
+    { flag: "🇮🇹", label: "Italian", lat: 41.90, lon: 12.50 },
+    { flag: "🇳🇱", label: "Dutch", lat: 52.37, lon: 4.90 },
+    { flag: "🇩🇪", label: "German", lat: 52.52, lon: 13.40 },
+    { flag: "🇨🇳", label: "Chinese", lat: 39.90, lon: 116.41 },
+    { flag: "🇭🇷", label: "Croatian", lat: 45.81, lon: 15.98 },
+    { flag: "🇸🇮", label: "Slovenian", lat: 46.06, lon: 14.51 },
+    { flag: "🇭🇺", label: "Hungarian", lat: 47.50, lon: 19.04 },
+    { flag: "🇷🇴", label: "Romanian", lat: 44.43, lon: 26.10 },
+    { flag: "🇧🇬", label: "Bulgarian", lat: 42.70, lon: 23.32 },
+    { flag: "🇬🇷", label: "Greek", lat: 37.98, lon: 23.73 },
+    { flag: "🇵🇱", label: "Polish", lat: 52.23, lon: 21.01 },
+    { flag: "🇩🇰", label: "Danish", lat: 55.68, lon: 12.57 },
+    { flag: "🇫🇮", label: "Finnish", lat: 60.17, lon: 24.94 },
+    { flag: "🇸🇰", label: "Slovak", lat: 48.15, lon: 17.11 },
+    { flag: "🇪🇪", label: "Estonian", lat: 59.44, lon: 24.75 },
+    { flag: "🇱🇹", label: "Lithuanian", lat: 54.69, lon: 25.28 },
   ];
 
   startGlobe() {
+    // Stop any loop from an earlier mount. Two loops drawing one canvas
+    // from two state objects is what hid the pin: the tap set it on one,
+    // the loop doing the drawing held the other.
+    if (Component.globeRAF) cancelAnimationFrame(Component.globeRAF);
     const cv = document.getElementById("cp-globe-canvas");
     const tag = document.getElementById("cp-globe-dots");
-    const flag = document.getElementById("cp-globe-flag");
     if (!cv || !tag || !cv.getContext) return;
     let dots;
     try { dots = JSON.parse(tag.textContent); } catch (e) { return; }
     const ctx = cv.getContext("2d");
-    const CSS = 380, R = 150, cx = CSS / 2, cy = CSS / 2;
-    // the canvas is authored at 2x so the dots stay crisp
+    // read off the element, so the phone override needs no second copy
+    const CSS = cv.clientWidth || 620;
+    const R = Math.round(CSS * 0.40), cx = CSS / 2, cy = CSS / 2;
+    const DOT = Math.max(1.05, 1.45 * CSS / 380);
     ctx.scale(cv.width / CSS, cv.height / CSS);
 
     let reduced = false;
@@ -3110,15 +3129,25 @@ class Component extends DCLogic {
       reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     } catch (e) {}
 
-    // rotation, in degrees: the point at (lon0, lat0) sits dead centre
-    this.globe = { lon0: -20, lat0: 18, toLon: null, toLat: null,
-                   fromLon: 0, fromLat: 0, t: 1, pin: null };
-    const g = this.globe;
+    // The loop owns rotation. A tap only posts Component.want plus a
+    // sequence number; the loop reads it on its next frame.
+    let lon0 = -20, lat0 = 18, pin = null;
+    let fromLon = 0, fromLat = 0, toLon = 0, toLat = 0, tw = 1;
+    let seen = Component.wantSeq || 0;
     const RAD = Math.PI / 180;
 
-    // lon/lat to canvas, plus whether it is on the near face
+    // looked up when needed: a re-render can swap this node, and writing
+    // a position onto a detached one loses it with no error
+    let flagEl = null;
+    const getFlag = () => {
+      if (!flagEl || !flagEl.isConnected) {
+        flagEl = document.getElementById("cp-globe-flag");
+      }
+      return flagEl;
+    };
+
     const project = (lon, lat) => {
-      const p = lat * RAD, l = (lon - g.lon0) * RAD, p0 = g.lat0 * RAD;
+      const p = lat * RAD, l = (lon - lon0) * RAD, p0 = lat0 * RAD;
       const cosc = Math.sin(p0) * Math.sin(p)
                  + Math.cos(p0) * Math.cos(p) * Math.cos(l);
       if (cosc <= 0) return null;
@@ -3145,8 +3174,6 @@ class Component extends DCLogic {
 
     const draw = () => {
       ctx.clearRect(0, 0, CSS, CSS);
-
-      // the sphere
       ctx.beginPath();
       ctx.arc(cx, cy, R, 0, 2 * Math.PI);
       ctx.fillStyle = "#F7F9FE";
@@ -3155,89 +3182,90 @@ class Component extends DCLogic {
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // graticule
       ctx.strokeStyle = "#E9EDF6";
       for (let lon = -180; lon < 180; lon += 30) ring(lon, lon, -85, 85, 4);
       for (let lat = -60; lat <= 60; lat += 30) ring(-180, 180, lat, lat, 4);
 
-      // land
       ctx.fillStyle = "#C3CBDA";
       for (let i = 0; i < dots.length; i++) {
-        const pt = project(dots[i][0], dots[i][1]);
-        if (!pt) continue;
+        const q = project(dots[i][0], dots[i][1]);
+        if (!q) continue;
         ctx.beginPath();
-        ctx.arc(pt[0], pt[1], 1.45, 0, 2 * Math.PI);
+        ctx.arc(q[0], q[1], DOT, 0, 2 * Math.PI);
         ctx.fill();
       }
 
-      // the pin, and its label parked on top of it
-      if (g.pin) {
-        const pt = project(g.pin.lon, g.pin.lat);
-        if (pt) {
-          ctx.beginPath();
-          ctx.arc(pt[0], pt[1], 9, 0, 2 * Math.PI);
-          ctx.fillStyle = "rgba(21, 95, 255, 0.16)";
-          ctx.fill();
-          ctx.beginPath();
-          ctx.arc(pt[0], pt[1], 4, 0, 2 * Math.PI);
-          ctx.fillStyle = "#155FFF";
-          ctx.fill();
-          if (flag) {
-            flag.style.left = pt[0] + "px";
-            flag.style.top = pt[1] + "px";
-          }
-        }
+      const fl = getFlag();
+      if (!pin) {
+        if (fl) fl.style.opacity = "0";
+        return;
       }
+      const pt = project(pin.lon, pin.lat);
+      if (!pt) {
+        if (fl) fl.style.opacity = "0";
+        return;
+      }
+      ctx.beginPath();
+      ctx.arc(pt[0], pt[1], 10, 0, 2 * Math.PI);
+      ctx.fillStyle = "rgba(21, 95, 255, 0.18)";
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(pt[0], pt[1], 4.5, 0, 2 * Math.PI);
+      ctx.fillStyle = "#155FFF";
+      ctx.fill();
+      // the label lives in the corner, so only its visibility changes here
+      if (fl) fl.style.opacity = "1";
     };
 
-    // ease the turn rather than snapping, so you can see which way it went
-    const ease = (t) => (t < 0.5 ? 4 * t * t * t
-                                 : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const ease = (x) => (x < 0.5 ? 4 * x * x * x
+                                : 1 - Math.pow(-2 * x + 2, 3) / 2);
     let last = null;
     const frame = (now) => {
       const dt = last === null ? 16 : Math.min(48, now - last);
       last = now;
-      if (g.t < 1) {
-        g.t = Math.min(1, g.t + dt / 850);
-        const e = ease(g.t);
-        g.lon0 = g.fromLon + (g.toLon - g.fromLon) * e;
-        g.lat0 = g.fromLat + (g.toLat - g.fromLat) * e;
-      } else if (!g.pin && !reduced) {
-        g.lon0 = (g.lon0 + dt * 0.006) % 360;
+
+      if ((Component.wantSeq || 0) !== seen) {
+        seen = Component.wantSeq || 0;
+        const want = Component.want;
+        if (!want) {
+          pin = null;
+          tw = 1;
+        } else {
+          pin = { lat: want.lat, lon: want.lon };
+          fromLon = lon0; fromLat = lat0;
+          const d = ((want.lon - lon0 + 540) % 360) - 180;   // short way round
+          toLon = lon0 + d; toLat = want.lat;
+          tw = 0;
+          const fl = getFlag();
+          if (fl) fl.innerHTML = "<em>" + want.flag + "</em>" + want.label;
+        }
+      }
+
+      if (tw < 1) {
+        tw = Math.min(1, tw + dt / 850);
+        const e = ease(tw);
+        lon0 = fromLon + (toLon - fromLon) * e;
+        lat0 = fromLat + (toLat - fromLat) * e;
+      } else if (!pin && !reduced) {
+        lon0 = (lon0 + dt * 0.006) % 360;
       }
       draw();
-      this.globeRAF = requestAnimationFrame(frame);
+      Component.globeRAF = requestAnimationFrame(frame);
     };
-    this.globeRAF = requestAnimationFrame(frame);
+    Component.globeRAF = requestAnimationFrame(frame);
   }
 
   pickLang(i) {
     const t = Component.GLOBE[i];
     if (!t) return;
-    // setState flushes synchronously here, so the decision has to be taken
-    // before it: reading this.state afterwards sees the new value, and every
-    // first tap looked like a second one
+    // setState flushes synchronously here - support.js wires onClick as a
+    // native listener, outside React's batching - so the decision is taken
+    // before it, or every first tap reads as a second one
     const wasOpen = this.state.lang === i;
     this.setState({ lang: wasOpen ? -1 : i });
-    const g = this.globe;
-    if (!g) return;
-    if (wasOpen) {
-      // tapping the open one lets the globe drift again
-      g.pin = null;
-      const f = document.getElementById("cp-globe-flag");
-      if (f) f.innerHTML = "";
-      return;
-    }
-    g.pin = { lat: t.lat, lon: t.lon };
-    g.fromLon = g.lon0; g.fromLat = g.lat0;
-    // take the short way round
-    let d = ((t.lon - g.lon0 + 540) % 360) - 180;
-    g.toLon = g.lon0 + d; g.toLat = t.lat;
-    g.t = 0;
-    const f = document.getElementById("cp-globe-flag");
-    if (f) {
-      f.innerHTML = "<em>" + t.flag + "</em>" + t.label;
-    }
+    Component.want = wasOpen ? null
+      : { lat: t.lat, lon: t.lon, flag: t.flag, label: t.label };
+    Component.wantSeq = (Component.wantSeq || 0) + 1;
   }
   // ── Case-study ring ──────────────────────────────
   // The transform goes straight onto the element. Through state this would
