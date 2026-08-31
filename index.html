@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="components/fig-assets.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Inter:wght@400;500;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
   html, body { margin: 0; padding: 0; background: #ffffff; }
   * { box-sizing: border-box; }
@@ -196,7 +196,59 @@
   .cp-lang__chip[aria-pressed="true"] {
     background-color: #155FFF; border-color: #155FFF; color: #ffffff;
     box-shadow: 0 10px 24px rgba(21, 95, 255, 0.28); }
-
+
+  /* ── Built for Shopify ───────────────────────────────
+     The announcement art rebuilt in markup. The gem is the badge's own
+     vector scaled up rather than a trace of the render, so the three marks
+     on this page - listing card, section pill, banner - are one piece of
+     artwork. The rays sit in a viewBox centred on the gem, so both are
+     placed by the same two offsets and stay concentric at any size. */
+  .cp-bfs__banner { position: relative; width: 1216px; height: 320px;
+                    border-radius: 16px; overflow: hidden; background: #123A5C;
+                    padding: 118px 64px 44px; display: flex;
+                    align-items: stretch; }
+  .cp-bfs__rays { position: absolute; left: 72%; top: 50%; width: 1400px;
+                  height: 1400px; margin: -700px 0 0 -700px; }
+  .cp-bfs__gemwrap { position: absolute; left: 72%; top: 50%; width: 260px;
+                     height: 228px; margin: -114px 0 0 -130px; }
+  .cp-bfs__gem { display: block; width: 260px; height: 228px;
+                 filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.30)); }
+  .cp-bfs__spark { position: absolute; left: 24px; top: -4px; width: 42px;
+                   height: 42px; }
+  .cp-bfs__copy { position: relative; z-index: 1; display: flex;
+                  flex-direction: column; justify-content: space-between; }
+  .cp-bfs__title { margin: 0; font-size: 54px; font-weight: 700; line-height: 64px;
+                   letter-spacing: -0.02em; color: #ffffff; }
+  .cp-bfs__lockup { display: flex; flex-direction: row; gap: 10px;
+                    align-items: center; color: #ffffff; }
+  .cp-bfs__lockup b { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; }
+  .cp-bfs__lockup i { font-size: 30px; font-weight: 300; font-style: italic;
+                      letter-spacing: -0.01em; }
+  .cp-bfs__why { width: 1216px; display: flex; flex-direction: column;
+                 align-items: center; }
+  .cp-bfs__whytitle { margin: 0; max-width: 780px; text-align: center;
+                      font-size: 32px; font-weight: 500; line-height: 42px;
+                      letter-spacing: -0.01em; color: #252525; }
+  .cp-bfs__whylede { margin: 14px 0 0; max-width: 720px; text-align: center;
+                     font-size: 17px; line-height: 27px; color: #52525B; }
+  .cp-bfs__cards { display: grid; grid-template-columns: repeat(4, 1fr);
+                   gap: 16px; width: 100%; margin-top: 36px; }
+  .cp-bfs__card { display: flex; flex-direction: column; align-items: flex-start;
+                  padding: 24px 22px 26px; border-radius: 14px;
+                  border: 1px solid #E7EBF3; background: #ffffff;
+                  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04); }
+  .cp-bfs__num { font-size: 12px; font-weight: 600; letter-spacing: 0.10em;
+                 color: #155FFF; }
+  .cp-bfs__card b { margin-top: 10px; font-size: 16px; font-weight: 600;
+                    line-height: 23px; color: #252525; }
+  .cp-bfs__card p { margin: 8px 0 0; font-size: 14px; line-height: 22px;
+                    color: #667085; }
+  .cp-bfs__link { display: inline-flex; gap: 8px; align-items: center;
+                  margin-top: 30px; height: 46px; padding: 0 22px;
+                  border-radius: 8px; border: 1px solid #D6E0F0;
+                  background: #ffffff; font-size: 15px; font-weight: 500;
+                  color: #155FFF; }
+  .cp-bfs__link:hover { border-color: #155FFF; color: #0A3FCC; }
   /* ── Built for store operations ───────────────────────
      This and the Used-by band share one surface, so there is no seam
      between them - the same shape getamply.co uses, where one .map
@@ -842,8 +894,33 @@
       height: 56px !important; align-self: center !important; }
 
     /* ── Built for Shopify ──────────────────────────────────────────── */
-    [data-screen-label="Built for Shopify"] { padding: 0 20px 48px !important; }
-    [data-screen-label="Built for Shopify"] > div { padding: 32px 24px !important; }
+    [data-screen-label="Built for Shopify"] { padding: 0 20px 56px !important;
+                                              gap: 32px !important; }
+    .cp-bfs__banner { width: 100% !important; height: auto !important;
+                      padding: 32px 24px 168px !important;
+                      border-radius: 18px !important; }
+    .cp-bfs__copy { justify-content: flex-start; }
+    .cp-bfs__title { font-size: 34px !important; line-height: 42px !important; }
+    .cp-bfs__lockup { margin-top: 18px; }
+    .cp-bfs__lockup b, .cp-bfs__lockup i { font-size: 22px !important; }
+    /* the gem drops below the words rather than sitting beside them; the
+       rays follow it, since their centre is placed by the same offsets */
+    .cp-bfs__gemwrap { left: 50% !important; top: auto !important;
+                       bottom: 24px !important; width: 152px !important;
+                       height: 133px !important; margin: 0 0 0 -76px !important; }
+    .cp-bfs__gem { width: 152px !important; height: 133px !important; }
+    .cp-bfs__spark { left: 14px !important; top: -3px !important;
+                     width: 26px !important; height: 26px !important; }
+    .cp-bfs__rays { left: 50% !important; top: auto !important;
+                    bottom: -610px !important; margin: 0 0 0 -700px !important; }
+    .cp-bfs__why { width: 100% !important; }
+    .cp-bfs__whytitle { font-size: 26px !important; line-height: 34px !important; }
+    .cp-bfs__whylede { font-size: 15.5px !important; line-height: 25px !important; }
+    .cp-bfs__cards { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))
+                     !important; margin-top: 26px !important; }
+    /* the section centres its text on a phone, which left the number on one
+       edge and the sentence it belongs to in the middle */
+    .cp-bfs__card { text-align: left !important; }
 
     /* ── FAQ ────────────────────────────────────────────────────────── */
     [data-screen-label="FAQ"] { padding: 16px 20px 64px !important; }
@@ -2769,22 +2846,42 @@
 
 
   <!-- ── Built for Shopify ────────────────────────────── -->
-  <section style="padding: 0 112px 80px; display: flex; flex-direction: column; align-items: center;" data-screen-label="Built for Shopify">
-    <div style="align-self: stretch; border-radius: 12px; background: #EEF3FF; border: 1px solid #D6E4FF; padding: 48px 56px; display: flex; flex-direction: row; gap: 48px; justify-content: space-between; align-items: center;">
-      <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
-        <span style="display: flex; flex-direction: row; gap: 8px; align-items: center; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #155FFF;"><svg width="14" height="14" viewBox="0 0 24 24" fill="#155FFF" aria-hidden="true" style="flex-shrink: 0;"><path d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z"></path></svg>Shopify App Store</span>
-        <h3 style="margin: 0; font-size: 32px; font-weight: 500; line-height: 40px; letter-spacing: -0.01em; color: #252525;">Built for Shopify — the <span style="color: #155FFF;">highest level</span> an app can reach.</h3>
-        <p style="margin: 0; max-width: 620px; font-size: 18px; line-height: 28px; color: #52525B;">Shopify grants the status only to apps that clear its bar on five quality standards, and it is re-evaluated on a regular basis — it has to be kept, not just earned.</p>
-        <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px; margin-top: 4px;">
-          <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 9999px; background: #ffffff; border: 1px solid #D6E4FF; font-size: 12px; font-weight: 500; color: #52525B; white-space: nowrap;">Safety, security, and reliability</span>
-          <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 9999px; background: #ffffff; border: 1px solid #D6E4FF; font-size: 12px; font-weight: 500; color: #52525B; white-space: nowrap;">Performance</span>
-          <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 9999px; background: #ffffff; border: 1px solid #D6E4FF; font-size: 12px; font-weight: 500; color: #52525B; white-space: nowrap;">Ease of use</span>
-          <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 9999px; background: #ffffff; border: 1px solid #D6E4FF; font-size: 12px; font-weight: 500; color: #52525B; white-space: nowrap;">Proven usefulness</span>
-          <span style="display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 9999px; background: #ffffff; border: 1px solid #D6E4FF; font-size: 12px; font-weight: 500; color: #52525B; white-space: nowrap;">App info and benefits</span>
-        </div>
-      </div>
-      <a href="https://shopify.dev/docs/apps/launch/built-for-shopify#built-for-shopify-status" target="_blank" rel="noopener noreferrer" style="width: fit-content; height: 52px; flex-shrink: 0; border-radius: 4px; background: #ffffff; display: flex; flex-direction: row; gap: 8px; padding: 14px 24px; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; color: #155FFF; white-space: nowrap; box-shadow: 0 1px 3px rgba(10,22,40,0.06); transition: background 160ms ease-out, box-shadow 160ms ease-out;" style-hover="background: #ffffff; color: #0A3FCC;">See the criteria<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
-    </div>
+  <section style="padding: 0 112px 88px; display: flex; flex-direction: column; gap: 44px; align-items: center;" data-screen-label="Built for Shopify">
+    <div class="cp-bfs__banner">
+      <svg class="cp-bfs__rays" viewBox="-700 -700 1400 1400" fill="none" aria-hidden="true"><line x1="171.1" y1="18.0" x2="556.9" y2="58.5" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="160.6" y1="61.6" x2="280.1" y2="107.5" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="139.2" y1="101.1" x2="380.2" y2="276.3" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="108.2" y1="133.7" x2="402.8" y2="497.4" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="70.0" y1="157.1" x2="142.4" y2="319.7" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="26.9" y1="169.9" x2="81.3" y2="513.6" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-18.0" y1="171.1" x2="-63.8" y2="606.7" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="-61.6" y1="160.6" x2="-103.9" y2="270.7" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-101.1" y1="139.2" x2="-258.6" y2="356.0" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-133.7" y1="108.2" x2="-450.7" y2="365.0" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="-157.1" y1="70.0" x2="-301.5" y2="134.2" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-169.9" y1="26.9" x2="-493.8" y2="78.2" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-171.1" y1="-18.0" x2="-656.4" y2="-69.0" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="-160.6" y1="-61.6" x2="-289.4" y2="-111.1" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-139.2" y1="-101.1" x2="-364.1" y2="-264.5" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-108.2" y1="-133.7" x2="-377.6" y2="-466.3" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="-70.0" y1="-157.1" x2="-146.4" y2="-328.9" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-26.9" y1="-169.9" x2="-82.9" y2="-523.5" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="18.0" y1="-171.1" x2="64.8" y2="-616.6" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="61.6" y1="-160.6" x2="121.8" y2="-317.4" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="101.1" y1="-139.2" x2="288.0" y2="-396.4" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="133.7" y1="-108.2" x2="443.0" y2="-358.7" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="157.1" y1="-70.0" x2="292.3" y2="-130.2" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="169.9" y1="-26.9" x2="454.3" y2="-72.0" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line></svg>
+      <span class="cp-bfs__gemwrap"><svg class="cp-bfs__gem" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="m13 0-1 5-4 9 8-9.5L13 0ZM3 0l1 5 4 9-8-9.5L3 0Z" fill="#1495CC"></path><path d="m3 0 1 5 4 9 4-9 1-5H3Z" fill="#58B7DF"></path><path d="M8 14 4 5l-4-.5L8 14ZM8 14l4-9 4-.5L8 14Z" fill="#035F86"></path><path d="M8 5.5 4 5l4 9 4-9-4 .5Z" fill="#1495CC"></path><path d="m4 5 4-5 4 5-4.001.5L4 5Z" fill="#A9DEF4"></path><path d="M4 5 3 0h5L4 5ZM12 5l1-5H8l4 5Z" fill="#58B7DF"></path><path d="M4 5 3 0 0 4.5 4 5ZM12 5l1-5 3 4.5-4 .5Z" fill="#1495CC"></path></svg><svg class="cp-bfs__spark" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 0c.6 6.4 5 10.8 12 12-7 1.2-11.4 5.6-12 12-.6-6.4-5-10.8-12-12 7-1.2 11.4-5.6 12-12Z" fill="#ffffff"></path></svg></span>
+      <div class="cp-bfs__copy">
+        <h2 class="cp-bfs__title">Built for Shopify</h2>
+        <span class="cp-bfs__lockup"><svg width="30" height="34" viewBox="0 0 24 24" fill="#ffffff" aria-hidden="true" style="flex-shrink: 0;"><path d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z"></path></svg><b>shopify</b><i>app store</i></span>
+      </div>
+    </div>
+    <div class="cp-bfs__why">
+      <h3 class="cp-bfs__whytitle">What the badge changes for the merchants who install it</h3>
+      <p class="cp-bfs__whylede">Built for Shopify is the highest level an app can reach in the App Store. What matters is what Shopify checks before it grants one — and what it takes back if the app slips.</p>
+      <div class="cp-bfs__cards">
+        <div class="cp-bfs__card">
+          <span class="cp-bfs__num">01</span>
+          <b>Checked by Shopify, not claimed by us</b>
+          <p>The status is granted against five standards — safety and security, performance, ease of use, proven usefulness, and listing quality — and Shopify’s review team decides it, not the developer.</p>
+        </div>
+        <div class="cp-bfs__card">
+          <span class="cp-bfs__num">02</span>
+          <b>It has to be kept, not just earned</b>
+          <p>Status is re-reviewed. An app that stops meeting a standard gets 60 days to put it right before the badge is withdrawn, so the badge describes the app today rather than the app on the day it shipped.</p>
+        </div>
+        <div class="cp-bfs__card">
+          <span class="cp-bfs__num">03</span>
+          <b>It works inside the admin you already use</b>
+          <p>Ease of use is one of the five standards. Edits happen on the order page your team is already on — there is no second dashboard to open and no separate login to hand out.</p>
+        </div>
+        <div class="cp-bfs__card">
+          <span class="cp-bfs__num">04</span>
+          <b>Held to a measured performance bar</b>
+          <p>Performance is tested against Shopify’s own thresholds. An app that slows the admin or the storefront down does not keep the badge, so speed is a condition of it rather than a claim about it.</p>
+        </div>
+      </div>
+      <a class="cp-bfs__link" href="https://shopify.dev/docs/apps/launch/built-for-shopify#built-for-shopify-status" target="_blank" rel="noopener noreferrer">See the criteria<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+    </div>
   </section>
   <!-- ── Case studies ──────────────────── -->
   <section id="case-studies" style="background: #ffffff; padding: 88px 0 96px; display: flex; flex-direction: column; gap: 40px; align-items: center; scroll-margin-top: 104px;" data-screen-label="Case studies">
