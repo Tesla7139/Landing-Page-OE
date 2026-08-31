@@ -334,9 +334,9 @@
      light up while still pinned, height has to stay under about 520 on a
      900-tall viewport. 648 was over it, which is why the visual used to
      let go while step 3 was still the active one. */
-  .cp-steps__stagewrap { position: sticky; top: 96px; width: 560px;
+  .cp-steps__stagewrap { position: sticky; top: 96px; width: 480px;
                          flex-shrink: 0; }
-  .cp-steps__stage { position: relative; width: 560px; height: 560px;
+  .cp-steps__stage { position: relative; width: 480px; height: 560px;
                      border-radius: 20px; overflow: hidden;
                      background: linear-gradient(160deg, #F4F8FF 0%, #E6EEFF 55%, #D6E4FF 100%); }
   /* Every panel is forced to one shape so the four steps read as a set.
@@ -345,11 +345,9 @@
      Swap this for real artwork per step when it exists. */
   .cp-steps__visual > * {
     width: 452px !important; height: 304px !important;
-    transform: scale(1.14);
+    transform: scale(0.92);
     border-radius: 18px !important; flex-grow: 0 !important; flex-shrink: 0 !important;
-    overflow: hidden;
-    box-shadow: 13px 13px 0 0 #12224A,
-                0 20px 44px -26px rgba(10, 22, 40, 0.42) !important;
+    overflow: hidden; box-shadow: 0 20px 44px -26px rgba(10,22,40,0.42) !important;
   }
   .cp-steps__visual { position: absolute; inset: 0; display: flex;
                       align-items: center; justify-content: center;
