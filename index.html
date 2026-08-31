@@ -184,23 +184,26 @@
                 text-align: center; }
   .cp-ob__mid h2 { margin: 0; font-size: 42px; font-weight: 600; line-height: 52px;
                    letter-spacing: -0.01em; color: #ffffff; }
-  .cp-ob__stat { position: absolute; top: 92px; display: flex;
+  .cp-ob__stat { position: absolute; top: 92px; width: 448px; display: flex;
                  flex-direction: column; }
-  .cp-ob__stat--l { left: 0; width: 396px; align-items: flex-start;
-                    padding-left: 64px; }
-  .cp-ob__stat--r { right: 0; width: 396px; align-items: flex-end;
-                    padding-right: 64px; text-align: right; }
+  .cp-ob__stat--l { left: 0; align-items: flex-start;
+                    padding-left: 56px; }
+  .cp-ob__stat--r { right: 0; align-items: flex-end;
+                    padding-right: 56px; text-align: right; }
   .cp-ob__pill { height: 38px; padding: 0 20px; border-radius: 9999px;
                  border: 1px solid #D5D9E2; display: inline-flex;
                  align-items: center; font-size: 15px; color: #52525B;
                  white-space: nowrap; }
-  .cp-ob__rule { width: 396px; height: 1px; margin: 26px 0 0; background: #E5E7EB; }
-  .cp-ob__stat--l .cp-ob__rule { margin-left: -64px; }
-  .cp-ob__stat--r .cp-ob__rule { margin-right: -64px; }
-  .cp-ob__big { margin-top: 20px; font-size: 56px; font-weight: 500; line-height: 64px;
+  /* Length is bounded by the wedge, not the panel: at this y the slants
+     are at x=423 and x=1017, so 448 crossed both and drew a grey line
+     across the blue. 410 leaves about 13px of white before each. */
+  .cp-ob__rule { width: 410px; height: 1px; margin: 26px 0 0; background: #E5E7EB; }
+  .cp-ob__stat--l .cp-ob__rule { margin-left: -56px; }
+  .cp-ob__stat--r .cp-ob__rule { margin-right: -56px; }
+  .cp-ob__big { margin-top: 20px; font-size: 54px; font-weight: 500; line-height: 62px;
                 letter-spacing: -0.02em; color: #155FFF; white-space: nowrap; }
-  .cp-ob__cap { margin-top: 10px; font-size: 22px; font-weight: 500;
-                line-height: 30px; color: #252525; }
+  .cp-ob__cap { margin-top: 10px; font-size: 26px; font-weight: 500;
+                line-height: 34px; color: #252525; }
   .cp-ob__note { display: none; }
 
   /* ── Product video ────────────────────────────────────
