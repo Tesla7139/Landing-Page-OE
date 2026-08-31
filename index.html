@@ -69,61 +69,6 @@
   .cp-bs__who { margin-top: 8px; display: flex; flex-direction: row; align-items: baseline;
                 gap: 8px; font-size: 13px; font-weight: 700; color: var(--color-fg); }
 
-  /* ── Live demo on the visitor’s own store ────────────────────────────────────
-     The store lookup is server-side (the demo app scrapes the URL you
-     type), so this drives that app in an iframe rather than reimplementing
-     it. Origin is set once in the component script. */
-  .cp-spin__form { display: flex; flex-direction: row; align-items: center; gap: 6px;
-                   width: 100%; max-width: 420px; padding: 5px; border-radius: 9999px;
-                   background: #ffffff; border: 1px solid #D6E4FF;
-                   box-shadow: 0 10px 40px -14px rgba(15,15,25,0.16);
-                   transition: border-color 160ms ease-out, box-shadow 160ms ease-out; }
-  .cp-spin__form:focus-within { border-color: #155FFF;
-                                box-shadow: 0 14px 50px -14px rgba(21,95,255,0.3); }
-  .cp-spin__input { flex: 1; height: 44px; padding: 0 6px 0 18px; border: none; outline: none;
-                    background: transparent; font-family: Poppins, sans-serif; font-size: 15px;
-                    color: #252525; min-width: 0; }
-  .cp-spin__input::placeholder { color: #A7A7AB; }
-  .cp-spin__go { display: inline-flex; align-items: center; justify-content: center;
-                 width: 44px; height: 44px; flex-shrink: 0; border: none; border-radius: 9999px;
-                 cursor: pointer; background: #155FFF; color: #ffffff;
-                 transition: background 160ms ease-out, transform 160ms ease-out; }
-  .cp-spin__go:hover { background: #0A3FCC; }
-  .cp-spin__go:active { transform: scale(0.94); }
-
-  /* browser-chrome frame around the embedded demo */
-  /* the demo sits on a light-blue stage with the section's one tab hanging
-     into it from the top, the way clickpost.ai frames the same panel */
-  .cp-spin__band { position: relative; width: 736px; flex-shrink: 0; align-self: center;
-                   border-radius: 20px; padding: 0 44px 44px;
-                   background: linear-gradient(163deg, #FBFCFF 0%, #E4EEFF 42%, #C3DBFF 100%); }
-  .cp-spin__tabs { display: flex; justify-content: center; }
-  .cp-spin__tab { display: inline-flex; align-items: center; height: 42px; padding: 0 22px;
-                  border-radius: 9999px; background: #0A1628; color: #ffffff;
-                  font-size: 15px; font-weight: 500; white-space: nowrap; }
-  /* white shoulder so the pill reads as cut into the stage, not floating on it */
-  .cp-spin__tabs::before, .cp-spin__tabs::after { content: ""; flex: 1; height: 62px;
-                                                  background: #ffffff; }
-  .cp-spin__tabs::before { border-radius: 0 0 20px 0; }
-  .cp-spin__tabs::after  { border-radius: 0 0 0 20px; }
-  .cp-spin__tab { margin: 10px 18px 0; }
-  .cp-spin__stage { position: relative; height: 620px; border-radius: 12px;
-                    overflow: hidden; background: #ffffff;
-                    box-shadow: 0 24px 60px rgba(10,22,40,0.22); }
-  .cp-spin__chrome { display: flex; flex-direction: row; align-items: center; gap: 8px;
-                     height: 44px; padding: 0 16px; background: #ffffff;
-                     border-bottom: 1px solid #F1F1F1; }
-  .cp-spin__dot { width: 10px; height: 10px; border-radius: 9999px; background: #D3D3D3; flex-shrink: 0; }
-  .cp-spin__bar { flex: 1; max-width: 360px; margin: 0 auto; height: 26px; border-radius: 9999px;
-                  background: #F6F6F6; display: flex; align-items: center; justify-content: center;
-                  font-size: 12px; color: #929292; }
-  .cp-spin__frame { width: 100%; height: calc(100% - 44px); border: 0; display: block; background: #ffffff; }
-  .cp-spin__empty { position: absolute; left: 0; right: 0; top: 44px; bottom: 0; display: flex;
-                    flex-direction: column; gap: 8px; justify-content: center; align-items: center;
-                    background: #F6F6F6; text-align: center; padding: 0 40px; }
-  .cp-spin__stage[data-demo-open="1"] .cp-spin__empty { display: none; }
-  .cp-spin__stage[data-demo-open="0"] .cp-spin__frame { visibility: hidden; }
-
   /* ── Product video ────────────────────────────────────
      A click-to-play facade. The poster is a local file and the frame holds
      about:blank until the button is pressed, so a visitor who never watches
@@ -2100,43 +2045,13 @@
       <a href="https://shopify.dev/docs/apps/launch/built-for-shopify#built-for-shopify-status" target="_blank" rel="noopener noreferrer" style="width: fit-content; height: 52px; flex-shrink: 0; border-radius: 4px; background: #ffffff; display: flex; flex-direction: row; gap: 8px; padding: 14px 24px; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; color: #155FFF; white-space: nowrap; box-shadow: 0 1px 3px rgba(10,22,40,0.06); transition: background 160ms ease-out, box-shadow 160ms ease-out;" style-hover="background: #ffffff; color: #0A3FCC;">See the criteria<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
     </div>
   </section>
-  <!-- ── Live demo on the visitor’s own store ───────────────────── -->
-  <section id="demo" style="background: #ffffff; padding: 80px 112px 96px; display: flex; flex-direction: row; gap: 48px; align-items: center; overflow: hidden; scroll-margin-top: 104px;" data-screen-label="Live demo">
-
-    <div style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 20px; align-items: flex-start;">
-      <h2 style="margin: 0; font-size: 40px; font-weight: 500; line-height: 50px; letter-spacing: -0.01em; color: #252525;">See it running on your own store</h2>
-      <span style="font-size: 15px; font-weight: 500; line-height: 22px; color: #252525;">Paste a store URL — we’ll pull in your real products</span>
-      <div class="cp-spin__form">
-        <input id="cp-demo-url" class="cp-spin__input" type="text" inputmode="url" spellcheck="false"
-               placeholder="yourstore.com" aria-label="Your store URL" onKeyDown="{{ onDemoKey }}">
-        <button type="button" class="cp-spin__go" aria-label="Load the demo" onClick="{{ openDemo }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
-      </div>
-    </div>
-
-    <div class="cp-spin__band">
-      <div class="cp-spin__tabs"><span class="cp-spin__tab">Order editing</span></div>
-      <div class="cp-spin__stage" data-demo-open="{{ demoOpen }}">
-        <div class="cp-spin__chrome">
-          <span class="cp-spin__dot"></span><span class="cp-spin__dot"></span><span class="cp-spin__dot"></span>
-          <span class="cp-spin__bar">{{ demoLabel }}</span>
-        </div>
-        <div class="cp-spin__empty">
-          <span style="font-size: 18px; font-weight: 500; color: #252525;">Your products, inside the editor</span>
-          <span style="font-size: 15px; color: #52525B;">Add a store above, or open one of the examples.</span>
-        </div>
-        <iframe class="cp-spin__frame" src="{{ demoSrc }}" title="Order editing demo"
-                loading="lazy" referrerpolicy="no-referrer"></iframe>
-      </div>
-    </div>
-  </section>
-
   <!-- ── FAQ ────────────────────────────── -->
   <section style="background: #ffffff; padding: 24px 112px 112px; display: flex; flex-direction: column; align-items: center;" data-screen-label="FAQ">
     <div class="cp-faq__grid">
       <div class="cp-faq__intro">
         <h2 style="margin: 0; font-size: 40px; font-weight: 600; line-height: 48px; letter-spacing: -0.02em; color: #252525;">FAQs</h2>
         <p style="margin: 16px 0 0; font-size: 18px; line-height: 28px; color: #52525B;">Everything you need to know about order editing on Shopify.</p>
-        <p style="margin: 24px 0 0; font-size: 16px; line-height: 26px; color: #52525B;">Can’t find what you’re looking for? Reach out to our <a href="#demo" style="font-weight: 500; color: #155FFF;">support team</a> for assistance.</p>
+        <p style="margin: 24px 0 0; font-size: 16px; line-height: 26px; color: #52525B;">Can’t find what you’re looking for? Reach out to our <a href="#" style="font-weight: 500; color: #155FFF;">support team</a> for assistance.</p>
       </div>
 
       <div class="cp-faq__list">
@@ -2277,7 +2192,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{}">
 class Component extends DCLogic {
-  state = { activeStep: 0, stepDir: "fwd", demoStore: "marsghc.com",
+  state = { activeStep: 0, stepDir: "fwd",
             videoOn: false, faqOpen: 0 };
 
   componentDidMount() {
@@ -2346,55 +2261,10 @@ class Component extends DCLogic {
     if (this.stepObserver) this.stepObserver.disconnect();
   }
 
-  // ── live demo ────────────────────────────────────────────────────────
-  // The store lookup runs server-side in the demo app (POST /api/demo scrapes
-  // the URL), so we hand the store off to that app instead of reimplementing
-  // it here. Resolution order:
-  //   1. window.__CP_DEMO_ORIGIN__  — set it from a <script> to override
-  //   2. localhost                  — the dev server on :3001
-  //   3. anything else              — the deployed demo (Vercel project
-  //      "oe-demo-live", team clickpost-order-editing). Use the bare alias:
-  //      the team-scoped one 302s behind SSO. The older "oe-demo" project
-  //      is wedged — its builds never leave UNKNOWN — hence a fresh project.
   static VIDEO_ID = "1WX5Gm7Ia4k";   // ClickPost Order Editing & Upsell walkthrough
-
-  static demoOrigin() {
-    if (typeof window === "undefined") return "";
-    if (window.__CP_DEMO_ORIGIN__) return window.__CP_DEMO_ORIGIN__;
-    const h = window.location.hostname;
-    if (h === "localhost" || h === "127.0.0.1") return "http://127.0.0.1:3001";
-    return "https://oe-demo-fullbleed.vercel.app";
-  }
-
-  slugForStore(v) {
-    return String(v).trim()
-      .replace(/^https?:\/\//i, "")
-      .replace(/^www\./i, "")
-      .replace(/\/+$/, "");
-  }
-
-  openDemo() {
-    const el = document.getElementById("cp-demo-url");
-    const store = this.slugForStore(el && el.value);
-    if (!store) return;
-    this.setState({ demoStore: store });
-  }
-
-  onDemoKey(e) {
-    if (e && e.key === "Enter") {
-      e.preventDefault();
-      this.openDemo();
-    }
-  }
 
   renderVals() {
     return {
-      demoOpen: this.state.demoStore && Component.demoOrigin() ? "1" : "0",
-      demoLabel: this.state.demoStore || "yourstore.com",
-      demoSrc: this.state.demoStore && Component.demoOrigin()
-        ? Component.demoOrigin() + "/product-demo/" + encodeURIComponent(this.state.demoStore)
-        : "about:blank",
-      openDemo: () => this.openDemo(),
       // nocookie host, and rel=0 so the end card offers our videos only
       videoOn: this.state.videoOn ? "1" : "0",
       videoSrc: this.state.videoOn
@@ -2414,7 +2284,6 @@ class Component extends DCLogic {
       faqT3: () => this.setState(st => ({ faqOpen: st.faqOpen === 3 ? -1 : 3 })),
       faqT4: () => this.setState(st => ({ faqOpen: st.faqOpen === 4 ? -1 : 4 })),
       faqT5: () => this.setState(st => ({ faqOpen: st.faqOpen === 5 ? -1 : 5 })),
-      onDemoKey: (e) => this.onDemoKey(e),
       activeStep: this.state.activeStep,
       pickStep0: () => this.pickStep(0), pickStep1: () => this.pickStep(1),
       pickStep2: () => this.pickStep(2), pickStep3: () => this.pickStep(3),
