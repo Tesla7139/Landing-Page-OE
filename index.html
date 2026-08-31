@@ -336,7 +336,7 @@
      let go while step 3 was still the active one. */
   .cp-steps__stagewrap { position: sticky; top: 96px; width: 560px;
                          flex-shrink: 0; }
-  .cp-steps__stage { position: relative; width: 560px; height: 496px;
+  .cp-steps__stage { position: relative; width: 560px; height: 560px;
                      border-radius: 20px; overflow: hidden;
                      background: linear-gradient(160deg, #F4F8FF 0%, #E6EEFF 55%, #D6E4FF 100%); }
   /* Every panel is forced to one shape so the four steps read as a set.
@@ -347,7 +347,9 @@
     width: 452px !important; height: 304px !important;
     transform: scale(1.14);
     border-radius: 18px !important; flex-grow: 0 !important; flex-shrink: 0 !important;
-    overflow: hidden; box-shadow: 0 20px 44px -26px rgba(10,22,40,0.42) !important;
+    overflow: hidden;
+    box-shadow: 13px 13px 0 0 #12224A,
+                0 20px 44px -26px rgba(10, 22, 40, 0.42) !important;
   }
   .cp-steps__visual { position: absolute; inset: 0; display: flex;
                       align-items: center; justify-content: center;
@@ -2875,7 +2877,14 @@ class Component extends DCLogic {
       },
       // a narrow band just above centre; with 208px-tall cards this gives each
       // step a long stretch of scroll before the next one takes over
-      { rootMargin: "-42% 0px -50% 0px", threshold: 0 }
+      // The band's lower edge sets how tall the frame may be. Release
+      // happens at top + frame height; step 4 lights up when its card
+      // reaches the lower edge. At -50% that capped the frame around 520,
+      // and it has to be pinned when step 4 lights up or the visual lets go
+      // while step 3 is still the active one. -35% moves the edge down and
+      // buys the height. Two cards can share the band now; the loop above
+      // already resolves that to whichever is nearest the centre line.
+      { rootMargin: "-42% 0px -35% 0px", threshold: 0 }
     );
     cards.forEach(c => this.stepObserver.observe(c));
   }
