@@ -30,14 +30,18 @@
       "name": "V-Guard Industries Limited",
       "date": "June 2, 2026",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/v-guard-industries-limited.png",
+      "logoAlt": "V-Guard Industries Limited"
     },
     {
       "quote": "We tried a few similar apps before switching to Clickpost, but this one was much easier to set up and customize. The order editing experience is smooth for customers, and the support team has been responsive and helpful whenever we needed assistance. Overall, it’s been a very positive experience for our store.",
       "name": "PairieTales",
       "date": "May 20, 2026",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/pairietales.svg",
+      "logoAlt": "PairieTales"
     },
     {
       "quote": "After using the app for a month, we’ve definitely noticed fewer customer support requests related to order updates. The experience for customers feels seamless, and the app has been stable without any major issues",
@@ -50,7 +54,9 @@
       "name": "litemed",
       "date": "May 19, 2026",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/litemed.png",
+      "logoAlt": "litemed"
     },
     {
       "quote": "One of the best order editing apps available that actually works! I've tested about a dozen, and this by far was one of the best. Amazing team and support as well. Highly recommended!",
@@ -66,7 +72,9 @@
       "name": "Divinelane",
       "date": "May 13, 2026",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/divinelane.png",
+      "logoAlt": "Divinelane"
     },
     {
       "quote": "This app solved a real problem for us. Earlier, our team had to manually handle cancellations and changes, which was time-consuming. Now customers can do it themselves within a set window. The app is easy to configure and does what it says. No complaints so far.",
@@ -85,7 +93,9 @@
       "quote": "Nice little app. Clickpost made it easy for customers to edit orders without contacting us all the time. Setup was quick, and Mohit was super helpful when we had a small issue. Solid support and does the job well.",
       "name": "Wellwith",
       "date": "April 30, 2026",
-      "rating": 5
+      "rating": 5,
+      "logo": "assets/reviews/wellwith.png",
+      "logoAlt": "Wellwith"
     },
     {
       "quote": "Really happy with Clickpost so far. We added it mainly for order edits but ended up using the upsell part too, which actually brought in a bit of extra revenue without much effort. Setup was pretty straightforward, and when I got stuck, Smit jumped in and helped quickly. Loving it so far.",
@@ -101,20 +111,26 @@
       "name": "Muffynn",
       "date": "April 2, 2026",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/muffynn.png",
+      "logoAlt": "Muffynn"
     },
     {
       "quote": "Clean and simple app, no unnecessary complexity. Helps customers manage their orders themselves, which has saved us a lot of time daily.",
       "name": "lovelang",
       "date": "April 2, 2026",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/lovelang.png",
+      "logoAlt": "lovelang"
     },
     {
       "quote": "Really happy with how simple and effective this is. It’s reduced a lot of manual work and made the whole process feel more seamless.",
       "name": "buysohi",
       "date": "April 2, 2026",
-      "rating": 5
+      "rating": 5,
+      "logo": "assets/reviews/buysohi.png",
+      "logoAlt": "buysohi"
     },
     {
       "quote": "good app , it helps the clients to identify the data where customer modified the details of orders. also helps the customers edit the data on their end for smoother operations. it helps the organization to save the support cost and time.",
@@ -198,7 +214,9 @@
       "name": "Bacca Bucci",
       "date": "January 28, 2026",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/bacca-bucci.svg",
+      "logoAlt": "Bacca Bucci"
     },
     {
       "quote": "We’ve been using Clickpost and it’s genuinely been super helpful. Customers can handle order edits themselves, and the post-purchase upsells have been a solid bonus for incremental revenue. Setup was straightforward, everything’s been running smoothly, and support has been great too — the team was quick to respond and got us up and running fast.",
@@ -214,7 +232,9 @@
       "name": "World of Asaya",
       "date": "December 18, 2025",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/world-of-asaya.svg",
+      "logoAlt": "World of Asaya"
     },
     {
       "quote": "Really happy with this app. We installed Clickpost mainly to let customers fix address mistakes and update orders themselves, and it works exactly as expected. Setup was pretty easy, and when I had a question, Smit helped me sort it out fast. Support was quick and friendly, which I really appreciate.It has saved our team a lot of back and forth. We have also seen fewer canceled orders since using it. Overall, solid app that does what it promises. Would definitely recommend if you want smoother order edits and less manual work.",
@@ -228,7 +248,9 @@
       "name": "Miniwesst",
       "date": "December 15, 2025",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/miniwesst.png",
+      "logoAlt": "Miniwesst"
     },
     {
       "quote": "Clickpost has been a game changer for our customer experience. Lots of our customers have come back and told us that they love this feature. We already edit 100+ orders monthly and has resulted in lower support tickets. What I appreciate is the flexibility, from modifying addresses to changing products and even adding upsells, it all just works. The team was very helpful with installation and setup. Just go for it!",
@@ -240,13 +262,17 @@
       "quote": "A much needed solution to a very common support issue. Customers used to always reach out to us for changing their address or items, now they can edit it on their own. Multiple customers have reached out to us that they love this new feature! The team is superb with their support and responsiveness, and I keep seeing constant improvements in the product. Strongly recommended.",
       "name": "Bonhomie",
       "date": "December 4, 2025",
-      "rating": 5
+      "rating": 5,
+      "logo": "assets/reviews/bonhomie.png",
+      "logoAlt": "Bonhomie"
     },
     {
       "quote": "The setup process was smooth, thanks to the incredibly helpful and responsive ClickPost support team. Their guidance made the onboarding quick and effortless. This is honestly one of the best decisions we've made for our operations. A must-have app for any brand looking to enhance post-purchase experience and improve efficiency. Highly recommended!",
       "name": "French Accent",
       "date": "November 20, 2025",
-      "rating": 5
+      "rating": 5,
+      "logo": "assets/reviews/french-accent.png",
+      "logoAlt": "French Accent"
     },
     {
       "quote": "Super helpful app! Lets customers edit orders easily and reduced our support load. Simple setup, smooth UI, and great support from the team.",
@@ -259,7 +285,9 @@
       "quote": "The app has been very useful to us. We were looking something like this to reduce our support enquiries, and that is what is exactly did. Our customers love this feature and it makes everyone’s life just better. Plus they also have the upsell feature, which replaced my current upsell app! Worked flawlessly. It is an absolute no brainer to install this app. Loved the support provided by the ClickPost team during our setup process. Thanks Team ClickPost.",
       "name": "Bichhavans",
       "date": "November 12, 2025",
-      "rating": 5
+      "rating": 5,
+      "logo": "assets/reviews/bichhavans.png",
+      "logoAlt": "Bichhavans"
     },
     {
       "quote": "Order editing app by clickpost is easy to install with a super responsive support team. It has reduced our support tickets. It has just made our life easier. Was very easy to setup on them. Loving it!",
@@ -281,14 +309,18 @@
       "quote": "The app has been a huge help to our support team. With Clickpost order editing we saved a lot of tickets, especially during the sale season. And what stood out was that they got us extra revenue through post purchase upsells, so that was a bonus! Their support is very prompt, and open to feedback.",
       "name": "Westside",
       "date": "September 30, 2025",
-      "rating": 5
+      "rating": 5,
+      "logo": "assets/reviews/westside.png",
+      "logoAlt": "Westside"
     },
     {
       "quote": "Works as described. I set an order editing window when customers can change/edit their own orders. They like it because it's fast and easy and I like it because it lowers my support tickets. Easily one of the best apps I have because it's easy to use and it gives both me and my customers what I want. It's a win/win app. The developers are always adding new features too, like upselling, that I appreciate. The more I can do within 1 app so I don't have to have a ton of apps, the better. I highly recommend.",
       "name": "Shred Finger Boards",
       "date": "September 22, 2025",
       "rating": 5,
-      "country": "United States"
+      "country": "United States",
+      "logo": "assets/reviews/shred-finger-boards.png",
+      "logoAlt": "Shred Finger Boards"
     },
     {
       "quote": "Clickpost order editing has made our post purchase process so much better. Customers can now edit their orders without contacting support. Their upsells are a cherry on the top, and have increased our AOV. Real value for money, and absolutely great support from the team.",
@@ -304,14 +336,18 @@
       "name": "Fulton365",
       "date": "September 15, 2025",
       "rating": 5,
-      "country": "United States"
+      "country": "United States",
+      "logo": "assets/reviews/fulton365.png",
+      "logoAlt": "Fulton365"
     },
     {
       "quote": "Great app for letting customers edit or cancel their orders without hassle. It’s easy to set up, reduces support work, and the team is super responsive.",
       "name": "Starquik",
       "date": "August 29, 2025",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/starquik.png",
+      "logoAlt": "Starquik"
     },
     {
       "quote": "Great tool to reduce traffic for order modification. Their support is highly helpful.",
@@ -334,14 +370,18 @@
       "name": "Recode Studios",
       "date": "August 12, 2025",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/recode-studios.png",
+      "logoAlt": "Recode Studios"
     },
     {
       "quote": "Great app and an exceptional support from the team. The app allows our customers to modify theirs orders without the need to contact us. This has given our support team to focus on more important tasks, and been a delight for our customers. I highly recommend this app, it will save you a lot of time and money.",
       "name": "URturms",
       "date": "July 28, 2025",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/urturms.png",
+      "logoAlt": "URturms"
     },
     {
       "quote": "Exactly what we needed. No more customer queries about 'where is my order'. Everything’s available in their account. Smooth experience!",
@@ -355,27 +395,35 @@
       "name": "RIJAC",
       "date": "July 16, 2025",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/rijac.png",
+      "logoAlt": "RIJAC"
     },
     {
       "quote": "We were looking for a way to offer basic order changes without complicating our process. This app nailed it. Clean interface, easy for customers, and fits right into our workflow",
       "name": "Sammvaad",
       "date": "July 16, 2025",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/sammvaad.png",
+      "logoAlt": "Sammvaad"
     },
     {
       "quote": "This app does exactly what it promises. We've been able to reduce customer complaints by allowing easy order edits and cancellations. The setup was smooth, and their support team was quick to respond when we had questions. Definitely recommend it if you're looking to improve post-purchase experience.",
       "name": "Italian Colony",
       "date": "July 15, 2025",
       "rating": 5,
-      "country": "India"
+      "country": "India",
+      "logo": "assets/reviews/italian-colony.png",
+      "logoAlt": "Italian Colony"
     },
     {
       "quote": "ClickPost’s Order Editing & Cancel tool has been a game-changer for Sudathi. With alot of of our support tickets related to order edits, it helped our customers to self-edit addresses, variants, and even cancel orders before shipping. It drastically reduced support load, and improved customer satisfaction. A must-have tool for brands focused on delivering smooth, scalable customer experiences.",
       "name": "Sudathi",
       "date": "June 30, 2025",
-      "rating": 5
+      "rating": 5,
+      "logo": "assets/reviews/sudathi.png",
+      "logoAlt": "Sudathi"
     }
   ]
 }
