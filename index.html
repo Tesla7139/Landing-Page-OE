@@ -675,18 +675,19 @@
   /* Every panel is forced to one shape so the four steps read as a set.
      The originals were four different sizes (504x296, 451x267, 338x296 and
      an auto-height one), and the inline sizes need !important to override.
-     Swap this for real artwork per step when it exists. */
+     Swap this for real artwork per step when it exists.
+
+     Height tracks the frame - 100% - 150 keeps 75px of blue above and
+     below whatever the frame is - and caps at 620, because past about
+     square the extra height is white space inside the panel rather than
+     more panel: these are landscape mock screens with their content
+     anchored top and bottom. */
   .cp-steps__visual > * {
-    width: 547px !important; height: 367px !important;
-    transform: scale(0.92);
+    width: 560px !important;
+    height: calc(100% - 150px) !important; max-height: 620px !important;
+    transform: scale(0.96);
     border-radius: 18px !important; flex-grow: 0 !important; flex-shrink: 0 !important;
     overflow: hidden; box-shadow: 0 20px 44px -26px rgba(10,22,40,0.42) !important;
-  }
-  /* Step 4 stacks two surfaces, so it needs the height the other three do
-     not. 445 x 0.92 is 409 inside a 560 frame, which leaves it 75px of
-     frame top and bottom like the rest. */
-  .cp-steps__visual[data-step-visual="3"] > * {
-    height: 445px !important;
   }
   .cp-steps__visual { position: absolute; inset: 0; display: flex;
                       align-items: center; justify-content: center;
