@@ -457,9 +457,248 @@
   /* same amber as the brand strip's country caption, so the two read as one idea */
   .cp-rw__country { font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
                     color: #D97706; white-space: nowrap; }
+
+  /* ══ Mobile ═══════════════════════════════════════════════════════════
+     Everything above is the 1440 artboard. Below 900px it stops being
+     one: the shell goes fluid, full-width rows stack, and every fixed
+     pixel width is clamped rather than enumerated.
+
+     !important is not decoration here - the layout it overrides is in
+     inline style attributes, which outrank a stylesheet without it. */
+  @media (max-width: 900px) {
+    .cp-page { width: 100% !important; max-width: 100% !important; overflow-x: hidden; }
+
+    /* no descendant keeps a desktop pixel width */
+    .cp-page * { max-width: 100% !important; }
+
+    /* sections: one column, centred, phone gutters */
+    [data-screen-label] {
+      padding-left: 20px !important; padding-right: 20px !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      text-align: center;
+      gap: 32px !important;
+      height: auto !important;
+    }
+
+    /* full-width rows stack. The align-self test is what keeps small
+       inline groups - icon + label, star + score - side by side. */
+    [data-screen-label] [style*="align-self: stretch"][style*="flex-direction: row"],
+    [data-screen-label] [style*="align-self: stretch"][style*="flex-flow: row"] {
+      flex-direction: column !important;
+      align-items: center !important;
+      height: auto !important;
+      gap: 28px !important;
+    }
+    /* Fixed-height panels sized for the desktop column let go of that
+       height. Restricted to flex containers on purpose: the integrations
+       marks are empty divs that carry align-self: stretch and show a
+       background image at an explicit height, so height: auto collapsed
+       two of them to nothing. */
+    [data-screen-label] [style*="align-self: stretch"][style*="display: flex"] {
+      height: auto !important; }
+    /* left-aligned blocks centre up */
+    [data-screen-label] [style*="align-items: flex-start"] { align-items: center !important; }
+    [data-screen-label] [style*="text-align: left"] { text-align: center !important; }
+
+    /* type scale */
+    [data-screen-label] h1 { font-size: 34px !important; line-height: 44px !important; }
+    [data-screen-label] h2 { font-size: 27px !important; line-height: 36px !important; }
+    [data-screen-label] h3 { font-size: 20px !important; line-height: 28px !important; }
+    [data-screen-label] p  { font-size: 16px !important; line-height: 26px !important; }
+
+    /* ── Header: the nav is a desktop affordance, the logo and the CTA
+          are the job on a phone ─────────────────────────────────────── */
+    [data-screen-label="Header"] { padding: 16px 20px !important; height: auto !important; }
+    [data-screen-label="Header"] nav { display: none !important; }
+    [data-screen-label="Header"] > div { flex-direction: row !important; }
+
+    /* ── Hero ────────────────────────────────────────────────────────── */
+    [data-screen-label="Hero"] { padding: 32px 20px 48px !important; }
+    [data-screen-label="Hero"] > div > div:first-child { align-items: center !important; }
+    [data-screen-label="Hero"] [style*="height: 48px"][style*="flex-direction: row"] {
+      justify-content: center !important; height: auto !important; }
+    [data-screen-label="Hero"] img { width: 100% !important; height: auto !important; }
+
+    /* ── Brand strip and reviews wall: both marquees. Narrower cards, and
+          the mask pulled in so the edges still fade ──────────────────── */
+    [data-screen-label="Trusted by"] { padding: 32px 0 !important; }
+    .cp-bs, .cp-rw {
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 12%,
+                                          #000 88%, transparent 100%) !important;
+              mask-image: linear-gradient(to right, transparent 0, #000 12%,
+                                          #000 88%, transparent 100%) !important; }
+    .cp-rw__card { width: 300px !important; height: 340px !important;
+                   margin-right: 16px !important; padding: 20px 22px 18px !important; }
+    .cp-rw__text { font-size: 14px !important; line-height: 22px !important;
+                   -webkit-line-clamp: 8 !important; max-height: 176px !important; }
+
+    /* ── Outcome band: the wedge is a 1440 drawing. On a phone it is
+          dropped and the middle becomes a plain blue block ──────────── */
+    .cp-ob { width: 100% !important; height: auto !important;
+             display: flex !important; flex-direction: column !important; }
+    .cp-ob__shape { display: none !important; }
+    .cp-ob__mid { position: static !important; width: 100% !important;
+                  padding: 44px 24px !important; order: -1;
+                  background: linear-gradient(150deg, #1440C8, #4C7BFF 55%, #8FB3FF); }
+    .cp-ob__mid h2 { font-size: 26px !important; line-height: 36px !important; }
+    .cp-ob__stat { position: static !important; width: 100% !important;
+                   align-items: center !important; text-align: center !important;
+                   padding: 32px 24px !important; }
+    .cp-ob__rule { width: 100% !important; margin-left: 0 !important;
+                   margin-right: 0 !important; }
+    .cp-ob__big { font-size: 38px !important; line-height: 46px !important; }
+    .cp-ob__cap { font-size: 17px !important; }
+
+    /* ── How it works: the stage stops being sticky, and each step's
+          visual sits above its own card ────────────────────────────── */
+    .cp-steps__grid { flex-direction: column !important; gap: 28px !important; }
+    .cp-steps__stagewrap { position: static !important; width: 100% !important; }
+    .cp-steps__stage { width: 100% !important; height: 300px !important; }
+    .cp-steps__card { text-align: left; }
+
+    /* ── Product video ──────────────────────────────────────────────── */
+    .cp-vid { width: 100% !important; height: auto !important; aspect-ratio: 16 / 9; }
+    .cp-vid__play { width: 60px !important; height: 60px !important; }
+
+    /* ── Built for store operations ─────────────────────────────────── */
+    .cp-bfo { flex-direction: column !important; gap: 36px !important;
+              padding: 56px 20px 40px !important; }
+    .cp-bfo__art { width: 100% !important; height: 320px !important; }
+    .cp-bfo__stack { left: 18px !important; right: 18px !important; top: 44px !important;
+                     width: auto !important; }
+    .cp-bfo__copy { align-items: center !important; text-align: center; }
+    .cp-bfo__copy h2 { font-size: 30px !important; line-height: 40px !important; }
+    .cp-bfo__copy p { font-size: 17px !important; line-height: 28px !important; }
+
+    /* ── Used by ────────────────────────────────────────────────────── */
+    [data-screen-label="Used by"] { padding: 48px 20px !important; gap: 28px !important; }
+    [data-screen-label="Used by"] > div { align-items: center !important;
+                                          text-align: center; width: 100% !important; }
+    [data-screen-label="Used by"] span { font-size: 24px !important;
+                                         line-height: 32px !important; }
+    [data-screen-label="Used by"] span:nth-child(2) { font-size: 62px !important;
+                                                      line-height: 68px !important; }
+    [data-screen-label="Used by"] img { width: 100% !important; height: auto !important; }
+
+    /* ── Integrations: the grid is a Figma export with 160px cells in a
+          fixed row, so the row is told to wrap ─────────────────────── */
+    [data-screen-label="Integrations"] { padding: 56px 20px 40px !important; }
+    [data-screen-label="Integrations"] [style*="flex-direction: row"],
+    [data-screen-label="Integrations"] [style*="flex-flow: row"] {
+      flex-wrap: wrap !important; justify-content: center !important;
+      gap: 20px 24px !important; height: auto !important; }
+    [data-screen-label="Integrations"] x-import { width: 100% !important; }
+    /* the cells stretch to the line and their mark holders take height from
+       the cell, so a wrapping row with height: auto collapsed every line to
+       nothing. The cells get a height of their own instead. */
+    [data-screen-label="Integrations"] [style*="width: 160px"][style*="flex-flow: column"] {
+      height: 56px !important; align-self: center !important; }
+
+    /* ── Built for Shopify ──────────────────────────────────────────── */
+    [data-screen-label="Built for Shopify"] { padding: 0 20px 48px !important; }
+    [data-screen-label="Built for Shopify"] > div { padding: 32px 24px !important; }
+
+    /* ── FAQ ────────────────────────────────────────────────────────── */
+    [data-screen-label="FAQ"] { padding: 16px 20px 64px !important; }
+    .cp-faq__grid { flex-direction: column !important; gap: 28px !important; }
+    .cp-faq__intro { width: 100% !important; align-items: center !important;
+                     text-align: center; }
+    .cp-faq__list { width: 100% !important; }
+    /* the question stays left of its sign, and left-aligned: a wrapped
+       question centred against a fixed-position icon reads as broken */
+    .cp-faq__q { flex-direction: row !important; gap: 16px !important;
+                 padding: 20px 2px !important; text-align: left !important; }
+    .cp-faq__qt { font-size: 16px !important; line-height: 25px !important; }
+    .cp-faq__a { padding-right: 2px !important; text-align: left !important; }
+    .cp-faq__item[data-open="true"] .cp-faq__a { max-height: 420px !important; }
+
+    /* ── Languages ──────────────────────────────────────────────────── */
+    [data-screen-label="Languages"] { padding: 56px 20px !important; }
+    .cp-lang__wrap { gap: 8px !important; }
+    .cp-lang__chip { height: 38px !important; padding: 0 14px !important;
+                     gap: 6px !important; }
+    .cp-lang__chip b { font-size: 14px !important; }
+    .cp-lang__chip span { font-size: 12px !important; }
+    .cp-lang__auto { height: auto !important; padding: 10px 18px !important;
+                     text-align: left; }
+
+    /* ── Footer ─────────────────────────────────────────────────────── */
+    [data-screen-label="Footer"] { padding: 56px 20px 40px !important;
+                                   gap: 36px !important; }
+    [data-screen-label="Footer"] [style*="flex-direction: row"],
+    [data-screen-label="Footer"] [style*="flex-flow: row"] {
+      flex-wrap: wrap !important; justify-content: center !important;
+      gap: 28px !important; height: auto !important; }
+    [data-screen-label="Footer"] [style*="width: 1216px"] { width: 100% !important; }
+    /* Inner wrappers carrying the desktop gutter. The section-level
+       padding override does not reach these, and 2 x 112 of padding on a
+       350px box leaves a 126px column. */
+    [data-screen-label] [style*="padding: 0px 112px"] {
+      padding-left: 0 !important; padding-right: 0 !important; }
+    /* the two marquees run full bleed, so their section keeps no gutter */
+    [data-screen-label="Reviews"] { padding-left: 0 !important;
+                                    padding-right: 0 !important; }
+
+    /* Header: the logo and the CTA need room between them */
+    [data-screen-label="Header"] > div { gap: 12px !important; }
+    [data-screen-label="Header"] > div > a { display: none !important; }
+    [data-screen-label="Header"] img { width: 108px !important; height: 15px !important; }
+    [data-screen-label="Header"] .cp-nav-cta,
+    [data-screen-label="Header"] [style*="background: rgb(21, 95, 255)"] {
+      padding: 0 14px !important; font-size: 13px !important; }
+
+    /* Brand strip: desktop cells are far too wide, and the hover panel
+       cannot be opened on a touch screen, so it is dropped outright */
+    .cp-bs__panel { display: none !important; }
+    .cp-bs__item { padding: 0 18px !important; }
+    .cp-bs__mark { width: 108px !important; height: 34px !important; }
+    .cp-bs__mark img { max-height: 30px !important; }
+    .cp-bs__tier { display: none !important; }
+
+    /* Built for store operations: the stack was sized for a 452px card */
+    .cp-bfo__art { height: 268px !important; }
+    .cp-bfo__art::after { height: 104px !important; }
+    .cp-bfo__stack { left: 16px !important; right: 16px !important;
+                     top: 30px !important; width: auto !important;
+                     gap: 10px !important; }
+    .cp-bfo__card { padding: 11px 13px !important; gap: 10px !important;
+                    border-radius: 13px !important; }
+    .cp-bfo__card--b { margin-left: 14px !important; }
+    .cp-bfo__card--c { margin-left: 7px !important; }
+    .cp-bfo__ico { width: 27px !important; height: 27px !important;
+                   border-radius: 8px !important; }
+    .cp-bfo__ct b { font-size: 12.5px !important; line-height: 17px !important; }
+    .cp-bfo__ct span { font-size: 10.5px !important; line-height: 14px !important; }
+    .cp-bfo__tag { font-size: 9.5px !important; padding: 3px 7px !important; }
+
+    /* Product mocks: fixed boxes with absolutely positioned innards and
+       overflow: hidden, so clamping the box only crops it. zoom scales
+       the layout box as well, which is the property transform lacks. */
+    [data-screen-label] [style*="width: 624px"][style*="height: 500px"],
+    [data-screen-label] [style*="width: 504px"][style*="height: 328.843px"] {
+      zoom: 0.54; flex-shrink: 1 !important; }
+
+  }
+
+  /* Under 420px the two marquees and the type need one more step down. */
+  @media (max-width: 420px) {
+    [data-screen-label] h1 { font-size: 29px !important; line-height: 38px !important; }
+    [data-screen-label] h2 { font-size: 24px !important; line-height: 32px !important; }
+    .cp-rw__card { width: 260px !important; height: 320px !important; }
+    [data-screen-label="Used by"] span:nth-child(2) { font-size: 52px !important;
+                                                      line-height: 58px !important; }
+    .cp-ob__big { font-size: 32px !important; line-height: 40px !important; }
+    /* mocks step down again with the viewport */
+    [data-screen-label] [style*="width: 624px"][style*="height: 500px"],
+    [data-screen-label] [style*="width: 504px"][style*="height: 328.843px"] {
+      zoom: 0.48; }
+    [data-screen-label="Header"] img { width: 96px !important; height: 13px !important; }
+
+  }
 </style>
 </helmet>
-<div style="width: 1440px; margin: 0 auto; background: #ffffff; font-family: Poppins, sans-serif; -webkit-font-smoothing: antialiased;">
+<div class="cp-page" style="width: 1440px; margin: 0 auto; background: #ffffff; font-family: Poppins, sans-serif; -webkit-font-smoothing: antialiased;">
 
   <!-- ── Header ───────────────────────────────────────── -->
   <header style="height: 88px; background: rgba(255,255,255,0.95); backdrop-filter: blur(6px); box-shadow: 0 0 20px rgba(16,24,40,0.1); display: flex; flex-direction: row; padding: 30px 112px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50;" data-screen-label="Header">
