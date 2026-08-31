@@ -683,9 +683,15 @@
      more panel: these are landscape mock screens with their content
      anchored top and bottom. */
   .cp-steps__visual > * {
-    width: 560px !important;
-    height: calc(100% - 150px) !important; max-height: 620px !important;
-    transform: scale(0.96);
+    /* Laid out narrow and scaled up hard: 452 at 1.19 paints 538 wide,
+       the same as 560 at 0.96, but every element inside renders a quarter
+       larger because there are fewer CSS pixels being blown up to that
+       width. Scale is the only lever on the interface itself - these are
+       mock screens sized element by element inline, so resizing their box
+       only rearranges them. */
+    width: 452px !important;
+    height: calc(100% - 200px) !important; max-height: 500px !important;
+    transform: scale(1.19);
     border-radius: 18px !important; flex-grow: 0 !important; flex-shrink: 0 !important;
     overflow: hidden; box-shadow: 0 20px 44px -26px rgba(10,22,40,0.42) !important;
   }
@@ -1036,14 +1042,13 @@
     /* Two things the desktop rule cannot give a 350px-wide frame.
        Height: it is derived from the frame's there, and this frame is 258,
        which left the panel 108 tall and the mock crushed.
-       Scale: 0.75 painted the panel 420 wide into 350 and the frame clipped
-       about 35px off each edge - Pricing read as cing. 0.60 paints 336.
-       Width stays 560 so the mock keeps the desktop layout at a smaller
-       size, rather than a narrower box the rules below would reflow. */
+       Scale: it has to keep 452 inside 350, so 0.74 - it paints 334.
+       At 0.75 it painted 420 into 350 and the frame clipped about 35px off
+       each edge, so Pricing read as cing. */
     .cp-steps__visual > * { max-width: none !important;
                             height: 330px !important;
                             max-height: none !important;
-                            transform: scale(0.60) !important; }
+                            transform: scale(0.74) !important; }
     .cp-steps__visual * { max-width: none !important; }
     .cp-steps__grid .cp-steps__stage .cp-steps__visual [style*="flex-direction: row"],
     .cp-steps__grid .cp-steps__stage .cp-steps__visual [style*="flex-flow: row"] {
