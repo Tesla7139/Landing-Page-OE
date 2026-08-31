@@ -3475,6 +3475,37 @@ class Component extends DCLogic {
       ctx.lineWidth = Math.max(1, HEAD * 0.16);
       ctx.stroke();
     };
+    // A great circle between two points, sampled on the sphere and
+    // projected point by point. A leg that crosses the horizon returns
+    // null there and the path simply breaks, so it runs off the limb
+    // rather than being clipped to a straight line across the face.
+    const arc = (p1, p2) => {
+      const a1 = p1.lat * RAD, b1 = p1.lon * RAD;
+      const a2 = p2.lat * RAD, b2 = p2.lon * RAD;
+      const x1 = Math.cos(a1) * Math.cos(b1), y1 = Math.cos(a1) * Math.sin(b1),
+            z1 = Math.sin(a1);
+      const x2 = Math.cos(a2) * Math.cos(b2), y2 = Math.cos(a2) * Math.sin(b2),
+            z2 = Math.sin(a2);
+      const dot = Math.max(-1, Math.min(1, x1 * x2 + y1 * y2 + z1 * z2));
+      const d = Math.acos(dot);
+      if (d < 0.02) return;                    // neighbours, nothing to draw
+      const N = Math.max(16, Math.round(d * 44));
+      const sd = Math.sin(d);
+      ctx.beginPath();
+      let down = true;
+      for (let i = 0; i <= N; i++) {
+        const f = i / N;
+        const A = Math.sin((1 - f) * d) / sd, B = Math.sin(f * d) / sd;
+        const x = A * x1 + B * x2, y = A * y1 + B * y2, z = A * z1 + B * z2;
+        const q = project(Math.atan2(y, x) / RAD,
+                          Math.atan2(z, Math.sqrt(x * x + y * y)) / RAD);
+        if (!q) { down = true; continue; }
+        if (down) { ctx.moveTo(q[0], q[1]); down = false; }
+        else ctx.lineTo(q[0], q[1]);
+      }
+      ctx.stroke();
+    };
+
     const draw = () => {
       ctx.clearRect(0, 0, CSS, CSS);
       ctx.beginPath();
@@ -3503,6 +3534,22 @@ class Component extends DCLogic {
       // one size - the selection reads as colour, not scale - and painted
       // back to front by screen y, so where two overlap the nearer one is
       // in front rather than whichever came first in the list.
+      // Joined before the pins, so the pins sit on the ends of the lines
+      // rather than the lines running over them.
+      const g = sel >= 0 ? Component.GLOBE[sel] : null;
+      if (g && g.pts.length > 1) {
+        ctx.save();
+        // dot and gap scale with the globe, or the phone's 300px sphere
+        // gets the same 6px gaps as the 760px one and reads as a dashed
+        // line rather than a dotted one
+        ctx.setLineDash([1, Math.max(4, CSS * 0.008)]);
+        ctx.lineCap = "round";
+        ctx.lineWidth = Math.max(1.4, CSS * 0.0029);
+        ctx.strokeStyle = "rgba(21, 95, 255, 0.55)";
+        for (let k = 1; k < g.pts.length; k++) arc(g.pts[0], g.pts[k]);
+        ctx.restore();
+      }
+
       const SMALL = Math.max(5, CSS * 0.0115);
       const shown = [];
       for (let li = 0; li < Component.GLOBE.length; li++) {
