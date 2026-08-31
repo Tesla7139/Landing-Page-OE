@@ -712,7 +712,18 @@
   /* the active card's accent leans the way you're travelling */
   [data-step-dir="back"] .cp-steps__card { transform: translateX(0); }
 
-  .cp-steps__list { display: flex; flex-direction: column; gap: 28px; flex: 1; min-width: 0; }
+  /* The padding is travel for the sticky frame, not spacing. Sticky moves
+     container height minus element height, and a 693 frame in a 1081 grid
+     has 292 - while step 4 becomes active 470 into the grid, where the
+     midpoint of cards 3 and 4 crosses the middle of the window. This makes
+     up the difference, and tracks the window because both terms do. */
+  .cp-steps__list { display: flex; flex-direction: column; gap: 28px; flex: 1;
+                    min-width: 0;
+                    /* capped: below 1440 the frame hits its own ceiling
+                       while this keeps growing, and the surplus is only
+                       dead space - 432px of it at 1300 before the cap */
+                    padding-bottom: clamp(0px,
+                      calc((50vh - 16px) / var(--cp-zoom) - 190px), 300px); }
   /* section heading sits in the step column, not centred above it, so the
      visual and the copy read as one row */
   .cp-steps__head { display: flex; flex-direction: column; padding: 8px 0 16px; }
@@ -1037,6 +1048,8 @@
           visual sits above its own card ────────────────────────────── */
     .cp-steps__grid { flex-direction: column !important; gap: 28px !important; }
     .cp-steps__stagewrap { position: static !important; width: 100% !important; }
+    /* the frame is not sticky here, so that travel is only a hole */
+    .cp-steps__list { padding-bottom: 0 !important; }
     .cp-steps__stage { width: 100% !important; height: 258px !important;
                        min-height: 0 !important; }
     /* Two things the desktop rule cannot give a 350px-wide frame.
