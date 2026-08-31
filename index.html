@@ -3302,6 +3302,9 @@ class Component extends DCLogic {
     // The loop owns rotation. A tap only posts Component.sel plus a
     // sequence number; the loop reads it on its next frame.
     let lon0 = -20, lat0 = 18;
+    // a tap eases the view round to its country; tw runs 0 to 1 and the
+    // constant rotation picks up again once it lands
+    let fromLon = 0, fromLat = 0, toLon = 0, toLat = 0, tw = 1;
     let sel = Component.sel === undefined ? 0 : Component.sel;
     let seen = Component.selSeq || 0;
     const RAD = Math.PI / 180;
@@ -3374,15 +3377,17 @@ class Component extends DCLogic {
 
     // A map pin: a round head on a tail that comes to a point at the
     // location itself, so what is marked is the tip and not the middle.
-    const pin = (x, y) => {
-      const HEAD = Math.max(13, Math.round(CSS * 0.035)), LIFT = HEAD * 1.75;
-      const RING = Math.max(2.5, HEAD * 0.19);
+    // Size is a parameter because the set is drawn small and the selected
+    // one full size - one routine, so they cannot drift apart.
+    const pin = (x, y, HEAD, body, withFlag) => {
+      const LIFT = HEAD * 1.75;
+      const RING = Math.max(1.2, HEAD * 0.19);
       ctx.save();
       ctx.beginPath();
       ctx.arc(x, y - LIFT, HEAD, Math.PI * 0.82, Math.PI * 0.18);
       ctx.lineTo(x, y);
       ctx.closePath();
-      ctx.fillStyle = "#0A1628";
+      ctx.fillStyle = body;
       ctx.shadowColor = "rgba(10, 22, 40, 0.30)";
       ctx.shadowBlur = HEAD * 0.55;
       ctx.shadowOffsetY = HEAD * 0.2;
@@ -3390,7 +3395,7 @@ class Component extends DCLogic {
       ctx.restore();
 
       // the flag sits in the head, clipped round
-      if (flagImg && flagImg.complete && flagImg.naturalWidth) {
+      if (withFlag && flagImg && flagImg.complete && flagImg.naturalWidth) {
         const r = HEAD - RING;
         ctx.save();
         ctx.beginPath();
@@ -3403,9 +3408,10 @@ class Component extends DCLogic {
         ctx.restore();
       }
       ctx.beginPath();
-      ctx.arc(x, y - LIFT, HEAD - RING, 0, 2 * Math.PI);
+      ctx.arc(x, y - LIFT, withFlag ? HEAD - RING : HEAD * 0.42,
+              0, 2 * Math.PI);
       ctx.strokeStyle = "#ffffff";
-      ctx.lineWidth = RING * 0.9;
+      ctx.lineWidth = withFlag ? RING * 0.9 : Math.max(1, HEAD * 0.16);
       ctx.stroke();
     };
 
@@ -3433,30 +3439,27 @@ class Component extends DCLogic {
       }
 
       // Every language is marked, all the time. Eighteen of the nineteen
-      // are European capitals and land inside about 150x130px here, so
-      // they are dots rather than pins - and each carries a white ring,
-      // or the ones that overlap read as one shape.
-      const MK = Math.max(2.6, CSS * 0.0058);
+      // are European capitals and land inside about 150x130px here, so the
+      // set is drawn small; back to front by screen y, so where two
+      // overlap the nearer one is in front rather than whichever came
+      // first in the list.
+      const SMALL = Math.max(5, CSS * 0.0115);
+      const shown = [];
       for (let i = 0; i < Component.GLOBE.length; i++) {
-        if (i === sel) continue;   // drawn last, on top of its neighbours
         const t = Component.GLOBE[i];
         const q = project(t.lon, t.lat);
-        if (!q) continue;
-        ctx.beginPath();
-        ctx.arc(q[0], q[1], MK, 0, 2 * Math.PI);
-        ctx.fillStyle = "#7FA6FF";
-        ctx.fill();
-        ctx.strokeStyle = "#ffffff";
-        ctx.lineWidth = 1.4;
-        ctx.stroke();
+        if (q) shown.push({ i: i, x: q[0], y: q[1] });
+      }
+      shown.sort((p, r) => p.y - r.y);
+      for (let k = 0; k < shown.length; k++) {
+        if (shown[k].i === sel) continue;   // drawn last, over its neighbours
+        pin(shown[k].x, shown[k].y, SMALL, "#6D97F5", false);
       }
 
       if (sel < 0) return;
-      const t = Component.GLOBE[sel];
-      if (!t) return;
-      const q = project(t.lon, t.lat);
-      if (!q) return;
-      pin(q[0], q[1]);
+      const hit = shown.filter((p) => p.i === sel)[0];
+      if (!hit) return;
+      pin(hit.x, hit.y, Math.max(13, Math.round(CSS * 0.035)), "#0A1628", true);
     };
 
     let last = null;
@@ -3468,12 +3471,29 @@ class Component extends DCLogic {
         seen = Component.selSeq || 0;
         sel = Component.sel === undefined ? -1 : Component.sel;
         loadFlag();
+        const t = sel >= 0 ? Component.GLOBE[sel] : null;
+        if (t) {
+          fromLon = lon0; fromLat = lat0;
+          // the short way round, so it never takes the long way to a
+          // country a few degrees away across the 180 line
+          toLon = lon0 + ((((t.lon - lon0) + 540) % 360) - 180);
+          toLat = t.lat;
+          tw = 0;
+        } else { tw = 1; }
       }
 
-      // Constant. A selection highlights a marker; it no longer parks the
-      // globe, so the highlighted one travels and goes round the back like
-      // every other point on the sphere.
-      if (!drag && !reduced) lon0 = (lon0 + dt * 0.006) % 360;
+      if (drag) { tw = 1; }                     // the hand always wins
+      else if (tw < 1) {
+        tw = Math.min(1, tw + dt / 850);
+        const e = tw < 0.5 ? 4 * tw * tw * tw
+                           : 1 - Math.pow(-2 * tw + 2, 3) / 2;
+        lon0 = fromLon + (toLon - fromLon) * e;
+        lat0 = fromLat + (toLat - fromLat) * e;
+      } else if (!reduced) {
+        // rotation resumes once it has arrived, so the globe is never
+        // parked - the marker travels on like every other point
+        lon0 = (lon0 + dt * 0.006) % 360;
+      }
       draw();
       Component.globeRAF = requestAnimationFrame(frame);
     };
