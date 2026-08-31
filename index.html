@@ -204,31 +204,64 @@
      artwork. The rays sit in a viewBox centred on the gem, so both are
      placed by the same two offsets and stay concentric at any size. */
   .cp-bfs__banner { position: relative; width: 1216px; height: 320px;
-                    border-radius: 16px; overflow: hidden; background: #123A5C;
+                    border-radius: 22px; overflow: hidden;
+                    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+                    /* the glow is part of the background rather than a
+                       second element, so it cannot fall out of step with
+                       the gem when the phone override moves things */
+                    background: radial-gradient(58% 92% at 74% 50%,
+                                  rgba(96, 176, 244, 0.20) 0%,
+                                  rgba(96, 176, 244, 0) 64%),
+                                linear-gradient(112deg, #08182E 0%, #0E2745 46%,
+                                  #16375C 100%);
                     padding: 118px 64px 44px; display: flex;
                     align-items: stretch; }
+  /* a dot field holding the left edge, faded out before it reaches the
+     words - without it the lockup sits on empty colour */
+  .cp-bfs__banner::before { content: ""; position: absolute;
+                            left: 0; top: 0; bottom: 0; width: 380px;
+                            background-image: radial-gradient(
+                              rgba(255, 255, 255, 0.16) 1.2px, transparent 1.2px);
+                            background-size: 15px 15px;
+                            -webkit-mask-image: linear-gradient(100deg,
+                              #000 0%, transparent 76%);
+                                    mask-image: linear-gradient(100deg,
+                              #000 0%, transparent 76%); }
   .cp-bfs__rays { position: absolute; left: 72%; top: 50%; width: 1400px;
                   height: 1400px; margin: -700px 0 0 -700px; }
   .cp-bfs__gemwrap { position: absolute; left: 72%; top: 50%; width: 260px;
                      height: 228px; margin: -114px 0 0 -130px; }
-  .cp-bfs__gem { display: block; width: 260px; height: 228px;
-                 filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.30)); }
+  .cp-bfs__gem { position: relative; display: block; width: 260px;
+                 height: 228px;
+                 filter: drop-shadow(0 18px 36px rgba(2, 12, 26, 0.55)); }
+  /* the halo is a pseudo-element, which paints before the gem itself */
+  .cp-bfs__gemwrap::before { content: ""; position: absolute; left: 50%;
+                             top: 54%; width: 440px; height: 440px;
+                             margin: -220px 0 0 -220px; border-radius: 50%;
+                             background: radial-gradient(circle,
+                               rgba(126, 199, 255, 0.26) 0%,
+                               rgba(126, 199, 255, 0) 66%); }
   .cp-bfs__spark { position: absolute; left: 24px; top: -4px; width: 42px;
                    height: 42px; }
   .cp-bfs__copy { position: relative; z-index: 1; display: flex;
                   flex-direction: column; justify-content: space-between; }
   .cp-bfs__title { margin: 0; font-size: 54px; font-weight: 700; line-height: 64px;
                    letter-spacing: -0.02em; color: #ffffff; }
+  .cp-bfs__title em { font-style: normal; color: #5A9CFF; }
   .cp-bfs__lockup { display: flex; flex-direction: row; gap: 10px;
                     align-items: center; color: #ffffff; }
-  .cp-bfs__lockup b { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; }
-  .cp-bfs__lockup i { font-size: 30px; font-weight: 300; font-style: italic;
+  /* smaller and quieter than the title: it is a provenance line, not a
+     second headline */
+  .cp-bfs__lockup { opacity: 0.9; }
+  .cp-bfs__lockup svg { width: 22px; height: 25px; }
+  .cp-bfs__lockup b { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+  .cp-bfs__lockup i { font-size: 22px; font-weight: 300; font-style: italic;
                       letter-spacing: -0.01em; }
   .cp-bfs__why { width: 1216px; display: flex; flex-direction: column;
                  align-items: center; }
-  .cp-bfs__whytitle { margin: 0; max-width: 780px; text-align: center;
-                      font-size: 32px; font-weight: 500; line-height: 42px;
-                      letter-spacing: -0.01em; color: #252525; }
+  .cp-bfs__whytitle { margin: 0; max-width: 820px; text-align: center;
+                      font-size: 38px; font-weight: 600; line-height: 48px;
+                      letter-spacing: -0.02em; color: #101828; }
   .cp-bfs__whylede { margin: 14px 0 0; max-width: 720px; text-align: center;
                      font-size: 17px; line-height: 27px; color: #52525B; }
   .cp-bfs__cards { display: grid; grid-template-columns: repeat(4, 1fr);
@@ -905,7 +938,7 @@
     .cp-bfs__copy { justify-content: flex-start; }
     .cp-bfs__title { font-size: 34px !important; line-height: 42px !important; }
     .cp-bfs__lockup { margin-top: 18px; }
-    .cp-bfs__lockup b, .cp-bfs__lockup i { font-size: 22px !important; }
+    .cp-bfs__lockup b, .cp-bfs__lockup i { font-size: 19px !important; }
     /* the gem drops below the words rather than sitting beside them; the
        rays follow it, since their centre is placed by the same offsets */
     .cp-bfs__gemwrap { left: 50% !important; top: auto !important;
@@ -2851,16 +2884,16 @@
   <!-- ── Built for Shopify ────────────────────────────── -->
   <section style="padding: 0 112px 88px; display: flex; flex-direction: column; gap: 44px; align-items: center;" data-screen-label="Built for Shopify">
     <div class="cp-bfs__banner">
-      <svg class="cp-bfs__rays" viewBox="-700 -700 1400 1400" fill="none" aria-hidden="true"><line x1="171.1" y1="18.0" x2="556.9" y2="58.5" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="160.6" y1="61.6" x2="280.1" y2="107.5" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="139.2" y1="101.1" x2="380.2" y2="276.3" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="108.2" y1="133.7" x2="402.8" y2="497.4" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="70.0" y1="157.1" x2="142.4" y2="319.7" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="26.9" y1="169.9" x2="81.3" y2="513.6" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-18.0" y1="171.1" x2="-63.8" y2="606.7" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="-61.6" y1="160.6" x2="-103.9" y2="270.7" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-101.1" y1="139.2" x2="-258.6" y2="356.0" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-133.7" y1="108.2" x2="-450.7" y2="365.0" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="-157.1" y1="70.0" x2="-301.5" y2="134.2" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-169.9" y1="26.9" x2="-493.8" y2="78.2" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-171.1" y1="-18.0" x2="-656.4" y2="-69.0" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="-160.6" y1="-61.6" x2="-289.4" y2="-111.1" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-139.2" y1="-101.1" x2="-364.1" y2="-264.5" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-108.2" y1="-133.7" x2="-377.6" y2="-466.3" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="-70.0" y1="-157.1" x2="-146.4" y2="-328.9" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="-26.9" y1="-169.9" x2="-82.9" y2="-523.5" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="18.0" y1="-171.1" x2="64.8" y2="-616.6" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="61.6" y1="-160.6" x2="121.8" y2="-317.4" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="101.1" y1="-139.2" x2="288.0" y2="-396.4" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="133.7" y1="-108.2" x2="443.0" y2="-358.7" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.6" stroke-linecap="round"></line><line x1="157.1" y1="-70.0" x2="292.3" y2="-130.2" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line><line x1="169.9" y1="-26.9" x2="454.3" y2="-72.0" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1.6" stroke-linecap="round"></line></svg>
-      <span class="cp-bfs__gemwrap"><svg class="cp-bfs__gem" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="m13 0-1 5-4 9 8-9.5L13 0ZM3 0l1 5 4 9-8-9.5L3 0Z" fill="#1495CC"></path><path d="m3 0 1 5 4 9 4-9 1-5H3Z" fill="#58B7DF"></path><path d="M8 14 4 5l-4-.5L8 14ZM8 14l4-9 4-.5L8 14Z" fill="#035F86"></path><path d="M8 5.5 4 5l4 9 4-9-4 .5Z" fill="#1495CC"></path><path d="m4 5 4-5 4 5-4.001.5L4 5Z" fill="#A9DEF4"></path><path d="M4 5 3 0h5L4 5ZM12 5l1-5H8l4 5Z" fill="#58B7DF"></path><path d="M4 5 3 0 0 4.5 4 5ZM12 5l1-5 3 4.5-4 .5Z" fill="#1495CC"></path></svg><svg class="cp-bfs__spark" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 0c.6 6.4 5 10.8 12 12-7 1.2-11.4 5.6-12 12-.6-6.4-5-10.8-12-12 7-1.2 11.4-5.6 12-12Z" fill="#ffffff"></path></svg></span>
+      <svg class="cp-bfs__rays" viewBox="-700 -700 1400 1400" fill="none" aria-hidden="true"><line x1="171.1" y1="18.0" x2="328.2" y2="34.5" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.5" stroke-linecap="round"></line><line x1="160.6" y1="61.6" x2="228.7" y2="87.8" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line><line x1="139.2" y1="101.1" x2="242.7" y2="176.3" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line><line x1="108.2" y1="133.7" x2="242.3" y2="299.2" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.5" stroke-linecap="round"></line><line x1="70.0" y1="157.1" x2="105.8" y2="237.5" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line><line x1="26.9" y1="169.9" x2="50.1" y2="316.1" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line><line x1="-18.0" y1="171.1" x2="-38.7" y2="368.0" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.5" stroke-linecap="round"></line><line x1="-61.6" y1="160.6" x2="-86.0" y2="224.1" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line><line x1="-101.1" y1="139.2" x2="-167.5" y2="230.6" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line><line x1="-133.7" y1="108.2" x2="-275.9" y2="223.4" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.5" stroke-linecap="round"></line><line x1="-157.1" y1="70.0" x2="-228.4" y2="101.7" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line><line x1="-169.9" y1="26.9" x2="-306.2" y2="48.5" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line><line x1="-171.1" y1="-18.0" x2="-392.8" y2="-41.3" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.5" stroke-linecap="round"></line><line x1="-160.6" y1="-61.6" x2="-238.1" y2="-91.4" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line><line x1="-139.2" y1="-101.1" x2="-234.6" y2="-170.5" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line><line x1="-108.2" y1="-133.7" x2="-229.7" y2="-283.7" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.5" stroke-linecap="round"></line><line x1="-70.0" y1="-157.1" x2="-107.8" y2="-242.1" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line><line x1="-26.9" y1="-169.9" x2="-49.3" y2="-311.1" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line><line x1="18.0" y1="-171.1" x2="39.2" y2="-372.9" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.5" stroke-linecap="round"></line><line x1="61.6" y1="-160.6" x2="89.6" y2="-233.4" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line><line x1="101.1" y1="-139.2" x2="176.3" y2="-242.7" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line><line x1="133.7" y1="-108.2" x2="268.1" y2="-217.1" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.5" stroke-linecap="round"></line><line x1="157.1" y1="-70.0" x2="233.0" y2="-103.7" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line><line x1="169.9" y1="-26.9" x2="291.4" y2="-46.1" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"></line></svg>
+      <span class="cp-bfs__gemwrap"><svg class="cp-bfs__gem" viewBox="0 0 16 14" fill="none" aria-hidden="true"><defs><linearGradient id="gPavOut" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4E9AD6"></stop><stop offset="1" stop-color="#1B558E"></stop></linearGradient><linearGradient id="gMid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8CC6EF"></stop><stop offset="1" stop-color="#2C7AC2"></stop></linearGradient><linearGradient id="gDark" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1C5488"></stop><stop offset="1" stop-color="#082644"></stop></linearGradient><linearGradient id="gPavC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#79BEEA"></stop><stop offset="1" stop-color="#1C67AB"></stop></linearGradient><linearGradient id="gTable" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E2F2FF"></stop><stop offset="1" stop-color="#A2D4F6"></stop></linearGradient><linearGradient id="gCrown" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A8D6F3"></stop><stop offset="1" stop-color="#5FA6DE"></stop></linearGradient><linearGradient id="gShoulder" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#63ABDF"></stop><stop offset="1" stop-color="#2C7CBE"></stop></linearGradient></defs><path d="m13 0-1 5-4 9 8-9.5L13 0ZM3 0l1 5 4 9-8-9.5L3 0Z" fill="url(#gPavOut)"></path><path d="m3 0 1 5 4 9 4-9 1-5H3Z" fill="url(#gMid)"></path><path d="M8 14 4 5l-4-.5L8 14ZM8 14l4-9 4-.5L8 14Z" fill="url(#gDark)"></path><path d="M8 5.5 4 5l4 9 4-9-4 .5Z" fill="url(#gPavC)"></path><path d="m4 5 4-5 4 5-4.001.5L4 5Z" fill="url(#gTable)"></path><path d="M4 5 3 0h5L4 5ZM12 5l1-5H8l4 5Z" fill="url(#gCrown)"></path><path d="M4 5 3 0 0 4.5 4 5ZM12 5l1-5 3 4.5-4 .5Z" fill="url(#gShoulder)"></path></svg><svg class="cp-bfs__spark" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 0c.6 6.4 5 10.8 12 12-7 1.2-11.4 5.6-12 12-.6-6.4-5-10.8-12-12 7-1.2 11.4-5.6 12-12Z" fill="#ffffff"></path></svg></span>
       <div class="cp-bfs__copy">
-        <h2 class="cp-bfs__title">Built for Shopify</h2>
+        <h2 class="cp-bfs__title">Built for <em>Shopify</em></h2>
         <span class="cp-bfs__lockup"><svg width="30" height="34" viewBox="0 0 24 24" fill="#ffffff" aria-hidden="true" style="flex-shrink: 0;"><path d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z"></path></svg><b>shopify</b><i>app store</i></span>
       </div>
     </div>
     <div class="cp-bfs__why">
-      <h3 class="cp-bfs__whytitle">What the badge changes for the merchants who install it</h3>
-      <p class="cp-bfs__whylede">Built for Shopify is the highest level an app can reach in the App Store. Shopify grants it against five standards, reviews it again afterwards, and withdraws it from an app that stops meeting them — so the badge tells a merchant four things before they install anything.</p>
+      <h3 class="cp-bfs__whytitle">The highest standard. Earned, not claimed.</h3>
+      <p class="cp-bfs__whylede">Shopify grants it against five standards, reviews it again afterwards, and withdraws it from any app that stops meeting them.</p>
       <div class="cp-bfs__cards">
         <div class="cp-bfs__card">
           <span class="cp-bfs__ico"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.2-2.9 7.6-7 8.5-4.1-.9-7-4.3-7-8.5V6l7-3Z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
