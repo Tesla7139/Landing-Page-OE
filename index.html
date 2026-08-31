@@ -237,11 +237,14 @@
                   padding: 24px 22px 26px; border-radius: 14px;
                   border: 1px solid #E7EBF3; background: #ffffff;
                   box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04); }
-  .cp-bfs__num { font-size: 12px; font-weight: 600; letter-spacing: 0.10em;
-                 color: #155FFF; }
-  .cp-bfs__card b { margin-top: 10px; font-size: 16px; font-weight: 600;
-                    line-height: 23px; color: #252525; }
-  .cp-bfs__card p { margin: 8px 0 0; font-size: 14px; line-height: 22px;
+  .cp-bfs__ico { display: flex; align-items: center; justify-content: center;
+                 width: 38px; height: 38px; border-radius: 10px;
+                 background: #EEF4FF; color: #155FFF; }
+  .cp-bfs__card b { margin-top: 14px; font-size: 17px; font-weight: 600;
+                    line-height: 24px; color: #252525; }
+  .cp-bfs__sub { margin-top: 3px; font-size: 13.5px; font-weight: 500;
+                 line-height: 20px; color: #155FFF; }
+  .cp-bfs__card p { margin: 10px 0 0; font-size: 14px; line-height: 22px;
                     color: #667085; }
   .cp-bfs__link { display: inline-flex; gap: 8px; align-items: center;
                   margin-top: 30px; height: 46px; padding: 0 22px;
@@ -2857,27 +2860,31 @@
     </div>
     <div class="cp-bfs__why">
       <h3 class="cp-bfs__whytitle">What the badge changes for the merchants who install it</h3>
-      <p class="cp-bfs__whylede">Built for Shopify is the highest level an app can reach in the App Store. What matters is what Shopify checks before it grants one — and what it takes back if the app slips.</p>
+      <p class="cp-bfs__whylede">Built for Shopify is the highest level an app can reach in the App Store. Shopify grants it against five standards, reviews it again afterwards, and withdraws it from an app that stops meeting them — so the badge tells a merchant four things before they install anything.</p>
       <div class="cp-bfs__cards">
         <div class="cp-bfs__card">
-          <span class="cp-bfs__num">01</span>
-          <b>Checked by Shopify, not claimed by us</b>
-          <p>The status is granted against five standards — safety and security, performance, ease of use, proven usefulness, and listing quality — and Shopify’s review team decides it, not the developer.</p>
+          <span class="cp-bfs__ico"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.2-2.9 7.6-7 8.5-4.1-.9-7-4.3-7-8.5V6l7-3Z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
+          <b>Trustworthy</b>
+          <span class="cp-bfs__sub">Meets stringent security standards</span>
+          <p>Merchants can feel safe knowing that their store and customer data are protected.</p>
         </div>
         <div class="cp-bfs__card">
-          <span class="cp-bfs__num">02</span>
-          <b>It has to be kept, not just earned</b>
-          <p>Status is re-reviewed. An app that stops meeting a standard gets 60 days to put it right before the badge is withdrawn, so the badge describes the app today rather than the app on the day it shipped.</p>
+          <span class="cp-bfs__ico"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18"></path><path d="M6 20v-6M11 20V8M16 20v-9M21 20V5"></path></svg></span>
+          <b>Proven useful</b>
+          <span class="cp-bfs__sub">Vetted for real business impact</span>
+          <p>Reviewed and vetted for real business impact, so merchants know they can find value in the tools the app offers — value that translates directly into business growth.</p>
         </div>
         <div class="cp-bfs__card">
-          <span class="cp-bfs__num">03</span>
-          <b>It works inside the admin you already use</b>
-          <p>Ease of use is one of the five standards. Edits happen on the order page your team is already on — there is no second dashboard to open and no separate login to hand out.</p>
+          <span class="cp-bfs__ico"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2Z"></path></svg></span>
+          <b>Fast</b>
+          <span class="cp-bfs__sub">Optimised for performance</span>
+          <p>Merchants can feel confident the app won’t slow their site speed down, so customers stay engaged while browsing and fewer carts are abandoned. That leaves merchants free to focus on sales, not technical issues.</p>
         </div>
         <div class="cp-bfs__card">
-          <span class="cp-bfs__num">04</span>
-          <b>Held to a measured performance bar</b>
-          <p>Performance is tested against Shopify’s own thresholds. An app that slows the admin or the storefront down does not keep the badge, so speed is a condition of it rather than a claim about it.</p>
+          <span class="cp-bfs__ico"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg></span>
+          <b>Easy to use</b>
+          <span class="cp-bfs__sub">Integrates with Shopify’s admin</span>
+          <p>Saves merchants time and simplifies workflows, so the team spends less time learning the ins and outs of an app and gets straight to work.</p>
         </div>
       </div>
       <a class="cp-bfs__link" href="https://shopify.dev/docs/apps/launch/built-for-shopify#built-for-shopify-status" target="_blank" rel="noopener noreferrer">See the criteria<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
