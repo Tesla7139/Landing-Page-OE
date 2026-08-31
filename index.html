@@ -134,7 +134,24 @@
                  font-size: 12px; font-weight: 600; color: #ffffff; }
   .cp-vt__card[data-playing="1"] .cp-vt__hit { display: none; }
   .cp-vt__title { margin: 16px 0 0; font-size: 17px; font-weight: 500;
-                  line-height: 25px; color: #ffffff; }
+                  line-height: 25px; color: #ffffff; }
+  /* ── Section rules ────────────────────────────
+     A hairline between sections, carried on each section's own top edge
+     so that adding or reordering one needs no other change.
+
+     Skipped where a section is dark or follows a dark one - there the
+     change of colour is the boundary already, and a pale line drawn on
+     navy reads as a stray mark. */
+  .cp-page > section,
+  .cp-page > .cp-blend,
+  .cp-page > footer { border-top: 1px solid #EAEEF5; }
+  .cp-page > section:first-of-type { border-top: 0; }
+  .cp-page > [data-screen-label="Case study"],
+  .cp-page > [data-screen-label="Languages"],
+  .cp-page > [data-screen-label="Customer stories (video)"],
+  .cp-page > [data-screen-label="Case studies"],
+  .cp-page > footer { border-top: 0; }
+
   /* ── Book a call ──────────────────────────────
      Two columns edge to edge, not a card: it is the last thing on the
      page, so it can run to both margins and close the page off. */
