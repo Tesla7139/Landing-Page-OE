@@ -349,6 +349,12 @@
     border-radius: 18px !important; flex-grow: 0 !important; flex-shrink: 0 !important;
     overflow: hidden; box-shadow: 0 20px 44px -26px rgba(10,22,40,0.42) !important;
   }
+  /* Step 4 stacks two surfaces, so it needs the height the other three do
+     not. 445 x 0.92 is 409 inside a 560 frame, which leaves it 75px of
+     frame top and bottom like the rest. */
+  .cp-steps__visual[data-step-visual="3"] > * {
+    height: 445px !important;
+  }
   .cp-steps__visual { position: absolute; inset: 0; display: flex;
                       align-items: center; justify-content: center;
                       opacity: 0;
@@ -1293,40 +1299,40 @@
               <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; align-self: stretch; height: 32px; padding: 0 12px; border: 1px solid #E5E7EB; border-radius: 8px; background: #ffffff;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4B5563" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"></path></svg><span style="flex-grow: 1; font-family: Inter, sans-serif; font-size: 12px; font-weight: 600; color: #111827;">Cancel Your Order</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9AA1AC" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"></path></svg></div>
             </div>
           </div></div>
-          <div class="cp-steps__visual" data-step-visual="3"><div style="width: 452px; height: 304px; background: #F4F5F8; border-radius: 18px; padding: 11px; display: flex; flex-direction: column; gap: 9px;">
-            <div style="background: #ffffff; border: 1px solid #E8EAEF; border-radius: 12px; padding: 10px 11px; display: flex; flex-direction: column;">
-              <span style="font-family: Inter, sans-serif; font-size: 11.5px; font-weight: 700; color: #111827;">Unlock free shipping by adding best sellers.</span>
-              <span style="height: 6px; border-radius: 9999px; background: #E4E6EB; margin-top: 7px; display: block; overflow: hidden;"><span style="display: block; width: 78%; height: 100%; border-radius: 9999px; background: #111827;"></span></span>
-              <span style="font-family: Inter, sans-serif; font-size: 10px; color: #6B7280; margin-top: 6px;"><b style="color: #111827;">€20</b> away from free shipping.</span>
-              <span style="display: flex; flex-direction: row; gap: 7px; margin-top: 8px; align-items: stretch;">
-              <span style="flex: 1; display: flex; flex-direction: column; gap: 5px; padding: 6px; border: 1px solid #EDEFF3; border-radius: 8px; background: #ffffff; min-width: 0;">
-                <span style="height: 40px; background: linear-gradient(150deg, #F7F7F9 0%, #EFF1F6 55%, #E4E8F2 100%); border-radius: 7px;"></span>
-                <span style="font-family: Inter, sans-serif; font-size: 8.5px; line-height: 11px; color: #111827; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Valentine Crush Pediküre Soft Gel Press Ons</span>
-                <span style="font-family: Inter, sans-serif; font-size: 9.5px; font-weight: 700; color: #111827;">€20</span>
-                <span style="height: 20px; border-radius: 6px; background: #111827; color: #ffffff; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-size: 9.5px; font-weight: 600;">Add to order</span>
+          <div class="cp-steps__visual" data-step-visual="3"><div style="width: 452px; height: 445px; background: #F4F5F8; border-radius: 18px; padding: 13px; display: flex; flex-direction: column; gap: 9px;">
+            <div style="background: #ffffff; border: 1px solid #E8EAEF; border-radius: 13px; padding: 13px 14px; display: flex; flex-direction: column;">
+              <span style="font-family: Inter, sans-serif; font-size: 13px; font-weight: 700; color: #111827;">Unlock free shipping by adding best sellers.</span>
+              <span style="height: 7px; border-radius: 9999px; background: #E4E6EB; margin-top: 10px; display: block; overflow: hidden;"><span style="display: block; width: 78%; height: 100%; border-radius: 9999px; background: #111827;"></span></span>
+              <span style="font-family: Inter, sans-serif; font-size: 11px; color: #6B7280; margin-top: 8px;"><b style="color: #111827;">€20</b> away from free shipping.</span>
+              <span style="display: flex; flex-direction: row; gap: 8px; margin-top: 11px; align-items: stretch;">
+              <span style="flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 7px; border: 1px solid #EDEFF3; border-radius: 9px; background: #ffffff; min-width: 0;">
+                <img src="assets/upsell/valentine-crush.jpg" alt="" width="320" height="400" style="width: 100%; height: 104px; object-fit: cover; border-radius: 7px; display: block;">
+                <span style="font-family: Inter, sans-serif; font-size: 9.5px; line-height: 12px; color: #111827; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Valentine Crush Pediküre Soft Gel Press Ons</span>
+                <span style="font-family: Inter, sans-serif; font-size: 10.5px; font-weight: 700; color: #111827;">€20</span>
+                <span style="height: 23px; border-radius: 7px; background: #111827; color: #ffffff; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-size: 9.5px; font-weight: 600;">Add to order</span>
               </span>
-              <span style="flex: 1; display: flex; flex-direction: column; gap: 5px; padding: 6px; border: 1px solid #EDEFF3; border-radius: 8px; background: #ffffff; min-width: 0;">
-                <span style="height: 40px; background: linear-gradient(150deg, #F7F7F9 0%, #EFF1F6 55%, #E4E8F2 100%); border-radius: 7px;"></span>
-                <span style="font-family: Inter, sans-serif; font-size: 8.5px; line-height: 11px; color: #111827; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Sunset Coral Pediküre Soft Gel Press Ons</span>
-                <span style="font-family: Inter, sans-serif; font-size: 9.5px; font-weight: 700; color: #111827;">€20</span>
-                <span style="height: 20px; border-radius: 6px; background: #111827; color: #ffffff; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-size: 9.5px; font-weight: 600;">Add to order</span>
+              <span style="flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 7px; border: 1px solid #EDEFF3; border-radius: 9px; background: #ffffff; min-width: 0;">
+                <img src="assets/upsell/sunset-coral.jpg" alt="" width="320" height="400" style="width: 100%; height: 104px; object-fit: cover; border-radius: 7px; display: block;">
+                <span style="font-family: Inter, sans-serif; font-size: 9.5px; line-height: 12px; color: #111827; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Sunset Coral Pediküre Soft Gel Press Ons</span>
+                <span style="font-family: Inter, sans-serif; font-size: 10.5px; font-weight: 700; color: #111827;">€20</span>
+                <span style="height: 23px; border-radius: 7px; background: #111827; color: #ffffff; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-size: 9.5px; font-weight: 600;">Add to order</span>
               </span>
-              <span style="flex: 1; display: flex; flex-direction: column; gap: 5px; padding: 6px; border: 1px solid #EDEFF3; border-radius: 8px; background: #ffffff; min-width: 0;">
-                <span style="height: 40px; background: linear-gradient(150deg, #F7F7F9 0%, #EFF1F6 55%, #E4E8F2 100%); border-radius: 7px;"></span>
-                <span style="font-family: Inter, sans-serif; font-size: 8.5px; line-height: 11px; color: #111827; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Snow White Pediküre Soft Gel Press Ons</span>
-                <span style="font-family: Inter, sans-serif; font-size: 9.5px; font-weight: 700; color: #111827;">€20</span>
-                <span style="height: 20px; border-radius: 6px; background: #111827; color: #ffffff; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-size: 9.5px; font-weight: 600;">Add to order</span>
+              <span style="flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 7px; border: 1px solid #EDEFF3; border-radius: 9px; background: #ffffff; min-width: 0;">
+                <img src="assets/upsell/snow-white.jpg" alt="" width="320" height="400" style="width: 100%; height: 104px; object-fit: cover; border-radius: 7px; display: block;">
+                <span style="font-family: Inter, sans-serif; font-size: 9.5px; line-height: 12px; color: #111827; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Snow White Pediküre Soft Gel Press Ons</span>
+                <span style="font-family: Inter, sans-serif; font-size: 10.5px; font-weight: 700; color: #111827;">€20</span>
+                <span style="height: 23px; border-radius: 7px; background: #111827; color: #ffffff; display: flex; justify-content: center; align-items: center; font-family: Inter, sans-serif; font-size: 9.5px; font-weight: 600;">Add to order</span>
               </span>
               </span>
             </div>
-            <div style="background: #ffffff; border: 1px solid #E8EAEF; border-radius: 12px; padding: 10px 11px; display: flex; flex-direction: column;">
-              <span style="font-family: Inter, sans-serif; font-size: 11.5px; font-weight: 700; color: #111827;">Too good to miss!</span>
-              <span style="display: flex; flex-direction: row; gap: 10px; align-items: center; margin-top: 8px;">
-                <span style="position: relative; width: 44px; height: 44px; flex-shrink: 0; background: linear-gradient(150deg, #F7F7F9 0%, #EFF1F6 55%, #E4E8F2 100%); border-radius: 7px;">
+            <div style="background: #ffffff; border: 1px solid #E8EAEF; border-radius: 13px; padding: 13px 14px; display: flex; flex-direction: column;">
+              <span style="font-family: Inter, sans-serif; font-size: 13px; font-weight: 700; color: #111827;">Too good to miss!</span>
+              <span style="display: flex; flex-direction: row; gap: 12px; align-items: center; margin-top: 11px;">
+                <span style="position: relative; width: 62px; height: 62px; flex-shrink: 0; border-radius: 8px; overflow: hidden;"><img src="assets/upsell/love-paris.jpg" alt="" width="320" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;">
                   <span style="position: absolute; left: -2px; top: 4px; padding: 2px 6px; border-radius: 9999px; background: #FFE4E9; font-family: Inter, sans-serif; font-size: 8px; font-weight: 700; color: #C81E4A;">50% OFF</span>
                 </span>
                 <span style="flex-grow: 1; display: flex; flex-direction: column; gap: 5px; min-width: 0;">
-                  <span style="font-family: Inter, sans-serif; font-size: 9.5px; line-height: 13px; color: #111827;">Love Paris Short Round Mani &amp; Pedi Set — Soft Gel Press Ons</span>
+                  <span style="font-family: Inter, sans-serif; font-size: 11px; line-height: 15px; color: #111827;">Love Paris Short Round Mani &amp; Pedi Set — Soft Gel Press Ons</span>
                   <span style="display: flex; flex-direction: row; gap: 7px; align-items: baseline;"><span style="font-family: Inter, sans-serif; font-size: 10.5px; color: #9AA1AC; text-decoration: line-through;">€40</span><span style="font-family: Inter, sans-serif; font-size: 12.5px; font-weight: 700; color: #067647;">€20</span></span>
                 </span>
                 <span style="display: flex; flex-direction: row; gap: 9px; align-items: center; flex-shrink: 0;"><span style="display: flex; flex-direction: row; gap: 9px; align-items: center; height: 28px; padding: 0 10px; border-radius: 9999px; border: 1px solid #E1E4E8; font-family: Inter, sans-serif; font-size: 11px; color: #475467;">−<b style="color: #111827;">1</b>+</span><span style="height: 30px; padding: 0 14px; border-radius: 9999px; background: #111827; color: #ffffff; display: flex; align-items: center; font-family: Inter, sans-serif; font-size: 11px; font-weight: 600; white-space: nowrap;">Add · €20</span></span>
