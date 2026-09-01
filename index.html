@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="components/fig-assets.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 <style>
   html, body { margin: 0; padding: 0; background: #ffffff; }
   * { box-sizing: border-box; }
@@ -112,18 +112,30 @@
   .cp-cse__h b { display: block; font-weight: 700; letter-spacing: -0.01em; }
   .cp-cse__h span { display: block; font-weight: 400;
                     color: rgba(255,255,255,0.82); }
-  /* their footer's own inversion: #272727 ground, #FAF8F5 type */
-  .cp-cse__quote { margin: 36px 0 0; align-self: stretch; padding: 22px 24px;
-                   border-radius: 16px; background: #272727; display: flex;
-                   flex-direction: column; align-items: flex-start; }
-  .cp-cse__qm { color: #7E7A74; }
-  .cp-cse__quote blockquote { margin: 10px 0 0; font-size: 15.5px;
-                              line-height: 25px; color: #FAF8F5; }
-  .cp-cse__quote figcaption { margin-top: 18px; display: flex;
-                              flex-direction: row; gap: 12px;
-                              align-items: center; font-size: 12.5px;
-                              color: rgba(250,248,245,0.5); }
-  .cp-cse__quote img { width: 104px; height: auto; opacity: 0.95; }
+  /* The quote card, to the reference: an oversized mark beside the words
+     rather than above them, a 34px leading, and a signature in script
+     before the attribution. Navy against the magenta - it is ClickPost
+     speaking inside DOONAILS' section, so it wears ClickPost's colour. */
+  .cp-cse__quote { margin: 36px 0 0; align-self: stretch;
+                   padding: 30px 34px 32px; border-radius: 18px;
+                   display: flex; flex-direction: row; gap: 22px;
+                   align-items: flex-start;
+                   background: radial-gradient(120% 150% at 16% 0%,
+                     #1C3078 0%, #12225E 46%, #0D1943 100%);
+                   border: 1px solid rgba(255, 255, 255, 0.12); }
+  .cp-cse__qm { flex-shrink: 0; margin-top: 3px; color: #4E7FFF; }
+  .cp-cse__quote blockquote { margin: 0; font-size: 17px; line-height: 34px;
+                              color: #F2F5FF; }
+  .cp-cse__quote figcaption { margin-top: 20px; display: flex;
+                              flex-direction: row; gap: 16px;
+                              align-items: center; font-size: 15px;
+                              color: rgba(255, 255, 255, 0.88); }
+  /* 4.10:1 on the card, which clears the 3:1 large-text bar at 27px */
+  .cp-cse__sig { font-family: 'Dancing Script', Poppins, cursive;
+                 font-size: 27px; font-weight: 600; line-height: 30px;
+                 color: #4E7FFF; }
+  .cp-cse__quote figcaption i { width: 1px; height: 22px;
+                               background: rgba(255, 255, 255, 0.32); }
   /* the photograph, and the two cards hung off its left edge */
   .cp-cse__side { position: relative; flex: 0 0 560px; }
   .cp-cse__photo { display: block; width: 560px; height: 100%;
@@ -1295,7 +1307,13 @@
     .cp-cse__top { width: 100% !important; flex-direction: column !important;
                    gap: 28px !important; }
     .cp-cse__copy { align-items: center !important; text-align: center; }
-    .cp-cse__quote { margin-top: 26px !important; }
+    .cp-cse__quote { margin-top: 26px !important;
+                     padding: 24px 22px 26px !important; gap: 16px !important;
+                     text-align: left; }
+    .cp-cse__qm { width: 34px !important; height: 26px !important; }
+    .cp-cse__quote blockquote { font-size: 15.5px !important;
+                                line-height: 28px !important; }
+    .cp-cse__sig { font-size: 23px !important; }
     .cp-cse__side { flex: 0 0 auto !important; width: 100%; }
     .cp-cse__photo { width: 100% !important; height: 300px !important;
                      min-height: 0 !important; }
@@ -3039,9 +3057,11 @@
       <div class="cp-cse__copy">
         <h2 class="cp-cse__h"><b>DOONAILS,</b>
           <span>and 4,000 shoppers who fixed their own orders.</span></h2>
-        <figure class="cp-cse__quote"><svg class="cp-cse__qm" width="28" height="21" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V11.6C0 5.2 3.5 1 9.6 0l1 2.4C7 3.6 5.2 5.9 5.2 8.6H9V20H0Zm16.4 0V11.6C16.4 5.2 19.9 1 26 0l1 2.4c-3.6 1.2-5.4 3.5-5.4 6.2h3.8V20h-9Z"></path></svg>
-          <blockquote>Really helped us quickly to fix all issues.</blockquote>
-          <figcaption><img src="assets/case-study/doonails.svg" alt="DOONAILS" width="137" height="17"><span>Cyprus</span></figcaption>
+        <figure class="cp-cse__quote"><svg class="cp-cse__qm" width="46" height="35" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V11.6C0 5.2 3.5 1 9.6 0l1 2.4C7 3.6 5.2 5.9 5.2 8.6H9V20H0Zm16.4 0V11.6C16.4 5.2 19.9 1 26 0l1 2.4c-3.6 1.2-5.4 3.5-5.4 6.2h3.8V20h-9Z"></path></svg>
+          <div class="cp-cse__qbody">
+            <blockquote>Really helped us quickly to fix all issues.</blockquote>
+            <figcaption><span class="cp-cse__sig">Doonails</span><i aria-hidden="true"></i><span>Cyprus &middot; March 2026</span></figcaption>
+          </div>
         </figure>
       <img class="cp-cse__shot" src="assets/case-study/doonails-edit.jpg" alt="The DOONAILS Thank You page with the edit panel: change contact information, edit shipping address, update the order, apply a discount code or cancel." width="940" height="618">
       </div>
