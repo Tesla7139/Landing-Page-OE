@@ -87,71 +87,65 @@
 
 
   /* ── Case study: DOONAILS ─────────────────────
-     One bordered card split down the middle: a tinted column carrying the
-     argument, a white one carrying the product. Navy is not the band any
-     more; it appears only where it works, on the stat labels and the
-     quote. */
-  .cp-cse { background: #ffffff; padding: 88px 112px 96px; display: flex;
-            flex-direction: column; align-items: center; }
-  .cp-cse__panel { width: 1216px; display: flex; flex-direction: row;
-                   align-items: stretch; border-radius: 20px;
-                   border: 1px solid #E4E9F4; overflow: hidden;
-                   box-shadow: 0 20px 52px rgba(16, 24, 40, 0.07); }
-  .cp-cse__left { flex: 0 0 470px; background: #F1F5FF;
-                  padding: 38px 34px 34px; display: flex;
-                  flex-direction: column; align-items: flex-start; }
-  .cp-cse__eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
-                     text-transform: uppercase; color: #8A9BC0; }
-  /* the brand name carries the weight, the sentence continues under it */
-  .cp-cse__h { margin: 12px 0 0; font-size: 34px; line-height: 44px;
-               letter-spacing: -0.02em; font-weight: 400; color: #101828; }
+     Shape from orderediting.com: a full-bleed tinted band, the claim set
+     large top-left, one big screen carrying the section.
+
+     Colour from DOONAILS, read off us.doonails.com rather than guessed:
+     #ce0058 is their accent, #272727 their ink, and rgb(30,45,125) their
+     primary button, which is what the quote card is painted in. The band
+     is that accent at 8% over white. Art direction per section - this one
+     belongs to their brand, not to ours. */
+  .cp-cse { background: #FBEBF2; padding: 88px 112px 96px; display: flex;
+            flex-direction: column; align-items: center; gap: 56px; }
+  .cp-cse__top { width: 1216px; display: flex; flex-direction: row;
+                 gap: 72px; align-items: stretch; }
+  .cp-cse__copy { flex: 1 1 auto; display: flex; flex-direction: column;
+                  align-items: flex-start; }
+  /* the brand name takes the weight, the sentence continues under it */
+  .cp-cse__h { margin: 0; font-size: 44px; line-height: 54px;
+               letter-spacing: -0.02em; font-weight: 400; color: #272727; }
   .cp-cse__h b { display: block; font-weight: 700; letter-spacing: -0.01em; }
-  .cp-cse__h span { display: block; font-weight: 400; color: #3B4A66; }
-  .cp-cse__rule { display: block; width: 54px; height: 3px; margin-top: 20px;
-                  border-radius: 2px; background: #155FFF; }
-  .cp-cse__p { margin: 20px 0 0; font-size: 15.5px; line-height: 25px;
-               color: #52607A; }
+  .cp-cse__h span { display: block; font-weight: 400; color: #5A4A50; }
+  .cp-cse__rule { display: block; width: 56px; height: 3px; margin-top: 22px;
+                  border-radius: 2px; background: #CE0058; }
+  .cp-cse__p { margin: 22px 0 0; max-width: 600px; font-size: 16.5px;
+               line-height: 27px; color: #6B585F; }
   .cp-cse__tiles { display: flex; flex-direction: row; gap: 14px;
-                   margin-top: 26px; align-self: stretch; }
-  /* the label sits in a bar at the foot of the tile, so the figure has the
-     white to itself */
-  .cp-cse__tile { flex: 1 1 0; display: flex; flex-direction: column;
+                   margin-top: auto; padding-top: 30px; align-self: stretch; }
+  /* padding lives on the parts, so the label bar can stretch to the tile's
+     edges without a negative margin to cancel */
+  .cp-cse__tile { flex: 0 1 236px; display: flex; flex-direction: column;
                   align-items: flex-start; border-radius: 14px;
-                  background: #ffffff; border: 1px solid #E4E9F4;
+                  background: #ffffff; border: 1px solid #F2DCE4;
                   overflow: hidden; }
   .cp-cse__ico { display: flex; align-items: center; justify-content: center;
                  width: 38px; height: 38px; margin: 16px 0 0 16px;
-                 border-radius: 11px;
-                 background: #E7EEFF; color: #155FFF; }
+                 border-radius: 11px; background: #FCE7EF; color: #CE0058; }
   .cp-cse__tile b { margin: 14px 16px 16px; font-size: 38px; font-weight: 700;
                     line-height: 40px; letter-spacing: -0.03em;
-                    color: #101828; }
+                    color: #272727; }
   .cp-cse__cap { align-self: stretch; margin: 0; padding: 9px 16px;
-                 background: #0A1A38; font-size: 12.5px; font-weight: 500;
+                 background: #272727; font-size: 12.5px; font-weight: 500;
                  line-height: 17px; color: rgba(255,255,255,0.86); }
-  .cp-cse__quote { margin: 14px 0 0; align-self: stretch; padding: 22px 24px;
-                   border-radius: 14px; background: #0A1A38; display: flex;
+  /* their own product photograph, with the quote sitting under it */
+  .cp-cse__side { flex: 0 0 396px; margin: 0; display: flex;
+                  flex-direction: column; }
+  .cp-cse__side > img { display: block; width: 396px; height: 396px;
+                      border-radius: 18px; object-fit: cover; }
+  .cp-cse__quote { margin-top: 14px; flex: 1 1 auto; padding: 20px 22px;
+                   border-radius: 16px; background: #1E2D7D; display: flex;
                    flex-direction: column; align-items: flex-start; }
-  .cp-cse__qm { color: #3E5C99; }
-  .cp-cse__quote blockquote { margin: 12px 0 0; font-size: 15px;
+  .cp-cse__qm { color: #7C8AD6; }
+  .cp-cse__quote blockquote { margin: 10px 0 0; font-size: 15px;
                               line-height: 24px; color: #ffffff; }
-  .cp-cse__quote figcaption { margin-top: 18px; display: flex;
-                              flex-direction: row; gap: 12px;
-                              align-items: center; }
-  .cp-cse__quote img { width: 110px; height: auto; opacity: 0.95; }
-  .cp-cse__quote figcaption span { font-size: 12.5px;
-                                   color: rgba(255,255,255,0.5); }
-  /* the upsell screen insets over the corner of the edit screen: it is what
-     happens next on the same page, not a second exhibit */
-  .cp-cse__right { position: relative; flex: 1 1 auto; background: #ffffff;
-                   padding: 26px; display: flex;
-                   align-items: flex-start; }
-  .cp-cse__shot { display: block; width: 100%; height: auto;
-                  border-radius: 12px; border: 1px solid #E7EBF3; }
-  .cp-cse__inset { position: absolute; right: 26px; bottom: 26px; width: 58%;
-                   height: auto; border-radius: 10px;
-                   border: 1px solid #E1E6F0;
-                   box-shadow: 0 18px 40px rgba(16, 24, 40, 0.22); }
+  .cp-cse__quote > span { margin-top: 16px; display: flex;
+                          flex-direction: row; gap: 12px; align-items: center;
+                          font-size: 12.5px; color: rgba(255,255,255,0.5); }
+  .cp-cse__quote img { width: 104px; height: auto; opacity: 0.95; }
+  /* the one big screen the section is built around */
+  .cp-cse__shot { display: block; width: 1140px; height: auto;
+                  border-radius: 16px; border: 1px solid #EFDCE3;
+                  box-shadow: 0 30px 70px rgba(84, 20, 44, 0.16); }
 
   /* ── Case study: upsell revenue ───────────────
      Shown as the dashboard it comes from rather than as prose. The four
@@ -247,6 +241,7 @@
   .cp-page > .cp-blend,
   .cp-page > footer { border-top: 1px solid #EAEEF5; }
   .cp-page > section:first-of-type { border-top: 0; }
+  .cp-page > [data-screen-label="Case study"],
   .cp-page > [data-screen-label="Customer stories (video)"],
   .cp-page > [data-screen-label="Case studies"],
   .cp-page > footer { border-top: 0; }
@@ -1293,18 +1288,18 @@
     .cp-lang__chip span { font-size: 12px !important; }
 
     /* ── Case study ─────────────────────────────────────────────────── */
-    .cp-cse { padding: 56px 20px 60px !important; }
-    .cp-cse__panel { width: 100%; flex-direction: column !important;
-                     border-radius: 16px !important; }
-    .cp-cse__left { flex: 1 1 auto !important; padding: 26px 20px 24px !important; }
+    .cp-cse { padding: 56px 20px 60px !important; gap: 32px !important; }
+    .cp-cse__top { width: 100% !important; flex-direction: column !important;
+                   gap: 28px !important; }
+    .cp-cse__copy { align-items: center !important; text-align: center; }
     .cp-cse__tiles { flex-direction: column !important; }
-    /* flex: 1 1 0 sizes along the main axis, and the container just turned
-       column - the basis of 0 became a height of 0 and the tiles clipped
-       their own contents */
+    /* flex: 0 1 236px is a width across and a height down; the tiles would
+       collapse to their padding once the container turns column */
     .cp-cse__tile { flex: 0 0 auto !important; }
-    /* the inset needs a corner to sit over, and there is none at this width */
-    .cp-cse__right { flex-direction: column; gap: 14px; padding: 20px !important; }
-    .cp-cse__inset { position: static !important; width: 100% !important; }
+    .cp-cse__side { flex: 0 0 auto !important; }
+    .cp-cse__side > img { width: 100% !important; height: 300px !important;
+                        object-fit: cover; }
+    .cp-cse__shot { width: 100% !important; }
     /* ── Case study: upsell revenue ─────────────────────────────────── */
     .cp-gs { flex-direction: column !important; gap: 30px !important;
              padding: 56px 20px 60px !important; }
@@ -3033,9 +3028,8 @@
 
   <!-- ── Case study: DOONAILS ─────────────────── -->
   <section class="cp-cse" data-screen-label="Case study">
-    <div class="cp-cse__panel">
-      <div class="cp-cse__left">
-        <span class="cp-cse__eyebrow">Case study</span>
+    <div class="cp-cse__top">
+      <div class="cp-cse__copy">
         <h2 class="cp-cse__h"><b>DOONAILS,</b>
           <span>and 4,000 shoppers who fixed their own orders.</span></h2>
         <span class="cp-cse__rule"></span>
@@ -3052,17 +3046,16 @@
             <span class="cp-cse__cap">saved in those 30 days</span>
           </div>
         </div>
-        <figure class="cp-cse__quote">
-          <svg class="cp-cse__qm" width="30" height="23" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V11.6C0 5.2 3.5 1 9.6 0l1 2.4C7 3.6 5.2 5.9 5.2 8.6H9V20H0Zm16.4 0V11.6C16.4 5.2 19.9 1 26 0l1 2.4c-3.6 1.2-5.4 3.5-5.4 6.2h3.8V20h-9Z"></path></svg>
+      </div>
+      <figure class="cp-cse__side">
+        <img src="assets/case-study/doonails-hero.webp" alt="DOONAILS press-on nails from the Wine &amp; Dine collection" width="900" height="900" loading="lazy">
+        <figcaption class="cp-cse__quote"><svg class="cp-cse__qm" width="28" height="21" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V11.6C0 5.2 3.5 1 9.6 0l1 2.4C7 3.6 5.2 5.9 5.2 8.6H9V20H0Zm16.4 0V11.6C16.4 5.2 19.9 1 26 0l1 2.4c-3.6 1.2-5.4 3.5-5.4 6.2h3.8V20h-9Z"></path></svg>
           <blockquote>Really helped us quickly to fix all issues.</blockquote>
-          <figcaption><img src="assets/case-study/doonails.svg" alt="DOONAILS" width="137" height="17"><span>Cyprus</span></figcaption>
-        </figure>
-      </div>
-      <div class="cp-cse__right">
-        <img class="cp-cse__shot" src="assets/case-study/doonails-edit.jpg" alt="The DOONAILS Thank You page with the edit panel: change contact information, edit shipping address, update the order, apply a discount code or cancel." width="1140" height="750">
-        <img class="cp-cse__inset" src="assets/case-study/doonails-upsell.jpg" alt="The one-tap upsell that follows: a DOONAILS press-on set at half price, added without a second checkout." width="1140" height="750">
-      </div>
+          <span><img src="assets/case-study/doonails.svg" alt="DOONAILS" width="137" height="17">Cyprus</span>
+        </figcaption>
+      </figure>
     </div>
+    <img class="cp-cse__shot" src="assets/case-study/doonails-edit.jpg" alt="The DOONAILS Thank You page with the edit panel: change contact information, edit shipping address, update the order, apply a discount code or cancel." width="1140" height="750">
   </section>
   <!-- ── Case study: upsell revenue ───────────── -->
   <section class="cp-gs" data-screen-label="Case study: upsells">
