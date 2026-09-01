@@ -3878,6 +3878,19 @@ class Component extends DCLogic {
     host.addEventListener("mouseenter", () => { paused = true; });
     host.addEventListener("mouseleave", () => { paused = false; });
 
+    // The first card faces front at rest, and the section is seven screens
+    // down: left running from load, the ring turns that card away long
+    // before anyone scrolls to it. It waits until it is on screen.
+    let armed = false;
+    try {
+      const io = new IntersectionObserver((es) => {
+        for (const e of es) {
+          if (e.isIntersecting) { armed = true; io.disconnect(); }
+        }
+      }, { threshold: 0.34 });
+      io.observe(host);
+    } catch (e) { armed = true; }
+
     const face = () => {
       for (let i = 0; i < cards.length; i++) {
         // how far this card has turned away from facing the viewer
@@ -3891,7 +3904,9 @@ class Component extends DCLogic {
     const frame = (now) => {
       const dt = last === null ? 16 : Math.min(48, now - last);
       last = now;
-      if (!paused && !reduced && !this.ringHold) rot = (rot + dt * 0.0055) % 360;
+      if (armed && !paused && !reduced && !this.ringHold) {
+        rot = (rot + dt * 0.0055) % 360;
+      }
       ring.style.transform = "rotateY(" + rot + "deg)";
       face();
       this.ringRAF = requestAnimationFrame(frame);
