@@ -122,6 +122,46 @@
   .cp-cse__shot--front { left: 0; bottom: 0; width: 484px;
                          box-shadow: 0 30px 70px rgba(0, 8, 26, 0.65); }
 
+  /* ── Case study: upsell revenue ───────────────
+     Shown as the dashboard it comes from rather than as prose. The four
+     figures are the ones that reconcile - 220 upsells at $75.63 is
+     $16,638, and 342 items across those 220 orders. The daily bars are a
+     fixed shape scaled to that total, not thirty days of real data. */
+  .cp-gs { background: #ffffff; padding: 96px 112px 104px; display: flex;
+           flex-direction: row; gap: 72px; align-items: center; }
+  .cp-gs__copy { width: 480px; flex-shrink: 0; display: flex;
+                 flex-direction: column; align-items: flex-start; }
+  .cp-gs__eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
+                    text-transform: uppercase; color: #98A2B3; }
+  .cp-gs__who { margin-top: 12px; font-size: 14px; font-weight: 600;
+                color: #155FFF; }
+  .cp-gs__who i { font-style: normal; margin: 0 8px; color: #C7D2E4; }
+  .cp-gs__h { margin: 18px 0 0; font-size: 36px; font-weight: 600;
+              line-height: 46px; letter-spacing: -0.02em; color: #101828; }
+  .cp-gs__p { margin: 22px 0 0; font-size: 16.5px; line-height: 27px;
+              color: #52525B; }
+  .cp-gs__card { flex: 1 1 auto; padding: 26px 28px 22px; border-radius: 16px;
+                 border: 1px solid #E7EBF3; background: #ffffff;
+                 box-shadow: 0 18px 44px rgba(16, 24, 40, 0.08); }
+  .cp-gs__top { display: flex; flex-direction: row; gap: 20px;
+                align-items: flex-end; justify-content: space-between; }
+  .cp-gs__top b { display: block; font-size: 15px; font-weight: 600;
+                  color: #252525; }
+  .cp-gs__top i { display: block; margin-top: 3px; font-style: normal;
+                  font-size: 12.5px; color: #98A2B3; }
+  .cp-gs__big { font-size: 34px; font-weight: 700; letter-spacing: -0.02em;
+                line-height: 38px; color: #155FFF; }
+  .cp-gs__metrics { display: flex; flex-direction: row; gap: 14px;
+                    margin-top: 20px; }
+  .cp-gs__metrics > div { flex: 1 1 0; padding: 12px 14px; border-radius: 10px;
+                          background: #F7F9FD; }
+  .cp-gs__metrics b { display: block; font-size: 19px; font-weight: 600;
+                      letter-spacing: -0.01em; color: #101828; }
+  .cp-gs__metrics span { display: block; margin-top: 2px; font-size: 12px;
+                         line-height: 16px; color: #667085; }
+  .cp-gs__chart { display: block; width: 100%; height: auto;
+                  margin-top: 22px; }
+
   /* ── Customer stories (video) ─────────────────
      A dark band, so the clips read as footage rather than as more page.
      The row is a scroll-snap track: a second card needs markup and no
@@ -1223,6 +1263,18 @@
     .cp-cse__shots { height: auto !important; width: 100%;
                      display: flex; flex-direction: column; gap: 16px; }
     .cp-cse__shot { position: static !important; width: 100% !important; }
+
+    /* ── Case study: upsell revenue ─────────────────────────────────── */
+    .cp-gs { flex-direction: column !important; gap: 30px !important;
+             padding: 56px 20px 60px !important; }
+    .cp-gs__copy { width: 100% !important; align-items: center !important;
+                   text-align: center; }
+    .cp-gs__h { font-size: 26px !important; line-height: 34px !important; }
+    .cp-gs__p { font-size: 15.5px !important; line-height: 25px !important; }
+    .cp-gs__card { width: 100%; padding: 20px 18px 16px !important; }
+    /* three metrics will not sit across a phone, so they wrap two up */
+    .cp-gs__metrics { flex-wrap: wrap; }
+    .cp-gs__metrics > div { flex: 1 1 40%; }
 
     /* ── Customer stories (video) ────────────────── */
     .cp-vt { padding: 56px 20px 60px !important; gap: 30px !important; }
@@ -2957,6 +3009,23 @@
     </div>
   </section>
 
+  <!-- ── Case study: upsell revenue ───────────── -->
+  <section class="cp-gs" data-screen-label="Case study: upsells">
+    <div class="cp-gs__copy">
+      <span class="cp-gs__eyebrow">Case study</span>
+      <span class="cp-gs__who">A US gardening store<i>·</i>about 10,000 orders a month</span>
+      <h2 class="cp-gs__h">$16,638 in upsell revenue, from the screen they were already on.</h2>
+      <p class="cp-gs__p">Every order that came in for an edit was also an offer. Two hundred and twenty shoppers took one, adding 342 items to orders they had already paid for — no second checkout, no discount code, no one on the team involved.</p>
+    </div>
+    <div class="cp-gs__card">
+      <div class="cp-gs__top">
+        <span><b>Upsell revenue</b><i>Last 30 days</i></span>
+        <span class="cp-gs__big">$16,638</span>
+      </div>
+      <div class="cp-gs__metrics"><div><b>$75.63</b><span>average per upsell</span></div><div><b>220</b><span>completed upsells</span></div><div><b>342</b><span>items added to orders</span></div></div>
+      <svg class="cp-gs__chart" viewBox="0 0 596 168" fill="none" role="img" aria-label="Upsell revenue by day over thirty days, totalling $16,638"><line x1="0" y1="150.0" x2="596" y2="150.0" stroke="#EDF1F7" stroke-width="1"></line><line x1="0" y1="79.0" x2="596" y2="79.0" stroke="#EDF1F7" stroke-width="1"></line><line x1="0" y1="8.0" x2="596" y2="8.0" stroke="#EDF1F7" stroke-width="1"></line><rect x="0.0" y="99.7" width="16" height="50.3" rx="3" fill="#155FFF" fill-opacity="0.71"></rect><rect x="20.0" y="89.4" width="16" height="60.6" rx="3" fill="#155FFF" fill-opacity="0.74"></rect><rect x="40.0" y="93.8" width="16" height="56.2" rx="3" fill="#155FFF" fill-opacity="0.73"></rect><rect x="60.0" y="73.1" width="16" height="76.9" rx="3" fill="#155FFF" fill-opacity="0.79"></rect><rect x="80.0" y="80.5" width="16" height="69.5" rx="3" fill="#155FFF" fill-opacity="0.77"></rect><rect x="100.0" y="90.8" width="16" height="59.2" rx="3" fill="#155FFF" fill-opacity="0.74"></rect><rect x="120.0" y="68.6" width="16" height="81.4" rx="3" fill="#155FFF" fill-opacity="0.81"></rect><rect x="140.0" y="59.8" width="16" height="90.2" rx="3" fill="#155FFF" fill-opacity="0.84"></rect><rect x="160.0" y="77.5" width="16" height="72.5" rx="3" fill="#155FFF" fill-opacity="0.78"></rect><rect x="180.0" y="84.9" width="16" height="65.1" rx="3" fill="#155FFF" fill-opacity="0.76"></rect><rect x="200.0" y="64.2" width="16" height="85.8" rx="3" fill="#155FFF" fill-opacity="0.82"></rect><rect x="220.0" y="43.5" width="16" height="106.5" rx="3" fill="#155FFF" fill-opacity="0.89"></rect><rect x="240.0" y="52.4" width="16" height="97.6" rx="3" fill="#155FFF" fill-opacity="0.86"></rect><rect x="260.0" y="74.6" width="16" height="75.4" rx="3" fill="#155FFF" fill-opacity="0.79"></rect><rect x="280.0" y="82.0" width="16" height="68.0" rx="3" fill="#155FFF" fill-opacity="0.77"></rect><rect x="300.0" y="56.8" width="16" height="93.2" rx="3" fill="#155FFF" fill-opacity="0.85"></rect><rect x="320.0" y="19.8" width="16" height="130.2" rx="3" fill="#155FFF" fill-opacity="0.96"></rect><rect x="340.0" y="33.1" width="16" height="116.9" rx="3" fill="#155FFF" fill-opacity="0.92"></rect><rect x="360.0" y="65.7" width="16" height="84.3" rx="3" fill="#155FFF" fill-opacity="0.82"></rect><rect x="380.0" y="76.0" width="16" height="74.0" rx="3" fill="#155FFF" fill-opacity="0.78"></rect><rect x="400.0" y="58.3" width="16" height="91.7" rx="3" fill="#155FFF" fill-opacity="0.84"></rect><rect x="420.0" y="8.0" width="16" height="142.0" rx="3" fill="#155FFF" fill-opacity="1.00"></rect><rect x="440.0" y="45.0" width="16" height="105.0" rx="3" fill="#155FFF" fill-opacity="0.88"></rect><rect x="460.0" y="70.1" width="16" height="79.9" rx="3" fill="#155FFF" fill-opacity="0.80"></rect><rect x="480.0" y="79.0" width="16" height="71.0" rx="3" fill="#155FFF" fill-opacity="0.78"></rect><rect x="500.0" y="62.7" width="16" height="87.3" rx="3" fill="#155FFF" fill-opacity="0.83"></rect><rect x="520.0" y="49.4" width="16" height="100.6" rx="3" fill="#155FFF" fill-opacity="0.87"></rect><rect x="540.0" y="27.2" width="16" height="122.8" rx="3" fill="#155FFF" fill-opacity="0.94"></rect><rect x="560.0" y="55.3" width="16" height="94.7" rx="3" fill="#155FFF" fill-opacity="0.85"></rect><rect x="580.0" y="83.4" width="16" height="66.6" rx="3" fill="#155FFF" fill-opacity="0.76"></rect></svg>
+    </div>
+  </section>
   <!-- ── Customer stories (video) ─────────── -->
   <section class="cp-vt" data-screen-label="Customer stories (video)">
     <div class="cp-vt__head">
