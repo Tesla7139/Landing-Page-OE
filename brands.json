@@ -11,6 +11,18 @@
   },
   "brands": [
     {
+      "name": "Order editing",
+      "reviewer": "A merchant, on camera",
+      "video": {
+        "src": "assets/testimonials/order-editing-budget.mp4",
+        "poster": "assets/testimonials/order-editing-budget.jpg",
+        "title": "“This $100 product saved my budget”",
+        "duration": "0:27",
+        "width": 540,
+        "height": 960
+      }
+    },
+    {
       "file": "curlwarehouse.png",
       "name": "Curl Warehouse",
       "reviewer": "Curl Warehouse",

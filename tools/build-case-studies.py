@@ -30,6 +30,41 @@ CARD_W = 246
 PITCH = 268          # centre-to-centre along the circle
 
 
+PLAY = ('<svg width="18" height="21" viewBox="0 0 30 34" fill="currentColor" '
+        'aria-hidden="true"><path d="M28.5 15.3a2 2 0 0 1 0 3.4L3.1 33.6A2 2 0 '
+        '0 1 0 31.9V2.1A2 2 0 0 1 3.1.4z"></path></svg>')
+
+
+def video_card(v, angle, radius):
+    """One card in the ring is a merchant on camera rather than in print.
+
+    The poster fills the card edge to edge and the line sits over it, so it
+    reads as a different kind of evidence at a glance. The click binding is
+    the page's own playVT0, which also holds the ring still while it plays -
+    a card that turns away mid-sentence is worse than no card.
+    """
+    return [
+        '          <figure class="cp-cs__card cp-cs__card--vt" id="cp-vt-0" '
+        'data-playing="0" data-cs-angle="%.3f" '
+        'style="transform: rotateY(%.3fdeg) translateZ(%dpx);">'
+        % (angle, angle, radius),
+        '            <video class="cp-vt__video" preload="none" playsinline '
+        'poster="%s" width="%d" height="%d">'
+        % (v["poster"], v["width"], v["height"]),
+        '              <source src="%s" type="video/mp4">' % v["src"],
+        "            </video>",
+        '            <button type="button" class="cp-vt__hit" '
+        'onClick="{{ playVT0 }}" aria-label="Play: %s">'
+        '<span class="cp-vt__play">%s</span>'
+        '<span class="cp-vt__time">%s</span></button>'
+        % (html.escape(v["title"].strip("“”"), quote=True), PLAY,
+           html.escape(v["duration"])),
+        '            <figcaption class="cp-cs__vtcap">%s</figcaption>'
+        % html.escape(v["title"]),
+        "          </figure>",
+    ]
+
+
 def main():
     doc = json.load(io.open(DATA, encoding="utf-8"))
     brands = doc if isinstance(doc, list) else doc.get("brands", doc)
@@ -43,6 +78,9 @@ def main():
            '        <div class="cp-cs__ring" id="cp-cs-ring">']
     for i, b in enumerate(brands):
         angle = i * step
+        if b.get("video"):
+            out += video_card(b["video"], angle, radius)
+            continue
         tier = b.get("tier")
         bits = [
             '          <figure class="cp-cs__card" data-cs-angle="%.3f" '

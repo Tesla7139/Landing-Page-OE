@@ -228,46 +228,48 @@
                 background: #0A4A2B; font-size: 12.5px; font-weight: 500;
                 line-height: 17px; color: rgba(255, 255, 255, 0.88); }
 
-  /* ── The customer clip ──────────────────
-     It sits beside the case-study heading rather than in a band of its
-     own, so the words left-align against it instead of centring over the
-     page. */
-  .cp-csx__head { width: 1216px; display: flex; flex-direction: row;
-                  gap: 56px; align-items: center; }
+  /* ── The case-study heading ──────────────────
+     The clip that used to stand beside it is the first card on the ring
+     now, so the words centre over the ring again. */
+  .cp-csx__head { width: 1216px; display: flex; flex-direction: column;
+                  align-items: center; }
   .cp-csx__copy { display: flex; flex-direction: column; gap: 14px;
-                  align-items: flex-start; text-align: left; }
+                  align-items: center; text-align: center; }
   .cp-csx__copy h2 { margin: 0; font-size: 44px; font-weight: 500;
                      line-height: 54px; letter-spacing: -0.01em;
                      color: #252525; }
-  .cp-csx__copy p { margin: 0; max-width: 620px; font-size: 17px;
+  .cp-csx__copy p { margin: 0; max-width: 640px; font-size: 17px;
                     line-height: 26px; color: #52525B; }
-  .cp-vt__card { flex: 0 0 auto; margin: 0; width: 250px;
-                 display: flex; flex-direction: column; }
-  .cp-vt__label { font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
-                  text-transform: uppercase; color: #98A2B3; }
-  .cp-vt__media { position: relative; margin-top: 12px; width: 250px;
-                  height: 444px; border-radius: 14px; overflow: hidden;
-                  background: #000000; }
-  .cp-vt__video { display: block; width: 100%; height: 100%; object-fit: cover; }
+  /* One card in the ring is a merchant on camera rather than in print.
+     The poster fills it edge to edge with the line over the foot, so it
+     reads as a different kind of evidence before it is read at all. */
+  .cp-cs__card--vt { padding: 0; overflow: hidden; background: #000000;
+                     border-color: rgba(255, 255, 255, 0.16); }
+  .cp-vt__video { position: absolute; inset: 0; width: 100%; height: 100%;
+                  object-fit: cover; }
   .cp-vt__hit { position: absolute; inset: 0; width: 100%; height: 100%;
                 padding: 0; border: 0; background: none; cursor: pointer; }
-  .cp-vt__play { position: absolute; left: 50%; top: 50%; width: 62px; height: 62px;
-                 transform: translate(-50%, -50%); border-radius: 9999px;
-                 background: #155FFF; color: #ffffff; display: flex;
-                 justify-content: center; align-items: center; padding-left: 4px;
+  .cp-vt__play { position: absolute; left: 50%; top: 50%; width: 54px;
+                 height: 54px; transform: translate(-50%, -50%);
+                 border-radius: 9999px; background: #155FFF; color: #ffffff;
+                 display: flex; justify-content: center; align-items: center;
+                 padding-left: 4px;
                  box-shadow: 0 10px 28px rgba(21, 95, 255, 0.45);
                  transition: transform 160ms ease-out, background 160ms ease-out; }
   .cp-vt__hit:hover .cp-vt__play { transform: translate(-50%, -50%) scale(1.07);
                                    background: #0A3FCC; }
   .cp-vt__hit:focus-visible { outline: 3px solid #155FFF; outline-offset: 3px; }
-  .cp-vt__time { position: absolute; left: 12px; bottom: 12px; height: 24px;
-                 padding: 0 9px; border-radius: 6px; display: inline-flex;
+  .cp-vt__time { position: absolute; left: 12px; top: 12px; height: 22px;
+                 padding: 0 8px; border-radius: 6px; display: inline-flex;
                  align-items: center; background: rgba(10, 22, 40, 0.72);
                  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
-                 font-size: 12px; font-weight: 600; color: #ffffff; }
-  .cp-vt__card[data-playing="1"] .cp-vt__hit { display: none; }
-  .cp-vt__title { margin: 14px 0 0; font-size: 15.5px; font-weight: 500;
-                  line-height: 23px; color: #252525; }
+                 font-size: 11.5px; font-weight: 600; color: #ffffff; }
+  .cp-cs__card--vt[data-playing="1"] .cp-vt__hit { display: none; }
+  .cp-cs__vtcap { position: absolute; left: 0; right: 0; bottom: 0;
+                  padding: 48px 18px 16px; font-size: 13.5px; font-weight: 600;
+                  line-height: 19px; color: #ffffff;
+                  background: linear-gradient(to top,
+                    rgba(6, 12, 24, 0.9), rgba(6, 12, 24, 0)); }
   /* The ladder below overrides this per step; unzoomed widths use 1. */
   .cp-page { --cp-zoom: 1; }
 
@@ -1369,13 +1371,10 @@
     /* 44px is 172px of glyph and the pair only has 141 at 400px wide */
     .cp-gs__tile b { font-size: min(44px, 8.5vw) !important;
                      line-height: 1.05 !important; }
-    /* ── The customer clip ──────────────────────────── */
-    .cp-csx__head { width: 100% !important; flex-direction: column !important;
-                    gap: 26px !important; align-items: center; }
-    .cp-csx__copy { align-items: center !important; text-align: center !important; }
+    /* ── The case-study heading ─────────────── */
+    .cp-csx__head { width: 100% !important; }
+    .cp-csx__copy h2 { font-size: 28px !important; line-height: 36px !important; }
     .cp-csx__copy p { font-size: 15.5px !important; line-height: 25px !important; }
-    .cp-vt__card { width: 230px !important; }
-    .cp-vt__media { width: 230px !important; height: 409px !important; }
     /* ── Book a call ────────────────────────────────────────────────── */
     .cp-bk { flex-direction: column !important; }
     /* the phone rules centre section text; a form reads wrong that way -
@@ -3138,85 +3137,82 @@
   <!-- ── Case studies ──────────────────── -->
   <section id="case-studies" style="background: #ffffff; padding: 88px 0 96px; display: flex; flex-direction: column; gap: 40px; align-items: center; scroll-margin-top: 104px;" data-screen-label="Case studies">
     <div class="cp-csx__head">
-      <figure class="cp-vt__card" id="cp-vt-0" data-playing="0">
-        <figcaption class="cp-vt__label">Order editing</figcaption>
-        <div class="cp-vt__media">
-          <video class="cp-vt__video" preload="none" playsinline poster="assets/testimonials/order-editing-budget.jpg" width="540" height="960">
-            <source src="assets/testimonials/order-editing-budget.mp4" type="video/mp4">
-          </video>
-          <button type="button" class="cp-vt__hit" onClick="{{ playVT0 }}" aria-label="Play: This $100 product saved my budget"><span class="cp-vt__play"><svg width="20" height="23" viewBox="0 0 30 34" fill="currentColor" aria-hidden="true"><path d="M28.5 15.3a2 2 0 0 1 0 3.4L3.1 33.6A2 2 0 0 1 0 31.9V2.1A2 2 0 0 1 3.1.4z"></path></svg></span><span class="cp-vt__time">0:27</span></button>
-        </div>
-        <p class="cp-vt__title">“This $100 product saved my budget”</p>
-      </figure>
       <div class="cp-csx__copy">
         <h2>Brands running order editing</h2>
         <p>Twelve of them in their own words, and one of them on camera — what changed once shoppers could fix their own orders.</p>
       </div>
     </div>
       <!-- CASESTUDIES:START — generated by tools/build-case-studies.py -->
-      <div class="cp-cs" data-cs-radius="512">
+      <div class="cp-cs" data-cs-radius="554">
         <div class="cp-cs__ring" id="cp-cs-ring">
-          <figure class="cp-cs__card" data-cs-angle="0.000" style="transform: rotateY(0.000deg) translateZ(512px);">
+          <figure class="cp-cs__card cp-cs__card--vt" id="cp-vt-0" data-playing="0" data-cs-angle="0.000" style="transform: rotateY(0.000deg) translateZ(554px);">
+            <video class="cp-vt__video" preload="none" playsinline poster="assets/testimonials/order-editing-budget.jpg" width="540" height="960">
+              <source src="assets/testimonials/order-editing-budget.mp4" type="video/mp4">
+            </video>
+            <button type="button" class="cp-vt__hit" onClick="{{ playVT0 }}" aria-label="Play: This $100 product saved my budget"><span class="cp-vt__play"><svg width="18" height="21" viewBox="0 0 30 34" fill="currentColor" aria-hidden="true"><path d="M28.5 15.3a2 2 0 0 1 0 3.4L3.1 33.6A2 2 0 0 1 0 31.9V2.1A2 2 0 0 1 3.1.4z"></path></svg></span><span class="cp-vt__time">0:27</span></button>
+            <figcaption class="cp-cs__vtcap">“This $100 product saved my budget”</figcaption>
+          </figure>
+          <figure class="cp-cs__card" data-cs-angle="27.692" style="transform: rotateY(27.692deg) translateZ(554px);">
             <span class="cp-cs__mark"><img src="assets/customers/curlwarehouse.png" alt="Curl Warehouse"></span>
             <span class="cp-cs__tier">7-figure brand</span>
             <blockquote class="cp-cs__quote">This has reduced the number of emails we receive to update orders. It&#x27;s easy to use and set up, and the developers have been very receptive to changes.</blockquote>
             <figcaption class="cp-cs__who">Curl Warehouse<span class="cp-cs__where">Canada</span></figcaption>
           </figure>
-          <figure class="cp-cs__card" data-cs-angle="30.000" style="transform: rotateY(30.000deg) translateZ(512px);">
+          <figure class="cp-cs__card" data-cs-angle="55.385" style="transform: rotateY(55.385deg) translateZ(554px);">
             <span class="cp-cs__mark"><img src="assets/customers/mateina.png" alt="Mateina"></span>
             <span class="cp-cs__tier">Andrew Huberman&#x27;s favourite</span>
             <blockquote class="cp-cs__quote">One of the best order editing apps available that actually works! I&#x27;ve tested about a dozen, and this was by far one of the best. Amazing team and support.</blockquote>
             <figcaption class="cp-cs__who">Mateina<span class="cp-cs__where">Canada</span></figcaption>
           </figure>
-          <figure class="cp-cs__card" data-cs-angle="60.000" style="transform: rotateY(60.000deg) translateZ(512px);">
+          <figure class="cp-cs__card" data-cs-angle="83.077" style="transform: rotateY(83.077deg) translateZ(554px);">
             <span class="cp-cs__mark"><img src="assets/customers/renuebyscience.svg" alt="Renue By Science"></span>
             <blockquote class="cp-cs__quote">The team at Clickpost are exceptional developers and great people. They listen to feedback and have built genuinely useful tools for Shopify stores.</blockquote>
             <figcaption class="cp-cs__who">Renue By Science<span class="cp-cs__where">USA</span></figcaption>
           </figure>
-          <figure class="cp-cs__card" data-cs-angle="90.000" style="transform: rotateY(90.000deg) translateZ(512px);">
+          <figure class="cp-cs__card" data-cs-angle="110.769" style="transform: rotateY(110.769deg) translateZ(554px);">
             <span class="cp-cs__mark"><img src="assets/customers/doonails.svg" alt="Doonails"></span>
             <span class="cp-cs__tier">$100M+ brand</span>
             <blockquote class="cp-cs__quote">Really helped us quickly to fix all issues.</blockquote>
             <figcaption class="cp-cs__who">Doonails<span class="cp-cs__where">Germany</span></figcaption>
           </figure>
-          <figure class="cp-cs__card" data-cs-angle="120.000" style="transform: rotateY(120.000deg) translateZ(512px);">
+          <figure class="cp-cs__card" data-cs-angle="138.462" style="transform: rotateY(138.462deg) translateZ(554px);">
             <span class="cp-cs__mark"><img src="assets/customers/modomu.png" alt="Modomu"></span>
             <blockquote class="cp-cs__quote">Really happy with Clickpost so far. We added it mainly for order edits but ended up using the upsell part too, which brought in a bit of extra revenue.</blockquote>
             <figcaption class="cp-cs__who">Modomu<span class="cp-cs__where">India</span></figcaption>
           </figure>
-          <figure class="cp-cs__card" data-cs-angle="150.000" style="transform: rotateY(150.000deg) translateZ(512px);">
+          <figure class="cp-cs__card" data-cs-angle="166.154" style="transform: rotateY(166.154deg) translateZ(554px);">
             <span class="cp-cs__mark"><img src="assets/customers/hautesauce.png" alt="Haute Sauce"></span>
             <blockquote class="cp-cs__quote">Installed Clickpost recently and it works great. Customers can edit their orders and even add extra items, which is a nice bonus.</blockquote>
             <figcaption class="cp-cs__who">Haute Sauce<span class="cp-cs__where">India</span></figcaption>
           </figure>
-          <figure class="cp-cs__card" data-cs-angle="180.000" style="transform: rotateY(180.000deg) translateZ(512px);">
+          <figure class="cp-cs__card" data-cs-angle="193.846" style="transform: rotateY(193.846deg) translateZ(554px);">
             <span class="cp-cs__mark"><img src="assets/customers/westside.png" alt="Westside Global"></span>
             <blockquote class="cp-cs__quote">We just installed Clickpost a few days ago and honestly it&#x27;s been a very smooth experience. Setup was way easier than I expected and everything worked right out of the box. The order editing feature is exactly what we needed since customers always want to change something after checkout. Smit helped us get everything configured and answered our questions super fast.</blockquote>
             <figcaption class="cp-cs__who">Westside Global<span class="cp-cs__where">India</span></figcaption>
           </figure>
-          <figure class="cp-cs__card" data-cs-angle="210.000" style="transform: rotateY(210.000deg) translateZ(512px);">
+          <figure class="cp-cs__card" data-cs-angle="221.538" style="transform: rotateY(221.538deg) translateZ(554px);">
             <span class="cp-cs__mark"><img src="assets/customers/myborosil.png" alt="MyBorosil"></span>
             <blockquote class="cp-cs__quote">Order editing app by clickpost is easy to install with a super responsive support team. It has reduced our support tickets. It has just made our life easier. Was very easy to setup on them. Loving it!</blockquote>
             <figcaption class="cp-cs__who">MyBorosil<span class="cp-cs__where">India</span></figcaption>
           </figure>
-          <figure class="cp-cs__card" data-cs-angle="240.000" style="transform: rotateY(240.000deg) translateZ(512px);">
+          <figure class="cp-cs__card" data-cs-angle="249.231" style="transform: rotateY(249.231deg) translateZ(554px);">
             <span class="cp-cs__mark"><img src="assets/customers/wellbeingnutrition.png" alt="Wellbeing Nutrition"></span>
             <blockquote class="cp-cs__quote">Clickpost order editing has made our post purchase process so much better. Customers can now edit their orders without contacting support. Their upsells are a cherry on the top, and have increased our AOV. Real value for money, and absolutely great support from the team.</blockquote>
             <figcaption class="cp-cs__who">Wellbeing Nutrition<span class="cp-cs__where">India</span></figcaption>
           </figure>
-          <figure class="cp-cs__card" data-cs-angle="270.000" style="transform: rotateY(270.000deg) translateZ(512px);">
+          <figure class="cp-cs__card" data-cs-angle="276.923" style="transform: rotateY(276.923deg) translateZ(554px);">
             <span class="cp-cs__mark"><img src="assets/customers/marsbyghc.png" alt="Mars By GHC"></span>
             <span class="cp-cs__tier">7-figure brand</span>
             <blockquote class="cp-cs__quote">We’ve been using Clickpost and it’s genuinely been super helpful. Customers can handle order edits themselves, and the post-purchase upsells have been a solid bonus for incremental revenue. Setup was straightforward, everything’s been running smoothly, and support has been great too — the team was quick to respond and got us up and running fast.</blockquote>
             <figcaption class="cp-cs__who">Mars By GHC<span class="cp-cs__where">India</span></figcaption>
           </figure>
-          <figure class="cp-cs__card" data-cs-angle="300.000" style="transform: rotateY(300.000deg) translateZ(512px);">
+          <figure class="cp-cs__card" data-cs-angle="304.615" style="transform: rotateY(304.615deg) translateZ(554px);">
             <span class="cp-cs__mark"><img src="assets/customers/vanillapura.png" alt="VanillaPura"></span>
             <span class="cp-cs__tier">7-figure brand</span>
             <blockquote class="cp-cs__quote">Great experience and fantastic support from the ClickPost team with my questions. Our top customer service requests are for order edits, so this immediately cut support tickets making it easy to quantify the ROI. A lot of customization features and various upsell tools are included in the app that I can implement to increase AOV as well. I highly recommend it.</blockquote>
             <figcaption class="cp-cs__who">VanillaPura<span class="cp-cs__where">Utah, USA</span></figcaption>
           </figure>
-          <figure class="cp-cs__card" data-cs-angle="330.000" style="transform: rotateY(330.000deg) translateZ(512px);">
+          <figure class="cp-cs__card" data-cs-angle="332.308" style="transform: rotateY(332.308deg) translateZ(554px);">
             <span class="cp-cs__mark"><img src="assets/customers/gharsoaps.png" alt="GHAR SOAPS"></span>
             <span class="cp-cs__tier">8-figure brand</span>
             <blockquote class="cp-cs__quote">Clickpost been a great upgrade for our store. Customers can log in, check their info, and manage everything easily, which has made the whole experience feel smoother and more professional.</blockquote>
@@ -3849,6 +3845,23 @@ class Component extends DCLogic {
   // ── Case-study ring ──────────────────────────────
   // The transform goes straight onto the element. Through state this would
   // re-render the page component on every frame to turn one ring.
+  // The button has been bound to this since the clip went on the page, but
+  // the method was never written - every click threw. Playing also holds
+  // the ring: a card that turns away mid-sentence is worse than no card.
+  playVT(i) {
+    const card = document.getElementById("cp-vt-" + i);
+    if (!card) return;
+    const v = card.querySelector("video");
+    if (!v) return;
+    card.setAttribute("data-playing", "1");
+    v.controls = true;
+    this.ringHold = true;
+    const release = () => { this.ringHold = false; };
+    v.addEventListener("pause", release);
+    v.addEventListener("ended", release);
+    const p = v.play();
+    if (p && p.catch) p.catch(() => {});
+  }
   startRing() {
     const ring = document.getElementById("cp-cs-ring");
     if (!ring) return;
@@ -3878,7 +3891,7 @@ class Component extends DCLogic {
     const frame = (now) => {
       const dt = last === null ? 16 : Math.min(48, now - last);
       last = now;
-      if (!paused && !reduced) rot = (rot + dt * 0.0055) % 360;
+      if (!paused && !reduced && !this.ringHold) rot = (rot + dt * 0.0055) % 360;
       ring.style.transform = "rotateY(" + rot + "deg)";
       face();
       this.ringRAF = requestAnimationFrame(frame);
