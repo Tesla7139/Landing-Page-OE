@@ -391,6 +391,17 @@
                 font-weight: 700; color: #252525; }
   .cp-cs__where { font-size: 10.5px; font-weight: 600;
                   letter-spacing: 0.02em; color: #D97706; }
+  /* ── Step 3's edit panel ───────────────────────
+     The stage stretches the mock to the frame, but its content keeps its
+     natural size - 276 of 498 at 1440, so a third of the card was white.
+     The list takes the room instead: rows grow, capped at 64 so they stay
+     rows rather than becoming panels, and the gaps take the remainder. */
+  [data-step-visual="2"] > div > div:last-child { flex: 1 1 auto; }
+  [data-step-visual="2"] > div > div:last-child > div { flex: 1 1 auto;
+                                                        height: auto !important;
+                                                        min-height: 32px;
+                                                        max-height: 64px; }
+
   /* ── Globe ─────────────────────────────────────
      Sits behind the content, so it is dialled back with opacity - at full
      strength the dots fight the type over them. Canvas, because it is a
