@@ -622,33 +622,24 @@
                 text-align: center; }
   .cp-ob__mid h2 { margin: 0; font-size: 44px; font-weight: 600; line-height: 54px;
                    letter-spacing: -0.01em; color: #ffffff; }
-  .cp-ob__stat { position: absolute; top: 92px; width: 448px; display: flex;
+  /* 109 rather than 92: with the pill and its rule gone the block is 106
+     tall, and this sits it on the heading's axis at y=162 */
+  .cp-ob__stat { position: absolute; top: 109px; width: 448px; display: flex;
                  flex-direction: column; }
   .cp-ob__stat--l { left: 0; align-items: flex-start;
                     padding-left: 56px; }
   .cp-ob__stat--r { right: 0; align-items: flex-end;
                     padding-right: 56px; text-align: right; }
-  .cp-ob__pill { height: 38px; padding: 0 20px; border-radius: 9999px;
-                 border: 1px solid #D5D9E2; display: inline-flex;
-                 align-items: center; font-size: 15px; color: #52525B;
-                 white-space: nowrap; }
-  /* Length is bounded by the wedge, not the panel: at this y the slants
-     are at x=423 and x=1017, so 448 crossed both and drew a grey line
-     across the blue. 410 leaves about 13px of white before each. */
-  .cp-ob__rule { width: 410px; height: 1px; margin: 26px 0 0; background: #E5E7EB; }
-  .cp-ob__stat--l .cp-ob__rule { margin-left: -56px; }
-  .cp-ob__stat--r .cp-ob__rule { margin-right: -56px; }
   /* The figure sits centred over its caption. Both stretch to the panel's
      content box and centre their text inside it, so they share one axis -
      centring the figure alone would have centred it on the panel, which
-     the caption does not quite fill. The pill keeps its own edge.
+     the caption does not quite fill.
      Mirrored on the right so the band stays symmetric. */
   .cp-ob__big, .cp-ob__cap { align-self: stretch; text-align: center; }
-  .cp-ob__big { margin-top: 20px; font-size: 54px; font-weight: 500; line-height: 62px;
+  .cp-ob__big { font-size: 54px; font-weight: 500; line-height: 62px;
                 letter-spacing: -0.02em; color: #155FFF; white-space: nowrap; }
   .cp-ob__cap { margin-top: 10px; font-size: 26px; font-weight: 500;
                 line-height: 34px; color: #252525; }
-  .cp-ob__note { display: none; }
 
   /* ── Product video ────────────────────────────────────
      A click-to-play facade. The poster is a local file and the frame holds
@@ -1173,20 +1164,11 @@
                      font-weight: 600 !important; }
     .cp-ob__mid h2 span:first-child { color: #6B7280; }
     .cp-ob__mid h2 span:last-child { color: #155FFF; display: block; }
-    .cp-ob__note { order: 2; display: inline-flex !important; flex-direction: row;
-                   gap: 8px; align-items: center; margin: 4px 0 12px;
-                   height: 38px; padding: 0 18px; border-radius: 9999px;
-                   border: 1px solid #E5E7EB; background: #ffffff;
-                   font-size: 14px; color: #52525B; white-space: nowrap; }
-    .cp-ob__dot { width: 8px; height: 8px; border-radius: 9999px;
-                  background: #155FFF; flex-shrink: 0; }
     .cp-ob__stat { order: 3; position: static !important;
                    width: calc(50% - 6px) !important;
                    align-items: center !important; text-align: center !important;
                    padding: 22px 12px !important; border-radius: 16px;
                    background: #F5F6FA; }
-    /* the in-panel pill and its rule belong to the wedge, not to a card */
-    .cp-ob__pill, .cp-ob__rule { display: none !important; }
     .cp-ob__stat--l { order: 3; }
     .cp-ob__stat--r { order: 4; }
     .cp-ob__big { font-size: 26px !important; line-height: 34px !important;
@@ -1854,8 +1836,6 @@
     </svg>
 
     <div class="cp-ob__stat cp-ob__stat--l">
-      <span class="cp-ob__pill">Across stores globally</span>
-      <span class="cp-ob__rule"></span>
       <span class="cp-ob__big">5%</span>
       <span class="cp-ob__cap">higher average order value.</span>
     </div>
@@ -1864,13 +1844,8 @@
       <h2><span>Simplifying</span> <span>post-purchase experience</span></h2>
     </div>
 
-    <!-- phone only: the band's own pills sit inside each panel, which is
-         right on the wedge and wrong once the panels become cards -->
-    <span class="cp-ob__note"><span class="cp-ob__dot"></span>Across stores globally</span>
 
     <div class="cp-ob__stat cp-ob__stat--r">
-      <span class="cp-ob__pill">Across stores globally</span>
-      <span class="cp-ob__rule"></span>
       <span class="cp-ob__big">Up to 30%</span>
       <span class="cp-ob__cap">lower support cost per store.</span>
     </div>
