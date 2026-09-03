@@ -86,6 +86,25 @@
                 gap: 8px; font-size: 13px; font-weight: 700; color: var(--color-fg); }
 
 
+  /* ── Integrations CTA ────────────────────
+     #155FFF, the page's own button colour, not the lighter blue it was
+     drawn in: white on that measures 2.86:1 and fails AA at 16px, white
+     on this is 5.10:1. */
+  .cp-int__cta { display: inline-flex; flex-direction: row; gap: 10px;
+                 align-items: center; height: 52px; padding: 0 26px;
+                 border-radius: 6px; background: #155FFF; color: #ffffff;
+                 font-size: 16px; font-weight: 600; line-height: 20px;
+                 white-space: nowrap; text-decoration: none;
+                 transition: background 160ms ease-out; }
+  .cp-int__cta:hover { background: #0A3FCC; }
+  .cp-int__cta:focus-visible { outline: 3px solid #155FFF;
+                               outline-offset: 3px; }
+  .cp-int__cta svg { transition: transform 160ms ease-out; }
+  .cp-int__cta:hover svg { transform: translateX(3px); }
+  @media (prefers-reduced-motion: reduce) {
+    .cp-int__cta, .cp-int__cta svg { transition: none; }
+  }
+
   /* ── Case study: DOONAILS ─────────────────────
      Colour read off us.doonails.com, and corrected: the #ce0058 pink is
      not their accent - all 19 declarations of it are scoped to
@@ -2955,6 +2974,7 @@
         <img src="assets/integrations/yotpo.svg" alt="Yotpo" width="113" height="32" style="width: 160px; height: 34px; object-fit: contain; display: block;">
       </div>
     </div>
+    <a class="cp-int__cta" href="#">See all integrations<svg width="17" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0;"><path d="M1 7h15M11 2l5 5-5 5"></path></svg></a>
     <div style="align-self: stretch; border-radius: 12px; background: #EEF3FF; border: 1px solid #D6E4FF; padding: 48px 56px; display: flex; flex-direction: row; gap: 48px; justify-content: space-between; align-items: center;">
       <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
         <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #155FFF;">Don’t see your stack?</span>
