@@ -612,8 +612,12 @@
   .cp-bfo__tag--ok   { background: #DCFCE7; color: #15803D; }
   .cp-bfo__tag--wip  { background: #EDE9FE; color: #6D28D9; }
   .cp-bfo__copy { display: flex; flex-direction: column; align-items: flex-start; }
-  .cp-bfo__copy h2 { margin: 0; font-size: 44px; font-weight: 700; line-height: 54px;
-                     letter-spacing: -0.02em; color: #252525; }
+  /* text-wrap: balance rather than a hard break - the column is 592 at
+     1440 and 380 on a phone, and four lines each shorter than the last
+     read as a triangle */
+  .cp-bfo__copy h2 { margin: 0; font-size: 44px; font-weight: 400;
+                     line-height: 56px; letter-spacing: -0.01em;
+                     text-wrap: balance; color: #252525; }
   .cp-bfo__more { margin-top: 34px; font-size: 15px; font-weight: 600;
                   letter-spacing: 0.06em; text-transform: uppercase;
                   color: #155FFF; text-decoration: underline;
@@ -2901,7 +2905,7 @@
     </div>
 
     <div class="cp-bfo__copy">
-      <h2>Save thousands on support costs while turning order edits into upsell opportunities.</h2>
+      <h2>“Save thousands on support costs while turning order edits into upsell opportunities.”</h2>
       <a class="cp-bfo__more" href="#">Explore order editing</a>
     </div>
   </section>
