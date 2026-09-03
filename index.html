@@ -618,10 +618,21 @@
   .cp-bfo__copy h2 { margin: 0; font-size: 44px; font-weight: 400;
                      line-height: 56px; letter-spacing: -0.01em;
                      text-wrap: balance; color: #252525; }
-  .cp-bfo__more { margin-top: 34px; font-size: 15px; font-weight: 600;
-                  letter-spacing: 0.06em; text-transform: uppercase;
-                  color: #155FFF; text-decoration: underline;
-                  text-underline-offset: 4px; }
+  /* the arrow sits beside the label, not inside it, so the underline
+     stays under the words rather than running through the arrow */
+  .cp-bfo__more { margin-top: 34px; display: inline-flex;
+                  flex-direction: row; gap: 9px; align-items: center;
+                  font-size: 15px; font-weight: 600; letter-spacing: 0.06em;
+                  text-transform: uppercase; color: #155FFF;
+                  text-decoration: none; }
+  .cp-bfo__more span { text-decoration: underline;
+                       text-underline-offset: 4px; }
+  .cp-bfo__more svg { flex-shrink: 0;
+                      transition: transform 160ms ease-out; }
+  .cp-bfo__more:hover svg { transform: translateX(3px); }
+  @media (prefers-reduced-motion: reduce) {
+    .cp-bfo__more svg { transition: none; }
+  }
 
   /* ── Outcome band ──────────────────────────────────
      Full bleed on the fixed 1440 column, so everything is placed against
@@ -2906,7 +2917,7 @@
 
     <div class="cp-bfo__copy">
       <h2>“Save thousands on support costs while turning order edits into upsell opportunities.”</h2>
-      <a class="cp-bfo__more" href="#">Explore order editing</a>
+      <a class="cp-bfo__more" href="#"><span>See how it works</span><svg width="15" height="13" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5"></path></svg></a>
     </div>
   </section>
 
