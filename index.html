@@ -132,7 +132,10 @@
   /* the brand name takes the weight, the sentence continues under it */
   .cp-cse__h { margin: 0; font-size: 44px; line-height: 54px;
                letter-spacing: -0.02em; font-weight: 400; color: #ffffff; }
-  .cp-cse__h b { display: block; font-weight: 700; letter-spacing: -0.01em; }
+  /* the name is the subject of the section, not the first line of the
+     sentence: a size of its own, not just a weight */
+  .cp-cse__h b { display: block; font-size: 64px; line-height: 66px;
+                 font-weight: 700; letter-spacing: -0.02em; }
   .cp-cse__h span { display: block; font-weight: 400;
                     color: rgba(255,255,255,0.82); }
   /* The quote is set on the band, not in a card. Same composition as the
@@ -1070,6 +1073,9 @@
     /* Two steps here, not the desktop three: the column step exists for
        narrow columns and a phone has none. */
     [data-screen-label] h2 { font-size: 26px !important; line-height: 34px !important; }
+    /* the same 1.45 step the desktop claim uses */
+    .cp-cse__h b { font-size: 38px !important;
+                   line-height: 42px !important; }
     [data-screen-label] .cp-steps__head h2 { font-size: 33px !important;
                                              line-height: 41px !important; }
     [data-screen-label] h3 { font-size: 20px !important; line-height: 28px !important; }
