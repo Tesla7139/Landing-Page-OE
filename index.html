@@ -333,35 +333,21 @@
   .cp-page > footer { border-top: 0; }
 
   /* ── Book a call ─────────────────────────
-     One card floating on a light ground: words left, form right, labels
-     over the inputs. The form is no longer a card inside a band - there
-     is one card, and the form is half of it. */
-  .cp-bk { background: #F4F6FC; padding: 96px 112px 104px; display: flex;
-           justify-content: center; scroll-margin-top: 104px; }
-  .cp-bk__card { width: 1216px; padding: 56px; border-radius: 28px;
-                 background: #ffffff; display: flex; flex-direction: row;
-                 gap: 72px; align-items: flex-start;
-                 box-shadow: 0 30px 70px -34px rgba(16, 24, 40, 0.28); }
-  .cp-bk__left { flex: 0 0 520px; display: flex; flex-direction: column; }
-  .cp-bk__head { display: flex; flex-direction: column; gap: 10px; }
+     One card on a light ground, holding the form and nothing else. 620
+     wide rather than the content column: a form stretched across 1104
+     would be a stack of very wide inputs, and a field no wider than its
+     longest plausible answer is easier to fill. */
+  .cp-bk { background: #F4F6FC; padding: 88px 112px 104px; display: flex;
+           flex-direction: column; gap: 30px; align-items: center;
+           scroll-margin-top: 104px; }
+  .cp-bk__head { display: flex; flex-direction: column; gap: 10px;
+                 align-items: center; text-align: center; max-width: 660px; }
   .cp-bk__h { margin: 0; font-size: 34px; font-weight: 600; line-height: 44px;
               letter-spacing: -0.02em; color: #101828; }
   .cp-bk__lede { margin: 0; font-size: 15.5px; line-height: 24px; color: #52525B; }
-  .cp-bk__rh { margin: 36px 0 0; font-size: 26px; font-weight: 600;
-               line-height: 36px; letter-spacing: -0.02em; color: #101828; }
-  .cp-bk__rh em { font-style: normal; color: #155FFF; }
-  .cp-bk__list { margin: 22px 0 0; padding: 0; list-style: none; display: flex;
-                 flex-direction: column; gap: 13px; }
-  .cp-bk__list li { display: flex; flex-direction: row; gap: 12px;
-                    align-items: flex-start; }
-  .cp-bk__list svg { flex-shrink: 0; margin-top: 3px; }
-  .cp-bk__list span { font-size: 16px; line-height: 26px; color: #252525; }
-  .cp-bk__stat { margin: 30px 0 0; font-size: 19px; font-weight: 600;
-                 line-height: 30px; letter-spacing: -0.01em; color: #101828; }
-  .cp-bk__stat em { font-style: normal; color: #155FFF; }
-  /* the right half of the card, not a card of its own */
-  .cp-bk__form { flex: 1 1 auto; display: flex; flex-direction: column;
-                 gap: 18px; }
+  .cp-bk__card { width: 620px; padding: 40px; border-radius: 28px;
+                 background: #ffffff;
+                 box-shadow: 0 30px 70px -34px rgba(16, 24, 40, 0.28); }  .cp-bk__form { display: flex; flex-direction: column; gap: 18px; }
   .cp-bk__f { display: flex; flex-direction: column; gap: 8px; }
   .cp-bk__f > span { font-size: 14.5px; font-weight: 600; color: #14161C; }
   .cp-bk__f i, .cp-bk__agree i { font-style: normal; color: #E5484D; }
@@ -1099,9 +1085,6 @@
     [data-screen-label] h2 { font-size: 26px !important; line-height: 34px !important; }
     [data-screen-label] .cp-steps__head h2 { font-size: 33px !important;
                                              line-height: 41px !important; }
-    /* an h3 that is a section heading rather than a sub-head */
-    [data-screen-label] .cp-bk__rh { font-size: 26px !important;
-                                    line-height: 34px !important; }
     [data-screen-label] h3 { font-size: 20px !important; line-height: 28px !important; }
     [data-screen-label] p  { font-size: 16px !important; line-height: 26px !important; }
 
@@ -1401,24 +1384,16 @@
     .cp-csx__head { width: 100% !important; }
     .cp-csx__copy h2 { font-size: 28px !important; line-height: 36px !important; }
     .cp-csx__copy p { font-size: 15.5px !important; line-height: 25px !important; }
-    /* ── Book a call ────────────────────────────── */
+    /* ── Book a call ────────────────────────── */
     .cp-bk { padding: 44px 20px 52px !important; }
-    /* the card is the flex row now, so the stack happens on it */
-    /* stretch, or the form sizes to its content and stops short of the
-       card's edge - 294 of 340 */
-    .cp-bk__card { width: 100% !important; flex-direction: column !important;
-                   align-items: stretch !important;
-                   gap: 34px !important; padding: 26px 20px 28px !important;
+    .cp-bk__card { width: 100% !important; padding: 24px 20px 26px !important;
                    border-radius: 20px !important; }
-    .cp-bk__left { flex: 1 1 auto !important; }
     /* the phone rules centre section text; a form reads wrong that way -
        labels drift off their fields and the checks leave their lines */
-    .cp-bk__left, .cp-bk__form { text-align: left !important; }
+    .cp-bk__form { text-align: left !important; }
     /* the code select and the number will not both fit on one line */
     .cp-bk__row { flex-direction: column !important; }
     .cp-bk__sel--cc { flex: 1 1 auto !important; width: 100% !important; }
-    .cp-bk__list span { font-size: 15.5px !important; line-height: 25px !important; }
-    .cp-bk__stat { font-size: 17.5px !important; line-height: 28px !important; }
     /* ── Footer ─────────────────────────────────────────────────────── */
     [data-screen-label="Footer"] { padding: 56px 20px 40px !important;
                                    gap: 36px !important; }
@@ -3306,52 +3281,43 @@
 
   <!-- ── Book a call ──────────────────────── -->
   <section class="cp-bk" id="book-a-call" data-screen-label="Book a call">
+    <div class="cp-bk__head">
+      <h2 class="cp-bk__h">Book a 15 minute call</h2>
+      <p class="cp-bk__lede">Plug-and-play integration to save time, cut costs and increase revenue.</p>
+    </div>
     <div class="cp-bk__card">
-      <div class="cp-bk__left">
-        <div class="cp-bk__head">
-          <h2 class="cp-bk__h">Book a 15 minute call</h2>
-          <p class="cp-bk__lede">Plug-and-play integration to save time, cut costs and increase revenue.</p>
-        </div>
-        <h3 class="cp-bk__rh"><em>Lower support cost,</em> more revenue</h3>
-        <ul class="cp-bk__list">
-          <li><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#155FFF"></circle><path d="m7 12.4 3.2 3.2L17 8.8" stroke="#ffffff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Let customers self-serve their order edits</span></li>
-          <li><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#155FFF"></circle><path d="m7 12.4 3.2 3.2L17 8.8" stroke="#ffffff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Give a great customer accounts experience, just like Amazon</span></li>
-          <li><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#155FFF"></circle><path d="m7 12.4 3.2 3.2L17 8.8" stroke="#ffffff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Upsell them add-on products while they edit their order</span></li>
-        </ul>
-        <p class="cp-bk__stat">Brands see an increase in revenue by 5% <em>and a decrease in support cost of up to 30%</em></p>
-      </div>
-        <!-- no action: the endpoint goes here when there is one, and the
-             handler stops the default so a press does not reload the page -->
-        <form class="cp-bk__form" onSubmit="{{ bookSubmit }}">
-          <label class="cp-bk__f">
-            <span>Full name<i>*</i></span>
-            <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
-          </label>
-          <label class="cp-bk__f">
-            <span>Work email<i>*</i></span>
-            <input type="email" name="email" placeholder="yourname@workemail.com" autocomplete="email" required>
-          </label>
-          <div class="cp-bk__f">
-            <span>Phone number<i>*</i></span>
-            <div class="cp-bk__row">
-              <span class="cp-bk__sel cp-bk__sel--cc">
-                <select name="country" aria-label="Country dialling code"><option>United States +1</option><option>Canada +1</option><option>United Kingdom +44</option><option>Australia +61</option><option>Germany +49</option><option>France +33</option><option>Netherlands +31</option><option>Spain +34</option><option>Italy +39</option><option>Ireland +353</option><option>Singapore +65</option><option>United Arab Emirates +971</option><option>India +91</option><option>Other</option></select><svg class="cp-bk__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
-              </span>
-              <input type="tel" name="phone" placeholder="(555) 000-0000" autocomplete="tel" required>
-            </div>
-          </div>
-          <label class="cp-bk__f">
-            <span>Orders per month<i>*</i></span>
-            <span class="cp-bk__sel">
-              <select name="volume" required><option value="">Please select</option><option>Under 1,000</option><option>1,000 – 5,000</option><option>5,000 – 25,000</option><option>25,000 – 100,000</option><option>Over 100,000</option></select><svg class="cp-bk__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+      <!-- no action: the endpoint goes here when there is one, and the
+           handler stops the default so a press does not reload the page -->
+      <form class="cp-bk__form" onSubmit="{{ bookSubmit }}">
+        <label class="cp-bk__f">
+          <span>Full name<i>*</i></span>
+          <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
+        </label>
+        <label class="cp-bk__f">
+          <span>Work email<i>*</i></span>
+          <input type="email" name="email" placeholder="yourname@workemail.com" autocomplete="email" required>
+        </label>
+        <div class="cp-bk__f">
+          <span>Phone number<i>*</i></span>
+          <div class="cp-bk__row">
+            <span class="cp-bk__sel cp-bk__sel--cc">
+              <select name="country" aria-label="Country dialling code"><option>United States +1</option><option>Canada +1</option><option>United Kingdom +44</option><option>Australia +61</option><option>Germany +49</option><option>France +33</option><option>Netherlands +31</option><option>Spain +34</option><option>Italy +39</option><option>Ireland +353</option><option>Singapore +65</option><option>United Arab Emirates +971</option><option>India +91</option><option>Other</option></select><svg class="cp-bk__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
             </span>
-          </label>
-          <label class="cp-bk__agree">
-            <input type="checkbox" name="terms" required>
-            <span>I agree to ClickPost’s <a href="https://www.clickpost.ai/terms-and-conditions" target="_blank" rel="noopener noreferrer">Terms</a> and <a href="https://www.clickpost.ai/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.<i>*</i></span>
-          </label>
-          <button type="submit" class="cp-bk__submit">Talk to an expert</button>
-        </form>
+            <input type="tel" name="phone" placeholder="(555) 000-0000" autocomplete="tel" required>
+          </div>
+        </div>
+        <label class="cp-bk__f">
+          <span>Orders per month<i>*</i></span>
+          <span class="cp-bk__sel">
+            <select name="volume" required><option value="">Please select</option><option>Under 1,000</option><option>1,000 – 5,000</option><option>5,000 – 25,000</option><option>25,000 – 100,000</option><option>Over 100,000</option></select><svg class="cp-bk__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+          </span>
+        </label>
+        <label class="cp-bk__agree">
+          <input type="checkbox" name="terms" required>
+          <span>I agree to ClickPost’s <a href="https://www.clickpost.ai/terms-and-conditions" target="_blank" rel="noopener noreferrer">Terms</a> and <a href="https://www.clickpost.ai/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.<i>*</i></span>
+        </label>
+        <button type="submit" class="cp-bk__submit">Talk to an expert</button>
+      </form>
     </div>
   </section>
 
