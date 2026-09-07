@@ -1506,6 +1506,9 @@
   @media (min-width: 1120px) and (max-width: 1159px) { .cp-page { zoom: 0.764; --cp-zoom: 0.764; } }
   @media (min-width: 1080px) and (max-width: 1119px) { .cp-page { zoom: 0.736; --cp-zoom: 0.736; } }
   @media (min-width: 1040px) and (max-width: 1079px) { .cp-page { zoom: 0.708; --cp-zoom: 0.708; } }
+  /* the bottom rung: below this the phone layout takes over at 1000, and
+     without it 1001-1039 kept the full 1440 and scrolled sideways */
+  @media (min-width: 1001px) and (max-width: 1039px) { .cp-page { zoom: 0.68; --cp-zoom: 0.68; } }
 </style>
 </helmet>
 <div class="cp-page" style="width: 1440px; margin: 0 auto; background: #ffffff; font-family: Poppins, sans-serif; -webkit-font-smoothing: antialiased;">
@@ -3083,7 +3086,6 @@
         </div>
       </figcaption>
     </figure>
-    </div>
   </section>
   <!-- ── Case study: DOONAILS ─────────────────── -->
   <section class="cp-cse" data-screen-label="Case study">
