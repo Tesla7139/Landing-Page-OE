@@ -259,33 +259,19 @@
                      color: #252525; }
   .cp-csx__copy p { margin: 0; max-width: 640px; font-size: 17px;
                     line-height: 26px; color: #52525B; }
-  /* ── The merchant clip ─────────────────────
-     Three portrait cards to a page, arrows either side. The reference
-     runs one landscape clip a page; ours are 9:16, so three fit the same
-     width. With one clip the row centres it and the arrows stay hidden -
-     a paging control with nothing to page should not sit there dead. */
-  .cp-vc { position: relative; width: 1216px; display: flex;
-           flex-direction: row; gap: 20px; align-items: center;
-           justify-content: center; }
-  .cp-vc__viewport { overflow: hidden; flex: 0 1 auto; padding: 4px; }
-  .cp-vc__track { display: flex; flex-direction: row; gap: 28px;
-                  justify-content: center;
-                  transition: transform 420ms cubic-bezier(.4,0,.2,1); }
-  .cp-vc__card { flex: 0 0 320px; margin: 0; display: flex;
-                 flex-direction: column; }
-  .cp-vc__media { position: relative; width: 320px; height: 569px;
-                  border-radius: 16px; overflow: hidden; background: #000000;
-                  box-shadow: 0 18px 44px -22px rgba(10, 22, 40, 0.4); }
-  .cp-vc__card figcaption { margin-top: 16px; font-size: 16px;
-                            font-weight: 500; line-height: 24px;
-                            color: #252525; }
-  .cp-vc__card[data-playing="1"] .cp-vt__hit { display: none; }
+  /* ── The merchant clip ──────────────────────
+     One card of the twelve in the ring is a merchant on camera rather
+     than in print. The poster fills it edge to edge with the line over
+     the foot, so it reads as a different kind of evidence before it is
+     read at all. */
+  .cp-cs__card--vt { padding: 0; overflow: hidden; background: #000000;
+                     border-color: rgba(255, 255, 255, 0.16); }
   .cp-vt__video { position: absolute; inset: 0; width: 100%; height: 100%;
                   object-fit: cover; }
   .cp-vt__hit { position: absolute; inset: 0; width: 100%; height: 100%;
                 padding: 0; border: 0; background: none; cursor: pointer; }
-  .cp-vt__play { position: absolute; left: 50%; top: 50%; width: 62px;
-                 height: 62px; transform: translate(-50%, -50%);
+  .cp-vt__play { position: absolute; left: 50%; top: 50%; width: 54px;
+                 height: 54px; transform: translate(-50%, -50%);
                  border-radius: 9999px; background: #155FFF; color: #ffffff;
                  display: flex; justify-content: center; align-items: center;
                  padding-left: 4px;
@@ -299,20 +285,12 @@
                  align-items: center; background: rgba(10, 22, 40, 0.72);
                  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
                  font-size: 11.5px; font-weight: 600; color: #ffffff; }
-  .cp-vc__nav { flex-shrink: 0; width: 48px; height: 48px; padding: 0;
-                border-radius: 9999px; border: 1px solid #E4E7EC;
-                background: #ffffff; color: #252525; cursor: pointer;
-                display: none; justify-content: center; align-items: center;
-                box-shadow: 0 6px 18px -8px rgba(10, 22, 40, 0.28);
-                transition: background 160ms ease-out, color 160ms ease-out; }
-  .cp-vc[data-pages="many"] .cp-vc__nav { display: flex; }
-  .cp-vc__nav:hover { background: #155FFF; color: #ffffff; }
-  .cp-vc__nav:disabled { opacity: 0.35; cursor: default; background: #ffffff;
-                         color: #252525; }
-  .cp-vc__nav:focus-visible { outline: 3px solid #155FFF; outline-offset: 3px; }
-  @media (prefers-reduced-motion: reduce) {
-    .cp-vc__track { transition: none; }
-  }
+  .cp-cs__card--vt[data-playing="1"] .cp-vt__hit { display: none; }
+  .cp-cs__vtcap { position: absolute; left: 0; right: 0; bottom: 0;
+                  padding: 48px 18px 16px; font-size: 13.5px; font-weight: 600;
+                  line-height: 19px; color: #ffffff;
+                  background: linear-gradient(to top,
+                    rgba(6, 12, 24, 0.9), rgba(6, 12, 24, 0)); }
   /* The ladder below overrides this per step; unzoomed widths use 1. */
   .cp-page { --cp-zoom: 1; }
 
@@ -1372,14 +1350,10 @@
     /* 44px is 172px of glyph and the pair only has 141 at 400px wide */
     .cp-gs__tile b { font-size: min(44px, 8.5vw) !important;
                      line-height: 1.05 !important; }
-    /* ── The case-study heading and the clips ───── */
+    /* ── The case-study heading ───────────────────── */
     .cp-csx__head { width: 100% !important; }
     .cp-csx__copy h2 { font-size: 28px !important; line-height: 36px !important; }
     .cp-csx__copy p { font-size: 15.5px !important; line-height: 25px !important; }
-    .cp-vc { width: 100% !important; padding: 0 20px; }
-    .cp-vc__card { flex: 0 0 240px !important; }
-    .cp-vc__media { width: 240px !important; height: 427px !important; }
-    .cp-vt__play { width: 52px !important; height: 52px !important; }
     /* ── Book a call ────────────────────────────────────────────────── */
     .cp-bk { flex-direction: column !important; }
     /* the phone rules centre section text; a form reads wrong that way -
@@ -3119,25 +3093,8 @@
     <div class="cp-csx__head">
       <div class="cp-csx__copy">
         <h2>Brands running order editing</h2>
-        <p>Twelve of them in their own words, and one of them on camera — what changed once shoppers could fix their own orders.</p>
+        <p>Eleven of them in their own words and one on camera — what changed once shoppers could fix their own orders.</p>
       </div>
-    </div>
-    <div class="cp-vc">
-      <button type="button" class="cp-vc__nav cp-vc__nav--prev" aria-label="Previous videos"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
-      <div class="cp-vc__viewport">
-        <div class="cp-vc__track">
-          <figure class="cp-vc__card" id="cp-vt-0" data-playing="0">
-            <div class="cp-vc__media">
-              <video class="cp-vt__video" preload="none" playsinline poster="assets/testimonials/order-editing-budget.jpg" width="540" height="960">
-                <source src="assets/testimonials/order-editing-budget.mp4" type="video/mp4">
-              </video>
-              <button type="button" class="cp-vt__hit" onClick="{{ playVT0 }}" aria-label="Play: This $100 product saved my budget"><span class="cp-vt__play"><svg width="18" height="21" viewBox="0 0 30 34" fill="currentColor" aria-hidden="true"><path d="M28.5 15.3a2 2 0 0 1 0 3.4L3.1 33.6A2 2 0 0 1 0 31.9V2.1A2 2 0 0 1 3.1.4z"></path></svg></span><span class="cp-vt__time">0:27</span></button>
-            </div>
-            <figcaption>“This $100 product saved my budget”</figcaption>
-          </figure>
-        </div>
-      </div>
-      <button type="button" class="cp-vc__nav cp-vc__nav--next" aria-label="More videos"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg></button>
     </div>
       <!-- CASESTUDIES:START — generated by tools/build-case-studies.py -->
       <div class="cp-cs" data-cs-radius="512">
@@ -3159,11 +3116,12 @@
             <blockquote class="cp-cs__quote">The team at Clickpost are exceptional developers and great people. They listen to feedback and have built genuinely useful tools for Shopify stores.</blockquote>
             <figcaption class="cp-cs__who">Renue By Science<span class="cp-cs__where">USA</span></figcaption>
           </figure>
-          <figure class="cp-cs__card" data-cs-angle="90.000" style="transform: rotateY(90.000deg) translateZ(512px);">
-            <span class="cp-cs__mark"><img src="assets/customers/doonails.svg" alt="Doonails"></span>
-            <span class="cp-cs__tier">$100M+ brand</span>
-            <blockquote class="cp-cs__quote">Really helped us quickly to fix all issues.</blockquote>
-            <figcaption class="cp-cs__who">Doonails<span class="cp-cs__where">Germany</span></figcaption>
+          <figure class="cp-cs__card cp-cs__card--vt" id="cp-vt-0" data-playing="0" data-cs-angle="90.000" style="transform: rotateY(90.000deg) translateZ(512px);">
+            <video class="cp-vt__video" preload="none" playsinline poster="assets/testimonials/order-editing-budget.jpg" width="540" height="960">
+              <source src="assets/testimonials/order-editing-budget.mp4" type="video/mp4">
+            </video>
+            <button type="button" class="cp-vt__hit" onClick="{{ playVT0 }}" aria-label="Play: This $100 product saved my budget"><span class="cp-vt__play"><svg width="18" height="21" viewBox="0 0 30 34" fill="currentColor" aria-hidden="true"><path d="M28.5 15.3a2 2 0 0 1 0 3.4L3.1 33.6A2 2 0 0 1 0 31.9V2.1A2 2 0 0 1 3.1.4z"></path></svg></span><span class="cp-vt__time">0:27</span></button>
+            <figcaption class="cp-cs__vtcap">“This $100 product saved my budget”</figcaption>
           </figure>
           <figure class="cp-cs__card" data-cs-angle="120.000" style="transform: rotateY(120.000deg) translateZ(512px);">
             <span class="cp-cs__mark"><img src="assets/customers/modomu.png" alt="Modomu"></span>
@@ -3420,7 +3378,6 @@ class Component extends DCLogic {
     this.watchSteps();
     this.startGlobe();
     this.startRing();
-    this.startVC();
     // a drawer that cannot be dismissed from the keyboard is a trap
     this.onEsc = (e) => {
       if (e.key === "Escape" && this.state.menuOpen) this.setMenu(false);
@@ -3851,33 +3808,6 @@ class Component extends DCLogic {
     v.addEventListener("ended", release);
     const p = v.play();
     if (p && p.catch) p.catch(() => {});
-  }
-  // Three cards to a page. The arrows only exist once there is a second
-  // page, and the track is transformed directly rather than through state.
-  startVC() {
-    const host = document.querySelector(".cp-vc");
-    if (!host) return;
-    const track = host.querySelector(".cp-vc__track");
-    const cards = track.querySelectorAll(".cp-vc__card");
-    const prev = host.querySelector(".cp-vc__nav--prev");
-    const next = host.querySelector(".cp-vc__nav--next");
-    const per = 3;
-    const pages = Math.ceil(cards.length / per);
-    host.setAttribute("data-pages", pages > 1 ? "many" : "one");
-    if (pages < 2) return;
-    let page = 0;
-    const show = () => {
-      const w = host.querySelector(".cp-vc__viewport").clientWidth;
-      track.style.transform = "translateX(" + (-page * w) + "px)";
-      prev.disabled = page === 0;
-      next.disabled = page === pages - 1;
-    };
-    prev.addEventListener("click", () => { page = Math.max(0, page - 1); show(); });
-    next.addEventListener("click", () => {
-      page = Math.min(pages - 1, page + 1); show();
-    });
-    window.addEventListener("resize", show);
-    show();
   }
   startRing() {
     const ring = document.getElementById("cp-cs-ring");
