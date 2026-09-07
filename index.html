@@ -542,7 +542,7 @@
      width - it belongs to the picture, not to the column. 3.51% is the
      pill's own right edge, measured off the image: its plate runs
      x 1058..1566 of 1623. */
-  .cp-bfs__app { position: absolute; z-index: 1; right: 3.51%; top: 69%;
+  .cp-bfs__app { position: absolute; z-index: 1; right: 3.51%; top: 56%;
                  display: flex; flex-direction: row; gap: 12px;
                  align-items: center; padding: 10px 20px 10px 12px;
                  border-radius: 13px; background: rgba(255, 255, 255, 0.95);
@@ -551,19 +551,28 @@
                      border-radius: 8px; }
   .cp-bfs__app b { font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
                    color: #1B1B1F; white-space: nowrap; }
-  /* pills rather than type: the foot of the illustration runs from a
-     bright cyan gem to orange, and white type alone has nothing to hold
-     on to across that */
-  .cp-bfs__keys { position: absolute; z-index: 1; left: 48px; right: 48px;
-                  bottom: 38px; display: flex; flex-direction: row;
-                  flex-wrap: wrap; gap: 10px; }
-  .cp-bfs__keys span { padding: 8px 16px; border-radius: 9999px;
-                       background: rgba(255, 255, 255, 0.94);
-                       border: 1px solid rgba(255, 255, 255, 0.55);
-                       font-size: 14.5px; font-weight: 600;
-                       letter-spacing: -0.01em; color: #1B1B1F;
-                       white-space: nowrap; }
-  /* ── Built for store operations ───────────────────────
+  /* The four criteria as cards along the foot: a row, not the
+     reference's fan, because a fan over this illustration would cover the
+     illustration. White cards, so they need no scrim of their own. */
+  .cp-bfs__crit { position: absolute; z-index: 1; left: 40px; right: 40px;
+                  bottom: 32px; display: grid;
+                  grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .cp-bfs__card { position: relative; display: grid;
+                  grid-template-columns: 40px 1fr; column-gap: 12px;
+                  row-gap: 6px; align-content: start;
+                  padding: 14px 34px 15px 14px; border-radius: 14px;
+                  background: rgba(255, 255, 255, 0.96);
+                  box-shadow: 0 14px 30px -16px rgba(4, 6, 20, 0.6); }
+  .cp-bfs__ico { grid-row: 1 / span 2; width: 40px; height: 40px;
+                 border-radius: 11px; background: #E7EEFF; color: #155FFF;
+                 display: flex; justify-content: center;
+                 align-items: center; }
+  .cp-bfs__card b { grid-column: 2; font-size: 14.5px; font-weight: 700;
+                    line-height: 19px; letter-spacing: -0.01em;
+                    color: #14161C; }
+  .cp-bfs__card i { grid-column: 2; font-style: normal; font-size: 12px;
+                    line-height: 16px; color: #5B6270; }
+  .cp-bfs__ok { position: absolute; right: 12px; top: 12px; }  /* ── Built for store operations ───────────────────────
      This and the Used-by band share one surface, so there is no seam
      between them - the same shape getamply.co uses, where one .map
      section holds both the card and the figure.
@@ -1280,11 +1289,16 @@
     .cp-bfs__banner { background: #ffffff; }
     .cp-bfs__app { display: none !important; }
     .cp-bfs__banner::after { display: none !important; }
-    .cp-bfs__keys { position: static !important; padding: 14px 16px 16px;
-                    gap: 8px !important; }
-    .cp-bfs__keys span { padding: 6px 12px !important;
-                         font-size: 13px !important;
-                         border-color: #E4E7EC !important; }
+    .cp-bfs__crit { position: static !important; padding: 14px;
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 10px !important; }
+    .cp-bfs__card { box-shadow: none !important;
+                    border: 1px solid #E4E7EC;
+                    padding: 12px 12px 13px !important;
+                    grid-template-columns: 32px 1fr !important; }
+    .cp-bfs__ico { width: 32px !important; height: 32px !important; }
+    /* two-up at 380 leaves 165 a card: the tick would sit on the words */
+    .cp-bfs__ok { display: none !important; }
     /* ── FAQ ────────────────────────────────────────────────────────── */
     [data-screen-label="FAQ"] { padding: 16px 20px 64px !important; }
     .cp-faq__grid { flex-direction: column !important; gap: 28px !important; }
@@ -3051,7 +3065,32 @@
         <img src="assets/app-icon.png" alt="" width="180" height="180">
         <b>CP: Order Editing &amp; Upsells</b>
       </span>
-      <figcaption class="cp-bfs__keys"><span>Your existing workflows</span><span>Performance</span><span>Safety</span><span>Reliability</span><span>Usefulness</span></figcaption>
+      <figcaption class="cp-bfs__crit">
+        <div class="cp-bfs__card">
+          <span class="cp-bfs__ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"></rect><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"></rect><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"></rect><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"></rect></svg></span>
+          <b>Works natively in Shopify</b>
+          <i>Right inside your admin</i>
+          <svg class="cp-bfs__ok" width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#16A34A"></circle><path d="M7.4 12.4l3.1 3.1 6.1-6.6" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+        <div class="cp-bfs__card">
+          <span class="cp-bfs__ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8l7.5 2.6v6.1c0 4.6-3.1 8-7.5 9.7-4.4-1.7-7.5-5.1-7.5-9.7V5.4z"></path><path d="M8.8 12.2l2.3 2.3 4.2-4.6"></path></svg></span>
+          <b>Meets Shopify’s standards</b>
+          <i>Reviewed for quality, safety and performance</i>
+          <svg class="cp-bfs__ok" width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#16A34A"></circle><path d="M7.4 12.4l3.1 3.1 6.1-6.6" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+        <div class="cp-bfs__card">
+          <span class="cp-bfs__ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.4"></rect><path d="M8.2 10.5V7.6a3.8 3.8 0 0 1 7.6 0v2.9"></path><path d="M12 14.6v2.6"></path></svg></span>
+          <b>Secure &amp; reliable</b>
+          <i>Built with best practices to protect your data</i>
+          <svg class="cp-bfs__ok" width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#16A34A"></circle><path d="M7.4 12.4l3.1 3.1 6.1-6.6" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+        <div class="cp-bfs__card">
+          <span class="cp-bfs__ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 20h15"></path><path d="M7.5 20v-6.4"></path><path d="M12 20V7.6"></path><path d="M16.5 20v-9.2"></path></svg></span>
+          <b>Built to perform</b>
+          <i>Monitored to ensure a fast, stable experience</i>
+          <svg class="cp-bfs__ok" width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#16A34A"></circle><path d="M7.4 12.4l3.1 3.1 6.1-6.6" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+      </figcaption>
     </figure>
     </div>
   </section>
