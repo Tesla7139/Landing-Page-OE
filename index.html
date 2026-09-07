@@ -153,18 +153,6 @@
   .cp-cse__sig { font-family: 'Dancing Script', Poppins, cursive;
                  font-size: 25px; font-weight: 600; line-height: 28px;
                  color: #ffffff; }
-  /* three outcomes along the foot, from the reference */
-  .cp-cse__chips { margin-top: 38px; display: flex; flex-direction: row;
-                   gap: 26px; }
-  .cp-cse__chip { display: flex; flex-direction: row; gap: 10px;
-                  align-items: center; }
-  .cp-cse__cico { flex-shrink: 0; width: 34px; height: 34px;
-                  border-radius: 9999px; color: #ffffff;
-                  background: rgba(255, 255, 255, 0.18);
-                  display: flex; justify-content: center;
-                  align-items: center; }
-  .cp-cse__chip i { font-style: normal; font-size: 12.5px; font-weight: 500;
-                    line-height: 16px; color: #ffffff; }
   /* the screen sits across the seam, so it belongs to neither side */
   .cp-cse__stage { position: relative; flex: 1 1 auto; min-height: 470px;
                    align-self: stretch; }
@@ -1347,8 +1335,6 @@
                      align-items: stretch !important; }
     .cp-cse__copy { flex: 1 1 auto !important; }
     .cp-cse__mark { width: 168px !important; }
-    /* three across is 113px a chip; they stack two and one */
-    .cp-cse__chips { flex-wrap: wrap; gap: 16px 22px !important; }
     .cp-cse__stage { min-height: 0 !important; align-self: auto !important; }
     .cp-cse__shot { position: static !important; width: 100% !important;
                     margin: 0 !important; rotate: none !important; }
@@ -3084,11 +3070,6 @@
           <blockquote><svg class="cp-cse__qm" width="19" height="15" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V11.6C0 5.2 3.5 1 9.6 0l1 2.4C7 3.6 5.2 5.9 5.2 8.6H9V20H0Zm16.4 0V11.6C16.4 5.2 19.9 1 26 0l1 2.4c-3.6 1.2-5.4 3.5-5.4 6.2h3.8V20h-9Z"></path></svg>Really helped us quickly to fix all issues.</blockquote>
           <figcaption><i class="cp-cse__dash"></i><span class="cp-cse__sig">Doonails</span><i class="cp-cse__bar"></i><span>Cyprus &middot; March 2026</span></figcaption>
         </figure>
-        <div class="cp-cse__chips">
-          <span class="cp-cse__chip"><span class="cp-cse__cico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 2.5L5 13.5h5l-1 8 9-11.5h-5l1-7.5Z"></path></svg></span><i>Happier<br>customers</i></span>
-          <span class="cp-cse__chip"><span class="cp-cse__cico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9.2" cy="8.4" r="3.3"></circle><path d="M3.4 19.6c0-3.2 2.6-5.4 5.8-5.4s5.8 2.2 5.8 5.4"></path><path d="M16.4 6.2a3 3 0 0 1 0 5.9"></path><path d="M17.6 14.6c2.1.5 3.4 2.1 3.4 4.3"></path></svg></span><i>Less support<br>tickets</i></span>
-          <span class="cp-cse__chip"><span class="cp-cse__cico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"></path><path d="M7 20v-6"></path><path d="M12 20V7"></path><path d="M17 20v-9"></path></svg></span><i>More time<br>for growth</i></span>
-        </div>
       </div>
       <div class="cp-cse__stage">
         <img class="cp-cse__shot" src="assets/case-study/doonails-edit.jpg" alt="The DOONAILS Thank You page with the edit panel: change contact information, edit shipping address, update the order, apply a discount code or cancel." width="1140" height="750" loading="lazy">
