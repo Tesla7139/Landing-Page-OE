@@ -521,7 +521,8 @@
      on this page - listing card, section pill, banner - are one piece of
      artwork. The rays sit in a viewBox centred on the gem, so both are
      placed by the same two offsets and stay concentric at any size. */
-  .cp-bfs__banner { position: relative; width: 1216px; height: 320px;
+  .cp-bfs__banner { position: relative; width: 1216px;
+                    height: auto; min-height: 320px;
                     border-radius: 22px; overflow: hidden;
                     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
                     /* the glow is part of the background rather than a
@@ -532,7 +533,7 @@
                                   rgba(96, 176, 244, 0) 64%),
                                 linear-gradient(112deg, #08182E 0%, #0E2745 46%,
                                   #16375C 100%);
-                    padding: 118px 64px 44px; display: flex;
+                    padding: 74px 64px 46px; display: flex;
                     align-items: stretch; }
   /* a dot field holding the left edge, faded out before it reaches the
      words - without it the lockup sits on empty colour */
@@ -562,11 +563,16 @@
   .cp-bfs__spark { position: absolute; left: 24px; top: -4px; width: 42px;
                    height: 42px; }
   .cp-bfs__copy { position: relative; z-index: 1; display: flex;
-                  flex-direction: column; justify-content: space-between; }
+                  flex-direction: column; justify-content: flex-start; }
   .cp-bfs__title { margin: 0; font-size: 56px; font-weight: 700; line-height: 64px;
                    letter-spacing: -0.02em; color: #ffffff; }
   .cp-bfs__title em { font-style: normal; color: #5A9CFF; }
-  .cp-bfs__lockup { display: flex; flex-direction: row; gap: 10px;
+  /* capped at 600: the gem is centred at 72% of a 1216 banner, so a
+     wider measure runs under it */
+  .cp-bfs__lede { margin: 22px 0 0; max-width: 600px; font-size: 17px;
+                  line-height: 28px; color: rgba(255, 255, 255, 0.86); }
+  .cp-bfs__lockup { margin-top: auto; padding-top: 26px; display: flex;
+                    flex-direction: row; gap: 10px;
                     align-items: center; color: #ffffff; }
   /* smaller and quieter than the title: it is a provenance line, not a
      second headline */
@@ -575,10 +581,6 @@
   .cp-bfs__lockup b { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
   .cp-bfs__lockup i { font-size: 22px; font-weight: 300; font-style: italic;
                       letter-spacing: -0.01em; }
-  .cp-bfs__why { width: 1216px; display: flex; flex-direction: column;
-                 align-items: center; }
-  .cp-bfs__whylede { margin: 0; max-width: 720px; text-align: center;
-                     font-size: 17px; line-height: 27px; color: #52525B; }
   /* ── Built for store operations ───────────────────────
      This and the Used-by band share one surface, so there is no seam
      between them - the same shape getamply.co uses, where one .map
@@ -1306,8 +1308,9 @@
                      width: 26px !important; height: 26px !important; }
     .cp-bfs__rays { left: 50% !important; top: auto !important;
                     bottom: -610px !important; margin: 0 0 0 -700px !important; }
-    .cp-bfs__why { width: 100% !important; }
-    .cp-bfs__whylede { font-size: 15.5px !important; line-height: 25px !important; }
+    .cp-bfs__lede { max-width: none !important;
+                    font-size: 15.5px !important;
+                    line-height: 25px !important; }
 
     /* ── FAQ ────────────────────────────────────────────────────────── */
     [data-screen-label="FAQ"] { padding: 16px 20px 64px !important; }
@@ -3074,11 +3077,9 @@
       <span class="cp-bfs__gemwrap"><svg class="cp-bfs__gem" viewBox="0 0 16 14" fill="none" aria-hidden="true"><defs><linearGradient id="gPavOut" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4E9AD6"></stop><stop offset="1" stop-color="#1B558E"></stop></linearGradient><linearGradient id="gMid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8CC6EF"></stop><stop offset="1" stop-color="#2C7AC2"></stop></linearGradient><linearGradient id="gDark" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1C5488"></stop><stop offset="1" stop-color="#082644"></stop></linearGradient><linearGradient id="gPavC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#79BEEA"></stop><stop offset="1" stop-color="#1C67AB"></stop></linearGradient><linearGradient id="gTable" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E2F2FF"></stop><stop offset="1" stop-color="#A2D4F6"></stop></linearGradient><linearGradient id="gCrown" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A8D6F3"></stop><stop offset="1" stop-color="#5FA6DE"></stop></linearGradient><linearGradient id="gShoulder" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#63ABDF"></stop><stop offset="1" stop-color="#2C7CBE"></stop></linearGradient></defs><path d="m13 0-1 5-4 9 8-9.5L13 0ZM3 0l1 5 4 9-8-9.5L3 0Z" fill="url(#gPavOut)"></path><path d="m3 0 1 5 4 9 4-9 1-5H3Z" fill="url(#gMid)"></path><path d="M8 14 4 5l-4-.5L8 14ZM8 14l4-9 4-.5L8 14Z" fill="url(#gDark)"></path><path d="M8 5.5 4 5l4 9 4-9-4 .5Z" fill="url(#gPavC)"></path><path d="m4 5 4-5 4 5-4.001.5L4 5Z" fill="url(#gTable)"></path><path d="M4 5 3 0h5L4 5ZM12 5l1-5H8l4 5Z" fill="url(#gCrown)"></path><path d="M4 5 3 0 0 4.5 4 5ZM12 5l1-5 3 4.5-4 .5Z" fill="url(#gShoulder)"></path></svg><svg class="cp-bfs__spark" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 0c.6 6.4 5 10.8 12 12-7 1.2-11.4 5.6-12 12-.6-6.4-5-10.8-12-12 7-1.2 11.4-5.6 12-12Z" fill="#ffffff"></path></svg></span>
       <div class="cp-bfs__copy">
         <h2 class="cp-bfs__title">Built for <em>Shopify</em></h2>
+        <p class="cp-bfs__lede">Designed around your existing workflows and held to Shopify’s standards for performance, safety, reliability, and usefulness.</p>
         <span class="cp-bfs__lockup"><svg width="30" height="34" viewBox="0 0 24 24" fill="#ffffff" aria-hidden="true" style="flex-shrink: 0;"><path d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z"></path></svg><b>shopify</b><i>app store</i></span>
       </div>
-    </div>
-    <div class="cp-bfs__why">
-      <p class="cp-bfs__whylede">Designed around your existing workflows and held to Shopify’s standards for performance, safety, reliability, and usefulness.</p>
     </div>
   </section>
   <!-- ── Case study: DOONAILS ─────────────────── -->
