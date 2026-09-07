@@ -537,45 +537,22 @@
                              rgba(4, 6, 20, 0.74) 0%,
                              rgba(4, 6, 20, 0.42) 34%,
                              rgba(4, 6, 20, 0) 100%); }
-  /* The app box is Shopify's own plate, measured off the artwork: the
-     plate runs x 1058..1564 and y 292..372 of 1623x687, so 31.18% wide,
-     11.64% tall, inset 3.64% from the right. This takes those and sits
-     directly above it.
-
-     Its fill is translucent, not solid - sampled inside it the plate is
-     rgb(200,228,241) over the cyan half and rgb(202,211,222) over the
-     orange - so this is a pale plate with a blur behind it.
-
-     The type cannot match. "Built for Shopify" is 17 characters at about
-     25px there; "CP: Order Editing & Upsells" is 27, and 25px would need
-     437px inside a 379px plate. 17px is as large as the name allows. */
-  .cp-bfs__app { position: absolute; z-index: 1; right: 3.64%; top: 28.4%;
-                 width: 31.18%; height: 11.64%; display: flex;
-                 flex-direction: row; gap: 11px; align-items: center;
-                 justify-content: center; padding: 0 16px;
-                 border-radius: 9px;
-                 background: rgba(226, 237, 245, 0.85);
-                 -webkit-backdrop-filter: blur(3px);
-                         backdrop-filter: blur(3px); }
-  .cp-bfs__app img { display: block; width: 38px; height: 38px;
-                     border-radius: 7px; flex-shrink: 0; }
-  .cp-bfs__app b { font-size: 17px; font-weight: 600; letter-spacing: -0.01em;
-                   color: #22252B; white-space: nowrap; }  .cp-bfs__crit { position: absolute; inset: 0; z-index: 1;
-                  pointer-events: none; }
+  /* a column, not a fan: one x for all four, centred against the
+     artwork. 3.5% to 33.5%, which crosses the woman's arm and not her
+     face - she is centred about 26% to 55% of the illustration. */
+  .cp-bfs__crit { position: absolute; left: 3.5%; top: 50%; z-index: 1;
+                  transform: translateY(-50%); width: 30%;
+                  display: flex; flex-direction: column; gap: 12px; }
   /* two up, two down, each turned a few degrees and overlapping at the
      edges - the reference's fan. In percentages, so it keeps its shape
      at every rung of the ladder. 22.2% of 1216 is 270. */
   /* a column now the chip has gone: title, line, and the check pinned
      to the corner */
-  .cp-bfs__card { position: absolute; width: 22.2%; display: flex;
+  .cp-bfs__card { position: relative; display: flex;
                   flex-direction: column; gap: 6px;
                   padding: 15px 36px 16px 16px; border-radius: 14px;
                   background: rgba(255, 255, 255, 0.96);
                   box-shadow: 0 18px 38px -14px rgba(4, 6, 20, 0.55); }
-  .cp-bfs__card:nth-child(1) { left: 2%;    top: 52%; rotate: -3.5deg; }
-  .cp-bfs__card:nth-child(2) { left: 24.5%; top: 65%; rotate: -1.5deg; }
-  .cp-bfs__card:nth-child(3) { left: 47%;   top: 52%; rotate:  1.5deg; }
-  .cp-bfs__card:nth-child(4) { left: 69.5%; top: 65%; rotate:  3.5deg; }
   .cp-bfs__card b { font-size: 15px; font-weight: 700;
                     line-height: 19px; letter-spacing: -0.01em;
                     color: #14161C; }
@@ -1293,15 +1270,13 @@
        box comes off and the keywords stack under the picture inside the
        same figure */
     .cp-bfs__banner { background: #ffffff; }
-    .cp-bfs__app { display: none !important; }
     .cp-bfs__banner::after { display: none !important; }
-    /* a fan needs room to fan into, and 380px is not it */
+    /* four in a column is most of a phone screen: two up, two across */
     .cp-bfs__crit { position: static !important; padding: 14px;
+                    transform: none !important; width: auto !important;
                     display: grid !important;
                     grid-template-columns: repeat(2, 1fr) !important;
-                    gap: 10px !important; pointer-events: auto !important; }
-    .cp-bfs__card { position: static !important; width: auto !important;
-                    rotate: none !important; }
+                    gap: 10px !important; }
     .cp-bfs__card { box-shadow: none !important;
                     border: 1px solid #E4E7EC;
                     padding: 12px 12px 13px !important; }
@@ -3067,10 +3042,6 @@
   <section style="padding: 0 112px 88px; display: flex; flex-direction: column; gap: 44px; align-items: center;" data-screen-label="Built for Shopify">
     <figure class="cp-bfs__banner">
       <img src="assets/built-for-shopify.webp" alt="Built for Shopify" width="1623" height="687" loading="lazy">
-      <span class="cp-bfs__app">
-        <img src="assets/app-icon.png" alt="" width="180" height="180">
-        <b>CP: Order Editing &amp; Upsells</b>
-      </span>
       <figcaption class="cp-bfs__crit">
         <div class="cp-bfs__card">
           <b>Works natively in Shopify</b>
