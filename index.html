@@ -332,68 +332,81 @@
   .cp-page > [data-screen-label="Case studies"],
   .cp-page > footer { border-top: 0; }
 
-  /* ── Book a call ──────────────────────────────
-     Two columns edge to edge, not a card: it is the last thing on the
-     page, so it can run to both margins and close the page off. */
-  .cp-bk { display: flex; flex-direction: row; align-items: stretch;
-           scroll-margin-top: 104px; }
-  .cp-bk__left { flex: 0 0 620px; background: #ffffff;
-                 padding: 84px 56px 92px 112px; display: flex;
-                 flex-direction: column; }
-  .cp-bk__right { flex: 1 1 auto; background: #E9EDF8;
-                  padding: 96px 112px 92px 72px; display: flex;
-                  flex-direction: column; justify-content: center; }
+  /* ── Book a call ─────────────────────────
+     One card floating on a light ground: words left, form right, labels
+     over the inputs. The form is no longer a card inside a band - there
+     is one card, and the form is half of it. */
+  .cp-bk { background: #F4F6FC; padding: 96px 112px 104px; display: flex;
+           justify-content: center; scroll-margin-top: 104px; }
+  .cp-bk__card { width: 1216px; padding: 56px; border-radius: 28px;
+                 background: #ffffff; display: flex; flex-direction: row;
+                 gap: 72px; align-items: flex-start;
+                 box-shadow: 0 30px 70px -34px rgba(16, 24, 40, 0.28); }
+  .cp-bk__left { flex: 0 0 520px; display: flex; flex-direction: column; }
   .cp-bk__head { display: flex; flex-direction: column; gap: 10px; }
   .cp-bk__h { margin: 0; font-size: 34px; font-weight: 600; line-height: 44px;
               letter-spacing: -0.02em; color: #101828; }
   .cp-bk__lede { margin: 0; font-size: 15.5px; line-height: 24px; color: #52525B; }
-  .cp-bk__form { margin-top: 28px; display: flex; flex-direction: column;
-                 gap: 16px; padding: 28px 28px 30px; border-radius: 14px;
-                 border: 1px solid #E4E8F0; background: #ffffff;
-                 box-shadow: 0 10px 34px rgba(16, 24, 40, 0.06); }
-  .cp-bk__f { display: flex; flex-direction: column; gap: 7px; }
-  .cp-bk__f > span { font-size: 14px; font-weight: 500; color: #252525; }
+  .cp-bk__rh { margin: 36px 0 0; font-size: 26px; font-weight: 600;
+               line-height: 36px; letter-spacing: -0.02em; color: #101828; }
+  .cp-bk__rh em { font-style: normal; color: #155FFF; }
+  .cp-bk__list { margin: 22px 0 0; padding: 0; list-style: none; display: flex;
+                 flex-direction: column; gap: 13px; }
+  .cp-bk__list li { display: flex; flex-direction: row; gap: 12px;
+                    align-items: flex-start; }
+  .cp-bk__list svg { flex-shrink: 0; margin-top: 3px; }
+  .cp-bk__list span { font-size: 16px; line-height: 26px; color: #252525; }
+  .cp-bk__stat { margin: 30px 0 0; font-size: 19px; font-weight: 600;
+                 line-height: 30px; letter-spacing: -0.01em; color: #101828; }
+  .cp-bk__stat em { font-style: normal; color: #155FFF; }
+  /* the right half of the card, not a card of its own */
+  .cp-bk__form { flex: 1 1 auto; display: flex; flex-direction: column;
+                 gap: 18px; }
+  .cp-bk__f { display: flex; flex-direction: column; gap: 8px; }
+  .cp-bk__f > span { font-size: 14.5px; font-weight: 600; color: #14161C; }
   .cp-bk__f i, .cp-bk__agree i { font-style: normal; color: #E5484D; }
   .cp-bk__f input, .cp-bk__sel select {
-    width: 100%; height: 46px; padding: 0 14px; border-radius: 8px;
-    border: 1px solid #D7DDE9; background: #ffffff; font-family: inherit;
+    width: 100%; height: 54px; padding: 0 16px; border-radius: 12px;
+    border: 1px solid #E2E6EF; background: #ffffff; font-family: inherit;
     font-size: 15px; color: #252525; }
-  .cp-bk__f input::placeholder { color: #98A2B3; }
+  .cp-bk__f input::placeholder { color: #A6AEBD; }
   .cp-bk__f input:focus, .cp-bk__sel select:focus { outline: none;
     border-color: #155FFF; box-shadow: 0 0 0 3px rgba(21, 95, 255, 0.14); }
   /* the arrow is drawn, so the control looks the same in every browser */
   .cp-bk__sel { position: relative; display: block; width: 100%; }
   .cp-bk__sel select { -webkit-appearance: none; -moz-appearance: none;
-                       appearance: none; padding-right: 38px; cursor: pointer; }
-  .cp-bk__chev { position: absolute; right: 13px; top: 50%; margin-top: -9px;
+                       appearance: none; padding-right: 40px; cursor: pointer; }
+  .cp-bk__chev { position: absolute; right: 15px; top: 50%; margin-top: -9px;
                  color: #667085; pointer-events: none; }
-  .cp-bk__row { display: flex; flex-direction: row; gap: 10px; }
-  .cp-bk__sel--cc { flex: 0 0 180px; width: 180px; }
-  .cp-bk__agree { display: flex; flex-direction: row; gap: 9px;
+  .cp-bk__row { display: flex; flex-direction: row; gap: 12px; }
+  .cp-bk__sel--cc { flex: 0 0 186px; width: 186px; }
+  .cp-bk__agree { display: flex; flex-direction: row; gap: 10px;
                   align-items: flex-start; margin-top: 2px; cursor: pointer; }
-  .cp-bk__agree input { width: 16px; height: 16px; margin: 2px 0 0;
+  .cp-bk__agree input { width: 17px; height: 17px; margin: 2px 0 0;
                         accent-color: #155FFF; flex-shrink: 0; }
-  .cp-bk__agree span { font-size: 13.5px; line-height: 20px; color: #52525B; }
+  .cp-bk__agree span { font-size: 13.5px; line-height: 21px; color: #52525B; }
   .cp-bk__agree a { color: #155FFF; }
   .cp-bk__agree a:hover { color: #0A3FCC; }
-  .cp-bk__submit { margin-top: 6px; width: 100%; height: 50px; border: 0;
-                   border-radius: 8px; background: #155FFF; color: #ffffff;
-                   font-family: inherit; font-size: 15.5px; font-weight: 600;
-                   cursor: pointer; transition: background 160ms ease-out; }
-  .cp-bk__submit:hover { background: #0A3FCC; }
-  .cp-bk__rh { margin: 0; max-width: 560px; font-size: 34px; font-weight: 500;
-               line-height: 44px; letter-spacing: -0.02em; color: #101828; }
-  .cp-bk__rh em { font-style: normal; color: #155FFF; }
-  .cp-bk__list { margin: 32px 0 0; padding: 0; list-style: none; display: flex;
-                 flex-direction: column; gap: 14px; max-width: 560px; }
-  .cp-bk__list li { display: flex; flex-direction: row; gap: 12px;
-                    align-items: flex-start; }
-  .cp-bk__list svg { flex-shrink: 0; margin-top: 3px; }
-  .cp-bk__list span { font-size: 17px; line-height: 27px; color: #252525; }
-  .cp-bk__stat { margin: 44px 0 0; max-width: 560px; font-size: 26px;
-                 font-weight: 600; line-height: 38px; letter-spacing: -0.01em;
-                 color: #101828; }
-  .cp-bk__stat em { font-style: normal; color: #155FFF; }
+  /* a gradient pill, per the reference - but in blues, not its
+     periwinkle: white on that measures 2.86:1 and misses AA, while the
+     lightest stop here is 4.80:1 */
+  .cp-bk__submit { margin-top: 8px; width: 100%; height: 56px; border: 0;
+                   border-radius: 9999px; color: #ffffff;
+                   background: linear-gradient(90deg, #3563FF 0%,
+                     #0F35C4 52%, #3563FF 100%);
+                   background-size: 160% 100%; background-position: 50% 0;
+                   font-family: inherit; font-size: 16px; font-weight: 700;
+                   letter-spacing: -0.01em; cursor: pointer;
+                   box-shadow: 0 14px 30px -14px rgba(15, 53, 196, 0.6);
+                   transition: background-position 260ms ease-out,
+                               box-shadow 200ms ease-out; }
+  .cp-bk__submit:hover { background-position: 100% 0;
+                         box-shadow: 0 16px 34px -14px rgba(15, 53, 196, 0.7); }
+  .cp-bk__submit:focus-visible { outline: 3px solid #155FFF;
+                                 outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) {
+    .cp-bk__submit { transition: none; }
+  }
   /* ── Case-study ring ─────────────────────────────
      Cards on a circle in 3D: each is turned to its own angle and pushed
      out by the radius, and the whole ring spins. The generator writes the
@@ -1388,21 +1401,24 @@
     .cp-csx__head { width: 100% !important; }
     .cp-csx__copy h2 { font-size: 28px !important; line-height: 36px !important; }
     .cp-csx__copy p { font-size: 15.5px !important; line-height: 25px !important; }
-    /* ── Book a call ────────────────────────────────────────────────── */
-    .cp-bk { flex-direction: column !important; }
+    /* ── Book a call ────────────────────────────── */
+    .cp-bk { padding: 44px 20px 52px !important; }
+    /* the card is the flex row now, so the stack happens on it */
+    /* stretch, or the form sizes to its content and stops short of the
+       card's edge - 294 of 340 */
+    .cp-bk__card { width: 100% !important; flex-direction: column !important;
+                   align-items: stretch !important;
+                   gap: 34px !important; padding: 26px 20px 28px !important;
+                   border-radius: 20px !important; }
+    .cp-bk__left { flex: 1 1 auto !important; }
     /* the phone rules centre section text; a form reads wrong that way -
        labels drift off their fields and the checks leave their lines */
-    .cp-bk__left, .cp-bk__right { text-align: left !important; }
-    .cp-bk__left { flex: 1 1 auto !important;
-                   padding: 48px 20px 44px !important; }
-    .cp-bk__right { padding: 44px 20px 52px !important; }
-    .cp-bk__form { padding: 20px 18px 22px !important; }
+    .cp-bk__left, .cp-bk__form { text-align: left !important; }
     /* the code select and the number will not both fit on one line */
     .cp-bk__row { flex-direction: column !important; }
     .cp-bk__sel--cc { flex: 1 1 auto !important; width: 100% !important; }
     .cp-bk__list span { font-size: 15.5px !important; line-height: 25px !important; }
-    .cp-bk__stat { margin-top: 32px !important; font-size: 21px !important;
-                   line-height: 31px !important; }
+    .cp-bk__stat { font-size: 17.5px !important; line-height: 28px !important; }
     /* ── Footer ─────────────────────────────────────────────────────── */
     [data-screen-label="Footer"] { padding: 56px 20px 40px !important;
                                    gap: 36px !important; }
@@ -3290,52 +3306,52 @@
 
   <!-- ── Book a call ──────────────────────── -->
   <section class="cp-bk" id="book-a-call" data-screen-label="Book a call">
-    <div class="cp-bk__left">
-      <div class="cp-bk__head">
-        <h2 class="cp-bk__h">Book a 15 minute call</h2>
-        <p class="cp-bk__lede">Plug-and-play integration to save time, cut costs and increase revenue.</p>
-      </div>
-      <!-- no action: the endpoint goes here when there is one, and the
-           handler stops the default so a press does not reload the page -->
-      <form class="cp-bk__form" onSubmit="{{ bookSubmit }}">
-        <label class="cp-bk__f">
-          <span>Full name<i>*</i></span>
-          <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
-        </label>
-        <label class="cp-bk__f">
-          <span>Work email<i>*</i></span>
-          <input type="email" name="email" placeholder="yourname@workemail.com" autocomplete="email" required>
-        </label>
-        <div class="cp-bk__f">
-          <span>Phone number<i>*</i></span>
-          <div class="cp-bk__row">
-            <span class="cp-bk__sel cp-bk__sel--cc">
-              <select name="country" aria-label="Country dialling code"><option>United States +1</option><option>Canada +1</option><option>United Kingdom +44</option><option>Australia +61</option><option>Germany +49</option><option>France +33</option><option>Netherlands +31</option><option>Spain +34</option><option>Italy +39</option><option>Ireland +353</option><option>Singapore +65</option><option>United Arab Emirates +971</option><option>India +91</option><option>Other</option></select><svg class="cp-bk__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
-            </span>
-            <input type="tel" name="phone" placeholder="(555) 000-0000" autocomplete="tel" required>
-          </div>
+    <div class="cp-bk__card">
+      <div class="cp-bk__left">
+        <div class="cp-bk__head">
+          <h2 class="cp-bk__h">Book a 15 minute call</h2>
+          <p class="cp-bk__lede">Plug-and-play integration to save time, cut costs and increase revenue.</p>
         </div>
-        <label class="cp-bk__f">
-          <span>Orders per month<i>*</i></span>
-          <span class="cp-bk__sel">
-            <select name="volume" required><option value="">Please select</option><option>Under 1,000</option><option>1,000 – 5,000</option><option>5,000 – 25,000</option><option>25,000 – 100,000</option><option>Over 100,000</option></select><svg class="cp-bk__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
-          </span>
-        </label>
-        <label class="cp-bk__agree">
-          <input type="checkbox" name="terms" required>
-          <span>I agree to ClickPost’s <a href="https://www.clickpost.ai/terms-and-conditions" target="_blank" rel="noopener noreferrer">Terms</a> and <a href="https://www.clickpost.ai/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.<i>*</i></span>
-        </label>
-        <button type="submit" class="cp-bk__submit">Talk to an expert</button>
-      </form>
-    </div>
-    <div class="cp-bk__right">
-      <h3 class="cp-bk__rh"><em>Lower support cost,</em> more revenue</h3>
-      <ul class="cp-bk__list">
-        <li><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#155FFF"></circle><path d="m7 12.4 3.2 3.2L17 8.8" stroke="#ffffff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Let customers self-serve their order edits</span></li>
-        <li><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#155FFF"></circle><path d="m7 12.4 3.2 3.2L17 8.8" stroke="#ffffff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Give a great customer accounts experience, just like Amazon</span></li>
-        <li><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#155FFF"></circle><path d="m7 12.4 3.2 3.2L17 8.8" stroke="#ffffff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Upsell them add-on products while they edit their order</span></li>
-      </ul>
-      <p class="cp-bk__stat">Brands see an increase in revenue by 5% <em>and a decrease in support cost of up to 30%</em></p>
+        <h3 class="cp-bk__rh"><em>Lower support cost,</em> more revenue</h3>
+        <ul class="cp-bk__list">
+          <li><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#155FFF"></circle><path d="m7 12.4 3.2 3.2L17 8.8" stroke="#ffffff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Let customers self-serve their order edits</span></li>
+          <li><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#155FFF"></circle><path d="m7 12.4 3.2 3.2L17 8.8" stroke="#ffffff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Give a great customer accounts experience, just like Amazon</span></li>
+          <li><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#155FFF"></circle><path d="m7 12.4 3.2 3.2L17 8.8" stroke="#ffffff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Upsell them add-on products while they edit their order</span></li>
+        </ul>
+        <p class="cp-bk__stat">Brands see an increase in revenue by 5% <em>and a decrease in support cost of up to 30%</em></p>
+      </div>
+        <!-- no action: the endpoint goes here when there is one, and the
+             handler stops the default so a press does not reload the page -->
+        <form class="cp-bk__form" onSubmit="{{ bookSubmit }}">
+          <label class="cp-bk__f">
+            <span>Full name<i>*</i></span>
+            <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
+          </label>
+          <label class="cp-bk__f">
+            <span>Work email<i>*</i></span>
+            <input type="email" name="email" placeholder="yourname@workemail.com" autocomplete="email" required>
+          </label>
+          <div class="cp-bk__f">
+            <span>Phone number<i>*</i></span>
+            <div class="cp-bk__row">
+              <span class="cp-bk__sel cp-bk__sel--cc">
+                <select name="country" aria-label="Country dialling code"><option>United States +1</option><option>Canada +1</option><option>United Kingdom +44</option><option>Australia +61</option><option>Germany +49</option><option>France +33</option><option>Netherlands +31</option><option>Spain +34</option><option>Italy +39</option><option>Ireland +353</option><option>Singapore +65</option><option>United Arab Emirates +971</option><option>India +91</option><option>Other</option></select><svg class="cp-bk__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+              </span>
+              <input type="tel" name="phone" placeholder="(555) 000-0000" autocomplete="tel" required>
+            </div>
+          </div>
+          <label class="cp-bk__f">
+            <span>Orders per month<i>*</i></span>
+            <span class="cp-bk__sel">
+              <select name="volume" required><option value="">Please select</option><option>Under 1,000</option><option>1,000 – 5,000</option><option>5,000 – 25,000</option><option>25,000 – 100,000</option><option>Over 100,000</option></select><svg class="cp-bk__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+            </span>
+          </label>
+          <label class="cp-bk__agree">
+            <input type="checkbox" name="terms" required>
+            <span>I agree to ClickPost’s <a href="https://www.clickpost.ai/terms-and-conditions" target="_blank" rel="noopener noreferrer">Terms</a> and <a href="https://www.clickpost.ai/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.<i>*</i></span>
+          </label>
+          <button type="submit" class="cp-bk__submit">Talk to an expert</button>
+        </form>
     </div>
   </section>
 
