@@ -519,55 +519,60 @@
   .cp-lang__chip[aria-pressed="true"] { color: #155FFF; font-weight: 600; }
 
   /* ── Built for Shopify ───────────────────
-     Shopify's own announcement artwork, uncropped - 1623x687 paints 515
-     tall at 1216 wide. It already carries the Built for Shopify pill, so
-     there is no title or lockup over it; the picture says it once.
+     The box with the cards coming out of it, drawn rather than
+     photographed. Flat vector on purpose: a CSS imitation of studio light
+     on cardboard reads as a failed photograph, a clean drawing reads as a
+     drawing. Geometry from the reference - a box tipped slightly forward,
+     so the opening is a trapezoid narrowing away and the side flaps splay
+     up and out.
 
-     The line needs a scrim. The illustration runs cyan through blue to
-     orange, so white sits on nothing legible unsupported - and a gradient
-     rather than a bar, so the picture is not cut in half by an edge. */
-  .cp-bfs__banner { position: relative; margin: 0; width: 1216px;
-                    border-radius: 22px; overflow: hidden;
-                    box-shadow: 0 24px 56px -30px rgba(10, 22, 40, 0.5); }
-  .cp-bfs__banner img { display: block; width: 100%; height: auto; }
-  .cp-bfs__banner::after { content: ""; position: absolute;
-                           left: 0; right: 0; bottom: 0; height: 62%;
-                           pointer-events: none;
-                           background: linear-gradient(to top,
-                             rgba(4, 6, 20, 0.74) 0%,
-                             rgba(4, 6, 20, 0.42) 34%,
-                             rgba(4, 6, 20, 0) 100%); }
-  /* Placed in percentages, so it keeps its spot on the artwork at any
-     width - it belongs to the picture, not to the column. 3.51% is the
-     pill's own right edge, measured off the image: its plate runs
-     x 1058..1566 of 1623. */
-  .cp-bfs__app { position: absolute; z-index: 1; right: 3.51%; top: 25%;
-                 display: flex; flex-direction: row; gap: 12px;
-                 align-items: center; padding: 10px 20px 10px 12px;
-                 border-radius: 13px; background: rgba(255, 255, 255, 0.95);
-                 box-shadow: 0 12px 28px -14px rgba(4, 6, 20, 0.6); }
-  .cp-bfs__app img { display: block; width: 34px; height: 34px;
-                     border-radius: 8px; }
-  .cp-bfs__app b { font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
-                   color: #1B1B1F; white-space: nowrap; }
-  /* The four criteria as cards along the foot: a row, not the
-     reference's fan, because a fan over this illustration would cover the
-     illustration. White cards, so they need no scrim of their own. */
+     Everything is placed in percentages of the scene, so the whole
+     composition holds together at every rung of the zoom ladder. */
+  .cp-bfs__scene { position: relative; margin: 0; width: 1216px;
+                   aspect-ratio: 1000 / 620; border-radius: 24px;
+                   background: radial-gradient(120% 100% at 50% 96%,
+                     #E8EFFF 0%, #F7F9FE 52%, #FDFDFF 100%);
+                   overflow: hidden; }
+  .cp-bfs__boxart { position: absolute; inset: 0; width: 100%;
+                    height: 100%; display: block; }
+  /* the bag sits in the beam coming out of the box */
+  /* on a white disc: Shopify green on the blue beam behind it is two
+     mid-tones fighting, and the mark disappears into the light */
+  .cp-bfs__bag { position: absolute; left: 50%; top: 3.6%; width: 7%;
+                 aspect-ratio: 1 / 1; margin-left: -3.5%;
+                 border-radius: 9999px; background: #ffffff;
+                 display: flex; justify-content: center; align-items: center;
+                 box-shadow: 0 12px 26px -10px rgba(16, 40, 90, 0.32); }
+  .cp-bfs__bag svg { width: 52%; height: 52%; display: block; }
+  .cp-bfs__pill { position: absolute; right: 3.5%; top: 7%;
+                  display: inline-flex; flex-direction: row; gap: 9px;
+                  align-items: center; height: 40px; padding: 0 18px;
+                  border-radius: 10px; background: #ffffff;
+                  font-size: 16px; font-weight: 600; color: #14161C;
+                  white-space: nowrap;
+                  box-shadow: 0 12px 26px -14px rgba(4, 6, 20, 0.4); }
+  /* on the front of the box */
+  .cp-bfs__mark { position: absolute; left: 28.5%; top: 74%;
+                  width: 15%; }
+  .cp-bfs__mark img { display: block; width: 100%; height: auto;
+                      opacity: 0.96; }
+  .cp-bfs__strap { position: absolute; right: 27%; top: 71%;
+                   font-size: 19px; font-weight: 500; line-height: 1.42;
+                   text-align: left; color: rgba(198, 213, 255, 0.72); }
   .cp-bfs__crit { position: absolute; inset: 0; z-index: 1;
                   pointer-events: none; }
-  /* two up, two down, each turned a few degrees and overlapping at the
-     edges - the reference's fan. In percentages, so it keeps its shape
-     at every rung of the ladder. 22.2% of 1216 is 270. */
-  .cp-bfs__card { position: absolute; width: 22.2%; display: grid;
+  /* the fan, out of the opening: two high, two lower, turned a few
+     degrees each and overlapping at the edges */  .cp-bfs__card { position: absolute; width: 22.2%; display: grid;
                   grid-template-columns: 40px 1fr; column-gap: 12px;
                   row-gap: 6px; align-content: start;
                   padding: 14px 34px 15px 14px; border-radius: 14px;
-                  background: rgba(255, 255, 255, 0.96);
-                  box-shadow: 0 18px 38px -14px rgba(4, 6, 20, 0.55); }
-  .cp-bfs__card:nth-child(1) { left: 2%;    top: 52%; rotate: -3.5deg; }
-  .cp-bfs__card:nth-child(2) { left: 24.5%; top: 65%; rotate: -1.5deg; }
-  .cp-bfs__card:nth-child(3) { left: 47%;   top: 52%; rotate:  1.5deg; }
-  .cp-bfs__card:nth-child(4) { left: 69.5%; top: 65%; rotate:  3.5deg; }
+                  background: #ffffff;
+                  border: 1px solid #E8ECF6;
+                  box-shadow: 0 18px 40px -18px rgba(16, 32, 90, 0.42); }
+  .cp-bfs__card:nth-child(1) { left: 6%;  top: 12%; rotate: -4deg; }
+  .cp-bfs__card:nth-child(2) { left: 54%; top: 7%;  rotate:  2.5deg; }
+  .cp-bfs__card:nth-child(3) { left: 18%; top: 33%; rotate: -2deg; }
+  .cp-bfs__card:nth-child(4) { left: 63%; top: 29%; rotate:  4deg; }
   .cp-bfs__ico { grid-row: 1 / span 2; width: 40px; height: 40px;
                  border-radius: 11px; background: #E7EEFF; color: #155FFF;
                  display: flex; justify-content: center;
@@ -1281,24 +1286,22 @@
     [data-screen-label="Integrations"] [style*="width: 160px"][style*="flex-flow: column"] {
       height: 56px !important; align-self: center !important; }
 
-    /* ── Built for Shopify ──────────────────────────────────────────── */
+    /* ── Built for Shopify ──────────────────── */
     [data-screen-label="Built for Shopify"] { padding: 0 20px 56px !important;
-                                              gap: 32px !important; }
-    .cp-bfs__banner { width: 100% !important; border-radius: 16px !important; }
-    /* 380 wide is 161 of banner: no room to lay anything over it, so the
-       box comes off and the keywords stack under the picture inside the
-       same figure */
-    .cp-bfs__banner { background: #ffffff; }
-    .cp-bfs__app { display: none !important; }
-    .cp-bfs__banner::after { display: none !important; }
-    /* a fan needs room to fan into, and 380px is not it */
-    .cp-bfs__crit { position: static !important; padding: 14px;
+                                              gap: 22px !important; }
+    /* the scene keeps its own aspect and the fan comes off it: four cards
+       over 380px of box would leave no box */
+    .cp-bfs__scene { width: 100% !important; border-radius: 16px !important; }
+    .cp-bfs__pill { right: 3% !important; top: 5% !important;
+                    height: 30px !important; padding: 0 11px !important;
+                    font-size: 12px !important; gap: 6px !important; }
+    .cp-bfs__strap { font-size: 3.1vw !important; }
+    .cp-bfs__crit { position: static !important; inset: auto !important;
                     display: grid !important;
                     grid-template-columns: repeat(2, 1fr) !important;
                     gap: 10px !important; pointer-events: auto !important; }
     .cp-bfs__card { position: static !important; width: auto !important;
-                    rotate: none !important; }
-    .cp-bfs__card { box-shadow: none !important;
+                    rotate: none !important; box-shadow: none !important;
                     border: 1px solid #E4E7EC;
                     padding: 12px 12px 13px !important;
                     grid-template-columns: 32px 1fr !important; }
@@ -3063,12 +3066,12 @@
 
   <!-- ── Built for Shopify ────────────────────────────── -->
   <section style="padding: 0 112px 88px; display: flex; flex-direction: column; gap: 44px; align-items: center;" data-screen-label="Built for Shopify">
-    <figure class="cp-bfs__banner">
-      <img src="assets/built-for-shopify.webp" alt="Built for Shopify" width="1623" height="687" loading="lazy">
-      <span class="cp-bfs__app">
-        <img src="assets/app-icon.png" alt="" width="180" height="180">
-        <b>CP: Order Editing &amp; Upsells</b>
-      </span>
+    <figure class="cp-bfs__scene">
+      <svg class="cp-bfs__boxart" viewBox="0 0 1000 620" fill="none" aria-hidden="true" focusable="false"><defs><linearGradient id="bxFront" x1="0" y1="330" x2="0" y2="565" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#20307A"></stop><stop offset="1" stop-color="#131E4E"></stop></linearGradient><linearGradient id="bxFlap" x1="148" y1="268" x2="294" y2="300" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#1B2868"></stop><stop offset="1" stop-color="#4A63C8"></stop></linearGradient><linearGradient id="bxFlapR" x1="852" y1="268" x2="706" y2="300" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#1B2868"></stop><stop offset="1" stop-color="#4A63C8"></stop></linearGradient><linearGradient id="bxBack" x1="0" y1="196" x2="0" y2="292" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2A3B8A"></stop><stop offset="1" stop-color="#5570DC"></stop></linearGradient><linearGradient id="bxIn" x1="0" y1="282" x2="0" y2="336" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0A1236"></stop><stop offset="1" stop-color="#1B2A6E"></stop></linearGradient><radialGradient id="bxGlow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#E6F8FF" stop-opacity="1"></stop><stop offset="0.3" stop-color="#8FD8FF" stop-opacity="0.78"></stop><stop offset="0.66" stop-color="#4EA8FF" stop-opacity="0.3"></stop><stop offset="1" stop-color="#4EA8FF" stop-opacity="0"></stop></radialGradient><linearGradient id="bxBeam" x1="0" y1="300" x2="0" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#B8E8FF" stop-opacity="0.82"></stop><stop offset="0.55" stop-color="#B8E8FF" stop-opacity="0.22"></stop><stop offset="1" stop-color="#B8E8FF" stop-opacity="0"></stop></linearGradient></defs><path d="M300 292 L700 292 L840 40 L160 40 Z" fill="url(#bxBeam)"></path><ellipse cx="500" cy="288" rx="310" ry="168" fill="url(#bxGlow)"></ellipse><path d="M294 286 L706 286 L728 196 L272 196 Z" fill="url(#bxBack)"></path><path d="M250 332 L294 286 L204 212 L148 268 Z" fill="url(#bxFlap)"></path><path d="M750 332 L706 286 L796 212 L852 268 Z" fill="url(#bxFlapR)"></path><path d="M250 332 L750 332 L706 286 L294 286 Z" fill="url(#bxIn)"></path><path d="M250 332 L750 332 L742 318 L258 318 Z" fill="#2B3C8E" fill-opacity="0.85"></path><rect x="250" y="330" width="500" height="236" rx="7" fill="url(#bxFront)"></rect><ellipse cx="500" cy="574" rx="268" ry="20" fill="#0B1230" fill-opacity="0.16"></ellipse></svg>
+      <span class="cp-bfs__bag"><svg viewBox="0 0 24 24" fill="#5E8E3E" aria-hidden="true"><path d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.101 0-3.164-1.309-3.164-1.309l.646-2.088s1.094.941 2.021.941c.6 0 .854-.481.854-.831 0-1.6-2.66-1.675-2.66-4.34 0-2.257 1.605-4.436 4.847-4.436 1.723 0 2.572.481 2.572.481l-.914 2.684-.758-.208zM14.419 1.045c.176 0 .358.061.538.174-1.324.622-2.746 2.192-3.347 5.327-.446.138-.88.271-1.286.394.359-1.219 1.294-4.181 3.048-5.633.176-.146.4-.262.66-.262h.387z"></path></svg></span>
+      <span class="cp-bfs__pill"><svg width="17" height="15" viewBox="0 0 16 14" fill="none" aria-hidden="true"><path d="M13 0l-1 5-4 9 8-9.5L13 0ZM3 0l1 5 4 9-8-9.5L3 0Z" fill="#1495CC"></path><path d="M3 0l1 5 4 9 4-9 1-5H3Z" fill="#58B7DF"></path><path d="M8 14L4 5l-4-.5L8 14ZM8 14l4-9 4-.5L8 14Z" fill="#035F86"></path><path d="M8 5.5L4 5l4 9 4-9-4 .5Z" fill="#1495CC"></path><path d="M4 5l4-5 4 5-4.001.5L4 5Z" fill="#A9DEF4"></path><path d="M4 5L3 0h5L4 5ZM12 5l1-5H8l4 5Z" fill="#58B7DF"></path><path d="M4 5L3 0 0 4.5 4 5ZM12 5l1-5 3 4.5-4 .5Z" fill="#1495CC"></path></svg>Built for Shopify</span>
+      <span class="cp-bfs__mark"><img src="assets/wordmark-white.svg" alt="ClickPost" width="150" height="21"></span>
+      <span class="cp-bfs__strap">Smarter<br>Post-Purchase<br>Experiences</span>
       <figcaption class="cp-bfs__crit">
         <div class="cp-bfs__card">
           <span class="cp-bfs__ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"></rect><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"></rect><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"></rect><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"></rect></svg></span>
