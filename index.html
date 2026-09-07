@@ -531,7 +531,7 @@
                     box-shadow: 0 24px 56px -30px rgba(10, 22, 40, 0.5); }
   .cp-bfs__banner img { display: block; width: 100%; height: auto; }
   .cp-bfs__banner::after { content: ""; position: absolute;
-                           left: 0; right: 0; bottom: 0; height: 56%;
+                           left: 0; right: 0; bottom: 0; height: 62%;
                            pointer-events: none;
                            background: linear-gradient(to top,
                              rgba(4, 6, 20, 0.74) 0%,
@@ -541,7 +541,7 @@
      width - it belongs to the picture, not to the column. 3.51% is the
      pill's own right edge, measured off the image: its plate runs
      x 1058..1566 of 1623. */
-  .cp-bfs__app { position: absolute; z-index: 1; right: 3.51%; top: 56%;
+  .cp-bfs__app { position: absolute; z-index: 1; right: 3.51%; top: 25%;
                  display: flex; flex-direction: row; gap: 12px;
                  align-items: center; padding: 10px 20px 10px 12px;
                  border-radius: 13px; background: rgba(255, 255, 255, 0.95);
@@ -553,15 +553,21 @@
   /* The four criteria as cards along the foot: a row, not the
      reference's fan, because a fan over this illustration would cover the
      illustration. White cards, so they need no scrim of their own. */
-  .cp-bfs__crit { position: absolute; z-index: 1; left: 40px; right: 40px;
-                  bottom: 32px; display: grid;
-                  grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .cp-bfs__card { position: relative; display: grid;
+  .cp-bfs__crit { position: absolute; inset: 0; z-index: 1;
+                  pointer-events: none; }
+  /* two up, two down, each turned a few degrees and overlapping at the
+     edges - the reference's fan. In percentages, so it keeps its shape
+     at every rung of the ladder. 22.2% of 1216 is 270. */
+  .cp-bfs__card { position: absolute; width: 22.2%; display: grid;
                   grid-template-columns: 40px 1fr; column-gap: 12px;
                   row-gap: 6px; align-content: start;
                   padding: 14px 34px 15px 14px; border-radius: 14px;
                   background: rgba(255, 255, 255, 0.96);
-                  box-shadow: 0 14px 30px -16px rgba(4, 6, 20, 0.6); }
+                  box-shadow: 0 18px 38px -14px rgba(4, 6, 20, 0.55); }
+  .cp-bfs__card:nth-child(1) { left: 2%;    top: 52%; rotate: -3.5deg; }
+  .cp-bfs__card:nth-child(2) { left: 24.5%; top: 65%; rotate: -1.5deg; }
+  .cp-bfs__card:nth-child(3) { left: 47%;   top: 52%; rotate:  1.5deg; }
+  .cp-bfs__card:nth-child(4) { left: 69.5%; top: 65%; rotate:  3.5deg; }
   .cp-bfs__ico { grid-row: 1 / span 2; width: 40px; height: 40px;
                  border-radius: 11px; background: #E7EEFF; color: #155FFF;
                  display: flex; justify-content: center;
@@ -1285,9 +1291,13 @@
     .cp-bfs__banner { background: #ffffff; }
     .cp-bfs__app { display: none !important; }
     .cp-bfs__banner::after { display: none !important; }
+    /* a fan needs room to fan into, and 380px is not it */
     .cp-bfs__crit { position: static !important; padding: 14px;
+                    display: grid !important;
                     grid-template-columns: repeat(2, 1fr) !important;
-                    gap: 10px !important; }
+                    gap: 10px !important; pointer-events: auto !important; }
+    .cp-bfs__card { position: static !important; width: auto !important;
+                    rotate: none !important; }
     .cp-bfs__card { box-shadow: none !important;
                     border: 1px solid #E4E7EC;
                     padding: 12px 12px 13px !important;
