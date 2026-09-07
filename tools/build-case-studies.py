@@ -103,7 +103,19 @@ def main():
             "          </figure>",
         ]
         out += bits
-    out += ["        </div>", "      </div>", END]
+    chev = ('<svg width="17" height="17" viewBox="0 0 24 24" fill="none" '
+            'stroke="currentColor" stroke-width="2.1" stroke-linecap="round" '
+            'stroke-linejoin="round" aria-hidden="true">'
+            '<path d="M%s"></path></svg>')
+    out += [
+        "        </div>",
+        '        <div class="cp-cs__nav">',
+        '          <button type="button" class="cp-cs__arrow" data-cs-step="-1" '
+        'aria-label="Previous case studies">%s</button>' % (chev % "15 5l-7 7 7 7"),
+        '          <button type="button" class="cp-cs__arrow" data-cs-step="1" '
+        'aria-label="Next case studies">%s</button>' % (chev % "9 5l7 7-7 7"),
+        "        </div>",
+        "      </div>", END]
 
     block = "\n".join(out)
     s = io.open(PAGE, encoding="utf-8", newline="").read()

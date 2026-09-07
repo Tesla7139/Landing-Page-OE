@@ -259,6 +259,22 @@
                      color: #252525; }
   .cp-csx__copy p { margin: 0; max-width: 640px; font-size: 17px;
                     line-height: 26px; color: #52525B; }
+  /* Arrows at the foot of the ring, inside it - .cp-cs is the
+     positioned, clipped box the cards turn in, so they sit over the
+     bottom-right corner of that rather than under the section. */
+  .cp-cs__nav { position: absolute; right: 112px; bottom: 8px; z-index: 3;
+                display: flex; flex-direction: row; gap: 10px; }
+  .cp-cs__arrow { width: 44px; height: 44px; padding: 0; border-radius: 9999px;
+                  border: 1px solid #E4E7EC; background: #ffffff;
+                  color: #252525; cursor: pointer; display: flex;
+                  justify-content: center; align-items: center;
+                  box-shadow: 0 6px 18px -8px rgba(10, 22, 40, 0.3);
+                  transition: background 160ms ease-out, color 160ms ease-out; }
+  .cp-cs__arrow:hover { background: #155FFF; color: #ffffff;
+                        border-color: #155FFF; }
+  .cp-cs__arrow:focus-visible { outline: 3px solid #155FFF;
+                                outline-offset: 3px; }
+
   /* ── The merchant clip ──────────────────────
      One card of the twelve in the ring is a merchant on camera rather
      than in print. The poster fills it edge to edge with the line over
@@ -1377,6 +1393,7 @@
     /* 44px is 172px of glyph and the pair only has 141 at 400px wide */
     .cp-gs__tile b { font-size: min(44px, 8.5vw) !important;
                      line-height: 1.05 !important; }
+    .cp-cs__nav { right: 20px !important; }
     /* ── The case-study heading ───────────────────── */
     .cp-csx__head { width: 100% !important; }
     .cp-csx__copy h2 { font-size: 28px !important; line-height: 36px !important; }
@@ -3194,6 +3211,10 @@
             <figcaption class="cp-cs__who">GHAR SOAPS<span class="cp-cs__where">UAE</span></figcaption>
           </figure>
         </div>
+        <div class="cp-cs__nav">
+          <button type="button" class="cp-cs__arrow" data-cs-step="-1" aria-label="Previous case studies"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
+          <button type="button" class="cp-cs__arrow" data-cs-step="1" aria-label="Next case studies"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg></button>
+        </div>
       </div>
       <!-- CASESTUDIES:END -->
   </section>
@@ -3851,6 +3872,9 @@ class Component extends DCLogic {
     } catch (e) {}
 
     let rot = 0, paused = false, last = null;
+    // the arrows move this, not rot: adding to rot would jump
+    let nudge = 0, nudgeTo = 0;
+    const stepDeg = 360 / cards.length;
     const host = ring.parentNode;
     host.addEventListener("mouseenter", () => { paused = true; });
     host.addEventListener("mouseleave", () => { paused = false; });
@@ -3868,10 +3892,18 @@ class Component extends DCLogic {
       io.observe(host);
     } catch (e) { armed = true; }
 
+    host.querySelectorAll(".cp-cs__arrow").forEach(b => {
+      b.addEventListener("click", () => {
+        const d = parseFloat(b.getAttribute("data-cs-step")) || 0;
+        nudgeTo -= d * stepDeg;
+        if (reduced) nudge = nudgeTo;
+      });
+    });
+
     const face = () => {
       for (let i = 0; i < cards.length; i++) {
         // how far this card has turned away from facing the viewer
-        let a = (angles[i] + rot) % 360;
+        let a = (angles[i] + rot + nudge) % 360;
         if (a < 0) a += 360;
         const off = a > 180 ? 360 - a : a;
         cards[i].style.opacity = off > 74 ? 0 : (1 - off / 110).toFixed(3);
@@ -3882,9 +3914,15 @@ class Component extends DCLogic {
       const dt = last === null ? 16 : Math.min(48, now - last);
       last = now;
       if (armed && !paused && !reduced && !this.ringHold) {
-        rot = (rot + dt * 0.0055) % 360;
+        // 0.00275 deg/ms: a full turn in about 136s, half the old drift
+        rot = (rot + dt * 0.00275) % 360;
       }
-      ring.style.transform = "rotateY(" + rot + "deg)";
+      if (nudge !== nudgeTo) {
+        const k = Math.min(1, dt / 170);
+        nudge += (nudgeTo - nudge) * k;
+        if (Math.abs(nudgeTo - nudge) < 0.05) nudge = nudgeTo;
+      }
+      ring.style.transform = "rotateY(" + (rot + nudge) + "deg)";
       face();
       this.ringRAF = requestAnimationFrame(frame);
     };
