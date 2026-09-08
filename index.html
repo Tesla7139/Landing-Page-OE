@@ -553,82 +553,56 @@
                     color: #14161C; }
   .cp-bfs__card i { font-style: normal; font-size: 12.5px;
                     line-height: 16px; color: #5B6270; }
-  .cp-bfs__ok { position: absolute; right: 12px; top: 12px; }  /* ── Built for store operations ───────────────────────
+  .cp-bfs__ok { position: absolute; right: 12px; top: 12px; }  /* ── Case study: Mars by GHC ─────────────
      This and the Used-by band share one surface, so there is no seam
-     between them - the same shape getamply.co uses, where one .map
-     section holds both the card and the figure.
+     between them - the wash behind both is on .cp-blend.
 
-     Their glow is a 520px circle placed at top 130 left 140, so its centre
-     sits at 400,390 - behind the card, not spread across the section. It
-     reads because their card is only 387px wide and the circle is 520, so
-     it shows past the right edge and below.
+     The reference's layout with the one change asked for: the review is
+     on the section rather than in a card. Their poster left, the two
+     figures hung off its bottom-left corner, the review right of it.
 
-     Ours is 544 wide, which swallowed a 520px circle whole, so it is an
-     ellipse instead: 620 x 400 at 560,405, keeping their offset of the
-     glow from the card's own centre.
-
-     Both radii are chosen to fade to nothing inside the page rather than
-     at its edges. Vertically it reaches y=5, so it does not draw a hard
-     line where the white section above ends - which is what the
-     full-width washes this replaces did. Horizontally it reaches x=-60,
-     where its alpha is down to 0.03: the page is a fixed 1440 box on a
-     white body, so anything still coloured at x=0 shows a step at the
-     page's edge.
-
-     Hue is ours. Theirs is #807DFE, a periwinkle from their palette; this
-     is the same value taken round to the blue this page already uses -
-     and taken further towards it since, because at the old alpha and
-     saturation the wash landed close to neutral over white. */
-  .cp-blend {
-    background:
-      radial-gradient(620px 400px at 560px 405px,
-                      rgba(84, 122, 255, 0.34) 0%,
-                      rgba(84, 122, 255, 0) 100%),
-      #ffffff; }
-  .cp-bfo { display: flex; flex-direction: row; gap: 72px; align-items: center;
-            padding: 104px 112px 64px; }
-  .cp-bfo__art { position: relative; width: 544px; height: 452px; flex-shrink: 0;
-                 border-radius: 26px; background: #ffffff; overflow: hidden;
-                 /* tinted to the wash: a near-black shadow over a blue
-                    field is what read as grey */
-                 box-shadow: 0 26px 64px rgba(38, 74, 168, 0.17); }
-  /* the stack runs off the bottom of the card and is faded out, so it reads
-     as a list that carries on rather than three items that happen to end */
-  .cp-bfo__art::after { content: ""; position: absolute; left: 0; right: 0;
-                        bottom: 0; height: 190px; pointer-events: none;
-                        background: linear-gradient(to bottom,
-                                    rgba(255,255,255,0) 0%, #ffffff 82%); }
-  .cp-bfo__stack { position: absolute; left: 44px; top: 84px; width: 400px;
-                   display: flex; flex-direction: column; gap: 16px; }
-  .cp-bfo__card { display: flex; flex-direction: row; gap: 14px;
-                  align-items: flex-start; padding: 16px 18px; border-radius: 16px;
-                  background: #ffffff; border: 1px solid #EEF0F5;
-                  box-shadow: 0 12px 28px rgba(38, 74, 168, 0.14); }
-  .cp-bfo__card--a { transform: rotate(-2.4deg); }
-  .cp-bfo__card--b { transform: rotate(1.8deg); margin-left: 34px; }
-  .cp-bfo__card--c { margin-left: 16px; opacity: 0.4; }
-  .cp-bfo__ico { width: 34px; height: 34px; flex-shrink: 0; border-radius: 10px;
-                 border: 1px solid #EEF0F5; color: #52525B; display: flex;
-                 justify-content: center; align-items: center; }
-  .cp-bfo__ct { flex-grow: 1; display: flex; flex-direction: column; gap: 3px; }
-  .cp-bfo__ct b { font-size: 15px; font-weight: 600; line-height: 21px;
-                  color: #252525; }
-  .cp-bfo__ct span { font-size: 13px; line-height: 18px; color: #8A8F9B; }
-  .cp-bfo__tag { flex-shrink: 0; padding: 4px 10px; border-radius: 9999px;
-                 font-size: 11px; font-weight: 600; white-space: nowrap; }
-  .cp-bfo__tag--warn { background: #FFF1DC; color: #B45309; }
-  .cp-bfo__tag--ok   { background: #DCFCE7; color: #15803D; }
-  .cp-bfo__tag--wip  { background: #EDE9FE; color: #6D28D9; }
-  .cp-bfo__copy { display: flex; flex-direction: column; align-items: flex-start; }
-  /* text-wrap: balance rather than a hard break - the column is 592 at
-     1440 and 380 on a phone, and four lines each shorter than the last
-     read as a triangle */
-  .cp-bfo__copy h2 { margin: 0; font-size: 44px; font-weight: 400;
-                     line-height: 56px; letter-spacing: -0.01em;
-                     text-wrap: balance; color: #252525; }
-  /* the arrow sits beside the label, not inside it, so the underline
-     stays under the words rather than running through the arrow */
-  .cp-bfo__more { margin-top: 34px; display: inline-flex;
+     The figures carry no currency symbol on purpose - their dashboard
+     shows none, and brands.json says Mars trades in India while
+     reviews.json says the United States. A "$" could be out by 85x. */
+  .cp-bfo { display: flex; flex-direction: row; gap: 72px;
+            align-items: center; padding: 104px 112px 84px; }
+  .cp-bfo__art { position: relative; margin: 0; width: 560px;
+                 flex-shrink: 0; }
+  .cp-bfo__poster { display: block; width: 560px; height: auto;
+                    border-radius: 18px;
+                    box-shadow: 0 26px 60px -28px rgba(38, 74, 168, 0.4); }
+  /* hung off the bottom-left corner, half on the photograph and half
+     below it, which is where the reference puts them */
+  .cp-bfo__stat { position: absolute; bottom: -44px; width: 172px;
+                  border-radius: 12px; background: #ffffff;
+                  overflow: hidden;
+                  box-shadow: 0 18px 40px -18px rgba(16, 32, 90, 0.34); }
+  .cp-bfo__stat--a { left: 18px; }
+  .cp-bfo__stat--b { left: 204px; }
+  .cp-bfo__stat b { display: block; padding: 16px 16px 14px;
+                    font-size: 34px; font-weight: 800; line-height: 36px;
+                    letter-spacing: -0.03em; color: #17181C; }
+  /* white on #155FFF is 5.10:1 */
+  .cp-bfo__stat i { display: block; padding: 8px 16px 9px;
+                    background: #155FFF; font-style: normal;
+                    font-size: 12px; font-weight: 600; line-height: 16px;
+                    color: #ffffff; }
+  .cp-bfo__copy { margin: 0; display: flex; flex-direction: column;
+                  align-items: flex-start; }
+  .cp-bfo__qm { color: #B9CCFF; }
+  .cp-bfo__copy blockquote { margin: 16px 0 0; max-width: 560px;
+                             font-size: 22px; line-height: 34px;
+                             letter-spacing: -0.01em; color: #252525; }
+  .cp-bfo__copy figcaption { margin-top: 28px; display: flex;
+                             flex-direction: row; gap: 22px;
+                             align-items: center; }
+  .cp-bfo__who { display: flex; flex-direction: column; gap: 3px;
+                 font-size: 15.5px; font-weight: 600; color: #101828; }
+  .cp-bfo__who i { font-style: normal; font-size: 13px; font-weight: 400;
+                   color: #667085; }
+  .cp-bfo__copy figcaption img { display: block; width: 128px;
+                                 height: auto; opacity: 0.9; }
+  .cp-bfo__more { margin-top: 30px; display: inline-flex;
                   flex-direction: row; gap: 9px; align-items: center;
                   font-size: 15px; font-weight: 600; letter-spacing: 0.06em;
                   text-transform: uppercase; color: #155FFF;
@@ -641,7 +615,6 @@
   @media (prefers-reduced-motion: reduce) {
     .cp-bfo__more svg { transition: none; }
   }
-
   /* ── Outcome band ──────────────────────────────────
      Full bleed on the fixed 1440 column, so everything is placed against
      the wedge by absolute position. The hairlines run to the page edge
@@ -1225,14 +1198,28 @@
     .cp-steps__visual, .cp-steps__visual * { text-align: left; }
     .cp-steps__card { text-align: left; }
 
-    /* ── Built for store operations ─────────────────────────────────── */
-    .cp-bfo { flex-direction: column !important; gap: 36px !important;
+    /* ── Case study: Mars by GHC ────────────────── */
+    .cp-bfo { flex-direction: column !important; gap: 60px !important;
               padding: 56px 20px 40px !important; }
-    .cp-bfo__art { width: 100% !important; height: 320px !important; }
-    .cp-bfo__stack { left: 18px !important; right: 18px !important; top: 44px !important;
-                     width: auto !important; }
-    .cp-bfo__copy { align-items: center !important; text-align: center; }
-
+    .cp-bfo__art { width: 100% !important; }
+    .cp-bfo__poster { width: 100% !important; }
+    /* two 172px cards need 362 of the 340 a phone has; they shrink and
+       sit side by side under the corner rather than across it */
+    .cp-bfo__stat { width: calc(50% - 12px) !important;
+                    bottom: -38px !important; }
+    .cp-bfo__stat--a { left: 8px !important; }
+    .cp-bfo__stat--b { left: auto !important; right: 8px !important; }
+    .cp-bfo__stat b { font-size: 26px !important; line-height: 28px !important;
+                      padding: 12px 12px 10px !important; }
+    .cp-bfo__copy { align-items: flex-start !important;
+                    text-align: left !important; }
+    .cp-bfo__copy blockquote { max-width: none !important;
+                               font-size: 17px !important;
+                               line-height: 28px !important; }
+    .cp-bfo__qm { width: 38px !important; height: 29px !important; }
+    .cp-bfo__copy figcaption { flex-direction: column !important;
+                               align-items: flex-start !important;
+                               gap: 14px !important; }
     /* ── Used by ────────────────────────────────────────────────────── */
     [data-screen-label="Used by"] { padding: 48px 20px !important; gap: 28px !important; }
     [data-screen-label="Used by"] > div { align-items: center !important;
@@ -1416,21 +1403,6 @@
                       rgba(84, 122, 255, 0.30) 0%,
                       rgba(84, 122, 255, 0) 100%),
       #ffffff !important; }
-    .cp-bfo__art { height: 268px !important; }
-    .cp-bfo__art::after { height: 104px !important; }
-    .cp-bfo__stack { left: 16px !important; right: 16px !important;
-                     top: 30px !important; width: auto !important;
-                     gap: 10px !important; }
-    .cp-bfo__card { padding: 11px 13px !important; gap: 10px !important;
-                    border-radius: 13px !important; }
-    .cp-bfo__card--b { margin-left: 14px !important; }
-    .cp-bfo__card--c { margin-left: 7px !important; }
-    .cp-bfo__ico { width: 27px !important; height: 27px !important;
-                   border-radius: 8px !important; }
-    .cp-bfo__ct b { font-size: 12.5px !important; line-height: 17px !important; }
-    .cp-bfo__ct span { font-size: 10.5px !important; line-height: 14px !important; }
-    .cp-bfo__tag { font-size: 9.5px !important; padding: 3px 7px !important; }
-
     /* Product mocks: fixed boxes with absolutely positioned innards and
        overflow: hidden, so clamping the box only crops it. zoom scales
        the layout box as well, which is the property transform lacks. */
@@ -1976,30 +1948,21 @@
        One wrapper, one gradient: the two run together with no seam. -->
   <div class="cp-blend">
   <section class="cp-bfo" data-screen-label="Built for store ops">
-    <div class="cp-bfo__art">
-      <div class="cp-bfo__stack">
-        <div class="cp-bfo__card cp-bfo__card--a">
-          <span class="cp-bfo__ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.4 7-11a7 7 0 1 0-14 0c0 4.6 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg></span>
-          <span class="cp-bfo__ct"><b>Wrong address caught</b><span>Validated via Google Maps</span></span>
-          <span class="cp-bfo__tag cp-bfo__tag--warn">3 flagged</span>
-        </div>
-        <div class="cp-bfo__card cp-bfo__card--b">
-          <span class="cp-bfo__ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 1.8"></path></svg></span>
-          <span class="cp-bfo__ct"><b>Edit window open</b><span>Order held before fulfilment</span></span>
-          <span class="cp-bfo__tag cp-bfo__tag--ok">Automated</span>
-        </div>
-        <div class="cp-bfo__card cp-bfo__card--c">
-          <span class="cp-bfo__ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l2 10h9l2-7H7"></path><circle cx="10" cy="19" r="1.4"></circle><circle cx="17" cy="19" r="1.4"></circle></svg></span>
-          <span class="cp-bfo__ct"><b>Upsell shown at edit</b><span>Thank You • Order Status</span></span>
-          <span class="cp-bfo__tag cp-bfo__tag--wip">In progress</span>
-        </div>
+    <figure class="cp-bfo__art">
+      <img class="cp-bfo__poster" src="assets/case-study/marsbyghc-poster.webp" alt="Mars by GHC supplements on a poolside tray" width="700" height="400" loading="lazy">
+      <div class="cp-bfo__stat cp-bfo__stat--a">
+        <b>18,551</b><i>in upsell revenue</i>
       </div>
-    </div>
+      <div class="cp-bfo__stat cp-bfo__stat--b">
+        <b>8,211</b><i>orders edited</i>
+      </div>
+    </figure>
 
-    <div class="cp-bfo__copy">
-      <h2>“Save thousands on support costs while turning order edits into upsell opportunities.”</h2>
+    <figure class="cp-bfo__copy"><svg class="cp-bfo__qm" width="52" height="40" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V11.6C0 5.2 3.5 1 9.6 0l1 2.4C7 3.6 5.2 5.9 5.2 8.6H9V20H0Zm16.4 0V11.6C16.4 5.2 19.9 1 26 0l1 2.4c-3.6 1.2-5.4 3.5-5.4 6.2h3.8V20h-9Z"></path></svg>
+      <blockquote>We&rsquo;ve been using Clickpost and it&rsquo;s genuinely been super helpful. Customers can handle order edits themselves, and the post-purchase upsells have been a solid bonus for incremental revenue. Setup was straightforward, everything&rsquo;s been running smoothly, and support has been great too &mdash; the team was quick to respond and got us up and running fast.</blockquote>
+      <figcaption><span class="cp-bfo__who">Mars by GHC<i>7-figure brand &middot; January 2026</i></span><img src="assets/customers/marsbyghc.png" alt="Mars by GHC" width="148" height="46"></figcaption>
       <a class="cp-bfo__more" href="#"><span>See how it works</span><svg width="15" height="13" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5"></path></svg></a>
-    </div>
+    </figure>
   </section>
 
   <!-- ── Used by ──────────────────────────────────────── -->
