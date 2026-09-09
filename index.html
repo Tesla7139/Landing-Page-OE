@@ -126,17 +126,23 @@
                    flex-direction: row; gap: 40px; align-items: center; }
   .cp-cse__copy { flex: 0 0 420px; display: flex; flex-direction: column;
                   align-items: flex-start; }
-  .cp-cse__eyebrow { font-size: 12.5px; font-weight: 600;
-                     letter-spacing: 0.2em; text-transform: uppercase;
-                     color: rgba(255, 255, 255, 0.6); }
-  .cp-cse__mark { display: block; width: 210px; height: auto;
-                  margin: 18px 0 0; }
-  /* the two figures are the claim: white, with the second verb dropped
-     back so the numbers carry it */
-  .cp-cse__h { margin: 30px 0 0; font-size: 44px; line-height: 53px;
-               font-weight: 700; letter-spacing: -0.02em; color: #ffffff; }
-  .cp-cse__h span { display: block; color: rgba(255, 255, 255, 0.58); }
-  .cp-cse__h span b { font-weight: 700; color: #ffffff; }
+  .cp-cse__mark { display: block; width: 210px; height: auto; }
+  /* two figures, each over its own label, with a rule between - they
+     were a sentence at one size before, which left the numbers nothing
+     to stand apart from */
+  .cp-cse__h { margin: 34px 0 0; display: flex; flex-direction: row;
+               align-items: stretch; gap: 26px; }
+  .cp-cse__h span { display: flex; flex-direction: column;
+                    align-items: flex-start; }
+  .cp-cse__h span + span { padding-left: 26px;
+                           border-left: 1px solid rgba(255, 255, 255, 0.32); }
+  .cp-cse__h b { font-size: 46px; font-weight: 700; line-height: 50px;
+                 letter-spacing: -0.03em; color: #ffffff; }
+  /* 92%, not the 75% that looks right: 75% is 3.51:1 on #CE0058 and
+     misses AA at 14px, 92% is 4.85:1 */
+  .cp-cse__h i { margin-top: 4px; font-style: normal; font-size: 14px;
+                 font-weight: 500; letter-spacing: 0.01em;
+                 color: rgba(255, 255, 255, 0.92); }
   .cp-cse__quote { margin: 34px 0 0; }
   .cp-cse__quote blockquote { margin: 0; font-size: 19px; line-height: 29px;
                               font-weight: 500; color: #ffffff; }
@@ -1330,6 +1336,11 @@
                      align-items: stretch !important; }
     .cp-cse__copy { flex: 1 1 auto !important; }
     .cp-cse__mark { width: 168px !important; }
+    /* 46px is 230 for $20,000 alone; the pair needs 302 of the 340 here */
+    .cp-cse__h { gap: 18px !important; }
+    .cp-cse__h span + span { padding-left: 18px !important; }
+    .cp-cse__h b { font-size: 32px !important; line-height: 36px !important; }
+    .cp-cse__h i { font-size: 12.5px !important; }
     .cp-cse__stage { min-height: 0 !important; align-self: auto !important; }
     .cp-cse__shot { position: static !important; width: 100% !important;
                     margin: 0 !important; }
@@ -2930,9 +2941,11 @@
     <img class="cp-cse__photo" src="assets/case-study/doonails-hero.webp" alt="DOONAILS press-on nails from the Wine &amp; Dine collection" width="900" height="900" loading="lazy">
     <div class="cp-cse__inner">
       <div class="cp-cse__copy">
-        <span class="cp-cse__eyebrow">Case study</span>
         <img class="cp-cse__mark" src="assets/case-study/doonails.svg" alt="DOONAILS" width="137" height="17">
-        <h2 class="cp-cse__h">4,000 orders edited.<span><b>$20,000</b> saved.</span></h2>
+        <h2 class="cp-cse__h">
+          <span><b>4,000</b><i>orders edited</i></span>
+          <span><b>$20,000</b><i>saved</i></span>
+        </h2>
         <figure class="cp-cse__quote">
           <blockquote><svg class="cp-cse__qm" width="19" height="15" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V11.6C0 5.2 3.5 1 9.6 0l1 2.4C7 3.6 5.2 5.9 5.2 8.6H9V20H0Zm16.4 0V11.6C16.4 5.2 19.9 1 26 0l1 2.4c-3.6 1.2-5.4 3.5-5.4 6.2h3.8V20h-9Z"></path></svg>Really helped us quickly to fix all issues.</blockquote>
           <figcaption><i class="cp-cse__dash"></i><span class="cp-cse__sig">Doonails</span><i class="cp-cse__bar"></i><span>Cyprus &middot; March 2026</span></figcaption>
