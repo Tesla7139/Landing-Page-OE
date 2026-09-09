@@ -48,17 +48,19 @@ def video_card(v, angle, radius):
         'data-playing="0" data-cs-angle="%.3f" '
         'style="transform: rotateY(%.3fdeg) translateZ(%dpx);">'
         % (angle, angle, radius),
-        '            <video class="cp-vt__video" preload="none" playsinline '
+        '            <span class="cp-vt__media">',
+        '              <video class="cp-vt__video" preload="none" playsinline '
         'poster="%s" width="%d" height="%d">'
         % (v["poster"], v["width"], v["height"]),
-        '              <source src="%s" type="video/mp4">' % v["src"],
-        "            </video>",
-        '            <button type="button" class="cp-vt__hit" '
+        '                <source src="%s" type="video/mp4">' % v["src"],
+        "              </video>",
+        '              <button type="button" class="cp-vt__hit" '
         'onClick="{{ playVT0 }}" aria-label="Play: %s">'
         '<span class="cp-vt__play">%s</span>'
         '<span class="cp-vt__time">%s</span></button>'
         % (html.escape(v["title"].strip("“”"), quote=True), PLAY,
            html.escape(v["duration"])),
+        "            </span>",
         '            <figcaption class="cp-cs__vtcap">%s</figcaption>'
         % html.escape(v["title"]),
         "          </figure>",
