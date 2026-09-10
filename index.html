@@ -643,8 +643,10 @@
      the wedge by absolute position. The hairlines run to the page edge
      and stop at the wedge, which is what gives the two panels their
      width without a border. */
-  /* height comes from the art now, not a number: it is 4.333:1, so 1440
-     paints 332 where the built band was 330 */
+  /* Height comes from the art, not a number. Cropped to the card's own
+     edges - x 40..2119 of the 2162 working file, where the first ink is
+     not until 176 - it is 4.86:1, so 1440 paints 296 and the type keeps
+     94px of air at each end. */
   .cp-ob { position: relative; width: 1440px; background: #ffffff;
            overflow: hidden; }
   .cp-ob__art { display: block; width: 1440px; max-width: 100%;
@@ -1837,7 +1839,7 @@
 
   <!-- ── Outcome band ───────────────────── -->
   <section class="cp-ob" data-screen-label="Outcome band">
-    <img class="cp-ob__art" src="assets/outcome-band.webp" srcset="assets/outcome-band.webp 1440w, assets/outcome-band@2x.webp 2162w" sizes="1440px" alt="Simplifying post-purchase experience. Fewer support tickets. More revenue. 5% higher average order value, and up to 30% lower support cost per store." width="1440" height="332" loading="lazy">
+    <img class="cp-ob__art" src="assets/outcome-band.webp" srcset="assets/outcome-band.webp 1440w, assets/outcome-band@2x.webp 2080w" sizes="1440px" alt="Simplifying post-purchase experience. Fewer support tickets. More revenue. 5% higher average order value, and up to 30% lower support cost per store." width="1440" height="296" loading="lazy">
     <svg class="cp-ob__shape" width="1440" height="330" viewBox="0 0 1440 330" fill="none" aria-hidden="true" focusable="false">
       <defs>
         <linearGradient id="cp-ob-g" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
