@@ -643,8 +643,12 @@
      the wedge by absolute position. The hairlines run to the page edge
      and stop at the wedge, which is what gives the two panels their
      width without a border. */
-  .cp-ob { position: relative; width: 1440px; height: 330px; background: #ffffff;
+  /* height comes from the art now, not a number: it is 4.333:1, so 1440
+     paints 332 where the built band was 330 */
+  .cp-ob { position: relative; width: 1440px; background: #ffffff;
            overflow: hidden; }
+  .cp-ob__art { display: block; width: 1440px; max-width: 100%;
+                height: auto; }
   .cp-ob__shape { position: absolute; left: 0; top: 0; display: block; }
   .cp-ob__mid { position: absolute; left: 486px; top: 108px; width: 468px;
                 text-align: center; }
@@ -669,6 +673,17 @@
                 letter-spacing: -0.02em; color: #155FFF; white-space: nowrap; }
   .cp-ob__cap { margin-top: 10px; font-size: 26px; font-weight: 500;
                 line-height: 34px; color: #252525; }
+  /* Above the phone breakpoint the art carries the band, so the built
+     one steps aside. Scoped to min-width rather than plain, so below
+     1001 this rule does not apply and the built band keeps its own
+     display values rather than having to have them restored.
+
+     Placed last on purpose: .cp-ob__shape and .cp-ob__stat declare
+     their own display at the same specificity, so a hide above them
+     loses and both kept painting over the art. */
+  @media (min-width: 1001px) {
+    .cp-ob__shape, .cp-ob__mid, .cp-ob__stat { display: none; }
+  }
 
 
   /* ── FAQ ───────────────────────────────────────────
@@ -1153,6 +1168,9 @@
        side. No wrapper needed for that - the band is already a flex
        column, so it wraps: a full line each for the heading and the pill,
        half a line each for the stats. */
+    /* 4.3:1 art at 380 wide is 88 tall, which puts its sub-lines at five
+       pixels. The built band restacks; an image cannot. */
+    .cp-ob__art { display: none !important; }
     .cp-ob { width: 100% !important; height: auto !important;
              display: flex !important; flex-direction: row !important;
              flex-wrap: wrap !important; justify-content: center !important;
@@ -1819,6 +1837,7 @@
 
   <!-- ── Outcome band ───────────────────── -->
   <section class="cp-ob" data-screen-label="Outcome band">
+    <img class="cp-ob__art" src="assets/outcome-band.webp" srcset="assets/outcome-band.webp 1440w, assets/outcome-band@2x.webp 2162w" sizes="1440px" alt="Simplifying post-purchase experience. Fewer support tickets. More revenue. 5% higher average order value, and up to 30% lower support cost per store." width="1440" height="332" loading="lazy">
     <svg class="cp-ob__shape" width="1440" height="330" viewBox="0 0 1440 330" fill="none" aria-hidden="true" focusable="false">
       <defs>
         <linearGradient id="cp-ob-g" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
