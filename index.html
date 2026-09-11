@@ -165,7 +165,13 @@
   .cp-cse__shot { position: absolute; left: 0; top: 50%; width: 716px;
                   height: auto; margin-top: -236px; border-radius: 12px;
                   box-shadow: 0 34px 70px -26px rgba(60, 6, 30, 0.55); }
+  /* One box for the two of them. They were 236 and 229, because each was
+     as wide as its own label - "orders edited in 30 days" against "saved
+     in those 30 days" - and two cards that nearly match read as a
+     mistake where two that plainly differ read as a choice. 244 is the
+     longer label plus the icon, the gap and the padding. */
   .cp-cse__stat { position: absolute; display: flex; flex-direction: row;
+                  width: 244px; box-sizing: border-box;
                   gap: 12px; align-items: center;
                   padding: 11px 22px 11px 11px; border-radius: 15px;
                   background: #ffffff;
