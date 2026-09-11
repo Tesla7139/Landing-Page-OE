@@ -333,6 +333,8 @@
   .cp-page > .cp-blend,
   .cp-page > footer { border-top: 1px solid #EAEEF5; }
   .cp-page > section:first-of-type { border-top: 0; }
+  .cp-page > [data-screen-label="How it works"],
+  .cp-page > .cp-blend,
   .cp-page > [data-screen-label="Reviews"],
   .cp-page > [data-screen-label="Case study"],
   .cp-page > [data-screen-label="Case study: upsells"],
@@ -783,12 +785,13 @@
                    display: flex; flex-direction: column;
                    justify-content: center;
                    padding: 12px 112px 20px; }
-  .cp-steps__head { flex: 0 0 auto; padding-bottom: 24px; }
+  .cp-steps__head { flex: 0 0 auto; padding-bottom: 24px;
+                    text-align: center; }
   /* one line at the 1216 column: two lines of 48px cost the rail 56px
      of the height the mock is competing for */
   .cp-steps__head h2 { margin: 0; font-size: 42px; font-weight: 500;
                        line-height: 50px; letter-spacing: -0.02em;
-                       color: #252525; }
+                       color: #ffffff; }
   /* hidden rather than clip: nothing sticky lives in here - the pin is
      this box's ancestor, not its descendant - and the panels either
      side of the one you are on have to be cut off at its edges.
@@ -803,6 +806,7 @@
                      transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1); }
   .cp-steps__panel { flex: 0 0 100%; width: 100%; height: 100%;
                      box-sizing: border-box; padding: 0 6px;
+                     justify-content: center;
                      display: flex; flex-direction: row; gap: 48px;
                      align-items: center; }
   [data-active-step="1"] .cp-steps__track { transform: translateX(-100%); }
@@ -828,8 +832,9 @@
                    display: flex; align-items: center;
                    justify-content: center; border-radius: 20px;
                    overflow: hidden;
-                   background: linear-gradient(160deg, #F4F8FF 0%,
-                     #E6EEFF 55%, #D6E4FF 100%); }
+                   /* the pale panel it used to sit on only made haze
+                      against the blue; the mock carries its own edge */
+                   background: none; }
   .cp-steps__art > * { transform: scale(var(--st-s, 1));
                        border-radius: 18px !important;
                        flex-grow: 0 !important; flex-shrink: 0 !important;
@@ -838,7 +843,9 @@
   [data-step-panel="3"] .cp-steps__art > * { --st-s: 0.68; }
 
   /* the copy settles after the slide, rather than arriving with it */
-  .cp-steps__copywrap { flex: 1 1 auto; min-width: 0;
+  /* a measure, not the leftover: filling the rest left the copy at the
+     left of a 640 column with a void beside it */
+  .cp-steps__copywrap { flex: 0 1 480px; min-width: 0;
                         opacity: 0; transform: translateY(18px);
                         transition: opacity 420ms ease-out 150ms,
                                     transform 480ms cubic-bezier(0.22, 1, 0.36, 1) 150ms; }
@@ -852,7 +859,7 @@
                     column-gap: 18px; row-gap: 12px; align-items: center; }
   .cp-steps__num { grid-column: 1; grid-row: 1; box-sizing: border-box;
                    width: 42px; height: 42px; border-radius: 9999px;
-                   background: #155FFF; color: #ffffff; flex-shrink: 0;
+                   background: #ffffff; color: #155FFF; flex-shrink: 0;
                    display: flex; justify-content: center;
                    align-items: center;
                    font-size: 17px; font-weight: 500; line-height: 1; }
@@ -860,9 +867,9 @@
      they were written as 18px labels - and capitals that size shout */
   .cp-steps__title { grid-column: 2; grid-row: 1; margin: 0;
                      font-size: 21px; font-weight: 600; line-height: 28px;
-                     letter-spacing: 0.01em; color: #252525; }
+                     letter-spacing: 0.01em; color: #ffffff; }
   .cp-steps__copy { grid-column: 1 / -1; grid-row: 2; margin: 0;
-                    font-size: 17px; line-height: 27px; color: #52525B;
+                    font-size: 17px; line-height: 27px; color: #ffffff;
                     max-width: 480px; }
 
   /* The progress rail. Done is the resting state and upcoming is the
@@ -893,9 +900,10 @@
   .cp-steps__bar { position: absolute; left: 15px; right: 15px;
                    bottom: 15px; transform: translateY(50%);
                    height: 3px; border-radius: 9999px;
-                   background: #E4E4E7; overflow: hidden; z-index: 0; }
+                   background: rgba(255, 255, 255, 0.3);
+                   overflow: hidden; z-index: 0; }
   .cp-steps__barfill { display: block; width: 0; height: 100%;
-                       border-radius: 9999px; background: #155FFF;
+                       border-radius: 9999px; background: #ffffff;
                        transition: width 620ms cubic-bezier(0.22, 1, 0.36, 1); }
   [data-active-step="1"] .cp-steps__barfill { width: 33.3333%; }
   [data-active-step="2"] .cp-steps__barfill { width: 66.6667%; }
@@ -903,8 +911,8 @@
   .cp-steps__dot { position: relative; z-index: 1;
                      box-sizing: border-box; padding: 0;
                      width: 30px; height: 30px; border-radius: 9999px;
-                     border: 2px solid #155FFF; background: #155FFF;
-                     color: #ffffff; cursor: pointer;
+                     border: 2px solid #ffffff; background: #ffffff;
+                     color: #155FFF; cursor: pointer;
                      font-family: inherit; font-size: 13px; font-weight: 600;
                      display: flex; align-items: center;
                      justify-content: center;
@@ -912,7 +920,7 @@
                                  border-color 240ms ease-out,
                                  color 240ms ease-out,
                                  transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1); }
-  .cp-steps__dot:focus-visible { outline: 2px solid #155FFF;
+  .cp-steps__dot:focus-visible { outline: 2px solid #ffffff;
                                     outline-offset: 3px; }
   /* stacked, so neither reflows the other as they cross-fade */
   .cp-steps__tick, .cp-steps__d { position: absolute; top: 50%; left: 50%;
@@ -923,7 +931,8 @@
 [data-active-step="1"] [data-step-dot="1"] ~ .cp-steps__dot,
 [data-active-step="2"] [data-step-dot="2"] ~ .cp-steps__dot,
   [data-active-step="3"] [data-step-dot="3"] ~ .cp-steps__dot {
-    background: #ffffff; border-color: #D4D4D8; color: #71717A;
+    background: transparent; border-color: rgba(255, 255, 255, 0.55);
+    color: #ffffff;
   }
   [data-active-step="0"] [data-step-dot="0"] ~ .cp-steps__dot .cp-steps__tick,
 [data-active-step="1"] [data-step-dot="1"] ~ .cp-steps__dot .cp-steps__tick,
@@ -1237,11 +1246,17 @@
 
     /* the sheet centres text in every section on a phone, and a step
        reads as a step only if its number, title and copy share an edge */
-    .cp-steps__head, .cp-steps__card, .cp-steps__art,
+    .cp-steps__card, .cp-steps__art,
     .cp-steps__art * { text-align: left !important; }
+    .cp-steps__head { text-align: center !important; }
     /* every panel is its own scroll position here, so none of them is
-       waiting to be revealed */
-    .cp-steps__copywrap { opacity: 1 !important; transform: none !important; }
+       waiting to be revealed.
+
+       flex: 0 1 480px is a main-axis basis, and the panel is a column
+       here - so the 480 that is a measure on a desktop was a height on a
+       phone, and left 360px of blue under the copy. */
+    .cp-steps__copywrap { flex: 0 0 auto !important;
+                          opacity: 1 !important; transform: none !important; }
     .cp-steps__title { font-size: 20px !important; line-height: 27px !important; }
     .cp-steps__copy { font-size: 16px !important; line-height: 26px !important;
                       max-width: none !important; }
@@ -1868,7 +1883,7 @@
   </section>
 
   <!-- ── Set up in 4 steps ──────────────────────── -->
-    <section class="cp-steps" style="background: #ffffff; display: block;" data-screen-label="How it works" data-active-step="{{ activeStep }}" data-step-dir="{{ stepDir }}">
+    <section class="cp-steps" style="background: linear-gradient(165deg, #155FFF 0%, #1257EC 45%, #0F47D6 100%); display: block;" data-screen-label="How it works" data-active-step="{{ activeStep }}" data-step-dir="{{ stepDir }}">
     <div class="cp-steps__run">
       <div class="cp-steps__pin">
         <div class="cp-steps__head">
