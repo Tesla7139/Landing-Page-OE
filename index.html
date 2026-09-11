@@ -778,10 +778,10 @@
      the floors of the two heights below. */
   .cp-steps__run { position: relative; width: 100%;
                    height: calc(var(--cp-svh) * 3.25 - 96px);
-                   min-height: 1900px; }
+                   min-height: 2275px; }
   .cp-steps__pin { position: sticky; top: 96px;
                    height: calc(var(--cp-svh) - 96px);
-                   min-height: 580px; box-sizing: border-box;
+                   min-height: 700px; box-sizing: border-box;
                    display: flex; flex-direction: column;
                    justify-content: center;
                    padding: 12px 112px 20px; }
@@ -818,34 +818,35 @@
      it. Step 4's is 445 tall against the others' 304, so it gets its
      own: both land near 350-400, which clears the rail even at the
      frame's 660px floor. */
-  /* Sized to the mock rather than to the rail, and now as close to it
-     as it can get: 484 x 344 around a 452 x 304 mock is 16px of frame
-     either side and 20 top and bottom.
+  /* One scale for all four, so they read as the same interface at the
+     same zoom. They were not: three of the mocks are 452 x 304 and step
+     4's is 452 x 445, and giving that one its own scale to fit a short
+     cell painted it 307 wide against the others' 452.
 
-     This is the floor. The mocks are screens written out element by
-     element with 11.5px type in them, so scale is the only lever - and
-     below 1.0 that type is under 11.5px and stops being readable. The
-     copy beside it comes to 108, so the art is still three times it;
-     the way past that is a smaller mock, which is a worse trade. */
-  .cp-steps__art { flex: 0 0 auto; width: 484px;
-                   height: 344px; max-height: 100%;
+     Same scale means the heights differ - 445 is 1.46 times 304, and
+     nothing but a redraw of that mock changes it - so the cell is sized
+     to the tallest and the shorter three centre in it. The cell has no
+     background any more, so there is nothing to see in the difference.
+
+     520 wide at 1.15, up from 452 at 1.0. */
+  .cp-steps__art { flex: 0 0 auto; width: 540px;
+                   height: 536px; max-height: 100%;
                    display: flex; align-items: center;
                    justify-content: center; border-radius: 20px;
                    overflow: hidden;
                    /* the pale panel it used to sit on only made haze
                       against the blue; the mock carries its own edge */
                    background: none; }
-  .cp-steps__art > * { transform: scale(var(--st-s, 1));
+  .cp-steps__art > * { transform: scale(var(--st-s, 1.15));
                        border-radius: 18px !important;
                        flex-grow: 0 !important; flex-shrink: 0 !important;
                        overflow: hidden;
                        box-shadow: 0 20px 44px -26px rgba(10,22,40,0.42) !important; }
-  [data-step-panel="3"] .cp-steps__art > * { --st-s: 0.68; }
 
   /* the copy settles after the slide, rather than arriving with it */
   /* a measure, not the leftover: filling the rest left the copy at the
      left of a 640 column with a void beside it */
-  .cp-steps__copywrap { flex: 0 1 480px; min-width: 0;
+  .cp-steps__copywrap { flex: 0 1 420px; min-width: 0;
                         opacity: 0; transform: translateY(18px);
                         transition: opacity 420ms ease-out 150ms,
                                     transform 480ms cubic-bezier(0.22, 1, 0.36, 1) 150ms; }
@@ -856,21 +857,21 @@
     opacity: 1; transform: none;
   }
   .cp-steps__card { display: grid; grid-template-columns: auto 1fr;
-                    column-gap: 18px; row-gap: 12px; align-items: center; }
+                    column-gap: 16px; row-gap: 10px; align-items: center; }
   .cp-steps__num { grid-column: 1; grid-row: 1; box-sizing: border-box;
-                   width: 42px; height: 42px; border-radius: 9999px;
+                   width: 38px; height: 38px; border-radius: 9999px;
                    background: #ffffff; color: #155FFF; flex-shrink: 0;
                    display: flex; justify-content: center;
                    align-items: center;
-                   font-size: 17px; font-weight: 500; line-height: 1; }
+                   font-size: 16px; font-weight: 500; line-height: 1; }
   /* 21, and not the 27 it started at: these titles are set in capitals -
      they were written as 18px labels - and capitals that size shout */
   .cp-steps__title { grid-column: 2; grid-row: 1; margin: 0;
-                     font-size: 21px; font-weight: 600; line-height: 28px;
+                     font-size: 19px; font-weight: 600; line-height: 26px;
                      letter-spacing: 0.01em; color: #ffffff; }
   .cp-steps__copy { grid-column: 1 / -1; grid-row: 2; margin: 0;
-                    font-size: 17px; line-height: 27px; color: #ffffff;
-                    max-width: 480px; }
+                    font-size: 16px; line-height: 26px; color: #ffffff;
+                    max-width: 420px; }
 
   /* The progress rail. Done is the resting state and upcoming is the
      exception, which is the other way round from how it reads - but CSS
@@ -950,6 +951,16 @@
   [data-active-step="1"] [data-step-dot="1"],
   [data-active-step="2"] [data-step-dot="2"],
   [data-active-step="3"] [data-step-dot="3"] { transform: scale(1.18); }
+
+  /* The pinned group is 692 tall, and the pin is the window less the
+     header - so under about an 800px window it does not fit and the
+     progress rail would go off the bottom. One step down. */
+  @media (max-height: 800px) {
+    .cp-steps__art { height: 448px; }
+    .cp-steps__art > * { --st-s: 0.96; }
+    .cp-steps__pin { min-height: 610px; }
+    .cp-steps__run { min-height: 1980px; }
+  }
 
   @media (prefers-reduced-motion: reduce) {
     .cp-steps__track, .cp-steps__copywrap, .cp-steps__dot,
@@ -1216,13 +1227,12 @@
                        padding: 0 20px !important;
                        align-items: stretch !important;
                        scroll-snap-align: center; }
-    /* One height for all four, so the track - a flex row, as tall as its
-       tallest panel - does not leave a hole under the three short ones.
-       452 has to fit a 340-wide column, so 0.72; step 4's mock is 445
-       tall against the others' 304, so 0.64 brings it to the same. */
-    .cp-steps__art { width: 100% !important; height: 300px !important; }
+    /* One scale here as well, so the four read as one interface: 452
+       has to fit a 340-wide column, so 0.72. The cell is sized to step
+       4's mock - 445 at 0.72 is 320 - and the shorter three centre in
+       it, which also stops the track leaving a hole under them. */
+    .cp-steps__art { width: 100% !important; height: 340px !important; }
     .cp-steps__art > * { --st-s: 0.72 !important; }
-    [data-step-panel="3"] .cp-steps__art > * { --st-s: 0.64 !important; }
     .cp-steps__track { align-items: flex-start !important; }
     /* The mocks are desktop screens written out in markup, and their rows
        carry align-self: stretch - which the sheet's phone rule stacks into
