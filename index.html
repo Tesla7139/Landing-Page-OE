@@ -110,23 +110,17 @@
   }
 
   /* ── The two case studies, side by side ───────────────────
-     A scroll container with snap points, so a third case study is a
-     markup change and nothing else. Two cells to a screen: 1360 less a
-     32 gutter, halved, is 664 a card.
-
-     Each card's inside restacks, and the recipe for that already
-     existed - the phone block has been stacking both of these since
-     they were built. What follows is that block's rules scoped to a
-     cell rather than a viewport, which is why they look like
-     duplicates and are not: those fire on window width, these on being
-     one of two. */
+     A scroll container with snap points, one card to a view. The cards
+     keep the layout they had as a stack - full width, their own two
+     columns - and the arrows move the whole card. A third case study is
+     a markup change and nothing else. */
   .cp-csw { margin: 40px 40px; }
   .cp-csw__row { display: flex; flex-direction: row; gap: 32px;
                  align-items: stretch; overflow-x: auto;
                  scroll-snap-type: x mandatory; scrollbar-width: none;
                  scroll-behavior: smooth; }
   .cp-csw__row::-webkit-scrollbar { display: none; }
-  .cp-csw__cell { flex: 0 0 calc(50% - 16px); display: flex;
+  .cp-csw__cell { flex: 0 0 100%; display: flex;
                   scroll-snap-align: start; }
   .cp-csw__cell > section { flex: 1 1 auto; margin: 0 !important; }
 
@@ -164,35 +158,6 @@
   .cp-csw__arrow[aria-disabled="true"] { opacity: 0.35;
                                         pointer-events: none; }
 
-  /* ── and the restack, per cell ────────────────────────── */
-  .cp-csw__cell .cp-cse__photo { position: static; width: 100%;
-                                 height: 210px; }
-  .cp-csw__cell .cp-cse__inner { width: auto; flex-direction: column;
-                                 padding: 40px 40px 44px; gap: 28px;
-                                 align-items: stretch; }
-  .cp-csw__cell .cp-cse__copy { flex: 1 1 auto; }
-  .cp-csw__cell .cp-cse__mark { width: 176px; }
-  .cp-csw__cell .cp-cse__h b { font-size: 38px; line-height: 42px; }
-  .cp-csw__cell .cp-cse__stage { min-height: 0; align-self: auto; }
-  .cp-csw__cell .cp-cse__shot { position: static; width: 100%;
-                                margin: 0; }
-  /* two of them fit a 584 column side by side, 244 each and 20 between */
-  .cp-csw__cell .cp-cse__stats { margin-top: 16px; display: flex;
-                                 flex-direction: row; gap: 20px; }
-  .cp-csw__cell .cp-cse__stat { position: static; }
-
-  .cp-csw__cell .cp-gs { padding: 40px 40px 44px; }
-  .cp-csw__cell .cp-gs__top { width: auto; flex-direction: column;
-                              gap: 28px; align-items: stretch; }
-  .cp-csw__cell .cp-gs__copy { flex: 1 1 auto; }
-  .cp-csw__cell .cp-gs__h { font-size: 28px; line-height: 37px; }
-  .cp-csw__cell .cp-gs__side { width: 100%; }
-  /* three across 584 broke USD 16,638.25 over two lines; they stack, as
-     they already do on a phone */
-  .cp-csw__cell .cp-gs__metrics { flex-direction: column; gap: 14px; }
-  .cp-csw__cell .cp-gs__m > span:first-child { justify-content: flex-start; }
-  .cp-csw__cell .cp-gs__tag { margin-left: auto; }
-  .cp-csw__cell .cp-gs__leaves { width: 330px; height: 230px; }
   /* ── Case study: DOONAILS ─────────────────
      Built to the reference. A full-bleed magenta band: the words in a
      420 column on the left, their photograph bleeding off the right edge
@@ -1533,11 +1498,6 @@
     .cp-csw__row { gap: 16px !important; }
     .cp-csw__cell { flex: 0 0 100% !important; }
     .cp-csw__nav { display: none !important; }
-    .cp-csw__cell .cp-cse__inner,
-    .cp-csw__cell .cp-gs { padding-left: 20px !important;
-                           padding-right: 20px !important; }
-    .cp-csw__cell .cp-cse__stats { flex-direction: column !important;
-                                   gap: 12px !important; }
 
     /* 40 a side is a fifth of the screen: 16, and a smaller corner to
        match the shorter side */
@@ -3170,16 +3130,14 @@
         </div>
         <div class="cp-cse__stage">
           <img class="cp-cse__shot" src="assets/case-study/doonails-edit.jpg" alt="The DOONAILS Thank You page with the edit panel: change contact information, edit shipping address, update the order, apply a discount code or cancel." width="1140" height="750" loading="lazy">
-        <div class="cp-cse__stats">
-          <div class="cp-cse__stat cp-cse__stat--a">
-                        <span class="cp-cse__sico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9.2" cy="8.4" r="3.3"></circle><path d="M3.4 19.6c0-3.2 2.6-5.4 5.8-5.4s5.8 2.2 5.8 5.4"></path><path d="M16.4 6.2a3 3 0 0 1 0 5.9"></path><path d="M17.6 14.6c2.1.5 3.4 2.1 3.4 4.3"></path></svg></span>
-                        <span><b>4,000</b><i>orders edited in 30 days</i></span>
+        <div class="cp-cse__stat cp-cse__stat--a">
+                      <span class="cp-cse__sico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9.2" cy="8.4" r="3.3"></circle><path d="M3.4 19.6c0-3.2 2.6-5.4 5.8-5.4s5.8 2.2 5.8 5.4"></path><path d="M16.4 6.2a3 3 0 0 1 0 5.9"></path><path d="M17.6 14.6c2.1.5 3.4 2.1 3.4 4.3"></path></svg></span>
+                      <span><b>4,000</b><i>orders edited in 30 days</i></span>
+                </div>
+        <div class="cp-cse__stat cp-cse__stat--b">
+                    <span class="cp-cse__sico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6.6" rx="7.4" ry="3"></ellipse><path d="M4.6 6.6v4c0 1.7 3.3 3 7.4 3s7.4-1.3 7.4-3v-4"></path><path d="M4.6 10.6v4c0 1.7 3.3 3 7.4 3s7.4-1.3 7.4-3v-4"></path></svg></span>
+                    <span><b>$20,000</b><i>saved in those 30 days</i></span>
                   </div>
-          <div class="cp-cse__stat cp-cse__stat--b">
-                      <span class="cp-cse__sico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6.6" rx="7.4" ry="3"></ellipse><path d="M4.6 6.6v4c0 1.7 3.3 3 7.4 3s7.4-1.3 7.4-3v-4"></path><path d="M4.6 10.6v4c0 1.7 3.3 3 7.4 3s7.4-1.3 7.4-3v-4"></path></svg></span>
-                      <span><b>$20,000</b><i>saved in those 30 days</i></span>
-                    </div>
-        </div>
       </div>
     </div>
   </section>
