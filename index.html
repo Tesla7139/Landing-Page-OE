@@ -118,7 +118,14 @@
      The photograph is positioned against the section rather than the
      content column, because it has to reach the right edge of the
      viewport and the column stops 112px short of it. */
-  .cp-cse { position: relative; background: #CE0058; overflow: hidden; }
+  /* A floating card, not a band: 40px off each edge of the page, the
+     same 28px corner and lift as the steps card. 40 rather than the
+     steps card's 112 because the content column inside is 1216 and has
+     to stay 1216 - a 1360 card with 72 of padding leaves it exactly
+     that, where a 1216 card would have squeezed it. */
+  .cp-cse { position: relative; background: #CE0058; overflow: hidden;
+            margin: 40px 40px 0; border-radius: 28px;
+            box-shadow: 0 26px 60px -30px rgba(10, 22, 40, 0.45); }
   .cp-cse__photo { position: absolute; right: 0; top: 0; bottom: 0;
                    width: 36%; height: 100%; object-fit: cover; }
   .cp-cse__inner { position: relative; z-index: 1; width: 1216px;
@@ -184,8 +191,8 @@
      top-left is its header and the order rows under it, so a card there
      sat on the content, where the top-right is the blank beside the
      summary. Right-aligned on the same -78 so their edges line up. */
-  .cp-cse__stat--a { right: -78px; top: -14px; }
-  .cp-cse__stat--b { right: -78px; bottom: 26px; }
+  .cp-cse__stat--a { right: -56px; top: -14px; }
+  .cp-cse__stat--b { right: -56px; bottom: 26px; }
   .cp-cse__sico { flex-shrink: 0; width: 44px; height: 44px;
                   border-radius: 9999px; background: #FBDDE9;
                   color: #CE0058; display: flex;
@@ -209,8 +216,12 @@
      Green because the merchant is a gardening store and is anonymous,
      so there is no brand colour to read. On #0E6B3E: white is 6.58:1,
      the paragraph at 92% white 5.84:1, the merchant line at 80% 4.84:1. */
-  .cp-gs { background: #0E6B3E; padding: 90px 112px 96px; display: flex;
-           flex-direction: column; align-items: center; }
+  /* the same card, and the same sum: 1360 wide with 72 of padding is
+     the 1216 column it had at full bleed with 112 */
+  .cp-gs { background: #0E6B3E; padding: 90px 72px 96px; display: flex;
+           flex-direction: column; align-items: center;
+           margin: 40px 40px; border-radius: 28px; overflow: hidden;
+           box-shadow: 0 26px 60px -30px rgba(10, 22, 40, 0.45); }
   .cp-gs__top { width: 1216px; display: flex; flex-direction: row;
                 gap: 64px; align-items: center; }
   .cp-gs__copy { flex: 0 0 396px; display: flex; flex-direction: column;
@@ -1400,6 +1411,11 @@
     .cp-cse__h span + span { padding-left: 18px !important; }
     .cp-cse__h b { font-size: 32px !important; line-height: 36px !important; }
     .cp-cse__h i { font-size: 12.5px !important; }
+    /* 40 a side is a fifth of the screen: 16, and a smaller corner to
+       match the shorter side */
+    .cp-cse, .cp-gs { margin-left: 16px !important;
+                      margin-right: 16px !important;
+                      border-radius: 20px; }
     .cp-cse__stage { min-height: 0 !important; align-self: auto !important; }
     .cp-cse__shot { position: static !important; width: 100% !important;
                     margin: 0 !important; }
