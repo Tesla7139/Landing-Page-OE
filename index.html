@@ -114,7 +114,10 @@
      keep the layout they had as a stack - full width, their own two
      columns - and the arrows move the whole card. A third case study is
      a markup change and nothing else. */
-  .cp-csw { margin: 40px 40px; }
+  /* 72 rather than 40, so the arrows have somewhere to be: they
+     straddle the card's edge, half on and half off, which is 21 of
+     the 46 outside it. */
+  .cp-csw { position: relative; margin: 40px 72px; }
   .cp-csw__row { display: flex; flex-direction: row; gap: 32px;
                  align-items: stretch; overflow-x: auto;
                  scroll-snap-type: x mandatory; scrollbar-width: none;
@@ -139,13 +142,25 @@
   .cp-csw__more:focus-visible { outline: 2px solid #ffffff;
                                 outline-offset: 3px; }
 
-  /* Disabled while both cards fit, which is the honest state with two
-     of them - the script sets it off the rail's own scrollWidth. */
-  .cp-csw__nav { margin-top: 20px; display: flex; flex-direction: row;
-                 gap: 10px; justify-content: flex-end; }
-  .cp-csw__arrow { width: 42px; height: 42px; padding: 0;
+  /* On the card's edges and centred on it, so the nav takes no height
+     of its own - which is also why it can be measured against the
+     row: with the nav absolute, .cp-csw is exactly as tall as the card.
+
+     pointer-events off on the lane and back on for the buttons, or a
+     transparent strip would sit over the card's whole left and right.
+
+     Disabled while there is nothing to scroll - the script sets that
+     off the rail's own scrollWidth. */
+  .cp-csw__nav { position: absolute; left: -23px; right: -23px;
+                 top: 0; bottom: 0; z-index: 3;
+                 display: flex; flex-direction: row;
+                 justify-content: space-between; align-items: center;
+                 pointer-events: none; }
+  .cp-csw__arrow { pointer-events: auto;
+                   width: 46px; height: 46px; padding: 0;
                    border-radius: 9999px; border: 1px solid #D9DEE7;
                    background: #ffffff; color: #252525; cursor: pointer;
+                   box-shadow: 0 10px 26px -10px rgba(10, 22, 40, 0.45);
                    display: flex; align-items: center;
                    justify-content: center;
                    transition: background 200ms ease-out,
@@ -240,8 +255,8 @@
      top-left is its header and the order rows under it, so a card there
      sat on the content, where the top-right is the blank beside the
      summary. Right-aligned on the same -78 so their edges line up. */
-  .cp-cse__stat--a { right: -56px; top: -14px; }
-  .cp-cse__stat--b { right: -56px; bottom: 26px; }
+  .cp-cse__stat--a { right: -32px; top: -14px; }
+  .cp-cse__stat--b { right: -32px; bottom: 26px; }
   .cp-cse__sico { flex-shrink: 0; width: 44px; height: 44px;
                   border-radius: 9999px; background: #FBDDE9;
                   color: #CE0058; display: flex;
@@ -287,7 +302,10 @@
                    width: 560px; height: 390px; z-index: 0;
                    pointer-events: none; }
   .cp-gs__top { position: relative; z-index: 1; }
-  .cp-gs__top { width: 1216px; display: flex; flex-direction: row;
+  /* the card is 1296 with 72 of padding, so 1152 - a fixed 1216 here
+     overflowed it by 64 */
+  .cp-gs__top { width: 100%; max-width: 1216px;
+               display: flex; flex-direction: row;
                 gap: 64px; align-items: center; }
   .cp-gs__copy { flex: 0 0 396px; display: flex; flex-direction: column;
                  align-items: flex-start; }
@@ -3207,8 +3225,8 @@
       </div>
     </div>
     <div class="cp-csw__nav">
-      <button type="button" class="cp-csw__arrow" aria-label="Previous case study" onClick="{{ cswPrev }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="15 5l-7 7 7 7"></path></svg></button>
-      <button type="button" class="cp-csw__arrow" aria-label="Next case study" onClick="{{ cswNext }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="9 5l7 7-7 7"></path></svg></button>
+      <button type="button" class="cp-csw__arrow" aria-label="Previous case study" onClick="{{ cswPrev }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
+      <button type="button" class="cp-csw__arrow" aria-label="Next case study" onClick="{{ cswNext }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg></button>
     </div>
   </div>
   <!-- ── Integrations ─────────────────────────────────── -->
