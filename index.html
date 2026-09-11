@@ -173,9 +173,13 @@
   .cp-cse__stat { position: absolute; display: flex; flex-direction: row;
                   width: 244px; box-sizing: border-box;
                   gap: 12px; align-items: center;
-                  padding: 11px 22px 11px 11px; border-radius: 15px;
-                  background: #ffffff;
-                  box-shadow: 0 20px 42px -18px rgba(60, 6, 30, 0.45); }
+                  padding: 11px 22px 11px 11px;
+                  /* the corner and the lift off the step mocks: 18 and
+                     0 20 44 -26, so a card on this page is one card. The
+                     tint stays magenta - a navy shadow on a magenta panel
+                     reads as dirt rather than depth. */
+                  border-radius: 18px; background: #ffffff;
+                  box-shadow: 0 20px 44px -26px rgba(60, 6, 30, 0.5); }
   /* Both hang off the same edge, one high and one low: the shot's
      top-left is its header and the order rows under it, so a card there
      sat on the content, where the top-right is the blank beside the
