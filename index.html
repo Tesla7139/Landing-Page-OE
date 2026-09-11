@@ -1605,6 +1605,18 @@
        interface rather than text to read */
     .cp-gs__tag { font-size: 12px !important; }
 
+    /* The hero's copy centres on a phone but its CTA row did not: the
+       row is align-self: stretch, so it spans the column and its
+       justify-content of normal left it flush left under centred text.
+       Matched on the row's own inline height and its wrap, and on both
+       spellings of it: the source says flex-wrap: wrap and the runtime
+       rewrites that to flex-flow: wrap in the DOM, which is what an
+       attribute selector reads. The sheet already does this for
+       flex-direction: row and flex-flow: row for the same reason. */
+    [data-screen-label="Hero"] [style*="height: 48px"][style*="flex-wrap: wrap"],
+    [data-screen-label="Hero"] [style*="height: 48px"][style*="flex-flow: wrap"] {
+      justify-content: center !important; }
+
     /* The Integrations block stacks every inline flex row it finds, which
        is right for its mark grid and wrong for the one button in it -
        the arrow was dropping under the label. One more element in the
