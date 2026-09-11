@@ -109,92 +109,6 @@
     .cp-int__cta, .cp-int__cta svg { transition: none; }
   }
 
-  /* ── The two case studies, side by side ───────────────────
-     Same shape as How it works: a runway, a frame that sticks for the
-     whole of it, and a track that slides one panel-width per card.
-
-     The frame is content-height here, not window-height. The steps'
-     frame can be a window tall because the mock inside it scales; these
-     cards are 613 and 622 and nothing in them does, so a window-tall
-     frame would cut them off on a short screen.
-
-     Travel is a spacer, not padding, and that distinction is the whole
-     of why this took two goes: a sticky child is constrained to its
-     containing block's content box, so padding on the runway gave it
-     nothing to move through. Measured - content box 729.22 against a
-     frame of 729.22, which is zero travel, and the frame rode the page
-     down instead of sticking. An in-flow sibling counts where padding
-     does not.
-
-     A spacer rather than a height on the runway, because a height
-     would have to include the frame's, and the frame's is whatever the
-     taller of the two cards happens to be. 1.5 windows over two panels
-     is 0.75 each, the same as a step. */
-  .cp-csr { position: relative; --cp-svh: calc(100vh / var(--cp-zoom, 1)); }
-  .cp-csr__travel { height: calc(var(--cp-svh) * 1.5); }
-  .cp-csr__pin { position: sticky; top: 96px; padding-top: 40px; }
-  /* hidden, not clip: nothing sticky is inside - the frame is this
-     box's ancestor - and the card either side has to be cut off */
-  .cp-csr__rail { overflow: hidden; }
-  .cp-csr__track { display: flex; flex-direction: row;
-                   align-items: flex-start;
-                   transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1); }
-  /* the 40px inset lives on the panel, not on the card: a margin on the
-     card would make each panel 100% + 80 and the -100% slide would drift
-     by 80 a time */
-  .cp-csr__panel { flex: 0 0 100%; width: 100%; box-sizing: border-box;
-                   padding: 0 40px; }
-  .cp-csr__panel > section { margin: 0 !important; }
-  [data-active-case="1"] .cp-csr__track { transform: translateX(-100%); }
-
-  /* The progress rail, in the page's palette rather than the steps'
-     white-on-blue - this one sits on the page itself. Two dots, so the
-     fill is 0 or 100, and the same ~ rule: done is the resting state
-     because CSS has no combinator for the siblings before a match. */
-  .cp-csr__dots { position: relative; display: flex; flex-direction: row;
-                  justify-content: space-between; align-items: center;
-                  margin: 0 40px; padding-top: 28px; }
-  .cp-csr__bar { position: absolute; left: 15px; right: 15px;
-                 bottom: 15px; transform: translateY(50%);
-                 height: 3px; border-radius: 9999px;
-                 background: #E4E4E7; overflow: hidden; z-index: 0; }
-  .cp-csr__barfill { display: block; width: 0; height: 100%;
-                     border-radius: 9999px; background: #155FFF;
-                     transition: width 620ms cubic-bezier(0.22, 1, 0.36, 1); }
-  [data-active-case="1"] .cp-csr__barfill { width: 100%; }
-  .cp-csr__dot { position: relative; z-index: 1; box-sizing: border-box;
-                 padding: 0; width: 30px; height: 30px;
-                 border-radius: 9999px; border: 2px solid #155FFF;
-                 background: #155FFF; color: #ffffff; cursor: pointer;
-                 font-family: inherit; font-size: 13px; font-weight: 600;
-                 display: flex; align-items: center;
-                 justify-content: center;
-                 transition: background 240ms ease-out,
-                             border-color 240ms ease-out,
-                             color 240ms ease-out,
-                             transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1); }
-  .cp-csr__dot:focus-visible { outline: 2px solid #155FFF;
-                               outline-offset: 3px; }
-  .cp-csr__tick, .cp-csr__d { position: absolute; top: 50%; left: 50%;
-                              transform: translate(-50%, -50%);
-                              transition: opacity 220ms ease-out; }
-  .cp-csr__d { opacity: 0; font-style: normal; }
-  [data-active-case="0"] [data-case-dot="0"] ~ .cp-csr__dot {
-    background: #ffffff; border-color: #D4D4D8; color: #71717A;
-  }
-  [data-active-case="0"] [data-case-dot="0"] ~ .cp-csr__dot .cp-csr__tick {
-    opacity: 0;
-  }
-  [data-active-case="0"] [data-case-dot="0"] ~ .cp-csr__dot .cp-csr__d {
-    opacity: 1;
-  }
-  [data-active-case="0"] [data-case-dot="0"],
-  [data-active-case="1"] [data-case-dot="1"] { transform: scale(1.18); }
-
-  @media (prefers-reduced-motion: reduce) {
-    .cp-csr__track, .cp-csr__dot, .cp-csr__barfill,
-    .cp-csr__tick, .cp-csr__d { transition: none; }
-  }
   /* ── Case study: DOONAILS ─────────────────
      Built to the reference. A full-bleed magenta band: the words in a
      420 column on the left, their photograph bleeding off the right edge
@@ -1497,20 +1411,6 @@
     .cp-cse__h span + span { padding-left: 18px !important; }
     .cp-cse__h b { font-size: 32px !important; line-height: 36px !important; }
     .cp-cse__h i { font-size: 12.5px !important; }
-    /* ── The two case studies: the same sideways move, with a finger
-       ───────────────────────────────────────────────────── */
-    .cp-csr__travel { display: none !important; }
-    .cp-csr__pin { position: static !important; padding-top: 0 !important; }
-    .cp-csr__rail { overflow-x: auto !important; overflow-y: hidden;
-                    scroll-snap-type: x mandatory;
-                    -webkit-overflow-scrolling: touch;
-                    scrollbar-width: none; }
-    .cp-csr__rail::-webkit-scrollbar { display: none; }
-    .cp-csr__track { transform: none !important; }
-    .cp-csr__panel { padding: 0 16px !important;
-                     scroll-snap-align: center; }
-    .cp-csr__dots { margin: 0 16px !important; padding-top: 22px !important; }
-
     /* 40 a side is a fifth of the screen: 16, and a smaller corner to
        match the shorter side */
     .cp-cse, .cp-gs { margin-left: 16px !important;
@@ -3120,95 +3020,74 @@
   </section>
 
   <!-- ── Case study: DOONAILS ─────────────────────── -->
-    <div class="cp-csr" id="case-studies" style="scroll-margin-top: 104px;" data-active-case="{{ activeCase }}">
-    <div class="cp-csr__pin">
-      <div class="cp-csr__rail">
-        <div class="cp-csr__track">
-          <div class="cp-csr__panel" data-case-panel="0">
-  <section class="cp-cse" data-screen-label="Case study">
-      <img class="cp-cse__photo" src="assets/case-study/doonails-hero.webp" alt="DOONAILS press-on nails from the Wine &amp; Dine collection" width="900" height="900" loading="lazy">
-      <div class="cp-cse__inner">
-        <div class="cp-cse__copy">
-          <img class="cp-cse__mark" src="assets/case-study/doonails.svg" alt="DOONAILS" width="137" height="17">
-          <h2 class="cp-cse__h">
-            <span><b>4,000</b><i>orders edited</i></span>
-            <span><b>$20,000</b><i>saved</i></span>
-          </h2>
-          <figure class="cp-cse__quote">
-            <blockquote><svg class="cp-cse__qm" width="19" height="15" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V11.6C0 5.2 3.5 1 9.6 0l1 2.4C7 3.6 5.2 5.9 5.2 8.6H9V20H0Zm16.4 0V11.6C16.4 5.2 19.9 1 26 0l1 2.4c-3.6 1.2-5.4 3.5-5.4 6.2h3.8V20h-9Z"></path></svg>Really helped us quickly to fix all issues.</blockquote>
-            <figcaption><i class="cp-cse__dash"></i><span class="cp-cse__sig">Doonails</span><i class="cp-cse__bar"></i><span>Cyprus &middot; March 2026</span></figcaption>
-          </figure>
-        </div>
-        <div class="cp-cse__stage">
-          <img class="cp-cse__shot" src="assets/case-study/doonails-edit.jpg" alt="The DOONAILS Thank You page with the edit panel: change contact information, edit shipping address, update the order, apply a discount code or cancel." width="1140" height="750" loading="lazy">
-          <div class="cp-cse__stat cp-cse__stat--a">
-            <span class="cp-cse__sico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9.2" cy="8.4" r="3.3"></circle><path d="M3.4 19.6c0-3.2 2.6-5.4 5.8-5.4s5.8 2.2 5.8 5.4"></path><path d="M16.4 6.2a3 3 0 0 1 0 5.9"></path><path d="M17.6 14.6c2.1.5 3.4 2.1 3.4 4.3"></path></svg></span>
-            <span><b>4,000</b><i>orders edited in 30 days</i></span>
-          </div>
-          <div class="cp-cse__stat cp-cse__stat--b">
-            <span class="cp-cse__sico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6.6" rx="7.4" ry="3"></ellipse><path d="M4.6 6.6v4c0 1.7 3.3 3 7.4 3s7.4-1.3 7.4-3v-4"></path><path d="M4.6 10.6v4c0 1.7 3.3 3 7.4 3s7.4-1.3 7.4-3v-4"></path></svg></span>
-            <span><b>$20,000</b><i>saved in those 30 days</i></span>
-          </div>
-        </div>
+  <section class="cp-cse" id="case-studies" style="scroll-margin-top: 104px;" data-screen-label="Case study">
+    <img class="cp-cse__photo" src="assets/case-study/doonails-hero.webp" alt="DOONAILS press-on nails from the Wine &amp; Dine collection" width="900" height="900" loading="lazy">
+    <div class="cp-cse__inner">
+      <div class="cp-cse__copy">
+        <img class="cp-cse__mark" src="assets/case-study/doonails.svg" alt="DOONAILS" width="137" height="17">
+        <h2 class="cp-cse__h">
+          <span><b>4,000</b><i>orders edited</i></span>
+          <span><b>$20,000</b><i>saved</i></span>
+        </h2>
+        <figure class="cp-cse__quote">
+          <blockquote><svg class="cp-cse__qm" width="19" height="15" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V11.6C0 5.2 3.5 1 9.6 0l1 2.4C7 3.6 5.2 5.9 5.2 8.6H9V20H0Zm16.4 0V11.6C16.4 5.2 19.9 1 26 0l1 2.4c-3.6 1.2-5.4 3.5-5.4 6.2h3.8V20h-9Z"></path></svg>Really helped us quickly to fix all issues.</blockquote>
+          <figcaption><i class="cp-cse__dash"></i><span class="cp-cse__sig">Doonails</span><i class="cp-cse__bar"></i><span>Cyprus &middot; March 2026</span></figcaption>
+        </figure>
       </div>
-    </section>
-          </div>
-          <div class="cp-csr__panel" data-case-panel="1">
-  <section class="cp-gs" data-screen-label="Case study: upsells">
-      <div class="cp-gs__top">
-        <div class="cp-gs__copy">
-          <span class="cp-gs__who">A US gardening store<i>&middot;</i>about 10,000 orders a month</span>
-          <h2 class="cp-gs__h"><b>$16,638 in upsell revenue,</b>
-            <span>from the screen they were already on.</span></h2>
-          <p class="cp-gs__p">Every order that came in for an edit was also an offer. Two hundred and twenty shoppers took one, adding 342 items to orders they had already paid for &mdash; no second checkout, no discount code, no one on the team involved.</p>
+      <div class="cp-cse__stage">
+        <img class="cp-cse__shot" src="assets/case-study/doonails-edit.jpg" alt="The DOONAILS Thank You page with the edit panel: change contact information, edit shipping address, update the order, apply a discount code or cancel." width="1140" height="750" loading="lazy">
+        <div class="cp-cse__stat cp-cse__stat--a">
+          <span class="cp-cse__sico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9.2" cy="8.4" r="3.3"></circle><path d="M3.4 19.6c0-3.2 2.6-5.4 5.8-5.4s5.8 2.2 5.8 5.4"></path><path d="M16.4 6.2a3 3 0 0 1 0 5.9"></path><path d="M17.6 14.6c2.1.5 3.4 2.1 3.4 4.3"></path></svg></span>
+          <span><b>4,000</b><i>orders edited in 30 days</i></span>
         </div>
-        <div class="cp-gs__side">
-          <div class="cp-gs__card">
-            <div class="cp-gs__head">
-              <b>Upsell revenue, last 30 days</b>
-              <i>27 July to 27 August 2026</i>
-            </div>
-            <div class="cp-gs__metrics">
-              <div class="cp-gs__m">
-                <span><b>Upsell revenue</b><i class="cp-gs__tag">30 days</i></span>
-                <span class="cp-gs__mv">USD 16,638.25<em class="cp-gs__d cp-gs__d--up"><svg width="15" height="13" viewBox="0 0 17 13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L7 5l3 3 4-4.5"></path></svg>+24.2%</em></span>
-                <i>From 220 completed upsells</i>
-              </div>
-              <div class="cp-gs__m">
-                <span><b>Upsell conversion</b><i class="cp-gs__tag">30 days</i></span>
-                <span class="cp-gs__mv">59.9%<em class="cp-gs__d cp-gs__d--down"><svg width="15" height="13" viewBox="0 0 17 13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5L7 9l3-3 4 4.5"></path></svg>−6.3%</em></span>
-                <i>220 of 367 unique orders</i>
-              </div>
-              <div class="cp-gs__m">
-                <span><b>Avg revenue per upsell</b><i class="cp-gs__tag">30 days</i></span>
-                <span class="cp-gs__mv">USD 75.63<em class="cp-gs__d cp-gs__d--up"><svg width="15" height="13" viewBox="0 0 17 13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L7 5l3 3 4-4.5"></path></svg>+25.9%</em></span>
-                <i>Items added: 342</i>
-              </div>
-            </div>
-            <svg class="cp-gs__chart" viewBox="0 0 700 212" fill="none" role="img" aria-label="Upsell revenue by day over thirty days against the previous period, totalling $16,638.25"><defs><linearGradient id="gsFill" x1="0" y1="14" x2="0" y2="168" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2E7D46" stop-opacity="0.16"></stop><stop offset="1" stop-color="#2E7D46" stop-opacity="0"></stop></linearGradient></defs><line x1="48" y1="168.0" x2="690" y2="168.0" stroke="#E6E4DC" stroke-width="1"></line><line x1="48" y1="122.2" x2="690" y2="122.2" stroke="#E6E4DC" stroke-width="1"></line><line x1="48" y1="76.3" x2="690" y2="76.3" stroke="#E6E4DC" stroke-width="1"></line><line x1="48" y1="30.5" x2="690" y2="30.5" stroke="#E6E4DC" stroke-width="1"></line><text x="38" y="171.5" text-anchor="end" font-size="10.5" fill="#8C8A82">$0</text><text x="38" y="125.7" text-anchor="end" font-size="10.5" fill="#8C8A82">1.0k</text><text x="38" y="79.8" text-anchor="end" font-size="10.5" fill="#8C8A82">2.0k</text><text x="38" y="34.0" text-anchor="end" font-size="10.5" fill="#8C8A82">3.0k</text><text x="48.0" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Jul 27</text><text x="172.3" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 2</text><text x="296.5" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 8</text><text x="420.8" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 14</text><text x="545.0" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 20</text><text x="669.3" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 26</text><path d="M48.0 166.0 C51.7 165.6 61.3 167.2 68.7 163.3 C76.2 159.4 82.0 145.3 89.4 144.5 C96.9 143.8 102.7 156.1 110.1 159.0 C117.6 162.0 123.4 162.4 130.8 161.0 C138.3 159.6 144.1 152.9 151.5 151.2 C159.0 149.5 164.8 152.5 172.3 151.6 C179.7 150.7 185.5 146.8 193.0 146.1 C200.4 145.4 206.2 143.9 213.7 147.7 C221.1 151.4 226.9 163.5 234.4 166.8 C241.8 170.2 247.6 168.5 255.1 166.4 C262.6 164.3 268.4 157.6 275.8 155.1 C283.3 152.6 289.1 154.3 296.5 152.4 C304.0 150.5 309.8 146.1 317.2 144.5 C324.7 143.0 330.5 143.5 337.9 143.8 C345.4 144.0 351.2 151.3 358.6 146.1 C366.1 140.9 371.9 114.6 379.4 114.8 C386.8 115.1 392.6 141.2 400.1 147.7 C407.5 154.1 413.3 148.4 420.8 150.8 C428.2 153.2 434.0 168.9 441.5 161.0 C448.9 153.0 454.7 116.3 462.2 106.6 C469.6 96.9 475.4 106.0 482.9 107.0 C490.4 108.0 496.2 124.6 503.6 112.1 C511.1 99.6 516.9 29.1 524.3 37.4 C531.8 45.8 537.6 137.1 545.0 158.2 C552.5 179.4 558.3 155.7 565.7 155.1 C573.2 154.5 579.0 156.4 586.5 155.1 C593.9 153.8 599.7 146.2 607.2 147.7 C614.6 149.2 620.4 166.9 627.9 163.3 C635.3 159.7 641.1 127.5 648.6 127.7 C656.0 128.0 661.8 162.5 669.3 164.5 C676.7 166.5 686.3 143.3 690.0 138.7 L690.0 168.0 L48.0 168.0 Z" fill="url(#gsFill)"></path><path d="M48.0 158.2 C51.7 157.0 61.3 157.3 68.7 151.2 C76.2 145.1 82.0 125.1 89.4 124.2 C96.9 123.3 102.7 139.1 110.1 146.1 C117.6 153.1 123.4 162.4 130.8 163.3 C138.3 164.2 144.1 153.9 151.5 151.2 C159.0 148.5 164.8 147.8 172.3 148.5 C179.7 149.2 185.5 158.6 193.0 155.1 C200.4 151.6 206.2 136.2 213.7 128.9 C221.1 121.6 226.9 114.5 234.4 114.5 C241.8 114.5 247.6 125.1 255.1 128.9 C262.6 132.7 268.4 129.4 275.8 135.6 C283.3 141.7 289.1 159.8 296.5 163.3 C304.0 166.8 309.8 159.2 317.2 155.1 C324.7 151.0 330.5 147.0 337.9 140.6 C345.4 134.3 351.2 120.6 358.6 119.9 C366.1 119.2 371.9 132.0 379.4 136.7 C386.8 141.4 392.6 144.0 400.1 146.1 C407.5 148.2 413.3 149.6 420.8 148.5 C428.2 147.3 434.0 140.3 441.5 139.9 C448.9 139.4 454.7 144.8 462.2 146.1 C469.6 147.4 475.4 147.0 482.9 147.3 C490.4 147.6 496.2 147.5 503.6 147.7 C511.1 147.9 516.9 147.0 524.3 148.5 C531.8 149.9 537.6 154.3 545.0 155.5 C552.5 156.7 558.3 157.5 565.7 155.1 C573.2 152.7 579.0 140.1 586.5 142.2 C593.9 144.3 599.7 162.6 607.2 166.8 C614.6 171.0 620.4 165.7 627.9 165.7 C635.3 165.6 641.1 166.9 648.6 166.4 C656.0 166.0 661.8 163.5 669.3 163.3 C676.7 163.2 686.3 165.2 690.0 165.7" stroke="#5B9BD5" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="2.6 3.4"></path><path d="M48.0 166.0 C51.7 165.6 61.3 167.2 68.7 163.3 C76.2 159.4 82.0 145.3 89.4 144.5 C96.9 143.8 102.7 156.1 110.1 159.0 C117.6 162.0 123.4 162.4 130.8 161.0 C138.3 159.6 144.1 152.9 151.5 151.2 C159.0 149.5 164.8 152.5 172.3 151.6 C179.7 150.7 185.5 146.8 193.0 146.1 C200.4 145.4 206.2 143.9 213.7 147.7 C221.1 151.4 226.9 163.5 234.4 166.8 C241.8 170.2 247.6 168.5 255.1 166.4 C262.6 164.3 268.4 157.6 275.8 155.1 C283.3 152.6 289.1 154.3 296.5 152.4 C304.0 150.5 309.8 146.1 317.2 144.5 C324.7 143.0 330.5 143.5 337.9 143.8 C345.4 144.0 351.2 151.3 358.6 146.1 C366.1 140.9 371.9 114.6 379.4 114.8 C386.8 115.1 392.6 141.2 400.1 147.7 C407.5 154.1 413.3 148.4 420.8 150.8 C428.2 153.2 434.0 168.9 441.5 161.0 C448.9 153.0 454.7 116.3 462.2 106.6 C469.6 96.9 475.4 106.0 482.9 107.0 C490.4 108.0 496.2 124.6 503.6 112.1 C511.1 99.6 516.9 29.1 524.3 37.4 C531.8 45.8 537.6 137.1 545.0 158.2 C552.5 179.4 558.3 155.7 565.7 155.1 C573.2 154.5 579.0 156.4 586.5 155.1 C593.9 153.8 599.7 146.2 607.2 147.7 C614.6 149.2 620.4 166.9 627.9 163.3 C635.3 159.7 641.1 127.5 648.6 127.7 C656.0 128.0 661.8 162.5 669.3 164.5 C676.7 166.5 686.3 143.3 690.0 138.7" stroke="#2E7D46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            <div class="cp-gs__key">
-              <span class="cp-gs__key--now">Upsell revenue</span>
-              <span class="cp-gs__key--prev">Previous period</span>
-            </div>
-          </div>
+        <div class="cp-cse__stat cp-cse__stat--b">
+          <span class="cp-cse__sico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6.6" rx="7.4" ry="3"></ellipse><path d="M4.6 6.6v4c0 1.7 3.3 3 7.4 3s7.4-1.3 7.4-3v-4"></path><path d="M4.6 10.6v4c0 1.7 3.3 3 7.4 3s7.4-1.3 7.4-3v-4"></path></svg></span>
+          <span><b>$20,000</b><i>saved in those 30 days</i></span>
         </div>
-      </div>
-    </section>
-          </div>
-        </div>
-      </div>
-      <div class="cp-csr__dots" role="group" aria-label="Choose a case study">
-        <span class="cp-csr__bar" aria-hidden="true"><i class="cp-csr__barfill"></i></span>
-      <button type="button" class="cp-csr__dot" data-case-dot="0" aria-label="Go to DOONAILS" onClick="{{ pickCase0 }}" onKeyDown="{{ onCaseKey0 }}">
-        <svg class="cp-csr__tick" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.4 4.5L19 7.5"></path></svg><i class="cp-csr__d">1</i>
-      </button>
-      <button type="button" class="cp-csr__dot" data-case-dot="1" aria-label="Go to the upsell case study" onClick="{{ pickCase1 }}" onKeyDown="{{ onCaseKey1 }}">
-        <svg class="cp-csr__tick" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.4 4.5L19 7.5"></path></svg><i class="cp-csr__d">2</i>
-      </button>
       </div>
     </div>
-    <div class="cp-csr__travel" aria-hidden="true"></div>
-  </div>
+  </section>
+  <!-- ── Case study: upsell revenue ───────────── -->
+  <section class="cp-gs" data-screen-label="Case study: upsells">
+    <div class="cp-gs__top">
+      <div class="cp-gs__copy">
+        <span class="cp-gs__who">A US gardening store<i>&middot;</i>about 10,000 orders a month</span>
+        <h2 class="cp-gs__h"><b>$16,638 in upsell revenue,</b>
+          <span>from the screen they were already on.</span></h2>
+        <p class="cp-gs__p">Every order that came in for an edit was also an offer. Two hundred and twenty shoppers took one, adding 342 items to orders they had already paid for &mdash; no second checkout, no discount code, no one on the team involved.</p>
+      </div>
+      <div class="cp-gs__side">
+        <div class="cp-gs__card">
+          <div class="cp-gs__head">
+            <b>Upsell revenue, last 30 days</b>
+            <i>27 July to 27 August 2026</i>
+          </div>
+          <div class="cp-gs__metrics">
+            <div class="cp-gs__m">
+              <span><b>Upsell revenue</b><i class="cp-gs__tag">30 days</i></span>
+              <span class="cp-gs__mv">USD 16,638.25<em class="cp-gs__d cp-gs__d--up"><svg width="15" height="13" viewBox="0 0 17 13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L7 5l3 3 4-4.5"></path></svg>+24.2%</em></span>
+              <i>From 220 completed upsells</i>
+            </div>
+            <div class="cp-gs__m">
+              <span><b>Upsell conversion</b><i class="cp-gs__tag">30 days</i></span>
+              <span class="cp-gs__mv">59.9%<em class="cp-gs__d cp-gs__d--down"><svg width="15" height="13" viewBox="0 0 17 13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5L7 9l3-3 4 4.5"></path></svg>−6.3%</em></span>
+              <i>220 of 367 unique orders</i>
+            </div>
+            <div class="cp-gs__m">
+              <span><b>Avg revenue per upsell</b><i class="cp-gs__tag">30 days</i></span>
+              <span class="cp-gs__mv">USD 75.63<em class="cp-gs__d cp-gs__d--up"><svg width="15" height="13" viewBox="0 0 17 13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L7 5l3 3 4-4.5"></path></svg>+25.9%</em></span>
+              <i>Items added: 342</i>
+            </div>
+          </div>
+          <svg class="cp-gs__chart" viewBox="0 0 700 212" fill="none" role="img" aria-label="Upsell revenue by day over thirty days against the previous period, totalling $16,638.25"><defs><linearGradient id="gsFill" x1="0" y1="14" x2="0" y2="168" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2E7D46" stop-opacity="0.16"></stop><stop offset="1" stop-color="#2E7D46" stop-opacity="0"></stop></linearGradient></defs><line x1="48" y1="168.0" x2="690" y2="168.0" stroke="#E6E4DC" stroke-width="1"></line><line x1="48" y1="122.2" x2="690" y2="122.2" stroke="#E6E4DC" stroke-width="1"></line><line x1="48" y1="76.3" x2="690" y2="76.3" stroke="#E6E4DC" stroke-width="1"></line><line x1="48" y1="30.5" x2="690" y2="30.5" stroke="#E6E4DC" stroke-width="1"></line><text x="38" y="171.5" text-anchor="end" font-size="10.5" fill="#8C8A82">$0</text><text x="38" y="125.7" text-anchor="end" font-size="10.5" fill="#8C8A82">1.0k</text><text x="38" y="79.8" text-anchor="end" font-size="10.5" fill="#8C8A82">2.0k</text><text x="38" y="34.0" text-anchor="end" font-size="10.5" fill="#8C8A82">3.0k</text><text x="48.0" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Jul 27</text><text x="172.3" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 2</text><text x="296.5" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 8</text><text x="420.8" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 14</text><text x="545.0" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 20</text><text x="669.3" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 26</text><path d="M48.0 166.0 C51.7 165.6 61.3 167.2 68.7 163.3 C76.2 159.4 82.0 145.3 89.4 144.5 C96.9 143.8 102.7 156.1 110.1 159.0 C117.6 162.0 123.4 162.4 130.8 161.0 C138.3 159.6 144.1 152.9 151.5 151.2 C159.0 149.5 164.8 152.5 172.3 151.6 C179.7 150.7 185.5 146.8 193.0 146.1 C200.4 145.4 206.2 143.9 213.7 147.7 C221.1 151.4 226.9 163.5 234.4 166.8 C241.8 170.2 247.6 168.5 255.1 166.4 C262.6 164.3 268.4 157.6 275.8 155.1 C283.3 152.6 289.1 154.3 296.5 152.4 C304.0 150.5 309.8 146.1 317.2 144.5 C324.7 143.0 330.5 143.5 337.9 143.8 C345.4 144.0 351.2 151.3 358.6 146.1 C366.1 140.9 371.9 114.6 379.4 114.8 C386.8 115.1 392.6 141.2 400.1 147.7 C407.5 154.1 413.3 148.4 420.8 150.8 C428.2 153.2 434.0 168.9 441.5 161.0 C448.9 153.0 454.7 116.3 462.2 106.6 C469.6 96.9 475.4 106.0 482.9 107.0 C490.4 108.0 496.2 124.6 503.6 112.1 C511.1 99.6 516.9 29.1 524.3 37.4 C531.8 45.8 537.6 137.1 545.0 158.2 C552.5 179.4 558.3 155.7 565.7 155.1 C573.2 154.5 579.0 156.4 586.5 155.1 C593.9 153.8 599.7 146.2 607.2 147.7 C614.6 149.2 620.4 166.9 627.9 163.3 C635.3 159.7 641.1 127.5 648.6 127.7 C656.0 128.0 661.8 162.5 669.3 164.5 C676.7 166.5 686.3 143.3 690.0 138.7 L690.0 168.0 L48.0 168.0 Z" fill="url(#gsFill)"></path><path d="M48.0 158.2 C51.7 157.0 61.3 157.3 68.7 151.2 C76.2 145.1 82.0 125.1 89.4 124.2 C96.9 123.3 102.7 139.1 110.1 146.1 C117.6 153.1 123.4 162.4 130.8 163.3 C138.3 164.2 144.1 153.9 151.5 151.2 C159.0 148.5 164.8 147.8 172.3 148.5 C179.7 149.2 185.5 158.6 193.0 155.1 C200.4 151.6 206.2 136.2 213.7 128.9 C221.1 121.6 226.9 114.5 234.4 114.5 C241.8 114.5 247.6 125.1 255.1 128.9 C262.6 132.7 268.4 129.4 275.8 135.6 C283.3 141.7 289.1 159.8 296.5 163.3 C304.0 166.8 309.8 159.2 317.2 155.1 C324.7 151.0 330.5 147.0 337.9 140.6 C345.4 134.3 351.2 120.6 358.6 119.9 C366.1 119.2 371.9 132.0 379.4 136.7 C386.8 141.4 392.6 144.0 400.1 146.1 C407.5 148.2 413.3 149.6 420.8 148.5 C428.2 147.3 434.0 140.3 441.5 139.9 C448.9 139.4 454.7 144.8 462.2 146.1 C469.6 147.4 475.4 147.0 482.9 147.3 C490.4 147.6 496.2 147.5 503.6 147.7 C511.1 147.9 516.9 147.0 524.3 148.5 C531.8 149.9 537.6 154.3 545.0 155.5 C552.5 156.7 558.3 157.5 565.7 155.1 C573.2 152.7 579.0 140.1 586.5 142.2 C593.9 144.3 599.7 162.6 607.2 166.8 C614.6 171.0 620.4 165.7 627.9 165.7 C635.3 165.6 641.1 166.9 648.6 166.4 C656.0 166.0 661.8 163.5 669.3 163.3 C676.7 163.2 686.3 165.2 690.0 165.7" stroke="#5B9BD5" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="2.6 3.4"></path><path d="M48.0 166.0 C51.7 165.6 61.3 167.2 68.7 163.3 C76.2 159.4 82.0 145.3 89.4 144.5 C96.9 143.8 102.7 156.1 110.1 159.0 C117.6 162.0 123.4 162.4 130.8 161.0 C138.3 159.6 144.1 152.9 151.5 151.2 C159.0 149.5 164.8 152.5 172.3 151.6 C179.7 150.7 185.5 146.8 193.0 146.1 C200.4 145.4 206.2 143.9 213.7 147.7 C221.1 151.4 226.9 163.5 234.4 166.8 C241.8 170.2 247.6 168.5 255.1 166.4 C262.6 164.3 268.4 157.6 275.8 155.1 C283.3 152.6 289.1 154.3 296.5 152.4 C304.0 150.5 309.8 146.1 317.2 144.5 C324.7 143.0 330.5 143.5 337.9 143.8 C345.4 144.0 351.2 151.3 358.6 146.1 C366.1 140.9 371.9 114.6 379.4 114.8 C386.8 115.1 392.6 141.2 400.1 147.7 C407.5 154.1 413.3 148.4 420.8 150.8 C428.2 153.2 434.0 168.9 441.5 161.0 C448.9 153.0 454.7 116.3 462.2 106.6 C469.6 96.9 475.4 106.0 482.9 107.0 C490.4 108.0 496.2 124.6 503.6 112.1 C511.1 99.6 516.9 29.1 524.3 37.4 C531.8 45.8 537.6 137.1 545.0 158.2 C552.5 179.4 558.3 155.7 565.7 155.1 C573.2 154.5 579.0 156.4 586.5 155.1 C593.9 153.8 599.7 146.2 607.2 147.7 C614.6 149.2 620.4 166.9 627.9 163.3 C635.3 159.7 641.1 127.5 648.6 127.7 C656.0 128.0 661.8 162.5 669.3 164.5 C676.7 166.5 686.3 143.3 690.0 138.7" stroke="#2E7D46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <div class="cp-gs__key">
+            <span class="cp-gs__key--now">Upsell revenue</span>
+            <span class="cp-gs__key--prev">Previous period</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <!-- ── Integrations ─────────────────────────────────── -->
   <section style="padding: 120px 112px 80px; display: flex; flex-direction: column; gap: 64px; align-items: center;" data-screen-label="Integrations">
     <h2 style="margin: 0; width: 916px; font-size: 44px; font-weight: 500; line-height: 54px; text-align: center; color: #252525;">Leading carriers, shopfronts, WMS, ERP, OMS</h2>
@@ -3498,8 +3377,7 @@
 class Component extends DCLogic {
   // lang starts at 0, not -1: the globe opens with English pinned, and the
   // button has to read pressed to match it
-  state = { activeStep: 0, stepDir: "fwd", activeCase: 0, caseDir: "fwd",
-            menuOpen: false, resOpen: false, lang: 0,
+  state = { activeStep: 0, stepDir: "fwd", menuOpen: false, resOpen: false, lang: 0,
             faqOpen: 0 };
 
   componentDidMount() {
@@ -3521,91 +3399,76 @@ class Component extends DCLogic {
     } catch (e) {}
   }
 
-  // ── Rails ──────────────────────────────────────────
-  // Two sections do the same thing: a runway, a frame that sticks inside
-  // it, and a track that slides one panel-width per index. So one set of
-  // methods, and a table of what each rail is - its three boxes, how many
-  // panels, and which two bits of state it writes.
+  // ── How it works ────────────────────────────────────
+  // Which of the four panels is showing is one number: how far the pin
+  // has slid inside its runway, 0 to 1, quartered. There is nothing left
+  // for an IntersectionObserver to watch - the cards ride a track that
+  // slides sideways, so none of them crosses a band on its own any more.
   //
-  // Which panel is showing is one number: how far the frame has slid
-  // inside its runway, quartered or halved. Both boxes are read with
-  // getBoundingClientRect, which is zoom-scaled, so the ratio holds at
-  // every rung of the zoom ladder without the ratio being read at all.
-  rails() {
-    return [
-      { run: ".cp-steps__run", pin: ".cp-steps__pin",
-        rail: ".cp-steps__rail", n: 4, key: "activeStep", dir: "stepDir" },
-      { run: ".cp-csr", pin: ".cp-csr__pin",
-        rail: ".cp-csr__rail", n: 2, key: "activeCase", dir: "caseDir" }
-    ];
-  }
-
-  railBoxes(cfg) {
+  // Both boxes are read with getBoundingClientRect, which is zoom-scaled,
+  // so the ratio holds at every rung of the zoom ladder without the ratio
+  // being read at all.
+  stepBits() {
     return {
-      run: document.querySelector(cfg.run),
-      pin: document.querySelector(cfg.pin),
-      rail: document.querySelector(cfg.rail)
+      run: document.querySelector(".cp-steps__run"),
+      pin: document.querySelector(".cp-steps__pin"),
+      rail: document.querySelector(".cp-steps__rail")
     };
   }
 
-  // The same breakpoint the stylesheet switches the rails at. Measuring
+  // The same breakpoint the stylesheet switches the rail at. Measuring
   // the rail instead would not do: overflow: hidden still reports the
   // full scrollWidth, so a desktop rail looks scrollable.
-  railSwipes() { return window.innerWidth <= 1000; }
+  stepSwipes() { return window.innerWidth <= 1000; }
 
-  railIndex(cfg) {
-    const { run, pin, rail } = this.railBoxes(cfg);
+  stepFromScroll() {
+    const { run, pin, rail } = this.stepBits();
     if (!run || !pin || !rail) return null;
-    const last = cfg.n - 1;
-    if (this.railSwipes()) {
+    if (this.stepSwipes()) {
       const w = rail.clientWidth || 1;
-      return Math.max(0, Math.min(last, Math.round(rail.scrollLeft / w)));
+      return Math.max(0, Math.min(3, Math.round(rail.scrollLeft / w)));
     }
     const r = run.getBoundingClientRect();
     const p = pin.getBoundingClientRect();
     const travel = r.height - p.height;
     if (travel <= 0) return null;
     const f = (p.top - r.top) / travel;
-    return Math.max(0, Math.min(last, Math.floor(f * cfg.n + 0.001)));
+    return Math.max(0, Math.min(3, Math.floor(f * 4 + 0.001)));
   }
 
-  syncRail(cfg) {
-    const n = this.railIndex(cfg);
+  syncStep() {
+    const n = this.stepFromScroll();
     if (n === null) return;
-    this.setState(prev => {
-      if (prev[cfg.key] === n) return null;
-      const next = {};
-      next[cfg.key] = n;
-      next[cfg.dir] = n > prev[cfg.key] ? "fwd" : "back";
-      return next;
-    });
+    this.setState(prev =>
+      prev.activeStep === n
+        ? null
+        : { activeStep: n, stepDir: n > prev.activeStep ? "fwd" : "back" }
+    );
   }
 
   watchSteps() {
-    const cfgs = this.rails().filter(c => this.railBoxes(c).rail);
-    if (!cfgs.length) return;
+    const { rail } = this.stepBits();
+    if (!rail) return;
     let queued = false;
-    const sync = () => { queued = false; cfgs.forEach(c => this.syncRail(c)); };
     this.onStepScroll = () => {
       if (queued) return;
       queued = true;
-      window.requestAnimationFrame(sync);
+      window.requestAnimationFrame(() => { queued = false; this.syncStep(); });
     };
     window.addEventListener("scroll", this.onStepScroll, { passive: true });
     window.addEventListener("resize", this.onStepScroll);
-    cfgs.forEach(c => this.railBoxes(c).rail
-      .addEventListener("scroll", this.onStepScroll, { passive: true }));
-    sync();
+    rail.addEventListener("scroll", this.onStepScroll, { passive: true });
+    this.syncStep();
   }
 
-  // A dot takes you to the middle of its panel's band, so the nudge that
+  // A dot takes you to the middle of its step's band, so the nudge that
   // lands there cannot flip straight back to the neighbour.
-  pickRail(cfg, n) {
-    const { run, pin, rail } = this.railBoxes(cfg);
+  pickStep(n) {
+    const { run, pin, rail } = this.stepBits();
     const reduced = window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const how = reduced ? "auto" : "smooth";
-    if (this.railSwipes()) {
+    if (this.stepSwipes()) {
       if (rail && rail.scrollTo) {
         rail.scrollTo({ left: rail.clientWidth * n, behavior: how });
       }
@@ -3615,14 +3478,9 @@ class Component extends DCLogic {
     const r = run.getBoundingClientRect();
     const travel = r.height - pin.getBoundingClientRect().height;
     if (travel <= 0) return;
-    window.scrollTo({
-      top: window.scrollY + r.top + travel * ((n + 0.5) / cfg.n),
-      behavior: how
-    });
+    window.scrollTo({ top: window.scrollY + r.top + travel * ((n + 0.5) / 4),
+                      behavior: how });
   }
-
-  pickStep(n) { this.pickRail(this.rails()[0], n); }
-  pickCase(n) { this.pickRail(this.rails()[1], n); }
 
   onStepKey(e, n) {
     if (e && (e.key === "Enter" || e.key === " ")) {
@@ -3630,21 +3488,12 @@ class Component extends DCLogic {
       this.pickStep(n);
     }
   }
-
-  onCaseKey(e, n) {
-    if (e && (e.key === "Enter" || e.key === " ")) {
-      e.preventDefault();
-      this.pickCase(n);
-    }
-  }
   componentWillUnmount() {
     if (this.onStepScroll) {
       window.removeEventListener("scroll", this.onStepScroll);
       window.removeEventListener("resize", this.onStepScroll);
-      this.rails().forEach(c => {
-        const rail = document.querySelector(c.rail);
-        if (rail) rail.removeEventListener("scroll", this.onStepScroll);
-      });
+      const rail = document.querySelector(".cp-steps__rail");
+      if (rail) rail.removeEventListener("scroll", this.onStepScroll);
     }
     if (Component.globeRAF) cancelAnimationFrame(Component.globeRAF);
     if (this.ringRAF) cancelAnimationFrame(this.ringRAF);
@@ -4131,11 +3980,6 @@ class Component extends DCLogic {
       onStepKey0: e => this.onStepKey(e, 0), onStepKey1: e => this.onStepKey(e, 1),
       onStepKey2: e => this.onStepKey(e, 2), onStepKey3: e => this.onStepKey(e, 3),
       stepDir: this.state.stepDir,
-      activeCase: this.state.activeCase,
-      caseDir: this.state.caseDir,
-      pickCase0: () => this.pickCase(0), pickCase1: () => this.pickCase(1),
-      onCaseKey0: e => this.onCaseKey(e, 0),
-      onCaseKey1: e => this.onCaseKey(e, 1),
     };
   }
 }
