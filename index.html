@@ -862,9 +862,34 @@
 
      Each one is a real button, so it is in the tab order and takes
      Enter and Space without a key handler. #71717A on white is 4.6:1. */
-  .cp-steps__dots { flex: 0 0 auto; display: flex; flex-direction: row;
-                    gap: 12px; align-items: center; padding-top: 26px; }
-  .cp-steps__dot { position: relative; box-sizing: border-box; padding: 0;
+  /* An even gap is what makes the fill's percentages land on the dot
+     centres without a single measurement: four 30px dots and three
+     56px gaps put the centres at 15, 101, 187 and 273, and the rail
+     runs 15 to 273 - so a third of it is exactly 86, which is one dot
+     plus one gap. */
+  /* align-self, because the pin is a column flex and a stretched row
+     put the rail's right edge 900px past the last dot: left and right
+     of 15px are only the two end centres if the row hugs its dots. */
+  .cp-steps__dots { position: relative; flex: 0 0 auto;
+                    align-self: flex-start; display: flex;
+                    flex-direction: row; gap: 56px; align-items: center;
+                    padding-top: 26px; }
+  /* bottom, not top: absolute positioning is relative to the padding
+     box, so top: 50% would centre on the 26px of padding as well and
+     land the rail 13px above the dots. The row has no bottom padding,
+     so bottom: 15px is the dots' own centre line. */
+  .cp-steps__bar { position: absolute; left: 15px; right: 15px;
+                   bottom: 15px; transform: translateY(50%);
+                   height: 3px; border-radius: 9999px;
+                   background: #E4E4E7; overflow: hidden; z-index: 0; }
+  .cp-steps__barfill { display: block; width: 0; height: 100%;
+                       border-radius: 9999px; background: #155FFF;
+                       transition: width 620ms cubic-bezier(0.22, 1, 0.36, 1); }
+  [data-active-step="1"] .cp-steps__barfill { width: 33.3333%; }
+  [data-active-step="2"] .cp-steps__barfill { width: 66.6667%; }
+  [data-active-step="3"] .cp-steps__barfill { width: 100%; }
+  .cp-steps__dot { position: relative; z-index: 1;
+                     box-sizing: border-box; padding: 0;
                      width: 30px; height: 30px; border-radius: 9999px;
                      border: 2px solid #155FFF; background: #155FFF;
                      color: #ffffff; cursor: pointer;
@@ -907,7 +932,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .cp-steps__track, .cp-steps__copywrap, .cp-steps__dot,
-    .cp-steps__tick, .cp-steps__d { transition: none; }
+    .cp-steps__barfill, .cp-steps__tick, .cp-steps__d { transition: none; }
     .cp-steps__copywrap { opacity: 1; transform: none; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -1210,8 +1235,10 @@
                       max-width: none !important; }
     .cp-steps__num { width: 40px !important; height: 40px !important;
                      font-size: 17px !important; }
-    .cp-steps__dots { padding: 26px 20px 0 !important;
-                      justify-content: center; }
+    /* centred by hugging its dots, not by padding: side padding shifts
+       the rail off the end centres it is measured from */
+    .cp-steps__dots { padding: 26px 0 0 !important;
+                      align-self: center !important; }
     /* ── Case study: Mars by GHC ────────────────── */
     .cp-bfo { flex-direction: column !important; gap: 60px !important;
               padding: 56px 20px 40px !important; }
@@ -1971,6 +1998,7 @@
           </div>
         </div>
         <div class="cp-steps__dots" role="group" aria-label="Choose a step">
+          <span class="cp-steps__bar" aria-hidden="true"><i class="cp-steps__barfill"></i></span>
         <button type="button" class="cp-steps__dot" data-step-dot="0" aria-label="Go to step 1" onClick="{{ pickStep0 }}" onKeyDown="{{ onStepKey0 }}">
           <svg class="cp-steps__tick" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.4 4.5L19 7.5"></path></svg><i class="cp-steps__d">1</i>
         </button>
