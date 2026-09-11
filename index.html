@@ -770,20 +770,20 @@
      Phones get none of the pinning - see the block at the bottom of
      this sheet. */
   .cp-steps { --cp-svh: calc(100vh / var(--cp-zoom, 1)); }
-  /* One pin plus three steps of travel. 0.86 of a screen per step: much
+  /* One pin plus three steps of travel, 0.75 of a screen each: much
      longer and the section outstays its welcome, much shorter and one
      flick of a trackpad skips a panel. The floor is the same sum with
      the floors of the two heights below. */
   .cp-steps__run { position: relative; width: 100%;
-                   height: calc(var(--cp-svh) * 3.58 - 96px);
-                   min-height: 2370px; }
+                   height: calc(var(--cp-svh) * 3.25 - 96px);
+                   min-height: 1900px; }
   .cp-steps__pin { position: sticky; top: 96px;
                    height: calc(var(--cp-svh) - 96px);
-                   min-height: 660px; box-sizing: border-box;
+                   min-height: 580px; box-sizing: border-box;
                    display: flex; flex-direction: column;
                    justify-content: center;
-                   padding: 24px 112px 32px; }
-  .cp-steps__head { flex: 0 0 auto; padding-bottom: 26px; }
+                   padding: 12px 112px 20px; }
+  .cp-steps__head { flex: 0 0 auto; padding-bottom: 24px; }
   /* one line at the 1216 column: two lines of 48px cost the rail 56px
      of the height the mock is competing for */
   .cp-steps__head h2 { margin: 0; font-size: 42px; font-weight: 500;
@@ -791,14 +791,19 @@
                        color: #252525; }
   /* hidden rather than clip: nothing sticky lives in here - the pin is
      this box's ancestor, not its descendant - and the panels either
-     side of the one you are on have to be cut off at its edges */
-  .cp-steps__rail { flex: 1 1 auto; min-height: 0; overflow: hidden; }
+     side of the one you are on have to be cut off at its edges.
+
+     0 0 auto, not 1 1 auto: the pin is a whole viewport tall, and a rail
+     that grows into all of it left the heading at the top, the progress
+     rail at the bottom and 240px of nothing around a 414px panel. At its
+     content height the three of them centre as one group. */
+  .cp-steps__rail { flex: 0 0 auto; overflow: hidden; }
   .cp-steps__track { display: flex; flex-direction: row; height: 100%;
                      transform: translateX(0);
                      transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1); }
   .cp-steps__panel { flex: 0 0 100%; width: 100%; height: 100%;
                      box-sizing: border-box; padding: 0 6px;
-                     display: flex; flex-direction: row; gap: 64px;
+                     display: flex; flex-direction: row; gap: 56px;
                      align-items: center; }
   [data-active-step="1"] .cp-steps__track { transform: translateX(-100%); }
   [data-active-step="2"] .cp-steps__track { transform: translateX(-200%); }
@@ -809,18 +814,19 @@
      it. Step 4's is 445 tall against the others' 304, so it gets its
      own: both land near 350-400, which clears the rail even at the
      frame's 660px floor. */
-  /* A fixed 500, not the rail's height: the rail grows with the window
-     and the mock does not, so at a lower rung of the zoom ladder the
-     frame was 645 of gradient around 258 of mock. max-height keeps it
-     inside the rail at the 660px floor. */
-  .cp-steps__art { flex: 0 0 auto; width: 560px;
-                   height: 500px; max-height: 100%;
+  /* A fixed height, not the rail's: the rail grows with the window and
+     the mock does not, so at a lower rung of the zoom ladder the frame
+     was 645 of gradient around 258 of mock. 420 around a 328 mock
+     leaves it 46px of frame; max-height keeps it inside the rail at
+     the 580px floor. */
+  .cp-steps__art { flex: 0 0 auto; width: 520px;
+                   height: 420px; max-height: 100%;
                    display: flex; align-items: center;
                    justify-content: center; border-radius: 20px;
                    overflow: hidden;
                    background: linear-gradient(160deg, #F4F8FF 0%,
                      #E6EEFF 55%, #D6E4FF 100%); }
-  .cp-steps__art > * { transform: scale(var(--st-s, 1.16));
+  .cp-steps__art > * { transform: scale(var(--st-s, 1.08));
                        border-radius: 18px !important;
                        flex-grow: 0 !important; flex-shrink: 0 !important;
                        overflow: hidden;
@@ -867,13 +873,15 @@
      56px gaps put the centres at 15, 101, 187 and 273, and the rail
      runs 15 to 273 - so a third of it is exactly 86, which is one dot
      plus one gap. */
-  /* align-self, because the pin is a column flex and a stretched row
-     put the rail's right edge 900px past the last dot: left and right
-     of 15px are only the two end centres if the row hugs its dots. */
+  /* Full width, spread by space-between - which keeps the fill's
+     arithmetic exact whatever the width turns out to be: the centres
+     land at 15, 15 + (W-30)/3, ... , W-15 and the rail spans 15 to
+     W-15, so a third of it is still one centre-to-centre step. */
   .cp-steps__dots { position: relative; flex: 0 0 auto;
-                    align-self: flex-start; display: flex;
-                    flex-direction: row; gap: 56px; align-items: center;
-                    padding-top: 26px; }
+                    align-self: stretch; display: flex;
+                    flex-direction: row; gap: 0;
+                    justify-content: space-between;
+                    align-items: center; padding-top: 20px; }
   /* bottom, not top: absolute positioning is relative to the padding
      box, so top: 50% would centre on the 26px of padding as well and
      land the rail 13px above the dots. The row has no bottom padding,
@@ -1235,10 +1243,12 @@
                       max-width: none !important; }
     .cp-steps__num { width: 40px !important; height: 40px !important;
                      font-size: 17px !important; }
-    /* centred by hugging its dots, not by padding: side padding shifts
-       the rail off the end centres it is measured from */
-    .cp-steps__dots { padding: 26px 0 0 !important;
-                      align-self: center !important; }
+    /* margin, not padding: left and right are read off the padding box,
+       so side padding would shift the rail off the end centres it is
+       measured from */
+    .cp-steps__dots { padding: 20px 0 0 !important;
+                      margin: 0 20px !important;
+                      align-self: stretch !important; }
     /* ── Case study: Mars by GHC ────────────────── */
     .cp-bfo { flex-direction: column !important; gap: 60px !important;
               padding: 56px 20px 40px !important; }
