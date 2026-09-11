@@ -866,6 +866,12 @@
                      display: flex; flex-direction: row; gap: 48px;
                      align-items: center; }
   .cp-steps__art * { max-width: none !important; }
+  /* The app-listing mock ends in an Install button with margin-top:
+     auto, which was right when the box was its own height and wrong
+     once all four took one 380 box: the auto margin ate the slack and
+     left a hole in the middle. A real 14 instead, so the content
+     centres as a block and the button still has room above it. */
+  .cp-steps__art [style*="margin-top: auto"] { margin-top: 14px !important; }
   [data-active-step="1"] .cp-steps__track { transform: translateX(-100%); }
   [data-active-step="2"] .cp-steps__track { transform: translateX(-200%); }
   [data-active-step="3"] .cp-steps__track { transform: translateX(-300%); }
@@ -1476,8 +1482,11 @@
     /* 560 of leaf on a 368 card is a wall, not a corner */
     .cp-gs__leaves { width: 290px !important; height: 202px !important; }
     .cp-cse__stage { min-height: 0 !important; align-self: auto !important; }
+    /* transform: none as well as position: static - the desktop rule
+       centres it with translateY(-50%), and in the flow that pulled it
+       up over the attribution above it */
     .cp-cse__shot { position: static !important; width: 100% !important;
-                    margin: 0 !important; }
+                    margin: 0 !important; transform: none !important; }
     /* nothing to float over once the screen is in the flow */
     .cp-cse__stat { position: static !important; margin-top: 14px; }
     /* ── Case study: upsell revenue ─────────────────── */
@@ -1563,6 +1572,45 @@
     [data-screen-label] [style*="width: 624px"][style*="height: 500px"],
     [data-screen-label] [style*="width: 504px"][style*="height: 328.843px"] {
       zoom: 0.54; flex-shrink: 1 !important; }
+
+    /* ── Mobile pass ─────────────────────────────────────
+       Touch targets first. 44px is the floor a finger needs and these
+       were 18 to 35 - the step dots, the language chips, the store-ops
+       link, every link in the footer and its social icons, the burger
+       and the drawer's close. */
+    .cp-steps__dot { width: 44px !important; height: 44px !important; }
+    /* the rail runs between the dots' centres, and the centre moved
+       from 15 to 22 when they grew */
+    .cp-steps__bar { left: 22px !important; right: 22px !important; }
+    .cp-lang__chip { min-height: 44px; }
+    .cp-lang__more a { min-height: 44px; }
+    /* min-height rather than padding: this link's own font size steps
+       down on a phone, so a fixed pad lands wherever that leaves it */
+    .cp-bfo__more { min-height: 44px; align-items: center; }
+    [data-screen-label="Footer"] a { display: inline-flex;
+                                     align-items: center;
+                                     justify-content: center;
+                                     min-height: 44px; min-width: 44px; }
+    .cp-burger { width: 44px !important; height: 44px !important; }
+    .cp-drawer__x { width: 44px !important; height: 44px !important; }
+
+    /* Every [data-screen-label] takes 20px of side padding up there,
+       and this one is a card - so its photograph stopped 20px short of
+       the rounded edge it is supposed to fill. The padding the copy
+       needs is on .cp-cse__inner already. */
+    .cp-cse { padding-left: 0 !important; padding-right: 0 !important; }
+
+    /* 11px is the smallest real text on the page; the rest at that size
+       is inside the mock screenshots, which are pictures of an
+       interface rather than text to read */
+    .cp-gs__tag { font-size: 12px !important; }
+
+    /* The Integrations block stacks every inline flex row it finds, which
+       is right for its mark grid and wrong for the one button in it -
+       the arrow was dropping under the label. One more element in the
+       selector outranks it. */
+    [data-screen-label="Integrations"] a[style*="flex-direction: row"] {
+      flex-direction: row !important; }
 
   }
 
