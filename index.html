@@ -803,7 +803,7 @@
                      transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1); }
   .cp-steps__panel { flex: 0 0 100%; width: 100%; height: 100%;
                      box-sizing: border-box; padding: 0 6px;
-                     display: flex; flex-direction: row; gap: 56px;
+                     display: flex; flex-direction: row; gap: 48px;
                      align-items: center; }
   [data-active-step="1"] .cp-steps__track { transform: translateX(-100%); }
   [data-active-step="2"] .cp-steps__track { transform: translateX(-200%); }
@@ -814,24 +814,28 @@
      it. Step 4's is 445 tall against the others' 304, so it gets its
      own: both land near 350-400, which clears the rail even at the
      frame's 660px floor. */
-  /* A fixed height, not the rail's: the rail grows with the window and
-     the mock does not, so at a lower rung of the zoom ladder the frame
-     was 645 of gradient around 258 of mock. 420 around a 328 mock
-     leaves it 46px of frame; max-height keeps it inside the rail at
-     the 580px floor. */
-  .cp-steps__art { flex: 0 0 auto; width: 520px;
-                   height: 420px; max-height: 100%;
+  /* Sized to the mock rather than to the rail, and now as close to it
+     as it can get: 484 x 344 around a 452 x 304 mock is 16px of frame
+     either side and 20 top and bottom.
+
+     This is the floor. The mocks are screens written out element by
+     element with 11.5px type in them, so scale is the only lever - and
+     below 1.0 that type is under 11.5px and stops being readable. The
+     copy beside it comes to 108, so the art is still three times it;
+     the way past that is a smaller mock, which is a worse trade. */
+  .cp-steps__art { flex: 0 0 auto; width: 484px;
+                   height: 344px; max-height: 100%;
                    display: flex; align-items: center;
                    justify-content: center; border-radius: 20px;
                    overflow: hidden;
                    background: linear-gradient(160deg, #F4F8FF 0%,
                      #E6EEFF 55%, #D6E4FF 100%); }
-  .cp-steps__art > * { transform: scale(var(--st-s, 1.08));
+  .cp-steps__art > * { transform: scale(var(--st-s, 1));
                        border-radius: 18px !important;
                        flex-grow: 0 !important; flex-shrink: 0 !important;
                        overflow: hidden;
                        box-shadow: 0 20px 44px -26px rgba(10,22,40,0.42) !important; }
-  [data-step-panel="3"] .cp-steps__art > * { --st-s: 0.86; }
+  [data-step-panel="3"] .cp-steps__art > * { --st-s: 0.68; }
 
   /* the copy settles after the slide, rather than arriving with it */
   .cp-steps__copywrap { flex: 1 1 auto; min-width: 0;
@@ -845,21 +849,21 @@
     opacity: 1; transform: none;
   }
   .cp-steps__card { display: grid; grid-template-columns: auto 1fr;
-                    column-gap: 20px; row-gap: 16px; align-items: center; }
+                    column-gap: 18px; row-gap: 12px; align-items: center; }
   .cp-steps__num { grid-column: 1; grid-row: 1; box-sizing: border-box;
-                   width: 48px; height: 48px; border-radius: 9999px;
+                   width: 42px; height: 42px; border-radius: 9999px;
                    background: #155FFF; color: #ffffff; flex-shrink: 0;
                    display: flex; justify-content: center;
                    align-items: center;
-                   font-size: 19px; font-weight: 500; line-height: 1; }
-  /* 23, not 27: these titles are set in capitals - they were written as
-     18px labels - and capitals at 27 read as shouting */
+                   font-size: 17px; font-weight: 500; line-height: 1; }
+  /* 21, and not the 27 it started at: these titles are set in capitals -
+     they were written as 18px labels - and capitals that size shout */
   .cp-steps__title { grid-column: 2; grid-row: 1; margin: 0;
-                     font-size: 23px; font-weight: 600; line-height: 31px;
+                     font-size: 21px; font-weight: 600; line-height: 28px;
                      letter-spacing: 0.01em; color: #252525; }
   .cp-steps__copy { grid-column: 1 / -1; grid-row: 2; margin: 0;
-                    font-size: 18px; line-height: 29px; color: #52525B;
-                    max-width: 560px; }
+                    font-size: 17px; line-height: 27px; color: #52525B;
+                    max-width: 480px; }
 
   /* The progress rail. Done is the resting state and upcoming is the
      exception, which is the other way round from how it reads - but CSS
