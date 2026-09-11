@@ -218,23 +218,39 @@
      the paragraph at 92% white 5.84:1, the merchant line at 80% 4.84:1. */
   /* the same card, and the same sum: 1360 wide with 72 of padding is
      the 1216 column it had at full bleed with 112 */
-  .cp-gs { background: #0E6B3E; padding: 90px 72px 96px; display: flex;
+  /* A vignette, not a highlight: #0E6B3E is the lightest point and the
+     corners fall away from it. Lighter would be closer to the
+     reference and would break the copy - the eyebrow is white at 80%,
+     which is 4.84:1 on this green and 4.35:1 one shade up. */
+  .cp-gs { padding: 90px 72px 96px; display: flex;
+           position: relative;
            flex-direction: column; align-items: center;
+           background: radial-gradient(130% 110% at 26% 14%,
+             #0E6B3E 0%, #0C5E37 45%, #094B2C 75%, #063A22 100%);
            margin: 40px 40px; border-radius: 28px; overflow: hidden;
            box-shadow: 0 26px 60px -30px rgba(10, 22, 40, 0.45); }
+  /* Drawn rather than photographed: there is no leaf in assets. At 22%
+     of #5FBE8A over the corner's green the blend is rgb(29,103,66),
+     which leaves white at 6.82:1 and the 90% white at 5.93:1 - so the
+     paragraph that crosses the top leaf still clears AA comfortably.
+     15% was safer still and did not read as a leaf. */
+  .cp-gs__leaves { position: absolute; left: 0; bottom: 0;
+                   width: 560px; height: 390px; z-index: 0;
+                   pointer-events: none; }
+  .cp-gs__top { position: relative; z-index: 1; }
   .cp-gs__top { width: 1216px; display: flex; flex-direction: row;
                 gap: 64px; align-items: center; }
   .cp-gs__copy { flex: 0 0 396px; display: flex; flex-direction: column;
                  align-items: flex-start; }
   .cp-gs__who { font-size: 14px; font-weight: 600;
-                color: rgba(255, 255, 255, 0.8); }
+                color: rgba(255, 255, 255, 0.9); }
   .cp-gs__who i { font-style: normal; margin: 0 8px;
                   color: rgba(255, 255, 255, 0.45); }
   .cp-gs__h { margin: 18px 0 0; font-size: 40px; line-height: 50px;
               letter-spacing: -0.02em; font-weight: 400; color: #ffffff; }
   .cp-gs__h b { display: block; font-weight: 700; letter-spacing: -0.01em; }
   .cp-gs__h span { display: block; font-weight: 400;
-                   color: rgba(255, 255, 255, 0.82); }
+                   color: rgba(255, 255, 255, 0.9); }
   .cp-gs__p { margin: 22px 0 0; font-size: 16px; line-height: 27px;
               color: rgba(255, 255, 255, 0.92); }
   .cp-gs__side { flex: 1 1 auto; min-width: 0; }
@@ -1416,6 +1432,8 @@
     .cp-cse, .cp-gs { margin-left: 16px !important;
                       margin-right: 16px !important;
                       border-radius: 20px; }
+    /* 560 of leaf on a 368 card is a wall, not a corner */
+    .cp-gs__leaves { width: 290px !important; height: 202px !important; }
     .cp-cse__stage { min-height: 0 !important; align-self: auto !important; }
     .cp-cse__shot { position: static !important; width: 100% !important;
                     margin: 0 !important; }
@@ -3049,6 +3067,24 @@
   </section>
   <!-- ── Case study: upsell revenue ───────────── -->
   <section class="cp-gs" data-screen-label="Case study: upsells">
+    <svg class="cp-gs__leaves" viewBox="0 0 560 390" fill="none" aria-hidden="true" focusable="false">
+      <g transform="translate(-70 330) rotate(-28) scale(1.55)">
+        <path d="M0 0C34-50 116-62 200-6 116 50 34 44 0 0Z" fill="#5FBE8A" fill-opacity="0.22"></path>
+        <path d="M8 0C70-16 140-16 192-6" stroke="#8FDCB2" stroke-opacity="0.26" stroke-width="2.6" stroke-linecap="round"></path>
+      </g>
+      <g transform="translate(-30 392) rotate(-56) scale(1.3)">
+        <path d="M0 0C34-50 116-62 200-6 116 50 34 44 0 0Z" fill="#5FBE8A" fill-opacity="0.22"></path>
+        <path d="M8 0C70-16 140-16 192-6" stroke="#8FDCB2" stroke-opacity="0.26" stroke-width="2.6" stroke-linecap="round"></path>
+      </g>
+      <g transform="translate(130 396) rotate(-10) scale(1.08)">
+        <path d="M0 0C34-50 116-62 200-6 116 50 34 44 0 0Z" fill="#5FBE8A" fill-opacity="0.22"></path>
+        <path d="M8 0C70-16 140-16 192-6" stroke="#8FDCB2" stroke-opacity="0.26" stroke-width="2.6" stroke-linecap="round"></path>
+      </g>
+      <g transform="translate(58 276) rotate(-76) scale(0.78)">
+        <path d="M0 0C34-50 116-62 200-6 116 50 34 44 0 0Z" fill="#5FBE8A" fill-opacity="0.22"></path>
+        <path d="M8 0C70-16 140-16 192-6" stroke="#8FDCB2" stroke-opacity="0.26" stroke-width="2.6" stroke-linecap="round"></path>
+      </g>
+    </svg>
     <div class="cp-gs__top">
       <div class="cp-gs__copy">
         <span class="cp-gs__who">A US gardening store<i>&middot;</i>about 10,000 orders a month</span>
