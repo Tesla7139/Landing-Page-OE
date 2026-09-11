@@ -114,10 +114,10 @@
      keep the layout they had as a stack - full width, their own two
      columns - and the arrows move the whole card. A third case study is
      a markup change and nothing else. */
-  /* 72 rather than 40, so the arrows have somewhere to be: they
-     straddle the card's edge, half on and half off, which is 21 of
-     the 46 outside it. */
-  .cp-csw { position: relative; margin: 40px 72px; }
+  /* 1102 wide - 15% off the 1296 it was - which is 169 of page margin
+     either side. The arrows straddle the card's edge, 23 of the 46
+     outside it. */
+  .cp-csw { position: relative; margin: 40px 169px; }
   .cp-csw__row { display: flex; flex-direction: row; gap: 32px;
                  align-items: stretch; overflow-x: auto;
                  scroll-snap-type: x mandatory; scrollbar-width: none;
@@ -158,8 +158,8 @@
                  pointer-events: none; }
   .cp-csw__arrow { pointer-events: auto;
                    width: 46px; height: 46px; padding: 0;
-                   border-radius: 9999px; border: 1px solid #D9DEE7;
-                   background: #ffffff; color: #252525; cursor: pointer;
+                   border-radius: 9999px; border: 1px solid #252525;
+                   background: #252525; color: #ffffff; cursor: pointer;
                    box-shadow: 0 10px 26px -10px rgba(10, 22, 40, 0.45);
                    display: flex; align-items: center;
                    justify-content: center;
@@ -192,8 +192,10 @@
             box-shadow: 0 26px 60px -30px rgba(10, 22, 40, 0.45); }
   .cp-cse__photo { position: absolute; right: 0; top: 0; bottom: 0;
                    width: 36%; height: 100%; object-fit: cover; }
-  .cp-cse__inner { position: relative; z-index: 1; width: 1216px;
-                   margin: 0 auto; padding: 74px 0 78px; display: flex;
+  /* was a fixed 1216 centred in the section; at 1102 of card it has to
+     be the card's own width less its padding */
+  .cp-cse__inner { position: relative; z-index: 1; width: auto;
+                   margin: 0; padding: 74px 48px 78px; display: flex;
                    flex-direction: row; gap: 40px; align-items: center; }
   .cp-cse__copy { flex: 0 0 420px; display: flex; flex-direction: column;
                   align-items: flex-start; }
@@ -233,8 +235,12 @@
   /* the screen sits across the seam, so it belongs to neither side */
   .cp-cse__stage { position: relative; flex: 1 1 auto; min-height: 470px;
                    align-self: stretch; }
-  .cp-cse__shot { position: absolute; left: 0; top: 50%; width: 716px;
-                  height: auto; margin-top: -236px; border-radius: 12px;
+  /* 100% of the stage, not 716 - and centred with a transform rather
+     than -236 of margin, which was half the height it happened to be
+     at 716 and is a wrong number at any other width */
+  .cp-cse__shot { position: absolute; left: 0; top: 50%; width: 100%;
+                  height: auto; transform: translateY(-50%);
+                  border-radius: 12px;
                   box-shadow: 0 34px 70px -26px rgba(60, 6, 30, 0.55); }
   /* One box for the two of them. They were 236 and 229, because each was
      as wide as its own label - "orders edited in 30 days" against "saved
@@ -286,7 +292,7 @@
      corners fall away from it. Lighter would be closer to the
      reference and would break the copy - the eyebrow is white at 80%,
      which is 4.84:1 on this green and 4.35:1 one shade up. */
-  .cp-gs { padding: 90px 72px 96px; display: flex;
+  .cp-gs { padding: 90px 48px 96px; display: flex;
            position: relative;
            flex-direction: column; align-items: center;
            background: radial-gradient(130% 110% at 26% 14%,
@@ -345,8 +351,13 @@
                    letter-spacing: -0.01em; color: #1B1D1A; }
   .cp-gs__head i { display: block; margin-top: 3px; font-style: normal;
                    font-size: 13px; color: #85837B; }
-  .cp-gs__metrics { display: flex; flex-direction: row; gap: 26px;
-                    margin: 22px 0 4px; }
+  /* Stacked, not three across: at 546 of column the values broke over
+     two lines - USD / 16,638.25 - as they did at 584. The label row
+     keeps its tag on the right by pushing it there instead. */
+  .cp-gs__metrics { display: flex; flex-direction: column; gap: 14px;
+                    align-self: stretch; margin: 22px 0 4px; }
+  .cp-gs__m > span:first-child { justify-content: flex-start; }
+  .cp-gs__tag { margin-left: auto; }
   .cp-gs__m { flex: 1 1 0; min-width: 0; display: flex;
               flex-direction: column; }
   .cp-gs__m > span:first-child { display: flex; flex-direction: row;
