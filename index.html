@@ -109,70 +109,20 @@
     .cp-int__cta, .cp-int__cta svg { transition: none; }
   }
 
-  /* ── The two case studies, side by side ───────────────────
-     A scroll container with snap points, one card to a view. The cards
-     keep the layout they had as a stack - full width, their own two
-     columns - and the arrows move the whole card. A third case study is
-     a markup change and nothing else. */
-  /* 1102 wide - 15% off the 1296 it was - which is 169 of page margin
-     either side. The arrows straddle the card's edge, 23 of the 46
-     outside it. */
-  .cp-csw { position: relative; margin: 40px 169px; }
-  .cp-csw__row { display: flex; flex-direction: row; gap: 32px;
-                 align-items: stretch; overflow-x: auto;
-                 scroll-snap-type: x mandatory; scrollbar-width: none;
-                 scroll-behavior: smooth; }
-  .cp-csw__row::-webkit-scrollbar { display: none; }
-  .cp-csw__cell { flex: 0 0 100%; display: flex;
-                  scroll-snap-align: start; }
-  .cp-csw__cell > section { flex: 1 1 auto; margin: 0 !important; }
-
-  /* the CTA, one per card - white on both grounds */
-  .cp-csw__more { margin-top: 24px; display: inline-flex;
-                  flex-direction: row; gap: 9px; align-items: center;
-                  align-self: flex-start;
-                  padding: 11px 20px; border-radius: 9999px;
-                  border: 1px solid rgba(255, 255, 255, 0.4);
-                  font-size: 14.5px; font-weight: 600; color: #ffffff;
-                  text-decoration: none;
-                  transition: background 200ms ease-out,
-                              border-color 200ms ease-out; }
-  .cp-csw__more:hover { background: rgba(255, 255, 255, 0.14);
-                        border-color: rgba(255, 255, 255, 0.7); }
-  .cp-csw__more:focus-visible { outline: 2px solid #ffffff;
-                                outline-offset: 3px; }
-
-  /* On the card's edges and centred on it, so the nav takes no height
-     of its own - which is also why it can be measured against the
-     row: with the nav absolute, .cp-csw is exactly as tall as the card.
-
-     pointer-events off on the lane and back on for the buttons, or a
-     transparent strip would sit over the card's whole left and right.
-
-     Disabled while there is nothing to scroll - the script sets that
-     off the rail's own scrollWidth. */
-  .cp-csw__nav { position: absolute; left: -23px; right: -23px;
-                 top: 0; bottom: 0; z-index: 3;
-                 display: flex; flex-direction: row;
-                 justify-content: space-between; align-items: center;
-                 pointer-events: none; }
-  .cp-csw__arrow { pointer-events: auto;
-                   width: 46px; height: 46px; padding: 0;
-                   border-radius: 9999px; border: 1px solid #252525;
-                   background: #252525; color: #ffffff; cursor: pointer;
-                   box-shadow: 0 10px 26px -10px rgba(10, 22, 40, 0.45);
-                   display: flex; align-items: center;
-                   justify-content: center;
-                   transition: background 200ms ease-out,
-                               color 200ms ease-out,
-                               border-color 200ms ease-out; }
-  .cp-csw__arrow:hover { background: #155FFF; border-color: #155FFF;
-                         color: #ffffff; }
-  .cp-csw__arrow:focus-visible { outline: 2px solid #155FFF;
-                                 outline-offset: 3px; }
-  .cp-csw__arrow[aria-disabled="true"] { opacity: 0.35;
-                                        pointer-events: none; }
-
+  /* the CTA in each card - white on both grounds */
+  .cp-cta-more { margin-top: 24px; display: inline-flex;
+                 flex-direction: row; gap: 9px; align-items: center;
+                 align-self: flex-start;
+                 padding: 11px 20px; border-radius: 9999px;
+                 border: 1px solid rgba(255, 255, 255, 0.4);
+                 font-size: 14.5px; font-weight: 600; color: #ffffff;
+                 text-decoration: none;
+                 transition: background 200ms ease-out,
+                             border-color 200ms ease-out; }
+  .cp-cta-more:hover { background: rgba(255, 255, 255, 0.14);
+                       border-color: rgba(255, 255, 255, 0.7); }
+  .cp-cta-more:focus-visible { outline: 2px solid #ffffff;
+                               outline-offset: 3px; }
   /* ── Case study: DOONAILS ─────────────────
      Built to the reference. A full-bleed magenta band: the words in a
      420 column on the left, their photograph bleeding off the right edge
@@ -192,10 +142,8 @@
             box-shadow: 0 26px 60px -30px rgba(10, 22, 40, 0.45); }
   .cp-cse__photo { position: absolute; right: 0; top: 0; bottom: 0;
                    width: 36%; height: 100%; object-fit: cover; }
-  /* was a fixed 1216 centred in the section; at 1102 of card it has to
-     be the card's own width less its padding */
-  .cp-cse__inner { position: relative; z-index: 1; width: auto;
-                   margin: 0; padding: 74px 48px 78px; display: flex;
+  .cp-cse__inner { position: relative; z-index: 1; width: 1216px;
+                   margin: 0 auto; padding: 74px 0 78px; display: flex;
                    flex-direction: row; gap: 40px; align-items: center; }
   .cp-cse__copy { flex: 0 0 420px; display: flex; flex-direction: column;
                   align-items: flex-start; }
@@ -235,10 +183,10 @@
   /* the screen sits across the seam, so it belongs to neither side */
   .cp-cse__stage { position: relative; flex: 1 1 auto; min-height: 470px;
                    align-self: stretch; }
-  /* 100% of the stage, not 716 - and centred with a transform rather
-     than -236 of margin, which was half the height it happened to be
-     at 716 and is a wrong number at any other width */
-  .cp-cse__shot { position: absolute; left: 0; top: 50%; width: 100%;
+  /* centred with a transform rather than the -236 of margin it used to
+     carry, which was half the height it happens to be at this width
+     and a wrong number at any other */
+  .cp-cse__shot { position: absolute; left: 0; top: 50%; width: 716px;
                   height: auto; transform: translateY(-50%);
                   border-radius: 12px;
                   box-shadow: 0 34px 70px -26px rgba(60, 6, 30, 0.55); }
@@ -261,8 +209,8 @@
      top-left is its header and the order rows under it, so a card there
      sat on the content, where the top-right is the blank beside the
      summary. Right-aligned on the same -78 so their edges line up. */
-  .cp-cse__stat--a { right: -32px; top: -14px; }
-  .cp-cse__stat--b { right: -32px; bottom: 26px; }
+  .cp-cse__stat--a { right: -56px; top: -14px; }
+  .cp-cse__stat--b { right: -56px; bottom: 26px; }
   .cp-cse__sico { flex-shrink: 0; width: 44px; height: 44px;
                   border-radius: 9999px; background: #FBDDE9;
                   color: #CE0058; display: flex;
@@ -292,7 +240,7 @@
      corners fall away from it. Lighter would be closer to the
      reference and would break the copy - the eyebrow is white at 80%,
      which is 4.84:1 on this green and 4.35:1 one shade up. */
-  .cp-gs { padding: 90px 48px 96px; display: flex;
+  .cp-gs { padding: 90px 72px 96px; display: flex;
            position: relative;
            flex-direction: column; align-items: center;
            background: radial-gradient(130% 110% at 26% 14%,
@@ -351,13 +299,10 @@
                    letter-spacing: -0.01em; color: #1B1D1A; }
   .cp-gs__head i { display: block; margin-top: 3px; font-style: normal;
                    font-size: 13px; color: #85837B; }
-  /* Stacked, not three across: at 546 of column the values broke over
-     two lines - USD / 16,638.25 - as they did at 584. The label row
-     keeps its tag on the right by pushing it there instead. */
-  .cp-gs__metrics { display: flex; flex-direction: column; gap: 14px;
-                    align-self: stretch; margin: 22px 0 4px; }
-  .cp-gs__m > span:first-child { justify-content: flex-start; }
-  .cp-gs__tag { margin-left: auto; }
+  /* three across again: the 756 column they had before the card was
+     narrowed holds them without the values breaking */
+  .cp-gs__metrics { display: flex; flex-direction: row; gap: 26px;
+                    margin: 22px 0 4px; }
   .cp-gs__m { flex: 1 1 0; min-width: 0; display: flex;
               flex-direction: column; }
   .cp-gs__m > span:first-child { display: flex; flex-direction: row;
@@ -1522,11 +1467,6 @@
     .cp-cse__h span + span { padding-left: 18px !important; }
     .cp-cse__h b { font-size: 32px !important; line-height: 36px !important; }
     .cp-cse__h i { font-size: 12.5px !important; }
-    /* one card to a screen, and the arrows go - a finger does that job */
-    .cp-csw { margin: 40px 16px !important; }
-    .cp-csw__row { gap: 16px !important; }
-    .cp-csw__cell { flex: 0 0 100% !important; }
-    .cp-csw__nav { display: none !important; }
 
     /* 40 a side is a fifth of the screen: 16, and a smaller corner to
        match the shorter side */
@@ -3139,107 +3079,95 @@
   </section>
 
   <!-- ── Case study: DOONAILS ─────────────────────── -->
-    <div class="cp-csw" id="case-studies" style="scroll-margin-top: 104px;">
-    <div class="cp-csw__row">
-      <div class="cp-csw__cell">
-  <section class="cp-cse" data-screen-label="Case study">
-      <img class="cp-cse__photo" src="assets/case-study/doonails-hero.webp" alt="DOONAILS press-on nails from the Wine &amp; Dine collection" width="900" height="900" loading="lazy">
-      <div class="cp-cse__inner">
-        <div class="cp-cse__copy">
-          <img class="cp-cse__mark" src="assets/case-study/doonails.svg" alt="DOONAILS" width="137" height="17">
-          <h2 class="cp-cse__h">
-            <span><b>4,000</b><i>orders edited</i></span>
-            <span><b>$20,000</b><i>saved</i></span>
-          </h2>
-          <figure class="cp-cse__quote">
-            <blockquote><svg class="cp-cse__qm" width="19" height="15" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V11.6C0 5.2 3.5 1 9.6 0l1 2.4C7 3.6 5.2 5.9 5.2 8.6H9V20H0Zm16.4 0V11.6C16.4 5.2 19.9 1 26 0l1 2.4c-3.6 1.2-5.4 3.5-5.4 6.2h3.8V20h-9Z"></path></svg>Really helped us quickly to fix all issues.</blockquote>
-            <figcaption><i class="cp-cse__dash"></i><span class="cp-cse__sig">Doonails</span><i class="cp-cse__bar"></i><span>Cyprus &middot; March 2026</span></figcaption>
-          </figure>
-          <a class="cp-csw__more" href="#"><span>Explore how</span><svg width="15" height="13" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5"></path></svg></a>
-        </div>
-        <div class="cp-cse__stage">
-          <img class="cp-cse__shot" src="assets/case-study/doonails-edit.jpg" alt="The DOONAILS Thank You page with the edit panel: change contact information, edit shipping address, update the order, apply a discount code or cancel." width="1140" height="750" loading="lazy">
-        <div class="cp-cse__stat cp-cse__stat--a">
-                      <span class="cp-cse__sico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9.2" cy="8.4" r="3.3"></circle><path d="M3.4 19.6c0-3.2 2.6-5.4 5.8-5.4s5.8 2.2 5.8 5.4"></path><path d="M16.4 6.2a3 3 0 0 1 0 5.9"></path><path d="M17.6 14.6c2.1.5 3.4 2.1 3.4 4.3"></path></svg></span>
-                      <span><b>4,000</b><i>orders edited in 30 days</i></span>
-                </div>
-        <div class="cp-cse__stat cp-cse__stat--b">
-                    <span class="cp-cse__sico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6.6" rx="7.4" ry="3"></ellipse><path d="M4.6 6.6v4c0 1.7 3.3 3 7.4 3s7.4-1.3 7.4-3v-4"></path><path d="M4.6 10.6v4c0 1.7 3.3 3 7.4 3s7.4-1.3 7.4-3v-4"></path></svg></span>
-                    <span><b>$20,000</b><i>saved in those 30 days</i></span>
-                  </div>
-      </div>
-    </div>
-  </section>
-      </div>
-      <div class="cp-csw__cell">
-  <section class="cp-gs" data-screen-label="Case study: upsells">
-      <svg class="cp-gs__leaves" viewBox="0 0 560 390" fill="none" aria-hidden="true" focusable="false">
-        <g transform="translate(-70 330) rotate(-28) scale(1.55)">
-          <path d="M0 0C34-50 116-62 200-6 116 50 34 44 0 0Z" fill="#5FBE8A" fill-opacity="0.22"></path>
-          <path d="M8 0C70-16 140-16 192-6" stroke="#8FDCB2" stroke-opacity="0.26" stroke-width="2.6" stroke-linecap="round"></path>
-        </g>
-        <g transform="translate(-30 392) rotate(-56) scale(1.3)">
-          <path d="M0 0C34-50 116-62 200-6 116 50 34 44 0 0Z" fill="#5FBE8A" fill-opacity="0.22"></path>
-          <path d="M8 0C70-16 140-16 192-6" stroke="#8FDCB2" stroke-opacity="0.26" stroke-width="2.6" stroke-linecap="round"></path>
-        </g>
-        <g transform="translate(130 396) rotate(-10) scale(1.08)">
-          <path d="M0 0C34-50 116-62 200-6 116 50 34 44 0 0Z" fill="#5FBE8A" fill-opacity="0.22"></path>
-          <path d="M8 0C70-16 140-16 192-6" stroke="#8FDCB2" stroke-opacity="0.26" stroke-width="2.6" stroke-linecap="round"></path>
-        </g>
-        <g transform="translate(58 276) rotate(-76) scale(0.78)">
-          <path d="M0 0C34-50 116-62 200-6 116 50 34 44 0 0Z" fill="#5FBE8A" fill-opacity="0.22"></path>
-          <path d="M8 0C70-16 140-16 192-6" stroke="#8FDCB2" stroke-opacity="0.26" stroke-width="2.6" stroke-linecap="round"></path>
-        </g>
-      </svg>
-      <div class="cp-gs__top">
-        <div class="cp-gs__copy">
-          <span class="cp-gs__badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5c0 9-5 14-11 14a7 7 0 0 1-4.6-1.7C7.8 11 11.6 8.6 16 7.4c-4.9.4-8.8 2.7-11.6 7.2A7 7 0 0 1 9 4.2c3.6-.9 8.6.4 11.5-.7Z"></path><path d="M4.2 20.5c.5-2 1.3-3.9 2.4-5.6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"></path></svg>US gardening brand</span>
-          <span class="cp-gs__who">~10,000 orders / month</span>
-          <h2 class="cp-gs__h"><b>&ldquo;$16,638</b>
-            <span>in upsell revenue</span>
-            <i>in 30 days with avg upsell value of $75.63&rdquo;</i></h2>
-          <p class="cp-gs__p">Every order that came in for an edit was also an offer &mdash; no second checkout, no discount code, no one on the team involved.</p>
-          <a class="cp-csw__more" href="#"><span>Explore how</span><svg width="15" height="13" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5"></path></svg></a>
-        </div>
-        <div class="cp-gs__side">
-          <div class="cp-gs__card">
-            <div class="cp-gs__head">
-              <b>Upsell revenue, last 30 days</b>
-              <i>27 July to 27 August 2026</i>
-            </div>
-            <div class="cp-gs__metrics">
-              <div class="cp-gs__m">
-                <span><b>Upsell revenue</b><i class="cp-gs__tag">30 days</i></span>
-                <span class="cp-gs__mv">USD 16,638.25<em class="cp-gs__d cp-gs__d--up"><svg width="15" height="13" viewBox="0 0 17 13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L7 5l3 3 4-4.5"></path></svg>+24.2%</em></span>
-                <i>From 220 completed upsells</i>
-              </div>
-              <div class="cp-gs__m">
-                <span><b>Upsell conversion</b><i class="cp-gs__tag">30 days</i></span>
-                <span class="cp-gs__mv">59.9%<em class="cp-gs__d cp-gs__d--down"><svg width="15" height="13" viewBox="0 0 17 13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5L7 9l3-3 4 4.5"></path></svg>−6.3%</em></span>
-                <i>220 of 367 unique orders</i>
-              </div>
-              <div class="cp-gs__m">
-                <span><b>Avg revenue per upsell</b><i class="cp-gs__tag">30 days</i></span>
-                <span class="cp-gs__mv">USD 75.63<em class="cp-gs__d cp-gs__d--up"><svg width="15" height="13" viewBox="0 0 17 13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L7 5l3 3 4-4.5"></path></svg>+25.9%</em></span>
-                <i>Items added: 342</i>
-              </div>
-            </div>
-            <svg class="cp-gs__chart" viewBox="0 0 700 212" fill="none" role="img" aria-label="Upsell revenue by day over thirty days against the previous period, totalling $16,638.25"><defs><linearGradient id="gsFill" x1="0" y1="14" x2="0" y2="168" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2E7D46" stop-opacity="0.16"></stop><stop offset="1" stop-color="#2E7D46" stop-opacity="0"></stop></linearGradient></defs><line x1="48" y1="168.0" x2="690" y2="168.0" stroke="#E6E4DC" stroke-width="1"></line><line x1="48" y1="122.2" x2="690" y2="122.2" stroke="#E6E4DC" stroke-width="1"></line><line x1="48" y1="76.3" x2="690" y2="76.3" stroke="#E6E4DC" stroke-width="1"></line><line x1="48" y1="30.5" x2="690" y2="30.5" stroke="#E6E4DC" stroke-width="1"></line><text x="38" y="171.5" text-anchor="end" font-size="10.5" fill="#8C8A82">$0</text><text x="38" y="125.7" text-anchor="end" font-size="10.5" fill="#8C8A82">1.0k</text><text x="38" y="79.8" text-anchor="end" font-size="10.5" fill="#8C8A82">2.0k</text><text x="38" y="34.0" text-anchor="end" font-size="10.5" fill="#8C8A82">3.0k</text><text x="48.0" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Jul 27</text><text x="172.3" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 2</text><text x="296.5" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 8</text><text x="420.8" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 14</text><text x="545.0" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 20</text><text x="669.3" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 26</text><path d="M48.0 166.0 C51.7 165.6 61.3 167.2 68.7 163.3 C76.2 159.4 82.0 145.3 89.4 144.5 C96.9 143.8 102.7 156.1 110.1 159.0 C117.6 162.0 123.4 162.4 130.8 161.0 C138.3 159.6 144.1 152.9 151.5 151.2 C159.0 149.5 164.8 152.5 172.3 151.6 C179.7 150.7 185.5 146.8 193.0 146.1 C200.4 145.4 206.2 143.9 213.7 147.7 C221.1 151.4 226.9 163.5 234.4 166.8 C241.8 170.2 247.6 168.5 255.1 166.4 C262.6 164.3 268.4 157.6 275.8 155.1 C283.3 152.6 289.1 154.3 296.5 152.4 C304.0 150.5 309.8 146.1 317.2 144.5 C324.7 143.0 330.5 143.5 337.9 143.8 C345.4 144.0 351.2 151.3 358.6 146.1 C366.1 140.9 371.9 114.6 379.4 114.8 C386.8 115.1 392.6 141.2 400.1 147.7 C407.5 154.1 413.3 148.4 420.8 150.8 C428.2 153.2 434.0 168.9 441.5 161.0 C448.9 153.0 454.7 116.3 462.2 106.6 C469.6 96.9 475.4 106.0 482.9 107.0 C490.4 108.0 496.2 124.6 503.6 112.1 C511.1 99.6 516.9 29.1 524.3 37.4 C531.8 45.8 537.6 137.1 545.0 158.2 C552.5 179.4 558.3 155.7 565.7 155.1 C573.2 154.5 579.0 156.4 586.5 155.1 C593.9 153.8 599.7 146.2 607.2 147.7 C614.6 149.2 620.4 166.9 627.9 163.3 C635.3 159.7 641.1 127.5 648.6 127.7 C656.0 128.0 661.8 162.5 669.3 164.5 C676.7 166.5 686.3 143.3 690.0 138.7 L690.0 168.0 L48.0 168.0 Z" fill="url(#gsFill)"></path><path d="M48.0 158.2 C51.7 157.0 61.3 157.3 68.7 151.2 C76.2 145.1 82.0 125.1 89.4 124.2 C96.9 123.3 102.7 139.1 110.1 146.1 C117.6 153.1 123.4 162.4 130.8 163.3 C138.3 164.2 144.1 153.9 151.5 151.2 C159.0 148.5 164.8 147.8 172.3 148.5 C179.7 149.2 185.5 158.6 193.0 155.1 C200.4 151.6 206.2 136.2 213.7 128.9 C221.1 121.6 226.9 114.5 234.4 114.5 C241.8 114.5 247.6 125.1 255.1 128.9 C262.6 132.7 268.4 129.4 275.8 135.6 C283.3 141.7 289.1 159.8 296.5 163.3 C304.0 166.8 309.8 159.2 317.2 155.1 C324.7 151.0 330.5 147.0 337.9 140.6 C345.4 134.3 351.2 120.6 358.6 119.9 C366.1 119.2 371.9 132.0 379.4 136.7 C386.8 141.4 392.6 144.0 400.1 146.1 C407.5 148.2 413.3 149.6 420.8 148.5 C428.2 147.3 434.0 140.3 441.5 139.9 C448.9 139.4 454.7 144.8 462.2 146.1 C469.6 147.4 475.4 147.0 482.9 147.3 C490.4 147.6 496.2 147.5 503.6 147.7 C511.1 147.9 516.9 147.0 524.3 148.5 C531.8 149.9 537.6 154.3 545.0 155.5 C552.5 156.7 558.3 157.5 565.7 155.1 C573.2 152.7 579.0 140.1 586.5 142.2 C593.9 144.3 599.7 162.6 607.2 166.8 C614.6 171.0 620.4 165.7 627.9 165.7 C635.3 165.6 641.1 166.9 648.6 166.4 C656.0 166.0 661.8 163.5 669.3 163.3 C676.7 163.2 686.3 165.2 690.0 165.7" stroke="#5B9BD5" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="2.6 3.4"></path><path d="M48.0 166.0 C51.7 165.6 61.3 167.2 68.7 163.3 C76.2 159.4 82.0 145.3 89.4 144.5 C96.9 143.8 102.7 156.1 110.1 159.0 C117.6 162.0 123.4 162.4 130.8 161.0 C138.3 159.6 144.1 152.9 151.5 151.2 C159.0 149.5 164.8 152.5 172.3 151.6 C179.7 150.7 185.5 146.8 193.0 146.1 C200.4 145.4 206.2 143.9 213.7 147.7 C221.1 151.4 226.9 163.5 234.4 166.8 C241.8 170.2 247.6 168.5 255.1 166.4 C262.6 164.3 268.4 157.6 275.8 155.1 C283.3 152.6 289.1 154.3 296.5 152.4 C304.0 150.5 309.8 146.1 317.2 144.5 C324.7 143.0 330.5 143.5 337.9 143.8 C345.4 144.0 351.2 151.3 358.6 146.1 C366.1 140.9 371.9 114.6 379.4 114.8 C386.8 115.1 392.6 141.2 400.1 147.7 C407.5 154.1 413.3 148.4 420.8 150.8 C428.2 153.2 434.0 168.9 441.5 161.0 C448.9 153.0 454.7 116.3 462.2 106.6 C469.6 96.9 475.4 106.0 482.9 107.0 C490.4 108.0 496.2 124.6 503.6 112.1 C511.1 99.6 516.9 29.1 524.3 37.4 C531.8 45.8 537.6 137.1 545.0 158.2 C552.5 179.4 558.3 155.7 565.7 155.1 C573.2 154.5 579.0 156.4 586.5 155.1 C593.9 153.8 599.7 146.2 607.2 147.7 C614.6 149.2 620.4 166.9 627.9 163.3 C635.3 159.7 641.1 127.5 648.6 127.7 C656.0 128.0 661.8 162.5 669.3 164.5 C676.7 166.5 686.3 143.3 690.0 138.7" stroke="#2E7D46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            <div class="cp-gs__key">
-              <span class="cp-gs__key--now">Upsell revenue</span>
-              <span class="cp-gs__key--prev">Previous period</span>
-            </div>
+    <section class="cp-cse" id="case-studies" style="scroll-margin-top: 104px;" data-screen-label="Case study">
+        <img class="cp-cse__photo" src="assets/case-study/doonails-hero.webp" alt="DOONAILS press-on nails from the Wine &amp; Dine collection" width="900" height="900" loading="lazy">
+        <div class="cp-cse__inner">
+          <div class="cp-cse__copy">
+            <img class="cp-cse__mark" src="assets/case-study/doonails.svg" alt="DOONAILS" width="137" height="17">
+            <h2 class="cp-cse__h">
+              <span><b>4,000</b><i>orders edited</i></span>
+              <span><b>$20,000</b><i>saved</i></span>
+            </h2>
+            <figure class="cp-cse__quote">
+              <blockquote><svg class="cp-cse__qm" width="19" height="15" viewBox="0 0 26 20" fill="currentColor" aria-hidden="true"><path d="M0 20V11.6C0 5.2 3.5 1 9.6 0l1 2.4C7 3.6 5.2 5.9 5.2 8.6H9V20H0Zm16.4 0V11.6C16.4 5.2 19.9 1 26 0l1 2.4c-3.6 1.2-5.4 3.5-5.4 6.2h3.8V20h-9Z"></path></svg>Really helped us quickly to fix all issues.</blockquote>
+              <figcaption><i class="cp-cse__dash"></i><span class="cp-cse__sig">Doonails</span><i class="cp-cse__bar"></i><span>Cyprus &middot; March 2026</span></figcaption>
+            </figure>
+            <a class="cp-cta-more" href="#"><span>Explore how</span><svg width="15" height="13" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5"></path></svg></a>
           </div>
+          <div class="cp-cse__stage">
+            <img class="cp-cse__shot" src="assets/case-study/doonails-edit.jpg" alt="The DOONAILS Thank You page with the edit panel: change contact information, edit shipping address, update the order, apply a discount code or cancel." width="1140" height="750" loading="lazy">
+          <div class="cp-cse__stat cp-cse__stat--a">
+                        <span class="cp-cse__sico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9.2" cy="8.4" r="3.3"></circle><path d="M3.4 19.6c0-3.2 2.6-5.4 5.8-5.4s5.8 2.2 5.8 5.4"></path><path d="M16.4 6.2a3 3 0 0 1 0 5.9"></path><path d="M17.6 14.6c2.1.5 3.4 2.1 3.4 4.3"></path></svg></span>
+                        <span><b>4,000</b><i>orders edited in 30 days</i></span>
+                  </div>
+          <div class="cp-cse__stat cp-cse__stat--b">
+                      <span class="cp-cse__sico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6.6" rx="7.4" ry="3"></ellipse><path d="M4.6 6.6v4c0 1.7 3.3 3 7.4 3s7.4-1.3 7.4-3v-4"></path><path d="M4.6 10.6v4c0 1.7 3.3 3 7.4 3s7.4-1.3 7.4-3v-4"></path></svg></span>
+                      <span><b>$20,000</b><i>saved in those 30 days</i></span>
+                    </div>
         </div>
       </div>
     </section>
-      </div>
-    </div>
-    <div class="cp-csw__nav">
-      <button type="button" class="cp-csw__arrow" aria-label="Previous case study" onClick="{{ cswPrev }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
-      <button type="button" class="cp-csw__arrow" aria-label="Next case study" onClick="{{ cswNext }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg></button>
-    </div>
-  </div>
+  <section class="cp-gs" data-screen-label="Case study: upsells">
+        <svg class="cp-gs__leaves" viewBox="0 0 560 390" fill="none" aria-hidden="true" focusable="false">
+          <g transform="translate(-70 330) rotate(-28) scale(1.55)">
+            <path d="M0 0C34-50 116-62 200-6 116 50 34 44 0 0Z" fill="#5FBE8A" fill-opacity="0.22"></path>
+            <path d="M8 0C70-16 140-16 192-6" stroke="#8FDCB2" stroke-opacity="0.26" stroke-width="2.6" stroke-linecap="round"></path>
+          </g>
+          <g transform="translate(-30 392) rotate(-56) scale(1.3)">
+            <path d="M0 0C34-50 116-62 200-6 116 50 34 44 0 0Z" fill="#5FBE8A" fill-opacity="0.22"></path>
+            <path d="M8 0C70-16 140-16 192-6" stroke="#8FDCB2" stroke-opacity="0.26" stroke-width="2.6" stroke-linecap="round"></path>
+          </g>
+          <g transform="translate(130 396) rotate(-10) scale(1.08)">
+            <path d="M0 0C34-50 116-62 200-6 116 50 34 44 0 0Z" fill="#5FBE8A" fill-opacity="0.22"></path>
+            <path d="M8 0C70-16 140-16 192-6" stroke="#8FDCB2" stroke-opacity="0.26" stroke-width="2.6" stroke-linecap="round"></path>
+          </g>
+          <g transform="translate(58 276) rotate(-76) scale(0.78)">
+            <path d="M0 0C34-50 116-62 200-6 116 50 34 44 0 0Z" fill="#5FBE8A" fill-opacity="0.22"></path>
+            <path d="M8 0C70-16 140-16 192-6" stroke="#8FDCB2" stroke-opacity="0.26" stroke-width="2.6" stroke-linecap="round"></path>
+          </g>
+        </svg>
+        <div class="cp-gs__top">
+          <div class="cp-gs__copy">
+            <span class="cp-gs__badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5c0 9-5 14-11 14a7 7 0 0 1-4.6-1.7C7.8 11 11.6 8.6 16 7.4c-4.9.4-8.8 2.7-11.6 7.2A7 7 0 0 1 9 4.2c3.6-.9 8.6.4 11.5-.7Z"></path><path d="M4.2 20.5c.5-2 1.3-3.9 2.4-5.6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"></path></svg>US gardening brand</span>
+            <span class="cp-gs__who">~10,000 orders / month</span>
+            <h2 class="cp-gs__h"><b>&ldquo;$16,638</b>
+              <span>in upsell revenue</span>
+              <i>in 30 days with avg upsell value of $75.63&rdquo;</i></h2>
+            <p class="cp-gs__p">Every order that came in for an edit was also an offer &mdash; no second checkout, no discount code, no one on the team involved.</p>
+            <a class="cp-cta-more" href="#"><span>Explore how</span><svg width="15" height="13" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5"></path></svg></a>
+          </div>
+          <div class="cp-gs__side">
+            <div class="cp-gs__card">
+              <div class="cp-gs__head">
+                <b>Upsell revenue, last 30 days</b>
+                <i>27 July to 27 August 2026</i>
+              </div>
+              <div class="cp-gs__metrics">
+                <div class="cp-gs__m">
+                  <span><b>Upsell revenue</b><i class="cp-gs__tag">30 days</i></span>
+                  <span class="cp-gs__mv">USD 16,638.25<em class="cp-gs__d cp-gs__d--up"><svg width="15" height="13" viewBox="0 0 17 13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L7 5l3 3 4-4.5"></path></svg>+24.2%</em></span>
+                  <i>From 220 completed upsells</i>
+                </div>
+                <div class="cp-gs__m">
+                  <span><b>Upsell conversion</b><i class="cp-gs__tag">30 days</i></span>
+                  <span class="cp-gs__mv">59.9%<em class="cp-gs__d cp-gs__d--down"><svg width="15" height="13" viewBox="0 0 17 13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5L7 9l3-3 4 4.5"></path></svg>−6.3%</em></span>
+                  <i>220 of 367 unique orders</i>
+                </div>
+                <div class="cp-gs__m">
+                  <span><b>Avg revenue per upsell</b><i class="cp-gs__tag">30 days</i></span>
+                  <span class="cp-gs__mv">USD 75.63<em class="cp-gs__d cp-gs__d--up"><svg width="15" height="13" viewBox="0 0 17 13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L7 5l3 3 4-4.5"></path></svg>+25.9%</em></span>
+                  <i>Items added: 342</i>
+                </div>
+              </div>
+              <svg class="cp-gs__chart" viewBox="0 0 700 212" fill="none" role="img" aria-label="Upsell revenue by day over thirty days against the previous period, totalling $16,638.25"><defs><linearGradient id="gsFill" x1="0" y1="14" x2="0" y2="168" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2E7D46" stop-opacity="0.16"></stop><stop offset="1" stop-color="#2E7D46" stop-opacity="0"></stop></linearGradient></defs><line x1="48" y1="168.0" x2="690" y2="168.0" stroke="#E6E4DC" stroke-width="1"></line><line x1="48" y1="122.2" x2="690" y2="122.2" stroke="#E6E4DC" stroke-width="1"></line><line x1="48" y1="76.3" x2="690" y2="76.3" stroke="#E6E4DC" stroke-width="1"></line><line x1="48" y1="30.5" x2="690" y2="30.5" stroke="#E6E4DC" stroke-width="1"></line><text x="38" y="171.5" text-anchor="end" font-size="10.5" fill="#8C8A82">$0</text><text x="38" y="125.7" text-anchor="end" font-size="10.5" fill="#8C8A82">1.0k</text><text x="38" y="79.8" text-anchor="end" font-size="10.5" fill="#8C8A82">2.0k</text><text x="38" y="34.0" text-anchor="end" font-size="10.5" fill="#8C8A82">3.0k</text><text x="48.0" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Jul 27</text><text x="172.3" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 2</text><text x="296.5" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 8</text><text x="420.8" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 14</text><text x="545.0" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 20</text><text x="669.3" y="194" text-anchor="middle" font-size="10.5" fill="#8C8A82">Aug 26</text><path d="M48.0 166.0 C51.7 165.6 61.3 167.2 68.7 163.3 C76.2 159.4 82.0 145.3 89.4 144.5 C96.9 143.8 102.7 156.1 110.1 159.0 C117.6 162.0 123.4 162.4 130.8 161.0 C138.3 159.6 144.1 152.9 151.5 151.2 C159.0 149.5 164.8 152.5 172.3 151.6 C179.7 150.7 185.5 146.8 193.0 146.1 C200.4 145.4 206.2 143.9 213.7 147.7 C221.1 151.4 226.9 163.5 234.4 166.8 C241.8 170.2 247.6 168.5 255.1 166.4 C262.6 164.3 268.4 157.6 275.8 155.1 C283.3 152.6 289.1 154.3 296.5 152.4 C304.0 150.5 309.8 146.1 317.2 144.5 C324.7 143.0 330.5 143.5 337.9 143.8 C345.4 144.0 351.2 151.3 358.6 146.1 C366.1 140.9 371.9 114.6 379.4 114.8 C386.8 115.1 392.6 141.2 400.1 147.7 C407.5 154.1 413.3 148.4 420.8 150.8 C428.2 153.2 434.0 168.9 441.5 161.0 C448.9 153.0 454.7 116.3 462.2 106.6 C469.6 96.9 475.4 106.0 482.9 107.0 C490.4 108.0 496.2 124.6 503.6 112.1 C511.1 99.6 516.9 29.1 524.3 37.4 C531.8 45.8 537.6 137.1 545.0 158.2 C552.5 179.4 558.3 155.7 565.7 155.1 C573.2 154.5 579.0 156.4 586.5 155.1 C593.9 153.8 599.7 146.2 607.2 147.7 C614.6 149.2 620.4 166.9 627.9 163.3 C635.3 159.7 641.1 127.5 648.6 127.7 C656.0 128.0 661.8 162.5 669.3 164.5 C676.7 166.5 686.3 143.3 690.0 138.7 L690.0 168.0 L48.0 168.0 Z" fill="url(#gsFill)"></path><path d="M48.0 158.2 C51.7 157.0 61.3 157.3 68.7 151.2 C76.2 145.1 82.0 125.1 89.4 124.2 C96.9 123.3 102.7 139.1 110.1 146.1 C117.6 153.1 123.4 162.4 130.8 163.3 C138.3 164.2 144.1 153.9 151.5 151.2 C159.0 148.5 164.8 147.8 172.3 148.5 C179.7 149.2 185.5 158.6 193.0 155.1 C200.4 151.6 206.2 136.2 213.7 128.9 C221.1 121.6 226.9 114.5 234.4 114.5 C241.8 114.5 247.6 125.1 255.1 128.9 C262.6 132.7 268.4 129.4 275.8 135.6 C283.3 141.7 289.1 159.8 296.5 163.3 C304.0 166.8 309.8 159.2 317.2 155.1 C324.7 151.0 330.5 147.0 337.9 140.6 C345.4 134.3 351.2 120.6 358.6 119.9 C366.1 119.2 371.9 132.0 379.4 136.7 C386.8 141.4 392.6 144.0 400.1 146.1 C407.5 148.2 413.3 149.6 420.8 148.5 C428.2 147.3 434.0 140.3 441.5 139.9 C448.9 139.4 454.7 144.8 462.2 146.1 C469.6 147.4 475.4 147.0 482.9 147.3 C490.4 147.6 496.2 147.5 503.6 147.7 C511.1 147.9 516.9 147.0 524.3 148.5 C531.8 149.9 537.6 154.3 545.0 155.5 C552.5 156.7 558.3 157.5 565.7 155.1 C573.2 152.7 579.0 140.1 586.5 142.2 C593.9 144.3 599.7 162.6 607.2 166.8 C614.6 171.0 620.4 165.7 627.9 165.7 C635.3 165.6 641.1 166.9 648.6 166.4 C656.0 166.0 661.8 163.5 669.3 163.3 C676.7 163.2 686.3 165.2 690.0 165.7" stroke="#5B9BD5" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="2.6 3.4"></path><path d="M48.0 166.0 C51.7 165.6 61.3 167.2 68.7 163.3 C76.2 159.4 82.0 145.3 89.4 144.5 C96.9 143.8 102.7 156.1 110.1 159.0 C117.6 162.0 123.4 162.4 130.8 161.0 C138.3 159.6 144.1 152.9 151.5 151.2 C159.0 149.5 164.8 152.5 172.3 151.6 C179.7 150.7 185.5 146.8 193.0 146.1 C200.4 145.4 206.2 143.9 213.7 147.7 C221.1 151.4 226.9 163.5 234.4 166.8 C241.8 170.2 247.6 168.5 255.1 166.4 C262.6 164.3 268.4 157.6 275.8 155.1 C283.3 152.6 289.1 154.3 296.5 152.4 C304.0 150.5 309.8 146.1 317.2 144.5 C324.7 143.0 330.5 143.5 337.9 143.8 C345.4 144.0 351.2 151.3 358.6 146.1 C366.1 140.9 371.9 114.6 379.4 114.8 C386.8 115.1 392.6 141.2 400.1 147.7 C407.5 154.1 413.3 148.4 420.8 150.8 C428.2 153.2 434.0 168.9 441.5 161.0 C448.9 153.0 454.7 116.3 462.2 106.6 C469.6 96.9 475.4 106.0 482.9 107.0 C490.4 108.0 496.2 124.6 503.6 112.1 C511.1 99.6 516.9 29.1 524.3 37.4 C531.8 45.8 537.6 137.1 545.0 158.2 C552.5 179.4 558.3 155.7 565.7 155.1 C573.2 154.5 579.0 156.4 586.5 155.1 C593.9 153.8 599.7 146.2 607.2 147.7 C614.6 149.2 620.4 166.9 627.9 163.3 C635.3 159.7 641.1 127.5 648.6 127.7 C656.0 128.0 661.8 162.5 669.3 164.5 C676.7 166.5 686.3 143.3 690.0 138.7" stroke="#2E7D46" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              <div class="cp-gs__key">
+                <span class="cp-gs__key--now">Upsell revenue</span>
+                <span class="cp-gs__key--prev">Previous period</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
   <!-- ── Integrations ─────────────────────────────────── -->
   <section style="padding: 120px 112px 80px; display: flex; flex-direction: column; gap: 64px; align-items: center;" data-screen-label="Integrations">
     <h2 style="margin: 0; width: 916px; font-size: 44px; font-weight: 500; line-height: 54px; text-align: center; color: #252525;">Leading carriers, shopfronts, WMS, ERP, OMS</h2>
@@ -3534,7 +3462,6 @@ class Component extends DCLogic {
 
   componentDidMount() {
     this.watchSteps();
-    this.watchCsw();
     this.startGlobe();
     this.startRing();
     // a drawer that cannot be dismissed from the keyboard is a trap
@@ -3635,39 +3562,6 @@ class Component extends DCLogic {
                       behavior: how });
   }
 
-  // ── Case-study row ───────────────────────────────────
-  // A cell at a time, and the arrows go dim when the rail has nothing to
-  // scroll - which is the case with two cards in two slots, so they read
-  // as a promise rather than a broken control.
-  cswStep(dir) {
-    const row = document.querySelector(".cp-csw__row");
-    if (!row) return;
-    const cell = row.querySelector(".cp-csw__cell");
-    const by = cell ? cell.getBoundingClientRect().width + 32 : row.clientWidth;
-    row.scrollBy({ left: dir * by, behavior: "smooth" });
-  }
-
-  syncCsw() {
-    const row = document.querySelector(".cp-csw__row");
-    if (!row) return;
-    const room = row.scrollWidth - row.clientWidth;
-    const a = document.querySelectorAll(".cp-csw__arrow");
-    if (a.length < 2) return;
-    a[0].setAttribute("aria-disabled", room > 2 && row.scrollLeft > 2
-      ? "false" : "true");
-    a[1].setAttribute("aria-disabled",
-      room > 2 && row.scrollLeft < room - 2 ? "false" : "true");
-  }
-
-  watchCsw() {
-    const row = document.querySelector(".cp-csw__row");
-    if (!row) return;
-    this.onCsw = () => this.syncCsw();
-    row.addEventListener("scroll", this.onCsw, { passive: true });
-    window.addEventListener("resize", this.onCsw);
-    this.syncCsw();
-  }
-
   onStepKey(e, n) {
     if (e && (e.key === "Enter" || e.key === " ")) {
       e.preventDefault();
@@ -3675,11 +3569,6 @@ class Component extends DCLogic {
     }
   }
   componentWillUnmount() {
-    if (this.onCsw) {
-      const row = document.querySelector(".cp-csw__row");
-      if (row) row.removeEventListener("scroll", this.onCsw);
-      window.removeEventListener("resize", this.onCsw);
-    }
     if (this.onStepScroll) {
       window.removeEventListener("scroll", this.onStepScroll);
       window.removeEventListener("resize", this.onStepScroll);
@@ -4171,8 +4060,6 @@ class Component extends DCLogic {
       onStepKey0: e => this.onStepKey(e, 0), onStepKey1: e => this.onStepKey(e, 1),
       onStepKey2: e => this.onStepKey(e, 2), onStepKey3: e => this.onStepKey(e, 3),
       stepDir: this.state.stepDir,
-      cswPrev: () => this.cswStep(-1),
-      cswNext: () => this.cswStep(1),
     };
   }
 }
