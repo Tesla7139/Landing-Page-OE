@@ -333,8 +333,6 @@
   .cp-page > .cp-blend,
   .cp-page > footer { border-top: 1px solid #EAEEF5; }
   .cp-page > section:first-of-type { border-top: 0; }
-  .cp-page > [data-screen-label="How it works"],
-  .cp-page > .cp-blend,
   .cp-page > [data-screen-label="Reviews"],
   .cp-page > [data-screen-label="Case study"],
   .cp-page > [data-screen-label="Case study: upsells"],
@@ -741,14 +739,27 @@
      flick of a trackpad skips a panel. The floor is the same sum with
      the floors of the two heights below. */
   .cp-steps__run { position: relative; width: 100%;
+                   box-sizing: border-box; padding: 40px 0 48px;
                    height: calc(var(--cp-svh) * 3.25 - 96px);
-                   min-height: 2275px; }
+                   min-height: 2430px; }
+  /* The blue is the frame, not the section: the section is the runway
+     and it is 2830 tall, so a card that size would not float, it would
+     be a wall. The frame is one window tall and sticks for the whole
+     of it, which is the part that is actually on screen.
+
+     - 120 rather than - 96: 96 of it is the sticky offset, the other 24
+     is the gap it keeps off the bottom of the window, so the card has
+     air under it as well as over. */
   .cp-steps__pin { position: sticky; top: 96px;
-                   height: calc(var(--cp-svh) - 96px);
-                   min-height: 700px; box-sizing: border-box;
+                   height: calc(var(--cp-svh) - 120px);
+                   min-height: 720px; box-sizing: border-box;
+                   margin: 0 112px; border-radius: 28px;
+                   background: linear-gradient(165deg, #155FFF 0%,
+                     #1257EC 45%, #0F47D6 100%);
+                   box-shadow: 0 26px 60px -30px rgba(10, 22, 40, 0.55);
                    display: flex; flex-direction: column;
                    justify-content: center;
-                   padding: 12px 112px 20px; }
+                   padding: 28px 72px 32px; }
   .cp-steps__head { flex: 0 0 auto; padding-bottom: 24px;
                     text-align: center; }
   /* one line at the 1216 column: two lines of 48px cost the rail 56px
@@ -773,6 +784,7 @@
                      justify-content: center;
                      display: flex; flex-direction: row; gap: 48px;
                      align-items: center; }
+  .cp-steps__art * { max-width: none !important; }
   [data-active-step="1"] .cp-steps__track { transform: translateX(-100%); }
   [data-active-step="2"] .cp-steps__track { transform: translateX(-200%); }
   [data-active-step="3"] .cp-steps__track { transform: translateX(-300%); }
@@ -801,7 +813,17 @@
                    /* the pale panel it used to sit on only made haze
                       against the blue; the mock carries its own edge */
                    background: none; }
-  .cp-steps__art > * { transform: scale(var(--st-s, 1.15));
+  /* The mock's box has to be 452 at every width, so scale is the only
+     thing that ever changes its size. max-width is the one that matters:
+     the sheet caps media at 100% of its column on a phone, and a
+     max-width beats a width whether or not the width is important - it
+     is a constraint on the result, not a competing declaration. Without
+     it the box fell to 323 and the mock rearranged instead of scaling.
+
+     The box can overrun its cell before the transform; the cell clips,
+     and the transform paints it back inside. */
+  .cp-steps__art > * { width: 452px !important; max-width: none !important;
+                       transform: scale(var(--st-s, 1.15));
                        border-radius: 18px !important;
                        flex-grow: 0 !important; flex-shrink: 0 !important;
                        overflow: hidden;
@@ -922,8 +944,8 @@
   @media (max-height: 800px) {
     .cp-steps__art { height: 448px; }
     .cp-steps__art > * { --st-s: 0.96; }
-    .cp-steps__pin { min-height: 610px; }
-    .cp-steps__run { min-height: 1980px; }
+    .cp-steps__pin { min-height: 630px; }
+    .cp-steps__run { min-height: 2140px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1160,11 +1182,14 @@
        the pin lets go and the rail becomes a real horizontal scroller
        with snap points. The script reads the rail's scrollLeft instead
        of the pin's offset, so the dots still follow the swipe. */
-    .cp-steps__run { height: auto !important; min-height: 0 !important; }
+    .cp-steps__run { height: auto !important; min-height: 0 !important;
+                     padding: 44px 0 52px !important; }
     .cp-steps__pin { position: static !important; height: auto !important;
                      min-height: 0 !important;
-                     padding: 56px 0 44px !important; }
-    .cp-steps__head { padding: 0 20px 22px !important; }
+                     margin: 0 12px !important; border-radius: 22px;
+                     padding: 40px 12px 30px !important; }
+    /* the card carries the inset now, so the parts inside drop theirs */
+    .cp-steps__head { padding: 0 0 20px !important; }
     .cp-steps__rail { overflow-x: auto !important; overflow-y: hidden;
                       scroll-snap-type: x mandatory;
                       -webkit-overflow-scrolling: touch;
@@ -1173,7 +1198,7 @@
     .cp-steps__track { transform: none !important; height: auto !important; }
     .cp-steps__panel { flex-direction: column !important;
                        gap: 24px !important; height: auto !important;
-                       padding: 0 20px !important;
+                       padding: 0 4px !important;
                        align-items: stretch !important;
                        scroll-snap-align: center; }
     /* One scale here as well, so the four read as one interface: 452
@@ -1182,6 +1207,12 @@
        it, which also stops the track leaving a hole under them. */
     .cp-steps__art { width: 100% !important; height: 340px !important; }
     .cp-steps__art > * { --st-s: 0.72 !important; }
+    /* .cp-page * caps everything at 100% of its column a few blocks up,
+       with the same specificity and the same !important - so the guard
+       has to sit after it, not in the desktop sheet. Without it the
+       mock's box fell to 324 and its layout rearranged instead of
+       scaling: 452 at 0.72 paints 325, which is what the cell is for. */
+    .cp-steps__art > *, .cp-steps__art * { max-width: none !important; }
     .cp-steps__track { align-items: flex-start !important; }
     /* The mocks are desktop screens written out in markup, and their rows
        carry align-self: stretch - which the sheet's phone rule stacks into
@@ -1225,7 +1256,7 @@
        so side padding would shift the rail off the end centres it is
        measured from */
     .cp-steps__dots { padding: 20px 0 0 !important;
-                      margin: 0 20px !important;
+                      margin: 0 !important;
                       align-self: stretch !important; }
     /* ── Case study: Mars by GHC ────────────────── */
     .cp-bfo { flex-direction: column !important; gap: 60px !important;
@@ -1823,7 +1854,7 @@
   </section>
 
   <!-- ── Set up in 4 steps ──────────────────────── -->
-    <section class="cp-steps" style="background: linear-gradient(165deg, #155FFF 0%, #1257EC 45%, #0F47D6 100%); display: block;" data-screen-label="How it works" data-active-step="{{ activeStep }}" data-step-dir="{{ stepDir }}">
+    <section class="cp-steps" style="background: #ffffff; display: block;" data-screen-label="How it works" data-active-step="{{ activeStep }}" data-step-dir="{{ stepDir }}">
     <div class="cp-steps__run">
       <div class="cp-steps__pin">
         <div class="cp-steps__head">
