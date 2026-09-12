@@ -1264,19 +1264,19 @@
     .cp-rw__text { font-size: 14px !important; line-height: 22px !important;
                    -webkit-line-clamp: 8 !important; max-height: 176px !important; }
 
-    /* ── How it works: the same sideways move, done with a finger ──
-       Scroll-jacking a touch device is where this pattern goes wrong, so
-       the pin lets go and the rail becomes a real horizontal scroller
-       with snap points. The script reads the rail's scrollLeft instead
-       of the pin's offset, so the dots still follow the swipe. */
+    /* ── How it works: a finger by default, the page's scroll where
+       there is room for it - see the tall-phone block after this
+       sheet. The card is about 715 on a phone, so it needs 815 of
+       window to show all of itself under an 84px header; anything
+       shorter keeps the horizontal scroller. */
     .cp-steps__run { height: auto !important; min-height: 0 !important;
                      padding: 44px 0 52px !important; }
     .cp-steps__pin { position: static !important; height: auto !important;
                      min-height: 0 !important;
                      margin: 0 12px !important; border-radius: 22px;
-                     padding: 40px 12px 30px !important; }
+                     padding: 24px 12px 18px !important; }
     /* the card carries the inset now, so the parts inside drop theirs */
-    .cp-steps__head { padding: 0 0 20px !important; }
+    .cp-steps__head { padding: 0 0 14px !important; }
     .cp-steps__rail { overflow-x: auto !important; overflow-y: hidden;
                       scroll-snap-type: x mandatory;
                       -webkit-overflow-scrolling: touch;
@@ -1284,7 +1284,7 @@
     .cp-steps__rail::-webkit-scrollbar { display: none; }
     .cp-steps__track { transform: none !important; height: auto !important; }
     .cp-steps__panel { flex-direction: column !important;
-                       gap: 24px !important; height: auto !important;
+                       gap: 18px !important; height: auto !important;
                        padding: 0 4px !important;
                        align-items: stretch !important;
                        scroll-snap-align: center; }
@@ -1300,7 +1300,9 @@
        mock's box fell to 324 and its layout rearranged instead of
        scaling: 452 at 0.72 paints 325, which is what the cell is for. */
     .cp-steps__art > *, .cp-steps__art * { max-width: none !important; }
-    .cp-steps__track { align-items: flex-start !important; }
+    /* stretch, not flex-start: the panels slide now, and four
+       different heights would have the card resize under your thumb */
+    .cp-steps__track { align-items: stretch !important; }
     /* The mocks are desktop screens written out in markup, and their rows
        carry align-self: stretch - which the sheet's phone rule stacks into
        a column with a 28px gap. Inside the frame they have to keep their
@@ -1342,7 +1344,7 @@
     /* margin, not padding: left and right are read off the padding box,
        so side padding would shift the rail off the end centres it is
        measured from */
-    .cp-steps__dots { padding: 20px 0 0 !important;
+    .cp-steps__dots { padding: 14px 0 0 !important;
                       margin: 0 !important;
                       align-self: stretch !important; }
     /* ── Case study: Mars by GHC ────────────────── */
@@ -1627,6 +1629,39 @@
   }
 
   /* Under 420px the two marquees and the type need one more step down. */
+  /* ══ The steps, scroll-driven on a phone ═════════════════════
+     The same move the desktop makes: the frame sticks under the header
+     and the page's own scroll walks the track across, rather than a
+     finger pushing a horizontal scroller.
+
+     Gated on height, not just width, because the whole card has to be
+     on screen for a pinned section to be worth anything - a progress
+     rail below the fold is worse than no progress rail. The card is
+     about 715 tall on a phone, plus the 84 it sticks at and 16 of air
+     under it, so 815; measured 757 before the trims at 390 wide and 785
+     at 360, where the copy wraps more. Below that the sheet above keeps
+     the swipe, and the script follows without being told - it reads
+     whether the frame is sticky, not how wide the window is.
+
+     The frame is content-height rather than a window tall, so a short
+     card does not float in the middle of a tall screen. Travel is the
+     runway's height: 3.2 screens over four panels is 0.8 each. */
+  @media (max-width: 1000px) and (min-height: 815px) {
+    .cp-steps__run { height: calc(var(--cp-svh) * 3.2) !important; }
+    .cp-steps__pin { position: sticky !important; top: 84px !important; }
+    /* not a scroller any more: the track moves by transform, off
+       data-active-step, exactly as it does on a desktop */
+    .cp-steps__rail { overflow: hidden !important;
+                      scroll-snap-type: none !important; }
+    .cp-steps__track { transform: none; }
+    [data-active-step="1"] .cp-steps__track { transform: translateX(-100%) !important; }
+    [data-active-step="2"] .cp-steps__track { transform: translateX(-200%) !important; }
+    [data-active-step="3"] .cp-steps__track { transform: translateX(-300%) !important; }
+    /* stretch, not flex-start: the panels slide now, and four different
+       heights would have the card resize under your thumb */
+    .cp-steps__track { align-items: stretch !important; }
+  }
+
   @media (max-width: 420px) {
     [data-screen-label] h1 { font-size: 29px !important; line-height: 38px !important; }
     [data-screen-label] h2 { font-size: 24px !important; line-height: 32px !important; }
@@ -3556,10 +3591,18 @@ class Component extends DCLogic {
     };
   }
 
-  // The same breakpoint the stylesheet switches the rail at. Measuring
-  // the rail instead would not do: overflow: hidden still reports the
-  // full scrollWidth, so a desktop rail looks scrollable.
-  stepSwipes() { return window.innerWidth <= 1000; }
+  // Ask the frame, not the window. It used to be a width test, because
+  // the phone laid the rail out as a real horizontal scroller and the
+  // desktop did not - and measuring the rail could not tell them apart,
+  // since overflow: hidden still reports the full scrollWidth. Both are
+  // scroll-driven now, and the one thing that still differs between a
+  // swiped rail and a walked one is whether the frame sticks. So that is
+  // what gets read, and the stylesheet stays the only place the
+  // breakpoint is written down.
+  stepSwipes() {
+    const { pin } = this.stepBits();
+    return !!pin && getComputedStyle(pin).position !== "sticky";
+  }
 
   stepFromScroll() {
     const { run, pin, rail } = this.stepBits();
