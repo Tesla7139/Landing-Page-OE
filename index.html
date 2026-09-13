@@ -426,22 +426,30 @@
      wide rather than the content column: a form stretched across 1104
      would be a stack of very wide inputs, and a field no wider than its
      longest plausible answer is easier to fill. */
-  .cp-bk { background: #F4F6FC; padding: 88px 112px 104px; display: flex;
-           flex-direction: column; gap: 30px; align-items: center;
+  .cp-bk { background: #F4F6FC; padding: 64px 112px 72px; display: flex;
+           flex-direction: column; gap: 24px; align-items: center;
            scroll-margin-top: 104px; }
   .cp-bk__head { display: flex; flex-direction: column; gap: 10px;
                  align-items: center; text-align: center; max-width: 660px; }
   .cp-bk__h { margin: 0; font-size: 34px; font-weight: 600; line-height: 44px;
               letter-spacing: -0.02em; color: #101828; }
   .cp-bk__lede { margin: 0; font-size: 15.5px; line-height: 24px; color: #52525B; }
-  .cp-bk__card { width: 620px; padding: 40px; border-radius: 28px;
+  .cp-bk__card { width: 620px; padding: 32px; border-radius: 24px;
                  background: #ffffff;
-                 box-shadow: 0 30px 70px -34px rgba(16, 24, 40, 0.28); }  .cp-bk__form { display: flex; flex-direction: column; gap: 18px; }
-  .cp-bk__f { display: flex; flex-direction: column; gap: 8px; }
+                 box-shadow: 0 30px 70px -34px rgba(16, 24, 40, 0.28); }  /* Name and email sit on one row, which is 86px of the height this
+     card was spending on two very wide fields with a gap between
+     them. 620 less 64 of padding is 556, so 272 a field - wide
+     enough for an address. */
+  .cp-bk__form { display: flex; flex-direction: column; gap: 14px; }
+  /* 1 1 0, so a field in a row splits it evenly and a field on its own
+     still fills the card */
+  .cp-bk__f { flex: 1 1 0; min-width: 0; display: flex;
+              flex-direction: column; gap: 6px; }
   .cp-bk__f > span { font-size: 14.5px; font-weight: 600; color: #14161C; }
   .cp-bk__f i, .cp-bk__agree i { font-style: normal; color: #E5484D; }
   .cp-bk__f input, .cp-bk__sel select {
-    width: 100%; height: 54px; padding: 0 16px; border-radius: 12px;
+    width: 100%; box-sizing: border-box; height: 46px; padding: 0 14px;
+    border-radius: 10px;
     border: 1px solid #E2E6EF; background: #ffffff; font-family: inherit;
     font-size: 15px; color: #252525; }
   .cp-bk__f input::placeholder { color: #A6AEBD; }
@@ -454,7 +462,9 @@
   .cp-bk__chev { position: absolute; right: 15px; top: 50%; margin-top: -9px;
                  color: #667085; pointer-events: none; }
   .cp-bk__row { display: flex; flex-direction: row; gap: 12px; }
-  .cp-bk__sel--cc { flex: 0 0 186px; width: 186px; }
+  /* "United States +1" is 125 at 15px, plus 14 of left padding and the
+     40 the drawn chevron needs: 168 clipped it to "United States +" */
+  .cp-bk__sel--cc { flex: 0 0 182px; width: 182px; }
   .cp-bk__agree { display: flex; flex-direction: row; gap: 10px;
                   align-items: flex-start; margin-top: 2px; cursor: pointer; }
   .cp-bk__agree input { width: 17px; height: 17px; margin: 2px 0 0;
@@ -465,7 +475,7 @@
   /* a gradient pill, per the reference - but in blues, not its
      periwinkle: white on that measures 2.86:1 and misses AA, while the
      lightest stop here is 4.80:1 */
-  .cp-bk__submit { margin-top: 8px; width: 100%; height: 56px; border: 0;
+  .cp-bk__submit { margin-top: 6px; width: 100%; height: 50px; border: 0;
                    border-radius: 9999px; color: #ffffff;
                    background: linear-gradient(90deg, #3563FF 0%,
                      #0F35C4 52%, #3563FF 100%);
@@ -3541,14 +3551,16 @@
       <!-- no action: the endpoint goes here when there is one, and the
            handler stops the default so a press does not reload the page -->
       <form class="cp-bk__form" onSubmit="{{ bookSubmit }}">
-        <label class="cp-bk__f">
-          <span>Full name<i>*</i></span>
-          <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
-        </label>
-        <label class="cp-bk__f">
-          <span>Work email<i>*</i></span>
-          <input type="email" name="email" placeholder="yourname@workemail.com" autocomplete="email" required>
-        </label>
+        <div class="cp-bk__row">
+          <label class="cp-bk__f">
+            <span>Full name<i>*</i></span>
+            <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
+          </label>
+          <label class="cp-bk__f">
+            <span>Work email<i>*</i></span>
+            <input type="email" name="email" placeholder="you@company.com" autocomplete="email" required>
+          </label>
+        </div>
         <div class="cp-bk__f">
           <span>Phone number<i>*</i></span>
           <div class="cp-bk__row">
