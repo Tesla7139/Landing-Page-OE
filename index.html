@@ -1588,21 +1588,15 @@
                                               gap: 32px !important; }
     .cp-bfs__banner { width: 100% !important; border-radius: 16px !important; }
     /* 380 wide is 161 of banner: no room to lay anything over it, so the
-       box comes off and the keywords stack under the picture inside the
-       same figure */
-    .cp-bfs__banner { background: #ffffff; }
+       overlay box comes off and the picture carries the section on its
+       own */
     .cp-bfs__banner::after { display: none !important; }
-    /* four in a column is most of a phone screen: two up, two across */
-    .cp-bfs__crit { position: static !important; padding: 14px;
-                    transform: none !important; width: auto !important;
-                    display: grid !important;
-                    grid-template-columns: repeat(2, 1fr) !important;
-                    gap: 10px !important; }
-    .cp-bfs__card { box-shadow: none !important;
-                    border: 1px solid #E4E7EC;
-                    padding: 12px 12px 13px !important; }
-    /* two-up at 380 leaves 165 a card: the tick would sit on the words */
-    .cp-bfs__ok { display: none !important; }
+    /* The four criteria go. Two across on a phone they were a 165-wide
+       card apiece, which is where the tick had to be dropped to stop it
+       sitting on the words - and four of those under the picture is most
+       of a screen spent restating what the badge in it already says.
+       Hidden, not cut: they are still there above this breakpoint. */
+    .cp-bfs__crit { display: none !important; }
     /* ── Pricing ────────────────────────────── */
     [data-screen-label="Pricing"] { padding: 56px 20px 16px !important; }
     .cp-pr__head { align-items: center !important; text-align: center; }
