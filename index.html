@@ -1197,6 +1197,18 @@
   @keyframes cp-rw-left  { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
   @keyframes cp-rw-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
   .cp-rw:hover .cp-rw__track { animation-play-state: paused; }
+  /* The brand strip has had this since it was built and this wall never
+     did. It is the one marquee a finger cannot pause - hover is the only
+     brake on it - so an endless scroll with no way to stop it is exactly
+     what the setting is for. Stopped, and the two rows wrap into a
+     static grid rather than sitting frozen mid-slide. */
+  @media (prefers-reduced-motion: reduce) {
+    .cp-rw { -webkit-mask-image: none; mask-image: none; }
+    .cp-rw__track { animation: none; flex-wrap: wrap;
+                    justify-content: center; row-gap: 24px; }
+    .cp-rw__card { margin-right: 0; margin-left: 12px;
+                   margin-right: 12px; }
+  }
 
   .cp-rw__card { flex-shrink: 0; width: 404px; height: 386px; margin: 0 24px 0 0; padding: 26px 28px 22px;
                  display: flex; flex-direction: column; border-radius: 16px;
@@ -1400,6 +1412,19 @@
                    margin-right: 16px !important; padding: 20px 22px 18px !important; }
     .cp-rw__text { font-size: 14px !important; line-height: 22px !important;
                    -webkit-line-clamp: 8 !important; max-height: 176px !important; }
+    /* The duration is for a distance, not a speed: the track travels half
+       its own width, so the same 90s over shorter cards is a slower
+       marquee. A card is 276 with its margin here against the desktop's
+       422 - 260 of it under 420px wide - so 90s was covering 65% of the
+       ground and measured 79.6 pixels a second against the desktop's
+       123.6.
+
+       54 and 58 put it at 132.7 and 118.8, which is 1.67 times what it
+       was and about level with the desktop. Not faster than that on
+       purpose: hover pauses this on a desktop and a finger cannot, so a
+       card that crosses in under two seconds is one nobody can read. */
+    .cp-rw__track--left  { animation-duration: 54s !important; }
+    .cp-rw__track--right { animation-duration: 58s !important; }
 
     /* ── How it works: a finger by default, the page's scroll where
        there is room for it - see the tall-phone block after this
