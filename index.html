@@ -1357,6 +1357,11 @@
     /* ── Hero ────────────────────────────────────────────────────────── */
     [data-screen-label="Hero"] { padding: 32px 20px 48px !important; }
     [data-screen-label="Hero"] > div > div:first-child { align-items: center !important; }
+    /* the phone leads with the picture: the row is a column here, so the
+       image column goes first and the copy follows it. order rather than
+       moving the markup - on a desktop the copy still comes first, which
+       is the order it should be read in. */
+    [data-screen-label="Hero"] > div > div:last-child { order: -1; }
     [data-screen-label="Hero"] [style*="height: 48px"][style*="flex-direction: row"] {
       justify-content: center !important; height: auto !important; }
     [data-screen-label="Hero"] img { width: 100% !important; height: auto !important; }
