@@ -1826,9 +1826,26 @@
     /* The Integrations block stacks every inline flex row it finds, which
        is right for its mark grid and wrong for the one button in it -
        the arrow was dropping under the label. One more element in the
-       selector outranks it. */
+       selector outranks it.
+
+       nowrap as well as row: the button is fit-content with 24 of side
+       padding, and at 236 wide its label, gap and arrow come to 199
+       against 188 of content box - so the arrow wrapped anyway and the
+       button stood 93 tall. */
     [data-screen-label="Integrations"] a[style*="flex-direction: row"] {
-      flex-direction: row !important; }
+      flex-direction: row !important; flex-wrap: nowrap !important; }
+    /* and the arrow keeps its 20px: with the row no longer wrapping it was
+       the flex item with room to give, and it gave all of it - measured
+       0x20, present in the DOM and invisible on the page */
+    [data-screen-label="Integrations"] a[style*="flex-direction: row"] svg {
+      flex-shrink: 0 !important; width: 20px !important; }
+
+    /* Just the headline and the button on a phone. The eyebrow says what
+       the headline says, and the paragraph says it a third time - three
+       ways of asking for the same integration, stacked. */
+    [data-screen-label="Integrations"] [style*="text-transform: uppercase"],
+    [data-screen-label="Integrations"] [style*="max-width: 620px"] {
+      display: none !important; }
 
   }
 
