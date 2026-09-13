@@ -209,16 +209,10 @@
                 gap: 64px; align-items: center; }
   .cp-gs__copy { flex: 0 0 396px; display: flex; flex-direction: column;
                  align-items: flex-start; }
-  /* 14% white is the lightest this plate can be and keep its own label
-     legible: the blend is rgb(48,128,89) and white on it is 4.82:1, */
-  .cp-gs__badge { display: inline-flex; flex-direction: row; gap: 8px;
-                  align-items: center; padding: 7px 14px 7px 11px;
-                  border-radius: 9999px;
-                  background: rgba(255, 255, 255, 0.14);
-                  font-size: 12px; font-weight: 700;
-                  letter-spacing: 0.1em; text-transform: uppercase;
-                  color: #ffffff; }
-  .cp-gs__badge svg { flex-shrink: 0; }
+  /* the card's own body size, and white at 90% - 5.93:1 over the
+     lightest point of the green, which clears AA unaided */
+  .cp-gs__who { font-size: 16px; font-weight: 500; line-height: 26px;
+               color: rgba(255, 255, 255, 0.9); }
   /* the line sits above both columns, on the content's left edge -
      the section centres its children, so the rail is the full width
      and the pill is at the start of it */
@@ -1645,10 +1639,7 @@
     .cp-gs { padding: 56px 20px 60px !important; }
     .cp-gs__eyebrow { justify-content: center !important;
                       margin-bottom: 22px !important; }
-    .cp-gs__badge { font-size: 11px !important; line-height: 17px;
-                    letter-spacing: 0.06em !important;
-                    padding: 8px 14px !important; border-radius: 16px;
-                    text-align: center; }
+    .cp-gs__who { text-align: center; }
     .cp-gs__top { width: 100% !important; flex-direction: column !important;
                   gap: 28px !important; }
     .cp-gs__copy { flex: 1 1 auto !important; align-items: center !important;
@@ -3388,7 +3379,7 @@
           </g>
         </svg>
         <div class="cp-gs__eyebrow">
-          <span class="cp-gs__badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5c0 9-5 14-11 14a7 7 0 0 1-4.6-1.7C7.8 11 11.6 8.6 16 7.4c-4.9.4-8.8 2.7-11.6 7.2A7 7 0 0 1 9 4.2c3.6-.9 8.6.4 11.5-.7Z"></path><path d="M4.2 20.5c.5-2 1.3-3.9 2.4-5.6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"></path></svg>US gardening brand doing ~10,000 orders / month</span>
+          <span class="cp-gs__who">A US gardening brand doing ~10,000 orders / month</span>
         </div>
         <div class="cp-gs__top">
           <div class="cp-gs__copy">
