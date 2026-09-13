@@ -1612,27 +1612,35 @@
                     flex-direction: column; align-items: center; }
     .cp-lang__inner { width: 100% !important; align-items: center !important;
                       text-align: center; }
-    /* On a phone the globe stops bleeding off a corner and sits above the
-       heading in the flow. Overlapping was fine while it was only dots;
-       with a pin at its centre it put a marker on top of the paragraph. */
-    .cp-globe { position: static !important; order: -1;
-                width: 300px !important; height: 300px !important;
-                right: auto !important; top: auto !important;
-                margin-bottom: 4px; }
-    .cp-globe canvas { width: 300px !important; height: 300px !important; }
+    /* The globe is off here. It was 300 square above the heading -
+       a third of the screen spent on decoration, and the pins on it
+       are too small to read at that size anyway. The list is what
+       this section is for. */
+    .cp-globe { display: none !important; }
     .cp-lang__more { flex-direction: column !important; align-items: stretch;
                      text-align: left; gap: 14px !important; }
     .cp-lang__more a { justify-content: center; }
-    /* two across and flowing across again; the down-the-column order only
-       makes sense while there are enough rows for it */
+    /* Flowing across rather than down: the down-the-column order only
+       makes sense while there are enough rows for it.
+
+       Three across now the globe is not taking the room. The binding
+       chip is "Lithuanian": a flag, a gap and 72px of label. At the
+       desktop's 22px flag and 9px gap that is 103, which fits 390's
+       111 but not 360's 101 - so the flag goes to 20 and the gap to 7
+       here, making the chip 99 and three across at both.
+
+       auto-fit against a 99 floor rather than a flat repeat(3), so 320
+       still drops to two rather than clipping a name. */
     .cp-lang__more { grid-column: 1 / -1 !important; grid-row: auto !important; }
     .cp-lang__wrap { grid-auto-flow: row !important;
                      grid-template-rows: none !important;
-                     grid-template-columns: repeat(2, 1fr) !important;
+                     grid-template-columns:
+                       repeat(auto-fit, minmax(99px, 1fr)) !important;
                      gap: 8px !important; }
     .cp-lang__chip { height: 32px !important; font-size: 14px !important; }
     .cp-lang__wrap { gap: 8px !important; }
-    .cp-lang__chip { height: 32px !important; gap: 9px !important; }
+    .cp-lang__chip { height: 32px !important; gap: 7px !important; }
+    .cp-lang__chip img { width: 20px !important; height: 14px !important; }
     .cp-lang__chip b { font-size: 14px !important; }
     .cp-lang__chip span { font-size: 12px !important; }
 
@@ -4243,6 +4251,15 @@ class Component extends DCLogic {
 
     let last = null;
     const frame = (now) => {
+      // The phone hides the globe, and a canvas nobody can see is not
+      // worth a frame of work - offsetParent goes null under display:
+      // none, so this follows the stylesheet and survives a rotation
+      // back into a layout that shows it again.
+      if (cv.offsetParent === null) {
+        last = null;
+        Component.globeRAF = requestAnimationFrame(frame);
+        return;
+      }
       const dt = last === null ? 16 : Math.min(48, now - last);
       last = now;
 
