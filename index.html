@@ -765,6 +765,60 @@
                   color: #52525B; }
   .cp-pr__note { align-self: stretch; margin: 28px 0 0; font-size: 14.5px;
                  line-height: 22px; color: #71717A; }
+  /* ── Pricing, on demand ─────────────────────────
+     The plans are not in the page any more; the nav's Pricing opens
+     them. Same shape as the mobile drawer - a scrim that is itself the
+     close button, a panel over it, Escape and the body's scroll locked
+     while it is up - so there is one dialog idiom here rather than two.
+
+     visibility rather than display, so the panel can transition in and
+     still be out of the tab order when it is down.
+
+     min(1320px, 94vw) rather than the 1216 column: this is not in the
+     1440 artboard, so it sizes to the window it is actually over. */
+  /* the face comes with it: Poppins is set on .cp-page's own style
+     attribute, and this sits outside that wrapper to escape the zoom -
+     so it inherited the document default and rendered in Times */
+  .cp-prm { position: fixed; inset: 0; z-index: 220; visibility: hidden;
+            font-family: Poppins, sans-serif;
+            -webkit-font-smoothing: antialiased; }
+  .cp-prm[data-price="true"] { visibility: visible; }
+  .cp-prm__scrim { position: absolute; inset: 0; width: 100%; height: 100%;
+                   padding: 0; border: 0; cursor: pointer;
+                   background: rgba(10, 22, 40, 0.5); opacity: 0;
+                   transition: opacity 220ms ease-out; }
+  .cp-prm[data-price="true"] .cp-prm__scrim { opacity: 1; }
+  .cp-prm__panel { position: absolute; left: 50%; top: 50%;
+                   box-sizing: border-box;
+                   width: min(1320px, 94vw); max-height: 88vh;
+                   overflow-y: auto; padding: 44px 48px 40px;
+                   background: #ffffff; border-radius: 20px;
+                   box-shadow: 0 40px 90px -30px rgba(10, 22, 40, 0.45);
+                   opacity: 0;
+                   transform: translate(-50%, -47%) scale(0.985);
+                   transition: opacity 220ms ease-out,
+                               transform 260ms cubic-bezier(.22,.61,.36,1); }
+  .cp-prm[data-price="true"] .cp-prm__panel { opacity: 1;
+    transform: translate(-50%, -50%) scale(1); }
+  /* 46 and border-box: at 44 with a 1px border it measured 43, a pixel
+     under the touch floor */
+  .cp-prm__x { position: absolute; right: 16px; top: 16px;
+               box-sizing: border-box;
+               width: 46px; height: 46px; padding: 0; border-radius: 9999px;
+               border: 1px solid #E5E7EB; background: #ffffff;
+               color: #252525; cursor: pointer; display: flex;
+               align-items: center; justify-content: center;
+               transition: background 160ms ease-out; }
+  .cp-prm__x:hover { background: #F4F5F8; }
+  .cp-prm__x:focus-visible { outline: 2px solid #155FFF; outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    .cp-prm__scrim, .cp-prm__panel { transition: none; }
+  }
+  @media (max-width: 1000px) {
+    .cp-prm__panel { width: 94vw; max-height: 92vh;
+                     padding: 40px 16px 28px; border-radius: 16px; }
+    .cp-prm__x { right: 10px; top: 10px; }
+  }
   /* ── FAQ ───────────────────────────────────────────
      Two columns: the left one introduces the set and holds the fallback
      for anyone whose question is not here, the accordion runs down the
@@ -1789,7 +1843,7 @@
             </a>
           </span>
         </span>
-        <a href="#pricing" style="display: flex; padding: 4px 10px; border-radius: 6px; justify-content: center; align-items: center; font-size: 14px; line-height: 20px; color: #252525;" style-hover="background: #EEF3FF;">Pricing</a>
+        <button type="button" style="display: flex; padding: 4px 10px; border-radius: 6px; justify-content: center; align-items: center; font-size: 14px; line-height: 20px; color: #252525; border: 0; background: none; font-family: inherit; font-weight: 400; cursor: pointer;" style-hover="background: #EEF3FF;" onClick="{{ openPrice }}">Pricing</button>
         <a href="#" style="display: flex; padding: 4px 10px; border-radius: 6px; justify-content: center; align-items: center; font-size: 14px; line-height: 20px; color: #252525;" style-hover="background: #EEF3FF;">Customers</a>
       </nav>
       <div style="display: flex; flex-direction: row; gap: 16px; align-items: center; flex-shrink: 0;">
@@ -1824,7 +1878,7 @@
           <a href="#book-a-call">Demo</a>
         </div>
       </div>
-      <a class="cp-drawer__row" href="#pricing">Pricing</a>
+      <button type="button" class="cp-drawer__row" onClick="{{ openPrice }}">Pricing</button>
       <a class="cp-drawer__row" href="#">Customers</a>
       <a class="cp-drawer__row" href="#">Log In</a>
       <a class="cp-drawer__cta" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff" aria-hidden="true" style="flex-shrink: 0;"><path d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.101 0-3.164-1.309-3.164-1.309l.646-2.088s1.094.941 2.021.941c.6 0 .854-.481.854-.831 0-1.6-2.66-1.675-2.66-4.34 0-2.257 1.605-4.436 4.847-4.436 1.723 0 2.572.481 2.572.481l-.914 2.684-.758-.208zM14.419 1.045c.176 0 .358.061.538.174-1.324.622-2.746 2.192-3.347 5.327-.446.138-.88.271-1.286.394.359-1.219 1.294-4.181 3.048-5.633.176-.146.4-.262.66-.262h.387z" ></path></svg>Start a free trial</a>
@@ -3421,91 +3475,6 @@
     </figure>
   </section>
 
-  <!-- ── Pricing ────────────────────────── -->
-  <section id="pricing" style="background: #ffffff; padding: 96px 112px 24px; display: flex; flex-direction: column; align-items: center; scroll-margin-top: 104px;" data-screen-label="Pricing">
-    <div class="cp-pr__head">
-      <h2>Pricing</h2>
-      <p>Choose the plan that best fits your business.</p>
-    </div>
-    <div class="cp-pr__grid">
-      <article class="cp-pr__card">
-        <div class="cp-pr__body">
-          <span class="cp-pr__band">0-500 orders/mo</span>
-          <span class="cp-pr__price"><b>Free to install</b></span>
-          <span class="cp-pr__sub">25 edits free every month</span>
-          <span class="cp-pr__ft">Features</span>
-          <ul class="cp-pr__feat">
-            <li>Access to all features.</li>
-            <li>- Order editing (Self service)</li>
-            <li>- Post-purchase Upsells</li>
-            <li>- Address Validation (powered by Google)</li>
-            <li>- Add/replace Items + Apply Discount</li>
-            <li>Customizable Editing Window</li>
-            <li>Email support</li>
-            <li>$1 per extra edit (after 25/mo free)</li>
-          </ul>
-        </div>
-      </article>
-      <article class="cp-pr__card">
-        <div class="cp-pr__body">
-          <span class="cp-pr__band">500-5000 orders/mo</span>
-          <span class="cp-pr__price"><b>$49</b><i>/ month</i></span>
-          <span class="cp-pr__sub">unlimited order edits + upsell</span>
-          <span class="cp-pr__ft">Features</span>
-          <ul class="cp-pr__feat">
-            <li>Access to all features.</li>
-            <li>- Unlimited Order editing (Self service)</li>
-            <li>- Unlimited Post Purchase Upsells</li>
-            <li>- Address Validation (powered by Google)</li>
-            <li>- Add/replace Items + Apply Discount</li>
-            <li>Customizable Editing Window</li>
-            <li>Custom 3PL/WMS integration</li>
-            <li>24/7 Live chat support</li>
-          </ul>
-        </div>
-        <span class="cp-pr__trial">14-day free trial</span>
-      </article>
-      <article class="cp-pr__card">
-        <div class="cp-pr__body">
-          <span class="cp-pr__band">5k-15k orders/mo</span>
-          <span class="cp-pr__price"><b>$129</b><i>/ month</i></span>
-          <span class="cp-pr__sub">unlimited order edits + upsell</span>
-          <span class="cp-pr__ft">Features</span>
-          <ul class="cp-pr__feat">
-            <li>Access to all features.</li>
-            <li>- Unlimited Order editing (Self service)</li>
-            <li>- Unlimited Post Purchase Upsells</li>
-            <li>- Address Validation (powered by Google)</li>
-            <li>- Add/replace Items + Apply Discount</li>
-            <li>Customizable Editing Window</li>
-            <li>Custom 3PL/WMS integration</li>
-            <li>24/7 Priority Support - Chat + Slack</li>
-          </ul>
-        </div>
-        <span class="cp-pr__trial">14-day free trial</span>
-      </article>
-      <article class="cp-pr__card">
-        <div class="cp-pr__body">
-          <span class="cp-pr__band">15k+ orders</span>
-          <span class="cp-pr__price"><b>$199</b><i>/ month</i></span>
-          <span class="cp-pr__sub">unlimited order edits + upsell</span>
-          <span class="cp-pr__ft">Features</span>
-          <ul class="cp-pr__feat">
-            <li>Access to all features.</li>
-            <li>- Unlimited Order editing (Self service)</li>
-            <li>- Unlimited Post Purchase Upsells</li>
-            <li>- Address Validation (powered by Google)</li>
-            <li>- Add/replace Items + Apply Discount</li>
-            <li>Customizable Editing Window</li>
-            <li>Custom 3PL/WMS integration</li>
-            <li>Priority Support with success manager</li>
-          </ul>
-        </div>
-        <span class="cp-pr__trial">14-day free trial</span>
-      </article>
-    </div>
-    <p class="cp-pr__note">All charges are billed in USD. Recurring and usage-based charges are billed every 30 days.</p>
-  </section>
   <!-- ── FAQ ────────────────────────────── -->
   <section style="background: #ffffff; padding: 24px 112px 112px; display: flex; flex-direction: column; align-items: center;" data-screen-label="FAQ">
     <div class="cp-faq__grid">
@@ -3692,12 +3661,105 @@
     </div>
   </footer>
 </div>
+
+<!-- ── Pricing, on demand ───────────────────────────
+     Outside .cp-page on purpose: that wrapper carries the zoom ladder,
+     and zoom scales a fixed child with it - an overlay inside it would
+     be laid out against a viewport it no longer matches. -->
+<div class="cp-prm" data-price="{{ priceOpen }}">
+  <button type="button" class="cp-prm__scrim" aria-label="Close pricing" tabindex="-1" onClick="{{ closePrice }}"></button>
+  <div class="cp-prm__panel" role="dialog" aria-modal="true" aria-labelledby="cp-prm-h">
+    <button type="button" class="cp-prm__x" aria-label="Close pricing" onClick="{{ closePrice }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+  <div class="cp-pr__head">
+        <h2 id="cp-prm-h">Pricing</h2>
+        <p>Choose the plan that best fits your business.</p>
+      </div>
+      <div class="cp-pr__grid">
+        <article class="cp-pr__card">
+          <div class="cp-pr__body">
+            <span class="cp-pr__band">0-500 orders/mo</span>
+            <span class="cp-pr__price"><b>Free to install</b></span>
+            <span class="cp-pr__sub">25 edits free every month</span>
+            <span class="cp-pr__ft">Features</span>
+            <ul class="cp-pr__feat">
+              <li>Access to all features.</li>
+              <li>- Order editing (Self service)</li>
+              <li>- Post-purchase Upsells</li>
+              <li>- Address Validation (powered by Google)</li>
+              <li>- Add/replace Items + Apply Discount</li>
+              <li>Customizable Editing Window</li>
+              <li>Email support</li>
+              <li>$1 per extra edit (after 25/mo free)</li>
+            </ul>
+          </div>
+        </article>
+        <article class="cp-pr__card">
+          <div class="cp-pr__body">
+            <span class="cp-pr__band">500-5000 orders/mo</span>
+            <span class="cp-pr__price"><b>$49</b><i>/ month</i></span>
+            <span class="cp-pr__sub">unlimited order edits + upsell</span>
+            <span class="cp-pr__ft">Features</span>
+            <ul class="cp-pr__feat">
+              <li>Access to all features.</li>
+              <li>- Unlimited Order editing (Self service)</li>
+              <li>- Unlimited Post Purchase Upsells</li>
+              <li>- Address Validation (powered by Google)</li>
+              <li>- Add/replace Items + Apply Discount</li>
+              <li>Customizable Editing Window</li>
+              <li>Custom 3PL/WMS integration</li>
+              <li>24/7 Live chat support</li>
+            </ul>
+          </div>
+          <span class="cp-pr__trial">14-day free trial</span>
+        </article>
+        <article class="cp-pr__card">
+          <div class="cp-pr__body">
+            <span class="cp-pr__band">5k-15k orders/mo</span>
+            <span class="cp-pr__price"><b>$129</b><i>/ month</i></span>
+            <span class="cp-pr__sub">unlimited order edits + upsell</span>
+            <span class="cp-pr__ft">Features</span>
+            <ul class="cp-pr__feat">
+              <li>Access to all features.</li>
+              <li>- Unlimited Order editing (Self service)</li>
+              <li>- Unlimited Post Purchase Upsells</li>
+              <li>- Address Validation (powered by Google)</li>
+              <li>- Add/replace Items + Apply Discount</li>
+              <li>Customizable Editing Window</li>
+              <li>Custom 3PL/WMS integration</li>
+              <li>24/7 Priority Support - Chat + Slack</li>
+            </ul>
+          </div>
+          <span class="cp-pr__trial">14-day free trial</span>
+        </article>
+        <article class="cp-pr__card">
+          <div class="cp-pr__body">
+            <span class="cp-pr__band">15k+ orders</span>
+            <span class="cp-pr__price"><b>$199</b><i>/ month</i></span>
+            <span class="cp-pr__sub">unlimited order edits + upsell</span>
+            <span class="cp-pr__ft">Features</span>
+            <ul class="cp-pr__feat">
+              <li>Access to all features.</li>
+              <li>- Unlimited Order editing (Self service)</li>
+              <li>- Unlimited Post Purchase Upsells</li>
+              <li>- Address Validation (powered by Google)</li>
+              <li>- Add/replace Items + Apply Discount</li>
+              <li>Customizable Editing Window</li>
+              <li>Custom 3PL/WMS integration</li>
+              <li>Priority Support with success manager</li>
+            </ul>
+          </div>
+          <span class="cp-pr__trial">14-day free trial</span>
+        </article>
+      </div>
+      <p class="cp-pr__note">All charges are billed in USD. Recurring and usage-based charges are billed every 30 days.</p>
+  </div>
+</div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{}">
 class Component extends DCLogic {
   // lang starts at 0, not -1: the globe opens with English pinned, and the
   // button has to read pressed to match it
-  state = { activeStep: 0, stepDir: "fwd", menuOpen: false, resOpen: false, lang: 0,
+  state = { activeStep: 0, stepDir: "fwd", priceOpen: false, menuOpen: false, resOpen: false, lang: 0,
             faqOpen: 0 };
 
   componentDidMount() {
@@ -3706,7 +3768,9 @@ class Component extends DCLogic {
     this.startRing();
     // a drawer that cannot be dismissed from the keyboard is a trap
     this.onEsc = (e) => {
-      if (e.key === "Escape" && this.state.menuOpen) this.setMenu(false);
+      if (e.key !== "Escape") return;
+      if (this.state.priceOpen) this.setPrice(false);
+      else if (this.state.menuOpen) this.setMenu(false);
     };
     document.addEventListener("keydown", this.onEsc);
   }
@@ -3714,6 +3778,15 @@ class Component extends DCLogic {
   // The page behind must not scroll while the drawer is over it.
   setMenu(on) {
     this.setState({ menuOpen: on });
+    try {
+      document.body.style.overflow = on ? "hidden" : "";
+    } catch (e) {}
+  }
+
+  // Opening the plans closes the drawer, since on a phone that is where
+  // the trigger lives and two overlays at once is one too many.
+  setPrice(on) {
+    this.setState({ priceOpen: on, menuOpen: on ? false : this.state.menuOpen });
     try {
       document.body.style.overflow = on ? "hidden" : "";
     } catch (e) {}
@@ -4301,6 +4374,9 @@ class Component extends DCLogic {
       resOpen: this.state.resOpen ? "true" : "false",
       openMenu: () => this.setMenu(true),
       closeMenu: () => this.setMenu(false),
+      priceOpen: this.state.priceOpen,
+      openPrice: () => this.setPrice(true),
+      closePrice: () => this.setPrice(false),
       toggleRes: () => this.setState(st => ({ resOpen: !st.resOpen })),
       activeStep: this.state.activeStep,
       pickStep0: () => this.pickStep(0), pickStep1: () => this.pickStep(1),
