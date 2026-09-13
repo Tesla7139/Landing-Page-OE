@@ -211,15 +211,12 @@
                  align-items: flex-start; }
   /* the card's own body size, and white at 90% - 5.93:1 over the
      lightest point of the green, which clears AA unaided */
-  .cp-gs__who { font-size: 16px; font-weight: 500; line-height: 26px;
-               color: rgba(255, 255, 255, 0.9); }
-  /* the line sits above both columns, on the content's left edge -
-     the section centres its children, so the rail is the full width
-     and the pill is at the start of it */
-  .cp-gs__eyebrow { position: relative; z-index: 1; width: 100%;
-                    max-width: 1216px; margin-bottom: 30px;
-                    display: flex; flex-direction: row;
-                    justify-content: flex-start; }
+  /* 15px, not the 16 the rest of the card uses: at 16 the sentence is
+     390px and the column is 396, so it broke over two lines. Widening
+     the column instead narrowed the dashboard, and there the values
+     broke - USD / 16,638.25 - which is worse. */
+  .cp-gs__who { margin: 0 0 12px; font-size: 15px; font-weight: 500;
+                line-height: 26px; color: rgba(255, 255, 255, 0.9); }
   /* One size across all three lines, and the whole thing in quotes -
      the figure does not stand out from the sentence any more, it is
      part of it. 34 rather than the 40 the middle line was: the third
@@ -1637,8 +1634,6 @@
                     margin: 0 !important; transform: none !important; }
     /* ── Case study: upsell revenue ─────────────────── */
     .cp-gs { padding: 56px 20px 60px !important; }
-    .cp-gs__eyebrow { justify-content: center !important;
-                      margin-bottom: 22px !important; }
     .cp-gs__who { text-align: center; }
     .cp-gs__top { width: 100% !important; flex-direction: column !important;
                   gap: 28px !important; }
@@ -3378,11 +3373,9 @@
             <path d="M8 0C70-16 140-16 192-6" stroke="#8FDCB2" stroke-opacity="0.26" stroke-width="2.6" stroke-linecap="round"></path>
           </g>
         </svg>
-        <div class="cp-gs__eyebrow">
-          <span class="cp-gs__who">A US gardening brand doing ~10,000 orders / month</span>
-        </div>
         <div class="cp-gs__top">
           <div class="cp-gs__copy">
+            <span class="cp-gs__who">A US gardening brand doing ~10,000 orders / month</span>
             <h2 class="cp-gs__h"><b>&ldquo;$16,638</b>
               <span>in upsell revenue</span>
               <i>in 30 days with avg upsell value of $75.63&rdquo;</i></h2>
