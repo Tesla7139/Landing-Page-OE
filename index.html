@@ -1364,6 +1364,12 @@
                       gap: 10px; align-items: center; justify-content: center;
                       height: 52px; border-radius: 8px; background: #155FFF;
                       color: #ffffff; font-size: 16px; font-weight: 500; }
+    /* the header's pair, in the order it has them: the demo above the
+       trial, outlined against its fill. 12 between them rather than the
+       24 that sets the pair off from the list above. */
+    .cp-drawer__cta--ghost { margin-top: 24px; background: none;
+                             border: 1px solid #D0D5DD; color: #252525; }
+    .cp-drawer__cta--ghost + .cp-drawer__cta { margin-top: 12px; }
     [data-screen-label="Header"] > div { flex-direction: row !important; }
 
     /* ── Hero ────────────────────────────────────────────────────────── */
@@ -1392,8 +1398,12 @@
     [data-screen-label="Hero"] > div > div:first-child > div:first-child > h1 {
       order: -2; }
     [data-screen-label="Hero"] > div > div:last-child { order: -1; }
+    /* The sub-line goes. It is the headline said again in more words,
+       and on a phone it was pushing the CTA below the fold. The
+       headline and the picture carry it. Hidden rather than removed, so
+       it is still in the markup for the wider layouts that show it. */
     [data-screen-label="Hero"] > div > div:first-child > div:first-child > p {
-      order: 0; }
+      display: none !important; }
     [data-screen-label="Hero"] > div > div:first-child > div:last-child {
       order: 1; }
     [data-screen-label="Hero"] [style*="height: 48px"][style*="flex-direction: row"] {
@@ -1951,6 +1961,7 @@
       <button type="button" class="cp-drawer__row" onClick="{{ openPrice }}">Pricing</button>
       <a class="cp-drawer__row" href="#">Customers</a>
       <a class="cp-drawer__row" href="#">Log In</a>
+      <a class="cp-drawer__cta cp-drawer__cta--ghost" href="#book-a-call" onClick="{{ closeMenu }}">Book a demo</a>
       <a class="cp-drawer__cta" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff" aria-hidden="true" style="flex-shrink: 0;"><path d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.101 0-3.164-1.309-3.164-1.309l.646-2.088s1.094.941 2.021.941c.6 0 .854-.481.854-.831 0-1.6-2.66-1.675-2.66-4.34 0-2.257 1.605-4.436 4.847-4.436 1.723 0 2.572.481 2.572.481l-.914 2.684-.758-.208zM14.419 1.045c.176 0 .358.061.538.174-1.324.622-2.746 2.192-3.347 5.327-.446.138-.88.271-1.286.394.359-1.219 1.294-4.181 3.048-5.633.176-.146.4-.262.66-.262h.387z" ></path></svg>Start a free trial</a>
     </div>
   </div>
