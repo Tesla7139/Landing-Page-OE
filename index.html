@@ -1357,11 +1357,33 @@
     /* ── Hero ────────────────────────────────────────────────────────── */
     [data-screen-label="Hero"] { padding: 32px 20px 48px !important; }
     [data-screen-label="Hero"] > div > div:first-child { align-items: center !important; }
-    /* the phone leads with the picture: the row is a column here, so the
-       image column goes first and the copy follows it. order rather than
-       moving the markup - on a desktop the copy still comes first, which
-       is the order it should be read in. */
+    /* On a phone the hero reads headline, picture, then the rest.
+
+       order can only sort siblings, and the headline sits two levels
+       down - inside the copy column, inside the block it shares with the
+       sub-line. So both of those wrappers take display: contents, which
+       drops their boxes and promotes what is inside them to flex items
+       of the row; then the four parts sort freely.
+
+       Their gaps go with their boxes, so the row's 24 is what separates
+       all four now, where it was 20 inside the block and 40 to the CTA.
+
+       The markup keeps the desktop order, which is also the order it
+       should be read in - nothing here moves in the DOM.
+
+       Both wrappers carry display: flex on their own style attribute, so
+       this needs !important - an inline declaration outranks any rule
+       that is not. */
+    [data-screen-label="Hero"] > div > div:first-child,
+    [data-screen-label="Hero"] > div > div:first-child > div:first-child {
+      display: contents !important; }
+    [data-screen-label="Hero"] > div > div:first-child > div:first-child > h1 {
+      order: -2; }
     [data-screen-label="Hero"] > div > div:last-child { order: -1; }
+    [data-screen-label="Hero"] > div > div:first-child > div:first-child > p {
+      order: 0; }
+    [data-screen-label="Hero"] > div > div:first-child > div:last-child {
+      order: 1; }
     [data-screen-label="Hero"] [style*="height: 48px"][style*="flex-direction: row"] {
       justify-content: center !important; height: auto !important; }
     [data-screen-label="Hero"] img { width: 100% !important; height: auto !important; }
