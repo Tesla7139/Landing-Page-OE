@@ -575,21 +575,42 @@
                                  border-radius: 4px; }
   /* Runs the full grid width under the buttons, where there is room for
      the line and the button - a single grid cell would not seat either. */
-  .cp-lang__more { grid-column: 1 / span 2; grid-row: 7;
-                   display: flex; flex-direction: row; gap: 20px;
+  /* the integrations band's plate, shape and button, sized for a 680
+     column: 32/36 of padding against its 48/56, and a 23px headline
+     against its 34, because there is 608 of inner width here and
+     1104 there. It spans all three language columns, not the two it
+     used to - at 438 the headline broke over four lines. */
+  .cp-lang__more { grid-column: 1 / -1; grid-row: 7;
+                   display: flex; flex-direction: row; gap: 28px;
                    align-items: center; justify-content: space-between;
-                   margin-top: 22px; padding: 16px 18px;
-                   border-radius: 12px; border: 1px dashed #C9D6F5;
-                   background: #F7FAFF; }
-  .cp-lang__more b { display: block; font-size: 14px; font-weight: 600;
-                     color: #252525; }
-  .cp-lang__more span { display: block; margin-top: 3px; font-size: 12.5px;
-                        color: #667085; }
-  .cp-lang__more a { flex-shrink: 0; display: inline-flex; gap: 8px;
-                     align-items: center; height: 40px; padding: 0 18px;
-                     border-radius: 9px; background: #155FFF; color: #ffffff;
-                     font-size: 13.5px; font-weight: 600; white-space: nowrap; }
-  .cp-lang__more a:hover { background: #0A3FCC; color: #ffffff; }
+                   margin-top: 26px; padding: 32px 36px;
+                   border-radius: 12px; border: 1px solid #D6E4FF;
+                   background: #EEF3FF; }
+  .cp-lang__more h3 { margin: 0; font-size: 23px; font-weight: 500;
+                      line-height: 31px; letter-spacing: -0.01em;
+                      color: #252525; }
+  /* 4.64:1 on this plate, and a 24px headline besides */
+  .cp-lang__more h3 span { color: #155FFF; }
+  /* #0A3FCC, not the #155FFF this button used to carry: on white that
+     is 8.09:1 and #155FFF is 4.06, which misses AA at 16px */
+  .cp-lang__more a { flex-shrink: 0; display: flex; flex-direction: row;
+                     gap: 8px; justify-content: center;
+                     align-items: center; width: fit-content;
+                     height: 52px; padding: 14px 24px;
+                     border-radius: 4px; background: #ffffff;
+                     color: #0A3FCC; font-size: 16px; font-weight: 500;
+                     white-space: nowrap;
+                     box-shadow: 0 1px 3px rgba(10, 22, 40, 0.06);
+                     transition: background 160ms ease-out,
+                                 box-shadow 160ms ease-out; }
+  .cp-lang__more a svg { flex-shrink: 0; }
+  .cp-lang__more a:hover { background: #F4F8FF; color: #0A3FCC;
+    box-shadow: 0 2px 6px rgba(10, 22, 40, 0.1); }
+  .cp-lang__more a:focus-visible { outline: 2px solid #155FFF;
+                                   outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) {
+    .cp-lang__more a { transition: none; }
+  }
   .cp-lang__chip[aria-pressed="true"] { color: #155FFF; font-weight: 600; }
 
   /* ── Built for Shopify ───────────────────
@@ -1611,9 +1632,16 @@
        are too small to read at that size anyway. The list is what
        this section is for. */
     .cp-globe { display: none !important; }
-    .cp-lang__more { flex-direction: column !important; align-items: stretch;
-                     text-align: left; gap: 14px !important; }
-    .cp-lang__more a { justify-content: center; }
+    /* centred, not stretched: the button is fit-content here as it is
+       in the integrations band, and stretch left it hanging off the
+       left edge under a centred headline */
+    .cp-lang__more { flex-direction: column !important;
+                     align-items: center !important;
+                     gap: 20px !important;
+                     padding: 24px 20px !important; }
+    .cp-lang__more h3 { font-size: 21px !important;
+                        line-height: 29px !important;
+                        text-align: center; }
     /* Flowing across rather than down: the down-the-column order only
        makes sense while there are enough rows for it.
 
@@ -3477,7 +3505,7 @@
       <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
         <h3 style="margin: 0; font-size: 34px; font-weight: 500; line-height: 44px; letter-spacing: -0.01em; color: #252525;">Get a custom integration in <span style="color: #155FFF;">24 hours</span>.</h3>
       </div>
-      <a href="#" style="width: fit-content; height: 52px; flex-shrink: 0; border-radius: 4px; background: #ffffff; display: flex; flex-direction: row; gap: 8px; padding: 14px 24px; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; color: #155FFF; white-space: nowrap; box-shadow: 0 1px 3px rgba(10,22,40,0.06); transition: background 160ms ease-out, box-shadow 160ms ease-out;" style-hover="background: #ffffff; color: #0A3FCC;">Request an integration<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      <a href="#" style="width: fit-content; height: 52px; flex-shrink: 0; border-radius: 4px; background: #ffffff; display: flex; flex-direction: row; gap: 8px; padding: 14px 24px; justify-content: center; align-items: center; font-size: 16px; font-weight: 500; color: #0A3FCC; white-space: nowrap; box-shadow: 0 1px 3px rgba(10,22,40,0.06); transition: background 160ms ease-out, box-shadow 160ms ease-out;" style-hover="background: #F4F8FF; color: #0A3FCC;">Request an integration<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
     </div>
   </section>
 
@@ -3510,11 +3538,8 @@
           <button type="button" class="cp-lang__chip" aria-pressed="{{ lang17 }}" onClick="{{ pickLang17 }}"><img src="assets/flags/ee.png" alt="" width="80" height="53"><span>Estonian</span></button>
           <button type="button" class="cp-lang__chip" aria-pressed="{{ lang18 }}" onClick="{{ pickLang18 }}"><img src="assets/flags/lt.png" alt="" width="80" height="53"><span>Lithuanian</span></button>
           <div class="cp-lang__more">
-            <span>
-              <b>Your language isn’t here?</b>
-              <span>Tell us which one and we add it within 24 hours.</span>
-            </span>
-            <a href="#">Request a language<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+            <h3>Get your language added in <span>24 hours</span>.</h3>
+            <a href="#">Request a language<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
           </div>
         </div>
       </div>
