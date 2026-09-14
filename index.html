@@ -367,10 +367,8 @@
      would be a stack of very wide inputs, and a field no wider than its
      longest plausible answer is easier to fill. */
   /* ── Three cards to close on ────────────────────────────
-     Punched along the top edge like a torn-off pad, per the reference:
-     11px holes in groups of 1-2-2-3-1, spread with space-between, so
-     they land in the same places at any card width.
-
+     The reference punched its cards along the top edge like a torn-off
+     pad; that came out again, so these are plain rounded cards.
      Three of this page's colours rather than the reference's three -
      #155FFF, the footer's #001644, and white for the card that holds
      the form, because a form wants a white ground and these fields
@@ -386,21 +384,12 @@
                 flex-direction: row; gap: 24px; align-items: stretch; }
   .cp-nt__card { flex: 1 1 0; min-width: 0; position: relative;
                  box-sizing: border-box; text-align: left;
-                 padding: 62px 36px 40px; border-radius: 24px;
-                 display: flex; flex-direction: column;
-                 --cp-nt-hole: rgba(255, 255, 255, 0.9); }
+                 padding: 44px 36px 40px; border-radius: 24px;
+                 display: flex; flex-direction: column; }
   .cp-nt__card--blue { background: #155FFF; }
   .cp-nt__card--navy { background: #001644; }
-  .cp-nt__card--form { background: #ffffff; --cp-nt-hole: #D6E4FF;
+  .cp-nt__card--form { background: #ffffff;
                        box-shadow: 0 30px 70px -34px rgba(16, 24, 40, 0.28); }
-  .cp-nt__punch { position: absolute; left: 30px; right: 30px; top: 24px;
-                  display: flex; flex-direction: row;
-                  justify-content: space-between; align-items: center;
-                  pointer-events: none; }
-  .cp-nt__punch b { display: flex; flex-direction: row; gap: 9px; }
-  .cp-nt__punch i { display: block; width: 11px; height: 11px;
-                    border-radius: 9999px;
-                    background: var(--cp-nt-hole); }
   .cp-nt__h { margin: 0; font-size: 32px; font-weight: 600;
               line-height: 42px; letter-spacing: -0.02em;
               color: #ffffff; }
@@ -1722,9 +1711,8 @@
     .cp-nt { padding: 44px 16px 52px !important; }
     .cp-nt__row { flex-direction: column !important;
                   gap: 16px !important; }
-    .cp-nt__card { padding: 52px 20px 32px !important;
+    .cp-nt__card { padding: 32px 20px 32px !important;
                    border-radius: 20px !important; }
-    .cp-nt__punch { left: 22px !important; right: 22px !important; }
     .cp-nt__foot { padding-top: 32px !important; }
     /* the phone rules centre section text; a form reads wrong that way
        - labels drift off their fields and the checks leave their lines
@@ -3640,7 +3628,6 @@
     <div class="cp-nt__row">
 
       <div class="cp-nt__card cp-nt__card--blue">
-        <span class="cp-nt__punch" aria-hidden="true"><b><i></i></b><b><i></i><i></i></b><b><i></i><i></i></b><b><i></i><i></i><i></i></b><b><i></i></b></span>
         <h2 class="cp-nt__h">Start with a free trial</h2>
         <button type="button" class="cp-nt__cta" onClick="{{ openPrice }}">View pricing<svg width="16" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5"></path></svg></button>
         <div class="cp-nt__foot">
@@ -3650,7 +3637,6 @@
       </div>
 
       <div class="cp-nt__card cp-nt__card--navy">
-        <span class="cp-nt__punch" aria-hidden="true"><b><i></i><i></i></b><b><i></i></b><b><i></i><i></i></b><b><i></i><i></i><i></i></b><b><i></i></b></span>
         <h2 class="cp-nt__h">Set up by the team that built it</h2>
         <a class="cp-nt__cta" href="#case-studies">Read the case studies<svg width="16" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5"></path></svg></a>
         <div class="cp-nt__foot">
@@ -3660,7 +3646,6 @@
       </div>
 
       <div class="cp-nt__card cp-nt__card--form">
-        <span class="cp-nt__punch" aria-hidden="true"><b><i></i></b><b><i></i><i></i><i></i></b><b><i></i><i></i></b><b><i></i><i></i></b><b><i></i></b></span>
         <h2 class="cp-nt__h">Book a 15 minute call</h2>
         <form class="cp-bk__form" onSubmit="{{ bookSubmit }}">
           <div class="cp-bk__row">
