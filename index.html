@@ -464,6 +464,24 @@
                          box-shadow: 0 16px 34px -14px rgba(15, 53, 196, 0.7); }
   .cp-bk__submit:focus-visible { outline: 3px solid #155FFF;
                                  outline-offset: 3px; }
+  /* One button, two labels, and the form's data-state picks. Doing it
+     this way keeps the states out of the markup and out of the
+     render: nothing here is conditional, it is all always present
+     and all but one of it is hidden. */
+  .cp-bk__submit i { display: none; font-style: normal; }
+  [data-state="sending"] .cp-bk__submit span { display: none; }
+  [data-state="sending"] .cp-bk__submit i { display: inline; }
+  [data-state="sending"] .cp-bk__submit,
+  [data-state="done"] .cp-bk__submit { pointer-events: none;
+                                       opacity: 0.6; }
+  .cp-bk__msg { margin: 10px 0 0; font-size: 14px; line-height: 21px;
+                text-align: center; }
+  .cp-bk__msg span, .cp-bk__msg i { display: none; font-style: normal; }
+  /* 4.6:1 on white, and 5.9:1 for the failure */
+  [data-state="done"] .cp-bk__msg span { display: block;
+                                         color: #0F7A3D; }
+  [data-state="error"] .cp-bk__msg i { display: block;
+                                       color: #C2401C; }
   @media (prefers-reduced-motion: reduce) {
     .cp-bk__submit { transition: none; }
   }
@@ -3796,7 +3814,7 @@ footer[data-screen-label="Footer"] .cp-ft__bar[style] { flex-direction: column !
 
       <div class="cp-nt__card cp-nt__card--form">
         <h2 class="cp-nt__h">Book a 15 minute call</h2>
-        <form class="cp-bk__form" onSubmit="{{ bookSubmit }}">
+        <form class="cp-bk__form" data-state="{{ bookState }}" onSubmit="{{ bookSubmit }}">
           <div class="cp-bk__row">
             <label class="cp-bk__f">
               <span>Full name<i>*</i></span>
@@ -3826,7 +3844,8 @@ footer[data-screen-label="Footer"] .cp-ft__bar[style] { flex-direction: column !
             <input type="checkbox" name="terms" required>
             <span>I agree to ClickPost’s <a href="https://www.clickpost.ai/terms-and-conditions" target="_blank" rel="noopener noreferrer">Terms</a> and <a href="https://www.clickpost.ai/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.<i>*</i></span>
           </label>
-          <button type="submit" class="cp-bk__submit">Talk to an expert</button>
+          <button type="submit" class="cp-bk__submit"><span>Talk to an expert</span><i>Sending…</i></button>
+          <p class="cp-bk__msg" role="status" aria-live="polite"><span>Thanks — we’ll be in touch within one working day.</span><i>That didn’t send. Please try again, or reach us through Book a demo at the top of the page.</i></p>
         </form>
       </div>
 
@@ -4015,10 +4034,14 @@ footer[data-screen-label="Footer"] .cp-ft__bar[style] { flex-direction: column !
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{}">
+// Nowhere to send the booking form yet. Fill this in and it is live.
+const BOOK_ENDPOINT = "";
+
 class Component extends DCLogic {
   // lang starts at 0, not -1: the globe opens with English pinned, and the
   // button has to read pressed to match it
   state = { activeStep: 0, stepDir: "fwd", priceOpen: false, menuOpen: false, resOpen: false, lang: 0,
+            bookState: "idle",
             faqOpen: 0 };
 
   componentDidMount() {
@@ -4542,6 +4565,46 @@ class Component extends DCLogic {
   // The button has been bound to this since the clip went on the page, but
   // the method was never written - every click threw. Playing also holds
   // the ring: a card that turns away mid-sentence is worse than no card.
+  // Nowhere to send it yet. The path is all here - prevent the default,
+  // disable the button, post JSON, report what happened - and the only
+  // thing missing is the string. Fill BOOK_ENDPOINT in and the form is
+  // live with no other change; until then it says so rather than
+  // pretending it sent.
+  bookSubmit(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (this.state.bookState === "sending") return;
+    const form = e && e.target && e.target.closest
+      ? e.target.closest("form")
+      : document.querySelector(".cp-bk__form");
+    if (!form) return;
+    const data = {};
+    new FormData(form).forEach((v, k) => { data[k] = v; });
+    data.page = window.location.href;
+
+    if (!BOOK_ENDPOINT) {
+      console.warn(
+        "Booking form: BOOK_ENDPOINT is empty, so nothing was sent.",
+        data);
+      this.setState({ bookState: "error" });
+      return;
+    }
+    this.setState({ bookState: "sending" });
+    fetch(BOOK_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
+      .then(r => {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        form.reset();
+        this.setState({ bookState: "done" });
+      })
+      .catch(err => {
+        console.warn("Booking form: " + err.message, data);
+        this.setState({ bookState: "error" });
+      });
+  }
+
   playVT(i) {
     const card = document.getElementById("cp-vt-" + i);
     if (!card) return;
@@ -4661,6 +4724,7 @@ class Component extends DCLogic {
       lang16: this.state.lang === 16 ? "true" : "false",
       lang17: this.state.lang === 17 ? "true" : "false",
       lang18: this.state.lang === 18 ? "true" : "false",
+      bookState: this.state.bookState,
       bookSubmit: (e) => this.bookSubmit(e),
       playVT0: () => this.playVT(0),
       pickLang0: () => this.pickLang(0),
