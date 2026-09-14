@@ -119,8 +119,10 @@
             box-shadow: 0 26px 60px -30px rgba(10, 22, 40, 0.45); }
   .cp-cse__photo { position: absolute; right: 0; top: 0; bottom: 0;
                    width: 36%; height: 100%; object-fit: cover; }
-  .cp-cse__inner { position: relative; z-index: 1; width: 1216px;
-                   margin: 0 auto; padding: 74px 0 78px; display: flex;
+  /* a fixed 1216 in a 1341 card left 62 of gutter a side doing nothing;
+     40 of padding is 1261 of column, and the stage takes the difference */
+  .cp-cse__inner { position: relative; z-index: 1; width: auto;
+                   margin: 0; padding: 74px 40px 78px; display: flex;
                    flex-direction: row; gap: 40px; align-items: center; }
   .cp-cse__copy { flex: 0 0 420px; display: flex; flex-direction: column;
                   align-items: flex-start; }
@@ -160,19 +162,15 @@
   /* the screen sits across the seam, so it belongs to neither side */
   .cp-cse__stage { position: relative; flex: 1 1 auto; min-height: 470px;
                    align-self: stretch; }
-  /* Off the card's right edge, not floating inside it. The stage ends
-     62 short of the card and the card clips at its own radius, so 62 of
-     gutter plus 40 of bleed is a screenshot that runs out of frame
-     rather than one placed on a background.
+  /* The whole stage, and the stage is as wide as the card allows - the
+     size comes out of the gutters rather than out of the screenshot.
 
      Centred with a transform rather than the -236 of margin it used to
      carry, which was half the height it happens to be at this width and
-     a wrong number at any other. The right radius goes: an edge that is
-     cut should not also be rounded. */
-  .cp-cse__shot { position: absolute; left: 0; top: 50%;
-                  width: calc(100% + 102px);
+     a wrong number at any other. */
+  .cp-cse__shot { position: absolute; left: 0; top: 50%; width: 100%;
                   height: auto; transform: translateY(-50%);
-                  border-radius: 12px 0 0 12px;
+                  border-radius: 12px;
                   box-shadow: 0 34px 70px -26px rgba(60, 6, 30, 0.55); }
   /* ── Case study: upsell revenue ───────────────
      The panel is the dashboard from the reference: a cream card, the
@@ -193,7 +191,7 @@
      corners fall away from it. Lighter would be closer to the
      reference and would break the copy - the eyebrow is white at 80%,
      which is 4.84:1 on this green and 4.35:1 one shade up. */
-  .cp-gs { padding: 90px 72px 96px; display: flex;
+  .cp-gs { padding: 90px 40px 96px; display: flex;
            position: relative;
            flex-direction: column; align-items: center;
            background: radial-gradient(130% 110% at 26% 14%,
@@ -209,9 +207,9 @@
                    width: 560px; height: 390px; z-index: 0;
                    pointer-events: none; }
   .cp-gs__top { position: relative; z-index: 1; }
-  /* the card is 1296 with 72 of padding, so 1152 - a fixed 1216 here
-     overflowed it by 64 */
-  .cp-gs__top { width: 100%; max-width: 1216px;
+  /* the card less its padding, whatever that is - a fixed 1216 here
+     overflowed it by 64 when the padding was 72 */
+  .cp-gs__top { width: 100%; max-width: none;
                display: flex; flex-direction: row;
                 gap: 64px; align-items: center; }
   .cp-gs__copy { flex: 0 0 396px; display: flex; flex-direction: column;
@@ -239,10 +237,7 @@
   .cp-gs__h i { display: block; font-style: normal;
                 color: rgba(255, 255, 255, 0.9); }
   .cp-gs__side { flex: 1 1 auto; min-width: 0; }
-  /* the same, for the dashboard: 71 of gutter and 40 of bleed */
-  .cp-gs__card { padding: 26px 28px 22px;
-                 margin-right: -111px;
-                 border-radius: 16px 0 0 16px;
+  .cp-gs__card { padding: 26px 28px 22px; border-radius: 16px;
                  background: #FAF9F5;
                  box-shadow: 0 30px 64px -28px rgba(4, 40, 22, 0.5); }
   .cp-gs__head b { display: block; font-size: 19px; font-weight: 600;
