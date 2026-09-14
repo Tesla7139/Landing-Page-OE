@@ -1456,13 +1456,30 @@
       order: 1; }
     [data-screen-label="Hero"] [style*="height: 48px"][style*="flex-direction: row"] {
       justify-content: center !important; height: auto !important; }
-    /* the phone crop, not the full composition: height first, because
-       the source swaps under the same <img> and its intrinsic ratio
-       changes with it. 470 of height is 238 of width at 529x1046. */
-    [data-screen-label="Hero"] img { width: auto !important;
-      height: 470px !important; max-width: 100% !important;
-      margin: 0 auto !important; }
+    /* The whole frame at the column's width - the stat cards, the
+       callout and the two handwritten lines are the composition, and
+       cropping to the handset was buying its size with theirs. */
+    /* Out through the section's 20px of side padding: the hero holds a
+       screen now and the composition was leaving 100 of it empty. 390
+       of frame instead of 350 is 333 of height instead of 299, and what
+       is left over is what centres. max-width because .cp-page * caps
+       everything at 100% of its column with the same importance. */
+    [data-screen-label="Hero"] img { width: calc(100% + 40px) !important;
+      max-width: none !important; height: auto !important;
+      margin: 0 -20px !important; }
     [data-screen-label="Hero"] picture { display: block; width: 100%; }
+    /* The window less the sticky header, so Trusted by starts on the
+       next screen rather than showing at the bottom of this one. 72,
+       not the 88 the header is drawn at: the phone block gives it
+       height: auto and it comes out 76, so 88 left 12px of the next
+       section showing on a 844 window.
+
+       svh, not vh: vh is the window with the browser's own bars counted
+       out, so a vh-tall hero is taller than what you can see and the
+       next section shows anyway. vh is the fallback. */
+    [data-screen-label="Hero"] { min-height: calc(100vh - 72px);
+      min-height: calc(100svh - 72px);
+      justify-content: center !important; }
 
     /* ── Brand strip and reviews wall: both marquees. Narrower cards, and
           the mask pulled in so the edges still fade ──────────────────── */
@@ -2192,7 +2209,6 @@ footer[data-screen-label="Footer"] .cp-ft__bar[style] { flex-direction: column !
 
       <div style="width: 612px; flex-shrink: 0; display: flex; justify-content: flex-start; align-items: center;">
         <picture>
-          <source media="(max-width: 1000px)" srcset="assets/hero-phone.webp" width="529" height="1046">
   <img src="assets/hero-home.webp" srcset="assets/hero-home.webp 612w, assets/hero-home@2x.webp 1224w" sizes="612px" alt="The Gully Labs thank-you page on a phone: a countdown on how long the order stays editable, rows for contact details, shipping address, order changes, discount codes and cancellation, and recommended trainers below. Floating cards read 40% lower support costs and 5% higher AOV from upsells, a callout explains that the edit window is yours to set, and two handwritten lines read “Let shoppers make changes, their way” and “More revenue. Fewer support tickets.”" width="612" height="523" style="width: 612px; max-width: 100%; height: auto; display: block;">
         </picture>
       </div>
