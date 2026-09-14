@@ -1736,8 +1736,18 @@
     /* transform: none as well as position: static - the desktop rule
        centres it with translateY(-50%), and in the flow that pulled it
        up over the attribution above it */
-    .cp-cse__shot { position: static !important; width: 100% !important;
-                    margin: 0 !important; transform: none !important; }
+    /* Corner to corner: the card's 20px of side padding was holding the
+       screenshot to 318 in a 358 card, and it is the thing the section
+       is about. The side radii go with it - an image that meets the
+       card's edge should not be rounded away from it. */
+    .cp-cse__shot { position: static !important;
+                    width: calc(100% + 40px) !important;
+                    margin: 0 -20px !important; transform: none !important;
+                    /* .cp-page * caps everything at 100% of its column
+                       with the same importance, and a max-width beats a
+                       width whether or not the width is important */
+                    max-width: none !important;
+                    border-radius: 0 !important; }
     /* ── Case study: upsell revenue ─────────────────── */
     .cp-gs { padding: 56px 20px 60px !important; }
     .cp-gs__who { text-align: center; }
@@ -1746,7 +1756,12 @@
     .cp-gs__copy { flex: 1 1 auto !important; align-items: center !important;
                    text-align: center; }
     .cp-gs__side { width: 100%; }
-    .cp-gs__card { padding: 20px 16px 16px !important; }
+    /* the same, for the dashboard the upsell card is about */
+    .cp-gs__card { padding: 20px 16px 16px !important;
+                   width: calc(100% + 40px) !important;
+                   margin: 0 -20px !important;
+                   max-width: none !important;
+                   border-radius: 0 !important; }
     /* three metrics across a phone is 100px each; they stack */
     .cp-gs__metrics { flex-direction: column !important; gap: 16px !important; }
     .cp-gs__m > span:first-child { justify-content: flex-start !important; }
