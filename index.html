@@ -1477,12 +1477,26 @@
                        padding: 0 4px !important;
                        align-items: stretch !important;
                        scroll-snap-align: center; }
-    /* One scale here as well, so the four read as one interface: 452
-       has to fit a 340-wide column, so 0.72. The cell is sized to step
-       4's mock - 445 at 0.72 is 320 - and the shorter three centre in
-       it, which also stops the track leaving a hole under them. */
-    .cp-steps__art { width: 100% !important; height: 300px !important; }
-    .cp-steps__art > * { --st-s: 0.72 !important; }
+    /* One scale across the four, so they read as one interface. 0.46
+       is what a 452-wide mock needs to fit the cell at 320, which is
+       the narrowest phone this has to hold - and the cell is the
+       viewport less 96, so every wider phone has room to spare.
+
+       fitStepArt measures that room and writes --st-s and --st-h on
+       the pin, so the mock grows to whatever actually fits. These two
+       are the floor it starts from and the value it keeps if the
+       script never runs: small, but not cut. A flat 0.72 painted 325
+       and the cell at 390 is 294, which is the 15px a side that was
+       coming off the Install bar.
+
+       Declared on the pin, not on the mock, and without !important -
+       an inline custom property on the pin has to be able to win, and
+       an important rule on the child would beat inheritance. */
+    /* --st-fit is the flag the script gates on, so this breakpoint
+       stays written down once, here, and not again in JS. */
+    .cp-steps__pin { --st-fit: 1; --st-s: 0.46; }
+    .cp-steps__art { width: 100% !important;
+                     height: var(--st-h, 182px) !important; }
     /* .cp-page * caps everything at 100% of its column a few blocks up,
        with the same specificity and the same !important - so the guard
        has to sit after it, not in the desktop sheet. Without it the
@@ -3955,7 +3969,41 @@ class Component extends DCLogic {
     return Math.max(0, Math.min(3, Math.floor(f * 4 + 0.001)));
   }
 
+  // 452 of mock has to fit a cell that is the viewport less 96, and
+  // CSS cannot work that out: calc divides a length by a number, not
+  // by another length. So it is measured here and written to the pin,
+  // which is where the stylesheet reads it from.
+  //
+  // Only the narrow layout needs it, and the stylesheet says which
+  // that is: the phone block sets --st-fit, so the breakpoint stays
+  // written down in one place. Not stepSwipes() - that asks whether
+  // the frame sticks, and a tall phone sticks it while still being
+  // far too narrow for a 452 mock.
+  //
+  // Off the flag the property is removed rather than left behind:
+  // it inherits, and a stale one would shrink the desktop mocks.
+  fitStepArt() {
+    const { pin } = this.stepBits();
+    const art = document.querySelector(".cp-steps__art");
+    if (!pin || !art) return;
+    const on = getComputedStyle(pin)
+      .getPropertyValue("--st-fit").trim() === "1";
+    if (!on) {
+      pin.style.removeProperty("--st-s");
+      pin.style.removeProperty("--st-h");
+      return;
+    }
+    const mock = art.firstElementChild;
+    const w = (mock && mock.offsetWidth) || 452;
+    const h = (mock && mock.offsetHeight) || 380;
+    // 12 of breathing room, and never bigger than the mock was drawn
+    const s = Math.max(0.4, Math.min(1, (art.clientWidth - 12) / w));
+    pin.style.setProperty("--st-s", s.toFixed(4));
+    pin.style.setProperty("--st-h", Math.round(h * s + 8) + "px");
+  }
+
   syncStep() {
+    this.fitStepArt();
     const n = this.stepFromScroll();
     if (n === null) return;
     this.setState(prev =>
