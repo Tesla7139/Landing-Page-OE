@@ -1419,7 +1419,13 @@
       order: 1; }
     [data-screen-label="Hero"] [style*="height: 48px"][style*="flex-direction: row"] {
       justify-content: center !important; height: auto !important; }
-    [data-screen-label="Hero"] img { width: 100% !important; height: auto !important; }
+    /* the phone crop, not the full composition: height first, because
+       the source swaps under the same <img> and its intrinsic ratio
+       changes with it. 470 of height is 238 of width at 529x1046. */
+    [data-screen-label="Hero"] img { width: auto !important;
+      height: 470px !important; max-width: 100% !important;
+      margin: 0 auto !important; }
+    [data-screen-label="Hero"] picture { display: block; width: 100%; }
 
     /* ── Brand strip and reviews wall: both marquees. Narrower cards, and
           the mask pulled in so the edges still fade ──────────────────── */
@@ -2021,7 +2027,10 @@
       </div>
 
       <div style="width: 612px; flex-shrink: 0; display: flex; justify-content: flex-start; align-items: center;">
-        <img src="assets/hero-home.webp" srcset="assets/hero-home.webp 612w, assets/hero-home@2x.webp 1224w" sizes="612px" alt="The Gully Labs thank-you page on a phone: a countdown on how long the order stays editable, rows for contact details, shipping address, order changes, discount codes and cancellation, and recommended trainers below. Floating cards read 40% lower support costs and 5% higher AOV from upsells, a callout explains that the edit window is yours to set, and two handwritten lines read “Let shoppers make changes, their way” and “More revenue. Fewer support tickets.”" width="612" height="523" style="width: 612px; max-width: 100%; height: auto; display: block;">
+        <picture>
+          <source media="(max-width: 1000px)" srcset="assets/hero-phone.webp" width="529" height="1046">
+  <img src="assets/hero-home.webp" srcset="assets/hero-home.webp 612w, assets/hero-home@2x.webp 1224w" sizes="612px" alt="The Gully Labs thank-you page on a phone: a countdown on how long the order stays editable, rows for contact details, shipping address, order changes, discount codes and cancellation, and recommended trainers below. Floating cards read 40% lower support costs and 5% higher AOV from upsells, a callout explains that the edit window is yours to set, and two handwritten lines read “Let shoppers make changes, their way” and “More revenue. Fewer support tickets.”" width="612" height="523" style="width: 612px; max-width: 100%; height: auto; display: block;">
+        </picture>
       </div>
     </div>
   </section>
