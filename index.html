@@ -1215,10 +1215,24 @@
      static grid rather than sitting frozen mid-slide. */
   @media (prefers-reduced-motion: reduce) {
     .cp-rw { -webkit-mask-image: none; mask-image: none; }
-    .cp-rw__track { animation: none; flex-wrap: wrap;
+    /* width: auto as well as wrap - the track is max-content, which is
+       wide enough for all 52 on one line, so on a desktop it never
+       wrapped at all and overflow: hidden just clipped a frozen row.
+       The phone only wrapped because .cp-page * caps it at 100%. */
+    .cp-rw__track { animation: none; flex-wrap: wrap; width: auto;
                     justify-content: center; row-gap: 24px; }
     .cp-rw__card { margin-right: 0; margin-left: 12px;
                    margin-right: 12px; }
+    /* A track holds every card twice so the loop can seam, which is 52
+       of them. Wrapped into a grid that is 18 rows at 1440 and one card
+       per row on a phone: 7,000px of wall on a desktop and 17,876 on a
+       phone, for a section that is 392 tall when it is moving. Six is
+       two rows here and three is three there, which is a wall either
+       way and not a scroll through the whole file. */
+    .cp-rw__card:nth-child(n+7) { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) and (max-width: 1000px) {
+    .cp-rw__card:nth-child(n+4) { display: none; }
   }
 
   .cp-rw__card { flex-shrink: 0; width: 404px; height: 386px; margin: 0 24px 0 0; padding: 26px 28px 22px;
@@ -1446,12 +1460,22 @@
        ground and measured 79.6 pixels a second against the desktop's
        123.6.
 
-       54 and 58 put it at 132.7 and 118.8, which is 1.67 times what it
-       was and about level with the desktop. Not faster than that on
-       purpose: hover pauses this on a desktop and a finger cannot, so a
-       card that crosses in under two seconds is one nobody can read. */
-    .cp-rw__track--left  { animation-duration: 54s !important; }
-    .cp-rw__track--right { animation-duration: 58s !important; }
+       One row here, so one duration, and it can be quicker now it is
+       the only thing moving: 44s over a 7168 half-track is 163 pixels
+       a second against 133. A 260 card crosses in 1.6s, which is a
+       glance - the wall is for scanning, and the quotes are not read
+       off it. */
+    .cp-rw__track--left  { animation-duration: 44s !important; }
+    /* The second row is a desktop luxury. Dropping it halves the cards
+       being laid out and painted, and takes the section from 332 to
+       174. */
+    .cp-rw:has(.cp-rw__track--right) { display: none !important; }
+    /* will-change on a max-content track asks the compositor to hold a
+       7168 x 320 layer for as long as the element exists - about 9MB a
+       row - and it does not go away when the section scrolls off. The
+       animation promotes it while it plays, which is the only time it
+       is wanted. */
+    .cp-rw__track { will-change: auto !important; }
 
     /* ── How it works: a finger by default, the page's scroll where
        there is room for it - see the tall-phone block after this
