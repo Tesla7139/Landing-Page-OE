@@ -1806,6 +1806,53 @@
        - and the cards are a left-aligned column either way */
     .cp-nt__card, .cp-bk__form { text-align: left !important; }
     /* ── Footer ─────────────────────────────────────────────────────── */
+    /* A footer is a directory, and the page-wide phone rules - stack
+       every row, centre everything - are the wrong shape for one. They
+       made 2,691px of single column: four badges one per row, the send
+       button under its own field, five lists of five centred links.
+
+       So the parts are named (see the markup) and put back: the brand
+       block takes a row, the five columns wrap two-up under it, the
+       badges sit in one row and the field goes back on one line. All
+       left-aligned - a centred list of links has no edge to read down.
+
+       The page-wide stackers are [data-screen-label] [style*=..][style*=..],
+       which is 0,3,0 - a bare class is 0,1,0 and loses to them, so every
+       selector here carries the footer element and the element's own
+       style attribute to get to 0,3,1. */
+footer[data-screen-label="Footer"] .cp-ft__cols[style] { flex-direction: row !important;
+      flex-wrap: wrap !important; align-items: flex-start !important;
+      /* Company is alone on the third row, and the sheet centres rows on
+         a phone - which left it hanging in the middle of one. */
+      justify-content: flex-start !important;
+      gap: 30px 24px !important; height: auto !important; }
+footer[data-screen-label="Footer"] .cp-ft__brand[style] { flex: 0 0 100% !important;
+      width: 100% !important; align-items: stretch !important;
+      gap: 22px !important; }
+footer[data-screen-label="Footer"] .cp-ft__badges[style] { width: 100% !important;
+      flex-direction: row !important; flex-wrap: wrap !important;
+      justify-content: center !important; gap: 14px !important; }
+footer[data-screen-label="Footer"] .cp-ft__badges > div { flex-direction: row !important;
+      gap: 14px !important; height: auto !important; }
+footer[data-screen-label="Footer"] .cp-ft__badges img { width: 70px !important; height: 70px !important; }
+footer[data-screen-label="Footer"] .cp-ft__news[style] { align-items: stretch !important;
+      gap: 12px !important; }
+footer[data-screen-label="Footer"] .cp-ft__news > span { width: 100% !important; text-align: center; }
+    /* one line again: the field is a row, and the page rule stacked it -
+       which put the send button on its own under the placeholder */
+footer[data-screen-label="Footer"] .cp-ft__field[style] { flex-direction: row !important;
+      height: 46px !important; align-items: center !important;
+      gap: 8px !important; }
+footer[data-screen-label="Footer"] .cp-ft__field > span { flex-grow: 1; text-align: left; }
+    /* two up, and left-aligned - a centred list of links has no edge to
+       read down */
+footer[data-screen-label="Footer"] .cp-ft__col[style] { flex: 0 0 calc(50% - 12px) !important;
+      width: auto !important; align-items: flex-start !important;
+      text-align: left !important; gap: 12px !important; }
+footer[data-screen-label="Footer"] .cp-ft__col > span, footer[data-screen-label="Footer"] .cp-ft__col a {
+      text-align: left !important; }
+footer[data-screen-label="Footer"] .cp-ft__bar[style] { flex-direction: column !important;
+      gap: 20px !important; height: auto !important; }
     [data-screen-label="Footer"] { padding: 56px 20px 40px !important;
                                    gap: 36px !important; }
     [data-screen-label="Footer"] [style*="flex-direction: row"],
@@ -3788,9 +3835,9 @@
   <!-- ── Footer ───────────────────────────────────────── -->
   <footer style="background: #001644; padding: 104px 112px 64px; display: flex; flex-direction: column; gap: 64px; align-items: center;" data-screen-label="Footer">
     <div style="display: flex; flex-direction: column; gap: 64px; justify-content: center; align-items: center; align-self: stretch;">
-      <div style="display: flex; flex-direction: row; gap: 56px; align-items: flex-start; align-self: stretch;">
-        <div style="width: 230px; display: flex; flex-direction: column; gap: 32px; align-items: flex-start; flex-shrink: 0;">
-          <div style="width: 216px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start;">
+      <div class="cp-ft__cols" style="display: flex; flex-direction: row; gap: 56px; align-items: flex-start; align-self: stretch;">
+        <div class="cp-ft__brand" style="width: 230px; display: flex; flex-direction: column; gap: 32px; align-items: flex-start; flex-shrink: 0;">
+          <div class="cp-ft__badges" style="width: 216px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start;">
             <div style="display: flex; flex-direction: row; gap: 16px; justify-content: center; align-items: flex-end;">
               <img src="assets/77a69d44fe8491ae.png" alt="AICPA SOC" style="width: 100px; height: 100px; object-fit: contain;">
               <img src="assets/ad8cd3f0e09a89f6.png" alt="GDPR" style="width: 100px; height: 100px; object-fit: contain;">
@@ -3800,9 +3847,9 @@
               <img src="assets/d2a2211ccc59a61d.png" alt="ISO 27701" style="width: 100px; height: 100px; object-fit: contain;">
             </div>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 23px; align-items: flex-start; align-self: stretch;">
+          <div class="cp-ft__news" style="display: flex; flex-direction: column; gap: 23px; align-items: flex-start; align-self: stretch;">
             <span style="width: 190px; font-size: 14px; font-weight: 300; color: #ffffff;">Subscribe to our newsletter for important updates</span>
-            <div style="height: 43.933px; border-radius: 4px; background: #ffffff; display: flex; flex-direction: row; padding: 4px 4px 4px 16px; align-items: center; align-self: stretch;">
+            <div class="cp-ft__field" style="height: 43.933px; border-radius: 4px; background: #ffffff; display: flex; flex-direction: row; padding: 4px 4px 4px 16px; align-items: center; align-self: stretch;">
               <span style="flex-grow: 1; font-size: 12px; font-weight: 300; color: #B5BCCC;">E-mail address*</span>
               <div style="width: 36.368px; height: 35.933px; border-radius: 4px; background: #155FFF; display: flex; justify-content: center; align-items: center; flex-shrink: 0;">
                 <img src="assets/send-path.svg" alt="Send" style="width: 16.368px; height: 13.597px;">
@@ -3811,7 +3858,7 @@
           </div>
         </div>
 
-        <div style="width: 159px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; flex-shrink: 0;">
+        <div class="cp-ft__col" style="width: 159px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; flex-shrink: 0;">
           <span style="font-size: 14px; font-weight: 500; color: #ffffff;">Products</span>
           <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Multi-Carrier Integrations</a>
           <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Carrier Allocation</a>
@@ -3820,7 +3867,7 @@
           <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Returns and Exchanges</a>
         </div>
 
-        <div style="width: 159px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; flex-shrink: 0;">
+        <div class="cp-ft__col" style="width: 159px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; flex-shrink: 0;">
           <span style="font-size: 14px; font-weight: 500; color: #ffffff;">Apps and Integrations</span>
           <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Shopify Returns App</a>
           <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Shopify Order Editing App</a>
@@ -3829,7 +3876,7 @@
           <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Communication Gateways Integrations</a>
         </div>
 
-        <div style="width: 159px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; flex-shrink: 0;">
+        <div class="cp-ft__col" style="width: 159px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; flex-shrink: 0;">
           <span style="font-size: 14px; font-weight: 500; color: #ffffff;">Resources</span>
           <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Blog</a>
           <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Case Studies and Testimonials</a>
@@ -3838,7 +3885,7 @@
           <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Compare</a>
         </div>
 
-        <div style="width: 159px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; flex-shrink: 0;">
+        <div class="cp-ft__col" style="width: 159px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; flex-shrink: 0;">
           <span style="font-size: 14px; font-weight: 500; color: #ffffff;">Legal</span>
           <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Privacy Policy</a>
           <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Cookie Policy</a>
@@ -3847,7 +3894,7 @@
           <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Security Profile</a>
         </div>
 
-        <div style="width: 70px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; flex-shrink: 0;">
+        <div class="cp-ft__col" style="width: 70px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; flex-shrink: 0;">
           <span style="font-size: 14px; font-weight: 500; color: #ffffff;">Company</span>
           <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">About Us</a>
           <a href="#" style="font-size: 14px; font-weight: 300; color: #B5BCCC;" style-hover="color: #ffffff;">Press</a>
@@ -3858,7 +3905,7 @@
 
       <div style="display: flex; flex-direction: column; gap: 32px; justify-content: center; align-items: center; align-self: stretch;">
         <div style="width: 1216px; height: 1px; background: #5B6476;"></div>
-        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; align-self: stretch;">
+        <div class="cp-ft__bar" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; align-self: stretch;">
           <img src="assets/wordmark-white.svg" alt="ClickPost" style="width: 130px; height: 18px;">
           <span style="font-size: 12px; color: #B5BCCC;">©2025 Copyright ClickPost - Felurian Technology Private Limited</span>
           <div style="display: flex; flex-direction: row; gap: 16px; align-items: center;">
