@@ -382,13 +382,15 @@
            scroll-margin-top: 104px; }
   .cp-nt__row { width: 100%; max-width: 1360px; display: flex;
                 flex-direction: row; gap: 24px; align-items: stretch; }
-  .cp-nt__card { flex: 1 1 0; min-width: 0; position: relative;
+  .cp-nt__card { min-width: 0; position: relative;
                  box-sizing: border-box; text-align: left;
                  padding: 44px 36px 40px; border-radius: 24px;
                  display: flex; flex-direction: column; }
-  .cp-nt__card--blue { background: #155FFF; }
-  .cp-nt__card--navy { background: #001644; }
-  .cp-nt__card--form { background: #ffffff;
+  /* a third of the row, capped so it does not sprawl on a wide
+     screen: 462 at 1440 becomes 440, and at 1001 it is 313 */
+  .cp-nt__card--blue { flex: 0 0 34%; max-width: 440px;
+                       background: #155FFF; }
+  .cp-nt__card--form { flex: 1 1 auto; background: #ffffff;
                        box-shadow: 0 30px 70px -34px rgba(16, 24, 40, 0.28); }
   .cp-nt__h { margin: 0; font-size: 32px; font-weight: 600;
               line-height: 42px; letter-spacing: -0.02em;
@@ -413,31 +415,6 @@
                 color: #ffffff; }
   .cp-nt__p { margin: 12px 0 0; font-size: 15px; line-height: 25px;
               color: rgba(255, 255, 255, 0.92); }
-  /* a third of 1360 is 437, and 36 a side leaves 365 - the two-up rows
-     inside the form do not fit that, so they stack at every width */
-  .cp-nt .cp-bk__row { flex-direction: column; }
-  .cp-nt .cp-bk__sel--cc { flex: 1 1 auto; width: 100%; }
-  /* between 1000 and 1180 a third is 317, narrower than the form's own
-     fields want: the two message cards pair up and the form takes the
-     row under them */
-  @media (max-width: 1180px) {
-    .cp-nt__row { flex-wrap: wrap; }
-    .cp-nt__card { flex: 1 1 calc(50% - 12px); }
-    .cp-nt__card--form { flex: 1 1 100%; }
-  }
-  /* and full width is too much: a 1000px field is a long way to drag
-     an eye for a name. The form keeps the 620 it was built at and
-     centres in the card, with its rows side by side again - the space
-     they did not have in a third is here. Floored at 1001 because
-     below that the phone block stacks the row anyway. */
-  @media (min-width: 1001px) and (max-width: 1180px) {
-    .cp-nt__card--form .cp-nt__h,
-    .cp-nt__card--form .cp-bk__form { width: 100%; max-width: 620px;
-                                      margin-left: auto;
-                                      margin-right: auto; }
-    .cp-nt .cp-bk__row { flex-direction: row; }
-    .cp-nt .cp-bk__sel--cc { flex: 0 0 182px; width: 182px; }
-  }
   .cp-bk__form { display: flex; flex-direction: column; gap: 14px; }
   /* 1 1 0, so a field in a row splits it evenly and a field on its own
      still fills the card */
@@ -1711,6 +1688,12 @@
     .cp-nt { padding: 44px 16px 52px !important; }
     .cp-nt__row { flex-direction: column !important;
                   gap: 16px !important; }
+    .cp-nt__card--blue { flex: 1 1 auto !important;
+                         max-width: none !important; }
+    /* neither two-up row fits 288 of field column */
+    .cp-nt .cp-bk__row { flex-direction: column !important; }
+    .cp-nt .cp-bk__sel--cc { flex: 1 1 auto !important;
+                             width: 100% !important; }
     .cp-nt__card { padding: 32px 20px 32px !important;
                    border-radius: 20px !important; }
     .cp-nt__foot { padding-top: 32px !important; }
@@ -3633,15 +3616,6 @@
         <div class="cp-nt__foot">
           <p class="cp-nt__sub">14 days free, then a monthly plan.</p>
           <p class="cp-nt__p">Install it from the Shopify App Store and run it on your own orders. Every plan is billed by the month, so you can step away whenever you want to.</p>
-        </div>
-      </div>
-
-      <div class="cp-nt__card cp-nt__card--navy">
-        <h2 class="cp-nt__h">Set up by the team that built it</h2>
-        <a class="cp-nt__cta" href="#case-studies">Read the case studies<svg width="16" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5"></path></svg></a>
-        <div class="cp-nt__foot">
-          <p class="cp-nt__sub">A custom integration in 24 hours.</p>
-          <p class="cp-nt__p">Tell us which tools you already use and our team builds the connector, then walks you through going live on your store.</p>
         </div>
       </div>
 
