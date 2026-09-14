@@ -1664,6 +1664,24 @@
     .cp-faq__a { padding-right: 2px !important; text-align: left !important; }
     .cp-faq__item[data-open="true"] .cp-faq__a { max-height: 420px !important; }
 
+    /* The label and the arrow are a pair with 8px between them, and the
+       sheet's phone rule opens every row out to 24 - which on a 236
+       button is more than the content has to give, so the label went
+       hard left and the arrow hard right and the pair stopped reading
+       as centred. The band's own 8 is restated here because an
+       important declaration outranks the inline one it is undoing.
+
+       Both are important, so this one has to out-specify the other:
+       [data-screen-label] [style*=] is 0,2,0 and .cp-int-cta a is
+       0,1,1, which loses. */
+    [data-screen-label="Integrations"] .cp-int-cta a { gap: 8px !important; }
+    /* 56 a side is a third of a 350 card. The button wants 248 and only
+       238 was left, so .cp-page * capped it at 236 and the arrow sat
+       outside the padding - and the headline had the same 238 to break
+       over. 20 a side leaves 310. */
+    [data-screen-label="Integrations"] .cp-int-cta {
+      padding: 32px 20px !important; }
+
     /* ── Languages ──────────────────────────────────────────────────── */
     [data-screen-label="Languages"] { padding: 56px 20px !important; }
     .cp-lang__row { width: 100% !important; display: flex;
