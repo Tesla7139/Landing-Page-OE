@@ -366,20 +366,89 @@
      wide rather than the content column: a form stretched across 1104
      would be a stack of very wide inputs, and a field no wider than its
      longest plausible answer is easier to fill. */
-  .cp-bk { background: #F4F6FC; padding: 64px 112px 72px; display: flex;
-           flex-direction: column; gap: 24px; align-items: center;
+  /* ── Three cards to close on ────────────────────────────
+     Punched along the top edge like a torn-off pad, per the reference:
+     11px holes in groups of 1-2-2-3-1, spread with space-between, so
+     they land in the same places at any card width.
+
+     Three of this page's colours rather than the reference's three -
+     #155FFF, the footer's #001644, and white for the card that holds
+     the form, because a form wants a white ground and these fields
+     were built for one.
+
+     Contrast on the blue: white is 5.15:1, and the paragraph's white
+     at 0.92 is 4.59:1 - at 0.88 it would be 4.38 and miss AA. On the
+     navy everything clears by a wide margin. */
+  .cp-nt { background: #F4F6FC; padding: 88px 40px 96px;
+           display: flex; flex-direction: column; align-items: center;
            scroll-margin-top: 104px; }
-  .cp-bk__head { display: flex; flex-direction: column; gap: 10px;
-                 align-items: center; text-align: center; max-width: 660px; }
-  .cp-bk__h { margin: 0; font-size: 34px; font-weight: 600; line-height: 44px;
-              letter-spacing: -0.02em; color: #101828; }
-  .cp-bk__lede { margin: 0; font-size: 15.5px; line-height: 24px; color: #52525B; }
-  .cp-bk__card { width: 620px; padding: 32px; border-radius: 24px;
-                 background: #ffffff;
-                 box-shadow: 0 30px 70px -34px rgba(16, 24, 40, 0.28); }  /* Name and email sit on one row, which is 86px of the height this
-     card was spending on two very wide fields with a gap between
-     them. 620 less 64 of padding is 556, so 272 a field - wide
-     enough for an address. */
+  .cp-nt__row { width: 100%; max-width: 1360px; display: flex;
+                flex-direction: row; gap: 24px; align-items: stretch; }
+  .cp-nt__card { flex: 1 1 0; min-width: 0; position: relative;
+                 box-sizing: border-box; text-align: left;
+                 padding: 62px 36px 40px; border-radius: 24px;
+                 display: flex; flex-direction: column;
+                 --cp-nt-hole: rgba(255, 255, 255, 0.9); }
+  .cp-nt__card--blue { background: #155FFF; }
+  .cp-nt__card--navy { background: #001644; }
+  .cp-nt__card--form { background: #ffffff; --cp-nt-hole: #D6E4FF;
+                       box-shadow: 0 30px 70px -34px rgba(16, 24, 40, 0.28); }
+  .cp-nt__punch { position: absolute; left: 30px; right: 30px; top: 24px;
+                  display: flex; flex-direction: row;
+                  justify-content: space-between; align-items: center;
+                  pointer-events: none; }
+  .cp-nt__punch b { display: flex; flex-direction: row; gap: 9px; }
+  .cp-nt__punch i { display: block; width: 11px; height: 11px;
+                    border-radius: 9999px;
+                    background: var(--cp-nt-hole); }
+  .cp-nt__h { margin: 0; font-size: 32px; font-weight: 600;
+              line-height: 42px; letter-spacing: -0.02em;
+              color: #ffffff; }
+  .cp-nt__card--form .cp-nt__h { margin-bottom: 20px; color: #101828; }
+  .cp-nt__cta { align-self: flex-start; margin-top: 26px; height: 48px;
+                box-sizing: border-box; padding: 0 22px; border: 0;
+                border-radius: 9999px; background: #ffffff;
+                color: #0A3FCC; display: flex; flex-direction: row;
+                gap: 9px; align-items: center; font-family: inherit;
+                font-size: 15.5px; font-weight: 600; cursor: pointer;
+                text-decoration: none; white-space: nowrap;
+                transition: background 200ms ease-out; }
+  .cp-nt__cta svg { flex-shrink: 0; }
+  .cp-nt__cta:hover { background: #EEF3FF; }
+  .cp-nt__cta:focus-visible { outline: 3px solid #ffffff;
+                              outline-offset: 3px; }
+  /* the copy sits on the bottom edge, so the cards line up along it */
+  .cp-nt__foot { margin-top: auto; padding-top: 56px; }
+  .cp-nt__sub { margin: 0; font-size: 19px; line-height: 28px;
+                font-weight: 600; letter-spacing: -0.01em;
+                color: #ffffff; }
+  .cp-nt__p { margin: 12px 0 0; font-size: 15px; line-height: 25px;
+              color: rgba(255, 255, 255, 0.92); }
+  /* a third of 1360 is 437, and 36 a side leaves 365 - the two-up rows
+     inside the form do not fit that, so they stack at every width */
+  .cp-nt .cp-bk__row { flex-direction: column; }
+  .cp-nt .cp-bk__sel--cc { flex: 1 1 auto; width: 100%; }
+  /* between 1000 and 1180 a third is 317, narrower than the form's own
+     fields want: the two message cards pair up and the form takes the
+     row under them */
+  @media (max-width: 1180px) {
+    .cp-nt__row { flex-wrap: wrap; }
+    .cp-nt__card { flex: 1 1 calc(50% - 12px); }
+    .cp-nt__card--form { flex: 1 1 100%; }
+  }
+  /* and full width is too much: a 1000px field is a long way to drag
+     an eye for a name. The form keeps the 620 it was built at and
+     centres in the card, with its rows side by side again - the space
+     they did not have in a third is here. Floored at 1001 because
+     below that the phone block stacks the row anyway. */
+  @media (min-width: 1001px) and (max-width: 1180px) {
+    .cp-nt__card--form .cp-nt__h,
+    .cp-nt__card--form .cp-bk__form { width: 100%; max-width: 620px;
+                                      margin-left: auto;
+                                      margin-right: auto; }
+    .cp-nt .cp-bk__row { flex-direction: row; }
+    .cp-nt .cp-bk__sel--cc { flex: 0 0 182px; width: 182px; }
+  }
   .cp-bk__form { display: flex; flex-direction: column; gap: 14px; }
   /* 1 1 0, so a field in a row splits it evenly and a field on its own
      still fills the card */
@@ -1649,16 +1718,18 @@
     .cp-csx__head { width: 100% !important; }
     .cp-csx__copy h2 { font-size: 28px !important; line-height: 36px !important; }
     .cp-csx__copy p { font-size: 15.5px !important; line-height: 25px !important; }
-    /* ── Book a call ────────────────────────── */
-    .cp-bk { padding: 44px 20px 52px !important; }
-    .cp-bk__card { width: 100% !important; padding: 24px 20px 26px !important;
+    /* ── Three cards to close on ────────────────────── */
+    .cp-nt { padding: 44px 16px 52px !important; }
+    .cp-nt__row { flex-direction: column !important;
+                  gap: 16px !important; }
+    .cp-nt__card { padding: 52px 20px 32px !important;
                    border-radius: 20px !important; }
-    /* the phone rules centre section text; a form reads wrong that way -
-       labels drift off their fields and the checks leave their lines */
-    .cp-bk__form { text-align: left !important; }
-    /* the code select and the number will not both fit on one line */
-    .cp-bk__row { flex-direction: column !important; }
-    .cp-bk__sel--cc { flex: 1 1 auto !important; width: 100% !important; }
+    .cp-nt__punch { left: 22px !important; right: 22px !important; }
+    .cp-nt__foot { padding-top: 32px !important; }
+    /* the phone rules centre section text; a form reads wrong that way
+       - labels drift off their fields and the checks leave their lines
+       - and the cards are a left-aligned column either way */
+    .cp-nt__card, .cp-bk__form { text-align: left !important; }
     /* ── Footer ─────────────────────────────────────────────────────── */
     [data-screen-label="Footer"] { padding: 56px 20px 40px !important;
                                    gap: 36px !important; }
@@ -3564,50 +3635,69 @@
     </div>
   </section>
 
-  <!-- ── Book a call ──────────────────────── -->
-  <section class="cp-bk" id="book-a-call" data-screen-label="Book a call">
-    <div class="cp-bk__head">
-      <h2 class="cp-bk__h">Book a 15 minute call</h2>
-      <p class="cp-bk__lede">Plug-and-play integration to save time, cut costs and increase revenue.</p>
-    </div>
-    <div class="cp-bk__card">
-      <!-- no action: the endpoint goes here when there is one, and the
-           handler stops the default so a press does not reload the page -->
-      <form class="cp-bk__form" onSubmit="{{ bookSubmit }}">
-        <div class="cp-bk__row">
-          <label class="cp-bk__f">
-            <span>Full name<i>*</i></span>
-            <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
-          </label>
-          <label class="cp-bk__f">
-            <span>Work email<i>*</i></span>
-            <input type="email" name="email" placeholder="you@company.com" autocomplete="email" required>
-          </label>
+  <!-- ── Three cards to close on ─────────────────────── -->
+  <section class="cp-nt" id="book-a-call" data-screen-label="Get started">
+    <div class="cp-nt__row">
+
+      <div class="cp-nt__card cp-nt__card--blue">
+        <span class="cp-nt__punch" aria-hidden="true"><b><i></i></b><b><i></i><i></i></b><b><i></i><i></i></b><b><i></i><i></i><i></i></b><b><i></i></b></span>
+        <h2 class="cp-nt__h">Start with a free trial</h2>
+        <button type="button" class="cp-nt__cta" onClick="{{ openPrice }}">View pricing<svg width="16" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5"></path></svg></button>
+        <div class="cp-nt__foot">
+          <p class="cp-nt__sub">14 days free, then a monthly plan.</p>
+          <p class="cp-nt__p">Install it from the Shopify App Store and run it on your own orders. Every plan is billed by the month, so you can step away whenever you want to.</p>
         </div>
-        <div class="cp-bk__f">
-          <span>Phone number<i>*</i></span>
+      </div>
+
+      <div class="cp-nt__card cp-nt__card--navy">
+        <span class="cp-nt__punch" aria-hidden="true"><b><i></i><i></i></b><b><i></i></b><b><i></i><i></i></b><b><i></i><i></i><i></i></b><b><i></i></b></span>
+        <h2 class="cp-nt__h">Set up by the team that built it</h2>
+        <a class="cp-nt__cta" href="#case-studies">Read the case studies<svg width="16" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 7h15M11 2l5 5-5 5"></path></svg></a>
+        <div class="cp-nt__foot">
+          <p class="cp-nt__sub">A custom integration in 24 hours.</p>
+          <p class="cp-nt__p">Tell us which tools you already use and our team builds the connector, then walks you through going live on your store.</p>
+        </div>
+      </div>
+
+      <div class="cp-nt__card cp-nt__card--form">
+        <span class="cp-nt__punch" aria-hidden="true"><b><i></i></b><b><i></i><i></i><i></i></b><b><i></i><i></i></b><b><i></i><i></i></b><b><i></i></b></span>
+        <h2 class="cp-nt__h">Book a 15 minute call</h2>
+        <form class="cp-bk__form" onSubmit="{{ bookSubmit }}">
           <div class="cp-bk__row">
-            <span class="cp-bk__sel cp-bk__sel--cc">
-              <select name="country" aria-label="Country dialling code"><option>United States +1</option><option>Canada +1</option><option>United Kingdom +44</option><option>Australia +61</option><option>Germany +49</option><option>France +33</option><option>Netherlands +31</option><option>Spain +34</option><option>Italy +39</option><option>Ireland +353</option><option>Singapore +65</option><option>United Arab Emirates +971</option><option>India +91</option><option>Other</option></select><svg class="cp-bk__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
-            </span>
-            <input type="tel" name="phone" placeholder="(555) 000-0000" autocomplete="tel" required>
+            <label class="cp-bk__f">
+              <span>Full name<i>*</i></span>
+              <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
+            </label>
+            <label class="cp-bk__f">
+              <span>Work email<i>*</i></span>
+              <input type="email" name="email" placeholder="you@company.com" autocomplete="email" required>
+            </label>
           </div>
-        </div>
-        <label class="cp-bk__f">
-          <span>Orders per month<i>*</i></span>
-          <span class="cp-bk__sel">
-            <select name="volume" required><option value="">Please select</option><option>Under 1,000</option><option>1,000 – 5,000</option><option>5,000 – 25,000</option><option>25,000 – 100,000</option><option>Over 100,000</option></select><svg class="cp-bk__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
-          </span>
-        </label>
-        <label class="cp-bk__agree">
-          <input type="checkbox" name="terms" required>
-          <span>I agree to ClickPost’s <a href="https://www.clickpost.ai/terms-and-conditions" target="_blank" rel="noopener noreferrer">Terms</a> and <a href="https://www.clickpost.ai/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.<i>*</i></span>
-        </label>
-        <button type="submit" class="cp-bk__submit">Talk to an expert</button>
-      </form>
+          <div class="cp-bk__f">
+            <span>Phone number<i>*</i></span>
+            <div class="cp-bk__row">
+              <span class="cp-bk__sel cp-bk__sel--cc">
+                <select name="country" aria-label="Country dialling code"><option>United States +1</option><option>Canada +1</option><option>United Kingdom +44</option><option>Australia +61</option><option>Germany +49</option><option>France +33</option><option>Netherlands +31</option><option>Spain +34</option><option>Italy +39</option><option>Ireland +353</option><option>Singapore +65</option><option>United Arab Emirates +971</option><option>India +91</option><option>Other</option></select><svg class="cp-bk__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+              </span>
+              <input type="tel" name="phone" placeholder="(555) 000-0000" autocomplete="tel" required>
+            </div>
+          </div>
+          <label class="cp-bk__f">
+            <span>Orders per month<i>*</i></span>
+            <span class="cp-bk__sel">
+              <select name="volume" required><option value="">Please select</option><option>Under 1,000</option><option>1,000 – 5,000</option><option>5,000 – 25,000</option><option>25,000 – 100,000</option><option>Over 100,000</option></select><svg class="cp-bk__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+            </span>
+          </label>
+          <label class="cp-bk__agree">
+            <input type="checkbox" name="terms" required>
+            <span>I agree to ClickPost’s <a href="https://www.clickpost.ai/terms-and-conditions" target="_blank" rel="noopener noreferrer">Terms</a> and <a href="https://www.clickpost.ai/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.<i>*</i></span>
+          </label>
+          <button type="submit" class="cp-bk__submit">Talk to an expert</button>
+        </form>
+      </div>
+
     </div>
   </section>
-
   <!-- ── Footer ───────────────────────────────────────── -->
   <footer style="background: #001644; padding: 104px 112px 64px; display: flex; flex-direction: column; gap: 64px; align-items: center;" data-screen-label="Footer">
     <div style="display: flex; flex-direction: column; gap: 64px; justify-content: center; align-items: center; align-self: stretch;">
