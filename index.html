@@ -1455,9 +1455,8 @@
 
     /* ── How it works: a finger by default, the page's scroll where
        there is room for it - see the tall-phone block after this
-       sheet. The card is about 715 on a phone, so it needs 815 of
-       window to show all of itself under an 84px header; anything
-       shorter keeps the horizontal scroller. */
+       sheet. The card sizes itself to the window now, so the
+       fallback is for a landscape phone, not for every phone. */
     .cp-steps__run { height: auto !important; min-height: 0 !important;
                      padding: 44px 0 52px !important; }
     .cp-steps__pin { position: static !important; height: auto !important;
@@ -1895,7 +1894,14 @@
      The frame is content-height rather than a window tall, so a short
      card does not float in the middle of a tall screen. Travel is the
      runway's height: 3.2 screens over four panels is 0.8 each. */
-  @media (max-width: 1000px) and (min-height: 815px) {
+  /* 640, not the 815 this was built with. The card was about 715
+     tall then and had to clear an 84px header; almost no phone has
+     815 of window - a 390x844 handset gives about 750 - so every
+     one of them fell through to the horizontal rail, where
+     scrolling the page does nothing. The card trims itself on a
+     short screen now (see the block below and fitStepArt), which
+     is what makes 640 a number it can actually meet. */
+  @media (max-width: 1000px) and (min-height: 640px) {
     .cp-steps__run { height: calc(var(--cp-svh) * 3.2) !important; }
     .cp-steps__pin { position: sticky !important; top: 84px !important; }
     /* not a scroller any more: the track moves by transform, off
@@ -1909,6 +1915,23 @@
     /* stretch, not flex-start: the panels slide now, and four different
        heights would have the card resize under your thumb */
     .cp-steps__track { align-items: stretch !important; }
+  }
+
+  /* The card has three parts that do not resize with the window -
+     the heading, the step copy and the dot row - and between them
+     they were spending 339 of its 670. On a short screen they come
+     down so the art cell is not left paying for all of it. */
+  @media (max-width: 1000px) and (max-height: 780px) {
+    [data-screen-label] .cp-steps__head h2 { font-size: 26px !important;
+                                             line-height: 34px !important; }
+    .cp-steps__head { padding: 0 0 10px !important; }
+    .cp-steps__title { font-size: 18px !important;
+                       line-height: 24px !important; }
+    .cp-steps__copy { font-size: 14.5px !important;
+                      line-height: 22px !important; }
+    .cp-steps__panel { gap: 12px !important; }
+    .cp-steps__dots { padding-top: 12px !important; }
+    .cp-steps__pin { padding: 16px 12px 12px !important; }
   }
 
   @media (max-width: 420px) {
@@ -3997,7 +4020,16 @@ class Component extends DCLogic {
     const w = (mock && mock.offsetWidth) || 452;
     const h = (mock && mock.offsetHeight) || 380;
     // 12 of breathing room, and never bigger than the mock was drawn
-    const s = Math.max(0.4, Math.min(1, (art.clientWidth - 12) / w));
+    let s = Math.min(1, (art.clientWidth - 12) / w);
+    // The card also has to clear the header and still fit the window,
+    // or it sticks with its bottom off the screen. Everything but the
+    // art cell is fixed, so that remainder is the budget the cell has
+    // to come out of. Width usually wins; this only bites on a short
+    // screen, which is the one where the card could not stick at all.
+    const fixed = pin.getBoundingClientRect().height - art.clientHeight;
+    const room = window.innerHeight - 84 - 20 - fixed;
+    if (room > 0) s = Math.min(s, room / h);
+    s = Math.max(0.34, s);
     pin.style.setProperty("--st-s", s.toFixed(4));
     pin.style.setProperty("--st-h", Math.round(h * s + 8) + "px");
   }
