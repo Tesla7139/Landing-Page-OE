@@ -81,7 +81,6 @@
   .cp-bs__quote { margin: 0; font-size: 14px; line-height: 1.625; font-style: italic;
                   color: var(--color-fg); display: -webkit-box; -webkit-line-clamp: 4;
                   -webkit-box-orient: vertical; overflow: hidden; }
-  .cp-bs__quote--none { color: var(--color-fg-muted); }
   .cp-bs__who { margin-top: 8px; display: flex; flex-direction: row; align-items: baseline;
                 gap: 8px; font-size: 13px; font-weight: 700; color: var(--color-fg); }
 
@@ -281,30 +280,9 @@
   /* ── The case-study heading ──────────────────
      The clip that used to stand beside it is the first card on the ring
      now, so the words centre over the ring again. */
-  .cp-csx__head { width: 1216px; display: flex; flex-direction: column;
-                  align-items: center; }
-  .cp-csx__copy { display: flex; flex-direction: column; gap: 14px;
-                  align-items: center; text-align: center; }
-  .cp-csx__copy h2 { margin: 0; font-size: 44px; font-weight: 500;
-                     line-height: 54px; letter-spacing: -0.01em;
-                     color: #252525; }
-  .cp-csx__copy p { margin: 0; max-width: 640px; font-size: 17px;
-                    line-height: 26px; color: #52525B; }
   /* Arrows at the foot of the ring, inside it - .cp-cs is the
      positioned, clipped box the cards turn in, so they sit over the
      bottom-right corner of that rather than under the section. */
-  .cp-cs__nav { position: absolute; right: 112px; bottom: 8px; z-index: 3;
-                display: flex; flex-direction: row; gap: 10px; }
-  .cp-cs__arrow { width: 44px; height: 44px; padding: 0; border-radius: 9999px;
-                  border: 1px solid #E4E7EC; background: #ffffff;
-                  color: #252525; cursor: pointer; display: flex;
-                  justify-content: center; align-items: center;
-                  box-shadow: 0 6px 18px -8px rgba(10, 22, 40, 0.3);
-                  transition: background 160ms ease-out, color 160ms ease-out; }
-  .cp-cs__arrow:hover { background: #155FFF; color: #ffffff;
-                        border-color: #155FFF; }
-  .cp-cs__arrow:focus-visible { outline: 3px solid #155FFF;
-                                outline-offset: 3px; }
 
   /* ── The merchant clip ────────────────────
      One card of the twelve in the ring is a merchant on camera. Built
@@ -312,39 +290,10 @@
      button and the duration, and the writing underneath rather than
      laid over the picture. It keeps the white ground the other eleven
      have, so it reads as one of the set. */
-  .cp-cs__card--vt { padding: 0; overflow: hidden; }
   /* stretch: the card is a flex column aligned to flex-start, and this
      span's only child is absolute, so it would collapse to zero width */
-  .cp-vt__media { position: relative; display: block; align-self: stretch;
-                  width: 100%; height: 226px; background: #0A1628; }
-  .cp-vt__video { position: absolute; inset: 0; width: 100%; height: 100%;
-                  object-fit: cover; }
-  .cp-vt__hit { position: absolute; inset: 0; width: 100%; height: 100%;
-                padding: 0; border: 0; background: none; cursor: pointer; }
-  .cp-vt__play { position: absolute; left: 50%; top: 50%; width: 52px;
-                 height: 52px; transform: translate(-50%, -50%);
-                 border-radius: 9999px; background: #155FFF; color: #ffffff;
-                 display: flex; justify-content: center; align-items: center;
-                 padding-left: 4px;
-                 box-shadow: 0 10px 26px rgba(10, 22, 40, 0.4);
-                 transition: transform 160ms ease-out, background 160ms ease-out; }
-  .cp-vt__hit:hover .cp-vt__play { transform: translate(-50%, -50%) scale(1.07);
-                                   background: #0A3FCC; }
-  .cp-vt__hit:focus-visible { outline: 3px solid #155FFF;
-                              outline-offset: -3px; }
   /* under the play button, as the reference has it */
-  .cp-vt__time { position: absolute; left: 50%; top: 50%; margin-top: 36px;
-                 transform: translateX(-50%); height: 22px; padding: 0 9px;
-                 border-radius: 6px; display: inline-flex;
-                 align-items: center; background: rgba(10, 22, 40, 0.72);
-                 -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
-                 font-size: 11.5px; font-weight: 600; color: #ffffff; }
-  .cp-cs__card--vt[data-playing="1"] .cp-vt__hit { display: none; }
   /* the writing, below the thumbnail rather than over it */
-  .cp-cs__vtcap { display: block; align-self: stretch;
-                  padding: 15px 18px 16px; font-size: 14px;
-                  font-weight: 600; line-height: 20px; letter-spacing: -0.01em;
-                  color: #252525; }
   /* The ladder below overrides this per step; unzoomed widths use 1. */
   .cp-page { --cp-zoom: 1; }
 
@@ -498,37 +447,6 @@
      Front-facing cards only. Anything past 74 degrees is turned off
      rather than faded, or the far side of the ring reads through the
      near side as a smear of mirrored text. */
-  .cp-cs { position: relative; width: 100%; height: 430px;
-           perspective: 1700px; overflow: hidden; }
-  .cp-cs__ring { position: absolute; inset: 0;
-                 transform-style: preserve-3d; will-change: transform; }
-  .cp-cs__card { position: absolute; left: 50%; top: 50%;
-                 width: 246px; height: 322px; margin: -161px 0 0 -123px;
-                 display: flex; flex-direction: column; align-items: flex-start;
-                 padding: 22px 22px 18px; border-radius: 16px;
-                 background: #ffffff; border: 1px solid #E9EBF0;
-                 box-shadow: 0 18px 40px -22px rgba(10, 22, 40, 0.34);
-                 backface-visibility: hidden;
-                 transition: opacity 260ms linear; }
-  .cp-cs__mark { display: flex; align-items: center; height: 40px; }
-  .cp-cs__mark img { max-width: 168px; max-height: 34px; object-fit: contain;
-                     display: block; }
-  .cp-cs__tier { margin-top: 12px; display: inline-flex; align-items: center;
-                 padding: 3px 10px; border-radius: 9999px;
-                 border: 1px solid #C3D9FF;
-                 background: linear-gradient(to bottom, #F5F9FF, #E1ECFF);
-                 font-size: 10.5px; font-weight: 700; color: #0A3FCC;
-                 white-space: nowrap; }
-  .cp-cs__quote { margin: 14px 0 0; font-size: 13px; font-style: italic;
-                  line-height: 20px; color: #475467;
-                  display: -webkit-box; -webkit-line-clamp: 7;
-                  -webkit-box-orient: vertical; overflow: hidden;
-                  max-height: 140px; }
-  .cp-cs__who { margin-top: auto; display: flex; flex-direction: row;
-                gap: 8px; align-items: baseline; font-size: 12px;
-                font-weight: 700; color: #252525; }
-  .cp-cs__where { font-size: 10.5px; font-weight: 600;
-                  letter-spacing: 0.02em; color: #D97706; }
   /* ── Step 3's edit panel ───────────────────────
      The stage stretches the mock to the frame, but its content keeps its
      natural size - 276 of 498 at 1440, so a third of the card was white.
@@ -905,18 +823,7 @@
   /* ── Integrations grid stays STATIC ────────────────────────────────────
      Defensive: neutralises any marquee wiring that an older cached bundle
      might still inject into this section, so the logos cannot drift. */
-  [data-screen-label="Integrations"] .cp-mq,
-  [data-screen-label="Integrations"] .cp-mq__track {
-    animation: none !important;
-    transform: none !important;
-    width: auto !important;
-    overflow: visible !important;
-    -webkit-mask-image: none !important;
-            mask-image: none !important;
-    justify-content: center !important;
-  }
   /* hide duplicated cells if a stale bundle repeated them */
-  [data-screen-label="Integrations"] .cp-int > *:nth-child(n+7) { display: none !important; }
 
   /* ── Integrations grid: Klaviyo and ShipStation marks ─────────────────
      fig-assets.css sets these as `center / cover`, which crops a wide
@@ -1288,8 +1195,6 @@
                        color: #252525; overflow: hidden; }
   .cp-rw__mark--word > span { display: -webkit-box; -webkit-line-clamp: 2;
                               -webkit-box-orient: vertical; overflow: hidden; }
-  .cp-rw__role { font-size: 12px; line-height: 18px; color: #52525B;
-                 white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .cp-rw__meta { display: flex; flex-direction: column; align-items: flex-end; gap: 2px;
                  flex-shrink: 0; text-align: right; }
   .cp-rw__date { font-size: 12px; line-height: 18px; color: #52525B; white-space: nowrap; }
@@ -1825,9 +1730,6 @@
     .cp-gs__m > span:first-child { justify-content: flex-start !important; }
     .cp-gs__tag { margin-left: auto; }
     /* ── The case-study heading ───────────────────── */
-    .cp-csx__head { width: 100% !important; }
-    .cp-csx__copy h2 { font-size: 28px !important; line-height: 36px !important; }
-    .cp-csx__copy p { font-size: 15.5px !important; line-height: 25px !important; }
     /* ── Three cards to close on ────────────────────── */
     .cp-nt { padding: 44px 16px 52px !important; }
     .cp-nt__row { flex-direction: column !important;
@@ -1917,7 +1819,6 @@ footer[data-screen-label="Footer"] .cp-ft__bar[style] { flex-direction: column !
     [data-screen-label="Header"] > div > a,
     [data-screen-label="Header"] > div > div { display: none !important; }
     [data-screen-label="Header"] img { width: 108px !important; height: 15px !important; }
-    [data-screen-label="Header"] .cp-nav-cta,
     [data-screen-label="Header"] [style*="background: rgb(21, 95, 255)"] {
       padding: 0 14px !important; font-size: 13px !important; }
 
@@ -4068,7 +3969,6 @@ class Component extends DCLogic {
   componentDidMount() {
     this.watchSteps();
     this.startGlobe();
-    this.startRing();
     // a drawer that cannot be dismissed from the keyboard is a trap
     this.onEsc = (e) => {
       if (e.key !== "Escape") return;
@@ -4626,89 +4526,6 @@ class Component extends DCLogic {
       });
   }
 
-  playVT(i) {
-    const card = document.getElementById("cp-vt-" + i);
-    if (!card) return;
-    const v = card.querySelector("video");
-    if (!v) return;
-    card.setAttribute("data-playing", "1");
-    v.controls = true;
-    this.ringHold = true;
-    const release = () => { this.ringHold = false; };
-    v.addEventListener("pause", release);
-    v.addEventListener("ended", release);
-    const p = v.play();
-    if (p && p.catch) p.catch(() => {});
-  }
-  startRing() {
-    const ring = document.getElementById("cp-cs-ring");
-    if (!ring) return;
-    const cards = Array.prototype.slice.call(ring.querySelectorAll(".cp-cs__card"));
-    if (!cards.length) return;
-    const angles = cards.map(c => parseFloat(c.getAttribute("data-cs-angle")) || 0);
-    let reduced = false;
-    try {
-      reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    } catch (e) {}
-
-    let rot = 0, paused = false, last = null;
-    // the arrows move this, not rot: adding to rot would jump
-    let nudge = 0, nudgeTo = 0;
-    const stepDeg = 360 / cards.length;
-    const host = ring.parentNode;
-    host.addEventListener("mouseenter", () => { paused = true; });
-    host.addEventListener("mouseleave", () => { paused = false; });
-
-    // The first card faces front at rest, and the section is seven screens
-    // down: left running from load, the ring turns that card away long
-    // before anyone scrolls to it. It waits until it is on screen.
-    let armed = false;
-    try {
-      const io = new IntersectionObserver((es) => {
-        for (const e of es) {
-          if (e.isIntersecting) { armed = true; io.disconnect(); }
-        }
-      }, { threshold: 0.34 });
-      io.observe(host);
-    } catch (e) { armed = true; }
-
-    host.querySelectorAll(".cp-cs__arrow").forEach(b => {
-      b.addEventListener("click", () => {
-        const d = parseFloat(b.getAttribute("data-cs-step")) || 0;
-        nudgeTo -= d * stepDeg;
-        if (reduced) nudge = nudgeTo;
-      });
-    });
-
-    const face = () => {
-      for (let i = 0; i < cards.length; i++) {
-        // how far this card has turned away from facing the viewer
-        let a = (angles[i] + rot + nudge) % 360;
-        if (a < 0) a += 360;
-        const off = a > 180 ? 360 - a : a;
-        cards[i].style.opacity = off > 74 ? 0 : (1 - off / 110).toFixed(3);
-      }
-    };
-
-    const frame = (now) => {
-      const dt = last === null ? 16 : Math.min(48, now - last);
-      last = now;
-      if (armed && !paused && !reduced && !this.ringHold) {
-        // 0.00275 deg/ms: a full turn in about 136s, half the old drift
-        rot = (rot + dt * 0.00275) % 360;
-      }
-      if (nudge !== nudgeTo) {
-        const k = Math.min(1, dt / 170);
-        nudge += (nudgeTo - nudge) * k;
-        if (Math.abs(nudgeTo - nudge) < 0.05) nudge = nudgeTo;
-      }
-      ring.style.transform = "rotateY(" + (rot + nudge) + "deg)";
-      face();
-      this.ringRAF = requestAnimationFrame(frame);
-    };
-    face();
-    this.ringRAF = requestAnimationFrame(frame);
-  }
   renderVals() {
     return {
       // clicking the open one closes it, so the whole list can be shut
@@ -4747,7 +4564,6 @@ class Component extends DCLogic {
       lang18: this.state.lang === 18 ? "true" : "false",
       bookState: this.state.bookState,
       bookSubmit: (e) => this.bookSubmit(e),
-      playVT0: () => this.playVT(0),
       pickLang0: () => this.pickLang(0),
       pickLang1: () => this.pickLang(1),
       pickLang2: () => this.pickLang(2),
